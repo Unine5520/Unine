@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -13,28 +15,58 @@
         content="U9 Platform"
     >
 
+    <meta
+        name="theme-color"
+        content="#ffffff"
+    >
+
     <title>U9 Platform</title>
 
-    <link rel="stylesheet" href="./index.css">
+    <link
+        rel="stylesheet"
+        href="./index.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- =========================
+
+    <!-- =========================================
          HEADER
-    ========================== -->
+    ========================================== -->
+
     <header class="site-header">
 
         <div class="header-container">
 
-            <a href="./index.html" class="logo">
+
+            <!-- LOGO -->
+
+            <a
+                href="./index.html"
+                class="logo"
+                aria-label="U9 Home"
+            >
                 U9
             </a>
 
-            <div class="auth-area" id="authArea">
 
-                <!-- Logged out -->
-                <div class="logged-out-actions" id="loggedOutActions">
+            <!-- AUTH AREA -->
+
+            <div
+                class="auth-area"
+                id="authArea"
+            >
+
+
+                <!-- LOGGED OUT -->
+
+                <div
+                    class="logged-out-actions"
+                    id="loggedOutActions"
+                >
 
                     <button
                         type="button"
@@ -43,6 +75,7 @@
                     >
                         Login
                     </button>
+
 
                     <button
                         type="button"
@@ -55,7 +88,8 @@
                 </div>
 
 
-                <!-- Logged in -->
+                <!-- LOGGED IN -->
+
                 <div
                     class="logged-in-actions hidden"
                     id="loggedInActions"
@@ -67,6 +101,7 @@
                     >
                         User
                     </span>
+
 
                     <button
                         type="button"
@@ -85,33 +120,46 @@
     </header>
 
 
-    <!-- =========================
+
+    <!-- =========================================
          MAIN
-    ========================== -->
+    ========================================== -->
+
     <main class="main-content">
 
         <section class="hero-section">
 
             <div class="hero-content">
 
+
                 <p class="hero-label">
                     U9 PLATFORM
                 </p>
+
 
                 <h1>
                     Welcome to U9
                 </h1>
 
+
                 <p class="hero-description">
                     Your platform starts here.
                 </p>
+
+
+                <!-- Logged in welcome -->
 
                 <div
                     class="welcome-user hidden"
                     id="welcomeUser"
                 >
+
                     Welcome,
-                    <span id="welcomeUsername"></span>
+
+                    <span
+                        id="welcomeUsername"
+                    ></span>
+
                 </div>
 
             </div>
@@ -121,79 +169,149 @@
     </main>
 
 
-    <!-- =========================
+
+    <!-- =========================================
          BOTTOM NAVIGATION
-    ========================== -->
+    ========================================== -->
+
     <nav
         class="bottom-navigation"
         aria-label="Main navigation"
     >
+
+
+        <!-- HOME -->
 
         <a
             href="./index.html"
             class="nav-item active"
             data-page="home"
         >
-            <span class="nav-icon">⌂</span>
-            <span class="nav-label">Home</span>
+
+            <span
+                class="nav-icon"
+                aria-hidden="true"
+            >
+                ⌂
+            </span>
+
+            <span class="nav-label">
+                Home
+            </span>
+
         </a>
 
+
+        <!-- SHOP -->
 
         <a
             href="./shop/shop.html"
             class="nav-item"
             data-page="shop"
         >
-            <span class="nav-icon">▣</span>
-            <span class="nav-label">Shop</span>
+
+            <span
+                class="nav-icon"
+                aria-hidden="true"
+            >
+                ▣
+            </span>
+
+            <span class="nav-label">
+                Shop
+            </span>
+
         </a>
 
+
+        <!-- ORDER -->
 
         <a
             href="./order/order.html"
             class="nav-item"
             data-page="order"
         >
-            <span class="nav-icon">◈</span>
-            <span class="nav-label">Order</span>
+
+            <span
+                class="nav-icon"
+                aria-hidden="true"
+            >
+                ◈
+            </span>
+
+            <span class="nav-label">
+                Order
+            </span>
+
         </a>
 
+
+        <!-- ABOUT / INBOX -->
 
         <a
             href="./inbox/inbox.html"
             class="nav-item"
             data-page="about"
         >
-            <span class="nav-icon">✉</span>
-            <span class="nav-label">About</span>
+
+            <span
+                class="nav-icon"
+                aria-hidden="true"
+            >
+                ✉
+            </span>
+
+            <span class="nav-label">
+                About
+            </span>
+
         </a>
 
+
+        <!-- ME -->
 
         <a
             href="./me/me.html"
             class="nav-item"
             data-page="me"
         >
-            <span class="nav-icon">●</span>
-            <span class="nav-label">Me</span>
+
+            <span
+                class="nav-icon"
+                aria-hidden="true"
+            >
+                ●
+            </span>
+
+            <span class="nav-label">
+                Me
+            </span>
+
         </a>
 
     </nav>
 
 
-    <!-- =========================
+
+    <!-- =========================================
          LOGIN MODAL
-    ========================== -->
+    ========================================== -->
+
     <div
         class="modal hidden"
         id="loginModal"
         aria-hidden="true"
     >
 
+        <!-- Overlay -->
+
         <div
             class="modal-overlay"
             data-close-modal
         ></div>
+
+
+        <!-- Modal -->
 
         <div
             class="modal-content"
@@ -201,6 +319,7 @@
             aria-modal="true"
             aria-labelledby="loginTitle"
         >
+
 
             <button
                 type="button"
@@ -211,15 +330,24 @@
                 ×
             </button>
 
+
             <h2 id="loginTitle">
                 Login
             </h2>
+
 
             <p class="modal-description">
                 Login to your U9 account.
             </p>
 
-            <form id="loginForm">
+
+            <form
+                id="loginForm"
+                novalidate
+            >
+
+
+                <!-- EMAIL -->
 
                 <div class="form-group">
 
@@ -233,11 +361,14 @@
                         name="email"
                         autocomplete="email"
                         placeholder="Enter your email"
+                        maxlength="254"
                         required
                     >
 
                 </div>
 
+
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -251,11 +382,24 @@
                         name="password"
                         autocomplete="current-password"
                         placeholder="Enter your password"
+                        maxlength="128"
                         required
                     >
 
+
+                    <!-- FORGOT PASSWORD -->
+
+                    <a
+                        href="./forgot-password/forgot-password.html"
+                        class="forgot-password-link"
+                    >
+                        Forgot password?
+                    </a>
+
                 </div>
 
+
+                <!-- SUBMIT -->
 
                 <button
                     type="submit"
@@ -265,7 +409,9 @@
                     Login
                 </button>
 
+
             </form>
+
 
             <p
                 class="form-message"
@@ -274,24 +420,49 @@
                 aria-live="polite"
             ></p>
 
+
+            <!-- REGISTER LINK -->
+
+            <p class="switch-auth">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    class="text-button"
+                    id="switchToRegister"
+                >
+                    Register
+                </button>
+
+            </p>
+
         </div>
 
     </div>
 
 
-    <!-- =========================
+
+    <!-- =========================================
          REGISTER MODAL
-    ========================== -->
+    ========================================== -->
+
     <div
         class="modal hidden"
         id="registerModal"
         aria-hidden="true"
     >
 
+
+        <!-- Overlay -->
+
         <div
             class="modal-overlay"
             data-close-modal
         ></div>
+
+
+        <!-- Modal -->
 
         <div
             class="modal-content"
@@ -299,6 +470,7 @@
             aria-modal="true"
             aria-labelledby="registerTitle"
         >
+
 
             <button
                 type="button"
@@ -309,15 +481,24 @@
                 ×
             </button>
 
+
             <h2 id="registerTitle">
                 Register
             </h2>
+
 
             <p class="modal-description">
                 Create your U9 account.
             </p>
 
-            <form id="registerForm">
+
+            <form
+                id="registerForm"
+                novalidate
+            >
+
+
+                <!-- USERNAME -->
 
                 <div class="form-group">
 
@@ -344,6 +525,8 @@
                 </div>
 
 
+                <!-- EMAIL -->
+
                 <div class="form-group">
 
                     <label for="registerEmail">
@@ -355,12 +538,15 @@
                         id="registerEmail"
                         name="email"
                         autocomplete="email"
+                        maxlength="254"
                         placeholder="Enter your email"
                         required
                     >
 
                 </div>
 
+
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -374,12 +560,15 @@
                         name="password"
                         autocomplete="new-password"
                         minlength="8"
+                        maxlength="128"
                         placeholder="At least 8 characters"
                         required
                     >
 
                 </div>
 
+
+                <!-- CONFIRM PASSWORD -->
 
                 <div class="form-group">
 
@@ -393,12 +582,15 @@
                         name="password_confirm"
                         autocomplete="new-password"
                         minlength="8"
+                        maxlength="128"
                         placeholder="Enter password again"
                         required
                     >
 
                 </div>
 
+
+                <!-- SUBMIT -->
 
                 <button
                     type="submit"
@@ -408,7 +600,9 @@
                     Create Account
                 </button>
 
+
             </form>
+
 
             <p
                 class="form-message"
@@ -417,18 +611,45 @@
                 aria-live="polite"
             ></p>
 
+
+            <!-- LOGIN LINK -->
+
+            <p class="switch-auth">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    class="text-button"
+                    id="switchToLogin"
+                >
+                    Login
+                </button>
+
+            </p>
+
         </div>
 
     </div>
 
 
-    <!-- Supabase JavaScript Client -->
+
+    <!-- =========================================
+         SUPABASE
+    ========================================== -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
     ></script>
 
-    <!-- Application JavaScript -->
+
+    <!-- =========================================
+         APPLICATION
+    ========================================== -->
+
     <script src="./index.js"></script>
 
+
 </body>
+
 </html>
