@@ -1,36 +1,37 @@
 /* =========================================
-   SUPABASE CONFIGURATION
+   SUPABASE CONFIG
 ========================================= */
+
 
 const SUPABASE_URL =
     "https://moufqvgakqqozybedisj.supabase.co";
 
 
-const SUPABASE_PUBLISHABLE_KEY =
+const SUPABASE_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
 
 
-
-/* =========================================
-   SUPABASE CLIENT
-========================================= */
 
 const {
     createClient
 } = window.supabase;
 
 
+
 const supabaseClient =
     createClient(
         SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
+        SUPABASE_KEY
     );
+
+
 
 
 
 /* =========================================
    DOM
 ========================================= */
+
 
 const loginButton =
     document.getElementById(
@@ -50,6 +51,7 @@ const logoutButton =
     );
 
 
+
 const loggedOutActions =
     document.getElementById(
         "loggedOutActions"
@@ -62,10 +64,12 @@ const loggedInActions =
     );
 
 
+
 const headerUsername =
     document.getElementById(
         "headerUsername"
     );
+
 
 
 const welcomeUser =
@@ -81,9 +85,12 @@ const welcomeUsername =
 
 
 
+
+
 /* =========================================
-   LOGIN
+   MODAL
 ========================================= */
+
 
 const loginModal =
     document.getElementById(
@@ -91,44 +98,16 @@ const loginModal =
     );
 
 
-const closeLoginModal =
-    document.getElementById(
-        "closeLoginModal"
-    );
-
-
-const loginForm =
-    document.getElementById(
-        "loginForm"
-    );
-
-
-const loginSubmit =
-    document.getElementById(
-        "loginSubmit"
-    );
-
-
-const loginMessage =
-    document.getElementById(
-        "loginMessage"
-    );
-
-
-
-/* =========================================
-   REGISTER
-========================================= */
-
 const registerModal =
     document.getElementById(
         "registerModal"
     );
 
 
-const closeRegisterModal =
+
+const loginForm =
     document.getElementById(
-        "closeRegisterModal"
+        "loginForm"
     );
 
 
@@ -138,9 +117,10 @@ const registerForm =
     );
 
 
-const registerSubmit =
+
+const loginMessage =
     document.getElementById(
-        "registerSubmit"
+        "loginMessage"
     );
 
 
@@ -151,15 +131,30 @@ const registerMessage =
 
 
 
+const loginSubmit =
+    document.getElementById(
+        "loginSubmit"
+    );
+
+
+const registerSubmit =
+    document.getElementById(
+        "registerSubmit"
+    );
+
+
+
+
+
 /* =========================================
-   MODAL
+   MODAL FUNCTION
 ========================================= */
 
-function openModal(modal) {
 
-    if (!modal) {
+function openModal(modal){
+
+    if(!modal)
         return;
-    }
 
 
     modal.classList.remove(
@@ -172,17 +167,14 @@ function openModal(modal) {
         "false"
     );
 
-
-    document.body.style.overflow =
-        "hidden";
 }
 
 
-function closeModal(modal) {
 
-    if (!modal) {
+function closeModal(modal){
+
+    if(!modal)
         return;
-    }
 
 
     modal.classList.add(
@@ -195,455 +187,191 @@ function closeModal(modal) {
         "true"
     );
 
-
-    const loginClosed =
-        loginModal.classList.contains(
-            "hidden"
-        );
-
-
-    const registerClosed =
-        registerModal.classList.contains(
-            "hidden"
-        );
-
-
-    if (
-        loginClosed &&
-        registerClosed
-    ) {
-
-        document.body.style.overflow =
-            "";
-    }
 }
 
 
 
+
+
+
 /* =========================================
-   MESSAGES
+   MESSAGE
 ========================================= */
+
 
 function showMessage(
     element,
     message,
-    type = "error"
-) {
+    type="error"
+){
 
-    if (!element) {
+
+    if(!element)
         return;
-    }
+
 
 
     element.textContent =
         message;
 
 
+
     element.style.color =
         type === "success"
-            ? "#15803d"
-            : "#dc2626";
+        ?
+        "#16a34a"
+        :
+        "#dc2626";
+
 }
 
 
-function clearMessage(element) {
-
-    if (!element) {
-        return;
-    }
 
 
-    element.textContent =
-        "";
+
+function clearMessage(element){
+
+    if(element)
+        element.textContent="";
+
 }
+
+
+
+
 
 
 
 /* =========================================
-   BUTTON LOADING
+   AUTH UI
 ========================================= */
 
-function setButtonLoading(
-    button,
-    loading,
-    loadingText,
-    normalText
-) {
 
-    if (!button) {
-        return;
-    }
+async function updateAuthUI(user){
 
 
-    button.disabled =
-        loading;
+    if(!user){
 
-
-    button.textContent =
-        loading
-            ? loadingText
-            : normalText;
-}
-
-
-
-/* =========================================
-   OPEN LOGIN
-========================================= */
-
-function openLogin() {
-
-    clearMessage(
-        loginMessage
-    );
-
-
-    loginForm.reset();
-
-
-    closeModal(
-        registerModal
-    );
-
-
-    openModal(
-        loginModal
-    );
-
-
-    setTimeout(() => {
-
-        const input =
-            document.getElementById(
-                "loginEmail"
-            );
-
-
-        if (input) {
-            input.focus();
-        }
-
-    }, 100);
-}
-
-
-
-/* =========================================
-   OPEN REGISTER
-========================================= */
-
-function openRegister() {
-
-    clearMessage(
-        registerMessage
-    );
-
-
-    registerForm.reset();
-
-
-    closeModal(
-        loginModal
-    );
-
-
-    openModal(
-        registerModal
-    );
-
-
-    setTimeout(() => {
-
-        const input =
-            document.getElementById(
-                "registerUsername"
-            );
-
-
-        if (input) {
-            input.focus();
-        }
-
-    }, 100);
-}
-
-
-
-/* =========================================
-   UPDATE AUTH UI
-========================================= */
-
-async function updateAuthUI(user) {
-
-    if (!user) {
 
         loggedOutActions
-            .classList
-            .remove("hidden");
+        .classList
+        .remove(
+            "hidden"
+        );
+
 
 
         loggedInActions
-            .classList
-            .add("hidden");
+        .classList
+        .add(
+            "hidden"
+        );
+
 
 
         welcomeUser
-            .classList
-            .add("hidden");
+        .classList
+        .add(
+            "hidden"
+        );
 
-
-        headerUsername.textContent =
-            "User";
-
-
-        welcomeUsername.textContent =
-            "";
 
 
         return;
+
     }
 
 
+
+
+
     loggedOutActions
-        .classList
-        .add("hidden");
+    .classList
+    .add(
+        "hidden"
+    );
 
 
     loggedInActions
-        .classList
-        .remove("hidden");
+    .classList
+    .remove(
+        "hidden"
+    );
+
+
 
 
     const username =
-        user.user_metadata?.username ||
-        user.email?.split("@")[0] ||
+        user.user_metadata?.username
+        ||
+        user.email.split("@")[0]
+        ||
         "User";
+
 
 
     headerUsername.textContent =
         username;
 
 
+
     welcomeUsername.textContent =
         username;
 
 
+
     welcomeUser
-        .classList
-        .remove("hidden");
+    .classList
+    .remove(
+        "hidden"
+    );
+
 }
 
 
 
+
+
+
+
 /* =========================================
-   INITIALIZE AUTH
+   SESSION CHECK
 ========================================= */
 
-async function initializeAuth() {
+
+async function checkSession(){
+
 
     const {
         data,
         error
     } =
-        await supabaseClient
-            .auth
-            .getSession();
+    await supabaseClient
+    .auth
+    .getSession();
 
 
-    if (error) {
 
-        console.error(
-            "Session error:",
-            error
-        );
+    if(error){
 
+        console.log(error);
 
         return;
+
     }
+
 
 
     await updateAuthUI(
         data.session?.user || null
     );
+
+
 }
 
 
 
-/* =========================================
-   AUTH STATE
-========================================= */
 
-function listenForAuthChanges() {
-
-    supabaseClient
-        .auth
-        .onAuthStateChange(
-            async (
-                event,
-                session
-            ) => {
-
-                console.log(
-                    "Auth event:",
-                    event
-                );
-
-
-                await updateAuthUI(
-                    session?.user || null
-                );
-
-            }
-        );
-}
-
-
-
-/* =========================================
-   LOGIN
-========================================= */
-
-async function handleLogin(event) {
-
-    event.preventDefault();
-
-
-    clearMessage(
-        loginMessage
-    );
-
-
-    const formData =
-        new FormData(
-            loginForm
-        );
-
-
-    const email =
-        String(
-            formData.get("email") || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-    const password =
-        String(
-            formData.get("password") || ""
-        );
-
-
-    if (
-        !email ||
-        !password
-    ) {
-
-        showMessage(
-            loginMessage,
-            "Please enter your email and password."
-        );
-
-
-        return;
-    }
-
-
-    setButtonLoading(
-        loginSubmit,
-        true,
-        "Logging in...",
-        "Login"
-    );
-
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signInWithPassword({
-
-                    email,
-
-                    password
-
-                });
-
-
-        if (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-
-            showMessage(
-                loginMessage,
-                getAuthErrorMessage(
-                    error
-                )
-            );
-
-
-            return;
-        }
-
-
-        if (!data.session) {
-
-            showMessage(
-                loginMessage,
-                "Login failed. Please try again."
-            );
-
-
-            return;
-        }
-
-
-        showMessage(
-            loginMessage,
-            "Login successful.",
-            "success"
-        );
-
-
-        setTimeout(() => {
-
-            closeModal(
-                loginModal
-            );
-
-        }, 500);
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        showMessage(
-            loginMessage,
-            "Something went wrong. Please try again."
-        );
-
-
-    } finally {
-
-        setButtonLoading(
-            loginSubmit,
-            false,
-            "Logging in...",
-            "Login"
-        );
-    }
-}
 
 
 
@@ -651,9 +379,12 @@ async function handleLogin(event) {
    REGISTER
 ========================================= */
 
-async function handleRegister(event) {
+
+async function register(event){
+
 
     event.preventDefault();
+
 
 
     clearMessage(
@@ -661,214 +392,293 @@ async function handleRegister(event) {
     );
 
 
-    const formData =
+
+    const form =
         new FormData(
             registerForm
         );
 
 
+
     const username =
-        String(
-            formData.get("username") || ""
-        ).trim();
+        form.get(
+            "username"
+        )
+        .trim();
+
 
 
     const email =
-        String(
-            formData.get("email") || ""
+        form.get(
+            "email"
         )
         .trim()
         .toLowerCase();
 
 
+
     const password =
-        String(
-            formData.get("password") || ""
-        );
-
-
-    const passwordConfirm =
-        String(
-            formData.get(
-                "password_confirm"
-            ) || ""
+        form.get(
+            "password"
         );
 
 
 
-    /* USERNAME */
+    const confirm =
+        form.get(
+            "password_confirm"
+        );
 
-    if (
-        !/^[A-Za-z0-9_]{3,30}$/
-            .test(username)
-    ) {
+
+
+
+
+    if(password.length < 8){
 
         showMessage(
             registerMessage,
-            "Username must contain 3-30 letters, numbers or underscores."
+            "Password minimum 8 characters"
         );
-
 
         return;
     }
 
 
 
-    /* PASSWORD */
-
-    if (
-        password.length < 8
-    ) {
+    if(password !== confirm){
 
         showMessage(
             registerMessage,
-            "Password must be at least 8 characters."
+            "Passwords do not match"
         );
 
-
         return;
+
     }
 
 
-    if (
-        password !==
-        passwordConfirm
-    ) {
+
+
+
+    registerSubmit.disabled=true;
+
+    registerSubmit.textContent =
+        "Creating...";
+
+
+
+
+
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .auth
+    .signUp({
+
+        email,
+
+        password,
+
+
+        options:{
+
+            data:{
+
+                username
+
+            }
+
+        }
+
+    });
+
+
+
+
+    if(error){
+
 
         showMessage(
             registerMessage,
-            "Passwords do not match."
+            error.message
         );
 
 
+        registerSubmit.disabled=false;
+
+        registerSubmit.textContent =
+            "Create Account";
+
+
         return;
+
     }
 
 
-    setButtonLoading(
-        registerSubmit,
-        true,
-        "Creating account...",
-        "Create Account"
+
+
+
+    showMessage(
+        registerMessage,
+        "Account created",
+        "success"
     );
 
 
-    try {
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signUp({
-
-                    email,
-
-                    password,
-
-                    options: {
-
-                        data: {
-                            username
-                        }
-
-                    }
-
-                });
+    registerForm.reset();
 
 
-        if (error) {
 
-            console.error(
-                "Register error:",
-                error
-            );
+    setTimeout(()=>{
 
 
-            showMessage(
-                registerMessage,
-                getAuthErrorMessage(
-                    error
-                )
-            );
-
-
-            return;
-        }
-
-
-        if (!data.user) {
-
-            showMessage(
-                registerMessage,
-                "Registration failed."
-            );
-
-
-            return;
-        }
-
-
-        showMessage(
-            registerMessage,
-            "Account created successfully.",
-            "success"
+        closeModal(
+            registerModal
         );
 
 
-        registerForm.reset();
+    },800);
 
 
-        if (data.session) {
 
-            setTimeout(() => {
+    registerSubmit.disabled=false;
 
-                closeModal(
-                    registerModal
-                );
-
-            }, 700);
-
-        } else {
-
-            setTimeout(() => {
-
-                closeModal(
-                    registerModal
-                );
+    registerSubmit.textContent =
+        "Create Account";
 
 
-                openLogin();
-
-            }, 1000);
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        showMessage(
-            registerMessage,
-            "Something went wrong. Please try again."
-        );
-
-
-    } finally {
-
-        setButtonLoading(
-            registerSubmit,
-            false,
-            "Creating account...",
-            "Create Account"
-        );
-    }
 }
+
+
+
+
+
+
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+
+async function login(event){
+
+
+    event.preventDefault();
+
+
+
+    clearMessage(
+        loginMessage
+    );
+
+
+
+    const form =
+        new FormData(
+            loginForm
+        );
+
+
+
+    const email =
+        form.get(
+            "email"
+        )
+        .trim()
+        .toLowerCase();
+
+
+
+    const password =
+        form.get(
+            "password"
+        );
+
+
+
+
+
+    loginSubmit.disabled=true;
+
+    loginSubmit.textContent =
+        "Login...";
+
+
+
+
+
+    const {
+        data,
+        error
+    }
+    =
+    await supabaseClient
+    .auth
+    .signInWithPassword({
+
+        email,
+
+        password
+
+    });
+
+
+
+
+
+    if(error){
+
+
+        showMessage(
+            loginMessage,
+            error.message
+        );
+
+
+        loginSubmit.disabled=false;
+
+        loginSubmit.textContent =
+            "Login";
+
+
+        return;
+
+    }
+
+
+
+
+    showMessage(
+        loginMessage,
+        "Login success",
+        "success"
+    );
+
+
+
+    setTimeout(()=>{
+
+        closeModal(
+            loginModal
+        );
+
+    },500);
+
+
+
+
+    loginSubmit.disabled=false;
+
+    loginSubmit.textContent =
+        "Login";
+
+}
+
+
 
 
 
@@ -876,270 +686,136 @@ async function handleRegister(event) {
    LOGOUT
 ========================================= */
 
-async function handleLogout() {
 
-    logoutButton.disabled =
-        true;
+async function logout(){
 
 
-    logoutButton.textContent =
-        "Logging out...";
+    await supabaseClient
+    .auth
+    .signOut();
 
 
-    try {
-
-        const {
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-        if (error) {
-
-            console.error(
-                "Logout error:",
-                error
-            );
-
-
-            alert(
-                "Logout failed. Please try again."
-            );
-
-
-            return;
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        alert(
-            "Something went wrong. Please try again."
-        );
-
-
-    } finally {
-
-        logoutButton.disabled =
-            false;
-
-
-        logoutButton.textContent =
-            "Logout";
-    }
 }
 
 
 
-/* =========================================
-   AUTH ERROR
-========================================= */
-
-function getAuthErrorMessage(error) {
-
-    if (!error) {
-        return "Something went wrong.";
-    }
-
-
-    const message =
-        String(
-            error.message || ""
-        ).toLowerCase();
-
-
-    if (
-        message.includes(
-            "invalid login credentials"
-        )
-    ) {
-
-        return "Invalid email or password.";
-    }
-
-
-    if (
-        message.includes(
-            "user already registered"
-        )
-    ) {
-
-        return "This email is already registered.";
-    }
-
-
-    if (
-        message.includes(
-            "password should be at least"
-        )
-    ) {
-
-        return "Password is too short.";
-    }
-
-
-    if (
-        message.includes(
-            "rate limit"
-        )
-    ) {
-
-        return "Too many attempts. Please try again later.";
-    }
-
-
-    return (
-        error.message ||
-        "Authentication failed."
-    );
-}
 
 
 
 /* =========================================
-   PROTECTED PAGES
+   AUTH LISTENER
 ========================================= */
 
-function setupNavigation() {
 
-    const protectedPages = [
+supabaseClient
+.auth
+.onAuthStateChange(
+    async(
+        event,
+        session
+    )=>{
+
+
+        await updateAuthUI(
+            session?.user || null
+        );
+
+
+    }
+);
+
+
+
+
+
+
+
+
+/* =========================================
+   PAGE PROTECTION
+========================================= */
+
+
+function setupNavigation(){
+
+
+    const protectedPages=[
+
         "order",
+
         "inbox",
+
         "me"
+
     ];
 
 
+
     document
-        .querySelectorAll(
-            ".nav-item"
-        )
-        .forEach(item => {
-
-            item.addEventListener(
-                "click",
-                async event => {
-
-                    const page =
-                        item.dataset.page;
+    .querySelectorAll(
+        ".nav-item"
+    )
+    .forEach(item=>{
 
 
-                    if (
-                        !protectedPages
-                            .includes(page)
-                    ) {
-                        return;
-                    }
+        item.addEventListener(
+            "click",
+            async(e)=>{
 
 
-                    const {
-                        data
-                    } =
-                        await supabaseClient
-                            .auth
-                            .getSession();
+                const page =
+                    item.dataset.page;
 
 
-                    if (
-                        !data.session
-                    ) {
 
-                        event.preventDefault();
+                if(
+                    !protectedPages.includes(page)
+                )
+                    return;
 
-                        openLogin();
-                    }
 
+
+
+                const {
+                    data
                 }
-            );
-
-        });
-}
-
-
-
-/* =========================================
-   MODAL EVENTS
-========================================= */
-
-function setupModalEvents() {
-
-    closeLoginModal
-        .addEventListener(
-            "click",
-            () => {
-                closeModal(
-                    loginModal
-                );
-            }
-        );
+                =
+                await supabaseClient
+                .auth
+                .getSession();
 
 
-    closeRegisterModal
-        .addEventListener(
-            "click",
-            () => {
-                closeModal(
-                    registerModal
-                );
-            }
-        );
+
+                if(
+                    !data.session
+                ){
 
 
-    document
-        .querySelectorAll(
-            "[data-close-modal]"
-        )
-        .forEach(element => {
+                    e.preventDefault();
 
-            element.addEventListener(
-                "click",
-                () => {
 
-                    closeModal(
+                    openModal(
                         loginModal
                     );
 
 
-                    closeModal(
-                        registerModal
-                    );
-
                 }
-            );
-
-        });
 
 
-    document.addEventListener(
-        "keydown",
-        event => {
 
-            if (
-                event.key !==
-                "Escape"
-            ) {
-                return;
             }
+        );
 
 
-            closeModal(
-                loginModal
-            );
+    });
 
 
-            closeModal(
-                registerModal
-            );
-
-        }
-    );
 }
+
+
+
+
+
 
 
 
@@ -1147,59 +823,101 @@ function setupModalEvents() {
    EVENTS
 ========================================= */
 
-function setupEventListeners() {
 
-    loginButton.addEventListener(
+function start(){
+
+
+    loginButton
+    ?.addEventListener(
         "click",
-        openLogin
+        ()=>{
+            clearMessage(loginMessage);
+            openModal(loginModal);
+        }
     );
 
 
-    registerButton.addEventListener(
+
+    registerButton
+    ?.addEventListener(
         "click",
-        openRegister
+        ()=>{
+            clearMessage(registerMessage);
+            openModal(registerModal);
+        }
     );
 
 
-    logoutButton.addEventListener(
+
+    logoutButton
+    ?.addEventListener(
         "click",
-        handleLogout
+        logout
     );
 
 
-    loginForm.addEventListener(
+
+    loginForm
+    ?.addEventListener(
         "submit",
-        handleLogin
+        login
     );
 
 
-    registerForm.addEventListener(
+
+    registerForm
+    ?.addEventListener(
         "submit",
-        handleRegister
+        register
     );
-}
 
 
 
-/* =========================================
-   START
-========================================= */
+    document
+    .querySelectorAll(
+        ".modal-close"
+    )
+    .forEach(btn=>{
 
-async function initializeApp() {
 
-    setupEventListeners();
+        btn.addEventListener(
+            "click",
+            ()=>{
 
-    setupModalEvents();
+
+                closeModal(
+                    loginModal
+                );
+
+
+                closeModal(
+                    registerModal
+                );
+
+
+            }
+        );
+
+
+    });
+
+
 
     setupNavigation();
 
-    listenForAuthChanges();
 
-    await initializeAuth();
+
+    checkSession();
+
+
 }
+
+
+
+
 
 
 document.addEventListener(
     "DOMContentLoaded",
-    initializeApp
+    start
 );
