@@ -1,13 +1,7 @@
 /* =========================================
-   UNINE
-   INDEX.JS
-   AUTHENTICATION + MAIN NAVIGATION
+   SUPABASE CONFIG
 ========================================= */
 
-
-/* =========================================
-   SUPABASE CONFIGURATION
-========================================= */
 
 const SUPABASE_URL =
     "https://moufqvgakqqozybedisj.supabase.co";
@@ -17,29 +11,12 @@ const SUPABASE_PUBLISHABLE_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
 
 
-/*
- * IMPORTANT:
- *
- * Only use the Supabase Publishable / Anon key
- * in frontend code.
- *
- * NEVER put:
- *
- * - service_role key
- * - secret key
- * - database password
- *
- * into this file.
- */
 
-
-/* =========================================
-   SUPABASE CLIENT
-========================================= */
 
 const {
     createClient
 } = window.supabase;
+
 
 
 const supabaseClient =
@@ -49,14 +26,13 @@ const supabaseClient =
     );
 
 
+
+
+
 /* =========================================
-   DOM ELEMENTS
+   DOM
 ========================================= */
 
-
-/* -----------------------------------------
-   HEADER
------------------------------------------ */
 
 const loginButton =
     document.getElementById(
@@ -76,6 +52,7 @@ const logoutButton =
     );
 
 
+
 const loggedOutActions =
     document.getElementById(
         "loggedOutActions"
@@ -88,27 +65,17 @@ const loggedInActions =
     );
 
 
+
 const headerUsername =
     document.getElementById(
         "headerUsername"
     );
 
 
-const welcomeUser =
-    document.getElementById(
-        "welcomeUser"
-    );
 
 
-const welcomeUsername =
-    document.getElementById(
-        "welcomeUsername"
-    );
+/* LOGIN */
 
-
-/* -----------------------------------------
-   LOGIN MODAL
------------------------------------------ */
 
 const loginModal =
     document.getElementById(
@@ -140,9 +107,11 @@ const loginMessage =
     );
 
 
-/* -----------------------------------------
-   REGISTER MODAL
------------------------------------------ */
+
+
+
+/* REGISTER */
+
 
 const registerModal =
     document.getElementById(
@@ -174,99 +143,54 @@ const registerMessage =
     );
 
 
+
+
+
+
+
 /* =========================================
-   APPLICATION STATE
+   PAGE SYSTEM
 ========================================= */
+
+
+const pages = {
+
+    home:
+        document.getElementById(
+            "homePage"
+        ),
+
+    shop:
+        document.getElementById(
+            "shopPage"
+        ),
+
+    order:
+        document.getElementById(
+            "orderPage"
+        ),
+
+    inbox:
+        document.getElementById(
+            "inboxPage"
+        ),
+
+    me:
+        document.getElementById(
+            "mePage"
+        )
+
+};
+
+
+
+
 
 let currentUser = null;
 
 
-/*
- * Prevent multiple navigation checks
- * from running at the same time.
- */
-
-let navigationChecking = false;
 
 
-/* =========================================
-   UTILITY
-========================================= */
-
-
-/* -----------------------------------------
-   SHOW MESSAGE
------------------------------------------ */
-
-function showMessage(
-    element,
-    message,
-    type = "error"
-) {
-
-    if (!element) {
-        return;
-    }
-
-
-    element.textContent =
-        message;
-
-
-    if (type === "success") {
-
-        element.style.color =
-            "#15803d";
-
-    } else {
-
-        element.style.color =
-            "#dc2626";
-    }
-}
-
-
-/* -----------------------------------------
-   CLEAR MESSAGE
------------------------------------------ */
-
-function clearMessage(element) {
-
-    if (!element) {
-        return;
-    }
-
-
-    element.textContent =
-        "";
-}
-
-
-/* -----------------------------------------
-   BUTTON LOADING
------------------------------------------ */
-
-function setButtonLoading(
-    button,
-    loading,
-    loadingText,
-    normalText
-) {
-
-    if (!button) {
-        return;
-    }
-
-
-    button.disabled =
-        loading;
-
-
-    button.textContent =
-        loading
-            ? loadingText
-            : normalText;
-}
 
 
 /* =========================================
@@ -274,15 +198,10 @@ function setButtonLoading(
 ========================================= */
 
 
-/* -----------------------------------------
-   OPEN MODAL
------------------------------------------ */
+function openModal(modal){
 
-function openModal(modal) {
-
-    if (!modal) {
+    if(!modal)
         return;
-    }
 
 
     modal.classList.remove(
@@ -296,20 +215,17 @@ function openModal(modal) {
     );
 
 
-    document.body.style.overflow =
-        "hidden";
 }
 
 
-/* -----------------------------------------
-   CLOSE MODAL
------------------------------------------ */
 
-function closeModal(modal) {
 
-    if (!modal) {
+function closeModal(modal){
+
+
+    if(!modal)
         return;
-    }
+
 
 
     modal.classList.add(
@@ -322,356 +238,233 @@ function closeModal(modal) {
         "true"
     );
 
-
-    const loginClosed =
-        !loginModal ||
-        loginModal.classList.contains(
-            "hidden"
-        );
-
-
-    const registerClosed =
-        !registerModal ||
-        registerModal.classList.contains(
-            "hidden"
-        );
-
-
-    if (
-        loginClosed &&
-        registerClosed
-    ) {
-
-        document.body.style.overflow =
-            "";
-    }
 }
 
 
-/* =========================================
-   LOGIN MODAL
-========================================= */
-
-function openLogin() {
-
-    if (!loginModal) {
-        return;
-    }
 
 
-    clearMessage(
-        loginMessage
-    );
-
-
-    if (loginForm) {
-        loginForm.reset();
-    }
-
-
-    closeModal(
-        registerModal
-    );
-
-
-    openModal(
-        loginModal
-    );
-
-
-    setTimeout(() => {
-
-        const emailInput =
-            document.getElementById(
-                "loginEmail"
-            );
-
-
-        if (emailInput) {
-
-            emailInput.focus();
-        }
-
-    }, 100);
-}
-
-
-/* =========================================
-   REGISTER MODAL
-========================================= */
-
-function openRegister() {
-
-    if (!registerModal) {
-        return;
-    }
-
-
-    clearMessage(
-        registerMessage
-    );
-
-
-    if (registerForm) {
-        registerForm.reset();
-    }
-
+function closeAllModal(){
 
     closeModal(
         loginModal
     );
 
 
-    openModal(
+    closeModal(
         registerModal
     );
 
-
-    setTimeout(() => {
-
-        const usernameInput =
-            document.getElementById(
-                "registerUsername"
-            );
-
-
-        if (usernameInput) {
-
-            usernameInput.focus();
-        }
-
-    }, 100);
 }
+
+
+
+
+
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+
+function showMessage(
+    element,
+    text,
+    type="error"
+){
+
+
+    if(!element)
+        return;
+
+
+    element.textContent =
+        text;
+
+
+    element.style.color =
+        type === "success"
+        ? "#15803d"
+        : "#dc2626";
+
+
+}
+
+
+
+
+
+function clearMessage(element){
+
+    if(element)
+        element.textContent="";
+
+}
+
+
+
+
+
 
 
 /* =========================================
    AUTH UI
 ========================================= */
 
-function updateAuthUI(user) {
 
-    currentUser =
-        user || null;
+function updateAuthUI(user){
 
 
-    /* -------------------------------------
-       LOGGED OUT
-    ------------------------------------- */
 
-    if (!user) {
-
-        if (loggedOutActions) {
-
-            loggedOutActions
-                .classList
-                .remove("hidden");
-        }
+    currentUser = user;
 
 
-        if (loggedInActions) {
 
-            loggedInActions
-                .classList
-                .add("hidden");
-        }
+    if(!user){
 
-
-        if (welcomeUser) {
-
-            welcomeUser
-                .classList
-                .add("hidden");
-        }
-
-
-        if (headerUsername) {
-
-            headerUsername.textContent =
-                "User";
-        }
-
-
-        if (welcomeUsername) {
-
-            welcomeUsername.textContent =
-                "";
-        }
-
-
-        return;
-    }
-
-
-    /* -------------------------------------
-       LOGGED IN
-    ------------------------------------- */
-
-    if (loggedOutActions) {
 
         loggedOutActions
             .classList
-            .add("hidden");
-    }
-
-
-    if (loggedInActions) {
-
-        loggedInActions
-            .classList
-            .remove("hidden");
-    }
-
-
-    /*
-     * Username comes from:
-     *
-     * supabase.auth.signUp({
-     *     options: {
-     *         data: {
-     *             username
-     *         }
-     *     }
-     * })
-     */
-
-    const username =
-        user.user_metadata?.username ||
-        user.email?.split("@")[0] ||
-        "User";
-
-
-    if (headerUsername) {
-
-        headerUsername.textContent =
-            username;
-    }
-
-
-    if (welcomeUsername) {
-
-        welcomeUsername.textContent =
-            username;
-    }
-
-
-    if (welcomeUser) {
-
-        welcomeUser
-            .classList
-            .remove("hidden");
-    }
-}
-
-
-/* =========================================
-   GET CURRENT SESSION
-========================================= */
-
-async function getCurrentSession() {
-
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .getSession();
-
-
-        if (error) {
-
-            console.error(
-                "Session error:",
-                error
+            .remove(
+                "hidden"
             );
 
 
-            return null;
-        }
+
+        loggedInActions
+            .classList
+            .add(
+                "hidden"
+            );
 
 
-        return data?.session || null;
 
-    } catch (error) {
+        headerUsername.textContent =
+            "User";
+
+
+        return;
+
+    }
+
+
+
+
+
+    loggedOutActions
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+
+    loggedInActions
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+
+    const username =
+        user.user_metadata?.username
+        ||
+        user.email.split("@")[0];
+
+
+
+    headerUsername.textContent =
+        username;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================
+   SESSION
+========================================= */
+
+
+async function checkSession(){
+
+
+    const {
+
+        data,
+        error
+
+    } =
+    await supabaseClient
+        .auth
+        .getSession();
+
+
+
+    if(error){
 
         console.error(
-            "Unexpected session error:",
             error
         );
 
+        return;
 
-        return null;
     }
+
+
+
+    updateAuthUI(
+        data.session?.user || null
+    );
+
 }
+
+
+
+
+
 
 
 /* =========================================
-   INITIALIZE AUTH
+   AUTH LISTENER
 ========================================= */
 
-async function initializeAuth() {
 
-    const session =
-        await getCurrentSession();
-
-
-    if (session?.user) {
-
-        updateAuthUI(
-            session.user
-        );
-
-    } else {
-
-        updateAuthUI(
-            null
-        );
-    }
-}
+supabaseClient
+.auth
+.onAuthStateChange(
+(event,session)=>{
 
 
-/* =========================================
-   AUTH STATE LISTENER
-========================================= */
-
-function listenForAuthChanges() {
-
-    supabaseClient
-        .auth
-        .onAuthStateChange(
-            (
-                event,
-                session
-            ) => {
-
-                console.log(
-                    "Auth event:",
-                    event
-                );
+    updateAuthUI(
+        session?.user || null
+    );
 
 
-                /*
-                 * Supabase recommends keeping
-                 * this callback lightweight.
-                 */
+});
 
-                updateAuthUI(
-                    session?.user || null
-                );
-            }
-        );
-}
+
+
+
+
+
 
 
 /* =========================================
    LOGIN
 ========================================= */
 
-async function handleLogin(event) {
 
-    event.preventDefault();
+async function login(e){
+
+
+    e.preventDefault();
+
 
 
     clearMessage(
@@ -679,161 +472,124 @@ async function handleLogin(event) {
     );
 
 
-    if (!loginForm) {
-        return;
-    }
 
-
-    const formData =
+    const form =
         new FormData(
             loginForm
         );
 
 
+
     const email =
-        String(
-            formData.get("email") || ""
-        )
+        form.get("email")
         .trim()
         .toLowerCase();
 
 
+
     const password =
-        String(
-            formData.get("password") || ""
-        );
+        form.get("password");
 
 
-    /* -------------------------------------
-       VALIDATION
-    ------------------------------------- */
 
-    if (
-        !email ||
-        !password
-    ) {
+
+    loginSubmit.disabled =
+        true;
+
+
+
+    loginSubmit.textContent =
+        "Logging in...";
+
+
+
+
+
+    const {
+
+        data,
+        error
+
+    } =
+    await supabaseClient
+        .auth
+        .signInWithPassword({
+
+            email,
+
+            password
+
+        });
+
+
+
+
+
+    if(error){
+
 
         showMessage(
             loginMessage,
-            "Please enter your email and password."
+            error.message
         );
+
+
+        loginSubmit.disabled=false;
+
+        loginSubmit.textContent="Login";
 
 
         return;
+
     }
 
 
-    setButtonLoading(
-        loginSubmit,
-        true,
-        "Logging in...",
-        "Login"
+
+
+
+    showMessage(
+        loginMessage,
+        "Login successful",
+        "success"
     );
 
 
-    try {
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signInWithPassword({
-
-                    email,
-
-                    password
-
-                });
+    setTimeout(()=>{
 
 
-        if (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-
-            showMessage(
-                loginMessage,
-                getAuthErrorMessage(
-                    error
-                )
-            );
-
-
-            return;
-        }
-
-
-        if (!data?.user) {
-
-            showMessage(
-                loginMessage,
-                "Login failed. Please try again."
-            );
-
-
-            return;
-        }
-
-
-        showMessage(
-            loginMessage,
-            "Login successful.",
-            "success"
+        closeModal(
+            loginModal
         );
 
 
-        /*
-         * Auth listener will update
-         * the header automatically.
-         */
-
-        setTimeout(() => {
-
-            closeModal(
-                loginModal
-            );
-
-        }, 500);
+    },500);
 
 
-    } catch (error) {
-
-        console.error(
-            "Unexpected login error:",
-            error
-        );
 
 
-        showMessage(
-            loginMessage,
-            "Something went wrong. Please try again."
-        );
+    loginSubmit.disabled=false;
 
+    loginSubmit.textContent="Login";
 
-    } finally {
-
-        setButtonLoading(
-            loginSubmit,
-            false,
-            "Logging in...",
-            "Login"
-        );
-    }
 }
+
+
+
+
+
 
 
 /* =========================================
    REGISTER
 ========================================= */
 
-async function handleRegister(event) {
 
-    event.preventDefault();
+async function register(e){
+
+
+    e.preventDefault();
+
 
 
     clearMessage(
@@ -841,894 +597,499 @@ async function handleRegister(event) {
     );
 
 
-    if (!registerForm) {
-        return;
-    }
 
-
-    const formData =
+    const form =
         new FormData(
             registerForm
         );
 
 
+
     const username =
-        String(
-            formData.get("username") || ""
-        )
+        form.get("username")
         .trim();
 
 
+
     const email =
-        String(
-            formData.get("email") || ""
-        )
+        form.get("email")
         .trim()
         .toLowerCase();
 
 
+
     const password =
-        String(
-            formData.get("password") || ""
+        form.get("password");
+
+
+
+    const confirm =
+        form.get(
+            "password_confirm"
         );
 
 
-    const passwordConfirm =
-        String(
-            formData.get(
-                "password_confirm"
-            ) || ""
-        );
 
 
-    /* -------------------------------------
-       USERNAME VALIDATION
-    ------------------------------------- */
 
-    if (
-        !/^[A-Za-z0-9_]{3,30}$/
-            .test(username)
-    ) {
+    if(password !== confirm){
+
 
         showMessage(
             registerMessage,
-            "Username must contain 3-30 letters, numbers or underscores."
+            "Passwords do not match"
         );
 
 
         return;
+
     }
 
 
-    /* -------------------------------------
-       PASSWORD VALIDATION
-    ------------------------------------- */
 
-    if (
-        password.length < 8
-    ) {
+
+
+    if(password.length < 8){
+
 
         showMessage(
             registerMessage,
-            "Password must be at least 8 characters."
+            "Password must be at least 8 characters"
         );
 
 
         return;
+
     }
 
 
-    if (
-        password !==
-        passwordConfirm
-    ) {
+
+
+
+
+
+    registerSubmit.disabled=true;
+
+
+    registerSubmit.textContent =
+        "Creating...";
+
+
+
+
+
+
+    const {
+
+        data,
+        error
+
+    } =
+    await supabaseClient
+        .auth
+        .signUp({
+
+            email,
+
+            password,
+
+
+            options:{
+
+                data:{
+
+                    username
+
+                }
+
+            }
+
+
+        });
+
+
+
+
+
+
+
+    if(error){
+
 
         showMessage(
             registerMessage,
-            "Passwords do not match."
+            error.message
         );
 
 
+        registerSubmit.disabled=false;
+
+
+        registerSubmit.textContent =
+            "Create Account";
+
+
         return;
+
+
     }
 
 
-    setButtonLoading(
-        registerSubmit,
-        true,
-        "Creating account...",
-        "Create Account"
+
+
+
+
+    showMessage(
+        registerMessage,
+        "Account created",
+        "success"
     );
 
 
-    try {
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signUp({
-
-                    email,
-
-                    password,
-
-                    options: {
-
-                        data: {
-
-                            username:
-                                username
-
-                        }
-
-                    }
-
-                });
 
 
-        if (error) {
 
-            console.error(
-                "Register error:",
-                error
+    registerForm.reset();
+
+
+
+
+
+    if(data.session){
+
+
+        setTimeout(()=>{
+
+            closeModal(
+                registerModal
             );
 
-
-            showMessage(
-                registerMessage,
-                getAuthErrorMessage(
-                    error
-                )
-            );
+        },700);
 
 
-            return;
-        }
-
-
-        if (!data?.user) {
-
-            showMessage(
-                registerMessage,
-                "Registration failed. Please try again."
-            );
-
-
-            return;
-        }
-
-
-        /*
-         * Confirm email is OFF in your
-         * Supabase project.
-         *
-         * Therefore normally:
-         *
-         * data.session
-         *
-         * should exist immediately.
-         */
-
-
-        if (data.session) {
-
-            showMessage(
-                registerMessage,
-                "Account created successfully.",
-                "success"
-            );
-
-
-            registerForm.reset();
-
-
-            setTimeout(() => {
-
-                closeModal(
-                    registerModal
-                );
-
-            }, 700);
-
-
-        } else {
-
-            /*
-             * Safety fallback.
-             *
-             * If Supabase does not return
-             * a session, don't pretend login
-             * succeeded.
-             */
-
-            showMessage(
-                registerMessage,
-                "Account created. Please log in.",
-                "success"
-            );
-
-
-            registerForm.reset();
-
-
-            setTimeout(() => {
-
-                closeModal(
-                    registerModal
-                );
-
-
-                openLogin();
-
-            }, 1000);
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Unexpected registration error:",
-            error
-        );
-
-
-        showMessage(
-            registerMessage,
-            "Something went wrong. Please try again."
-        );
-
-
-    } finally {
-
-        setButtonLoading(
-            registerSubmit,
-            false,
-            "Creating account...",
-            "Create Account"
-        );
     }
+    else{
+
+
+        setTimeout(()=>{
+
+            closeModal(
+                registerModal
+            );
+
+
+            openModal(
+                loginModal
+            );
+
+
+        },1000);
+
+
+    }
+
+
+
+
+    registerSubmit.disabled=false;
+
+
+    registerSubmit.textContent =
+        "Create Account";
+
 }
+
+
+
+
+
+
 
 
 /* =========================================
    LOGOUT
 ========================================= */
 
-async function handleLogout() {
 
-    if (!logoutButton) {
+async function logout(){
+
+
+    await supabaseClient
+        .auth
+        .signOut();
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   PAGE SWITCH
+========================================= */
+
+
+async function switchPage(page){
+
+
+
+    const protectedPages=[
+
+        "order",
+
+        "inbox",
+
+        "me"
+
+    ];
+
+
+
+
+
+    if(
+        protectedPages.includes(page)
+        &&
+        !currentUser
+    ){
+
+
+        openModal(
+            loginModal
+        );
+
+
         return;
+
     }
 
 
-    logoutButton.disabled =
-        true;
 
 
-    logoutButton.textContent =
-        "Logging out...";
+
+    Object.values(pages)
+    .forEach(section=>{
 
 
-    try {
-
-        const {
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signOut();
-
-
-        if (error) {
-
-            console.error(
-                "Logout error:",
-                error
-            );
-
-
-            alert(
-                "Logout failed. Please try again."
-            );
-
-
-            return;
-        }
-
-
-        /*
-         * Auth state listener updates
-         * the UI automatically.
-         */
-
-
-    } catch (error) {
-
-        console.error(
-            "Unexpected logout error:",
-            error
+        section.classList.add(
+            "hidden"
         );
 
 
-        alert(
-            "Something went wrong. Please try again."
+    });
+
+
+
+
+
+    pages[page]
+        .classList
+        .remove(
+            "hidden"
         );
 
 
-    } finally {
 
-        logoutButton.disabled =
-            false;
 
-
-        logoutButton.textContent =
-            "Logout";
-    }
-}
-
-
-/* =========================================
-   AUTH ERROR MESSAGES
-========================================= */
-
-function getAuthErrorMessage(error) {
-
-    if (!error) {
-
-        return "Something went wrong.";
-    }
-
-
-    const message =
-        String(
-            error.message || ""
-        )
-        .toLowerCase();
-
-
-    /* -------------------------------------
-       LOGIN
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "invalid login credentials"
-        )
-    ) {
-
-        return "Invalid email or password.";
-    }
-
-
-    /* -------------------------------------
-       EMAIL
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "user already registered"
-        )
-    ) {
-
-        return "This email is already registered.";
-    }
-
-
-    if (
-        message.includes(
-            "email address is invalid"
-        )
-    ) {
-
-        return "Please enter a valid email address.";
-    }
-
-
-    /* -------------------------------------
-       PASSWORD
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "password should be at least"
-        )
-    ) {
-
-        return "Password is too short.";
-    }
-
-
-    if (
-        message.includes(
-            "weak password"
-        )
-    ) {
-
-        return "Please choose a stronger password.";
-    }
-
-
-    /* -------------------------------------
-       RATE LIMIT
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "rate limit"
-        )
-    ) {
-
-        return "Too many attempts. Please try again later.";
-    }
-
-
-    /* -------------------------------------
-       EMAIL NOT CONFIRMED
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "email not confirmed"
-        )
-    ) {
-
-        return "Email confirmation is still enabled in Supabase. Please turn it off in Authentication settings.";
-    }
-
-
-    /* -------------------------------------
-       NETWORK
-    ------------------------------------- */
-
-    if (
-        message.includes(
-            "failed to fetch"
-        )
-    ) {
-
-        return "Network error. Please check your connection and try again.";
-    }
-
-
-    return (
-        error.message ||
-        "Authentication failed."
-    );
-}
-
-
-/* =========================================
-   PROTECTED PAGES
-========================================= */
-
-
-/*
- * These pages require login:
- *
- * Order
- * Inbox
- * Me
- *
- * Home and Shop remain public.
- */
-
-const protectedPages = [
-    "order",
-    "inbox",
-    "me"
-];
-
-
-/* -----------------------------------------
-   CHECK AUTH
------------------------------------------ */
-
-async function requireLogin() {
-
-    const session =
-        await getCurrentSession();
-
-
-    if (
-        session?.user
-    ) {
-
-        return true;
-    }
-
-
-    openLogin();
-
-
-    return false;
-}
-
-
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function setupNavigation() {
-
-    const navItems =
-        document.querySelectorAll(
-            ".nav-item"
-        );
-
-
-    navItems.forEach(
-        item => {
-
-            item.addEventListener(
-                "click",
-                async event => {
-
-                    const page =
-                        item.dataset.page;
-
-
-                    /*
-                     * Public page
-                     */
-
-                    if (
-                        !protectedPages
-                            .includes(page)
-                    ) {
-
-                        return;
-                    }
-
-
-                    /*
-                     * Stop the browser
-                     * temporarily.
-                     */
-
-                    event.preventDefault();
-
-
-                    /*
-                     * Prevent double clicks.
-                     */
-
-                    if (
-                        navigationChecking
-                    ) {
-
-                        return;
-                    }
-
-
-                    navigationChecking =
-                        true;
-
-
-                    try {
-
-                        const allowed =
-                            await requireLogin();
-
-
-                        if (!allowed) {
-
-                            return;
-                        }
-
-
-                        /*
-                         * Login exists.
-                         *
-                         * Continue navigation.
-                         */
-
-                        const target =
-                            item.getAttribute(
-                                "href"
-                            );
-
-
-                        if (target) {
-
-                            window.location.href =
-                                target;
-                        }
-
-
-                    } finally {
-
-                        navigationChecking =
-                            false;
-                    }
-
-                }
-            );
-
-        }
-    );
-}
-
-
-/* =========================================
-   MODAL EVENTS
-========================================= */
-
-function setupModalEvents() {
-
-    /* -------------------------------------
-       LOGIN CLOSE
-    ------------------------------------- */
-
-    if (closeLoginModal) {
-
-        closeLoginModal
-            .addEventListener(
-                "click",
-                () => {
-
-                    closeModal(
-                        loginModal
-                    );
-
-                }
-            );
-    }
-
-
-    /* -------------------------------------
-       REGISTER CLOSE
-    ------------------------------------- */
-
-    if (closeRegisterModal) {
-
-        closeRegisterModal
-            .addEventListener(
-                "click",
-                () => {
-
-                    closeModal(
-                        registerModal
-                    );
-
-                }
-            );
-    }
-
-
-    /* -------------------------------------
-       OVERLAY CLOSE
-    ------------------------------------- */
 
     document
-        .querySelectorAll(
-            "[data-close-modal]"
-        )
-        .forEach(
-            element => {
-
-                element.addEventListener(
-                    "click",
-                    () => {
-
-                        closeModal(
-                            loginModal
-                        );
+    .querySelectorAll(
+        ".nav-item"
+    )
+    .forEach(item=>{
 
 
-                        closeModal(
-                            registerModal
-                        );
-
-                    }
-                );
-
-            }
+        item.classList.remove(
+            "active"
         );
 
 
-    /* -------------------------------------
-       ESC KEY
-    ------------------------------------- */
+        if(
+            item.dataset.page===page
+        ){
 
-    document.addEventListener(
-        "keydown",
-        event => {
+            item.classList.add(
+                "active"
+            );
 
-            if (
-                event.key !==
-                "Escape"
-            ) {
-
-                return;
-            }
+        }
 
 
-            closeModal(
+    });
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   EVENTS
+========================================= */
+
+
+function initEvents(){
+
+
+
+    loginButton.onclick =
+        ()=>{
+
+
+            clearMessage(
+                loginMessage
+            );
+
+
+            openModal(
                 loginModal
             );
 
 
-            closeModal(
+        };
+
+
+
+
+
+    registerButton.onclick =
+        ()=>{
+
+
+            clearMessage(
+                registerMessage
+            );
+
+
+            openModal(
                 registerModal
             );
 
-        }
-    );
-}
+
+        };
 
 
-/* =========================================
-   FORGOT PASSWORD
-========================================= */
 
 
-/*
- * Forgot Password is NOT implemented
- * inside index.js.
- *
- * The login modal simply sends the user
- * to:
- *
- * forgot-password/forgot-password.html
- *
- * The actual password reset system will
- * be handled there.
- */
 
-function setupForgotPassword() {
+    logoutButton.onclick =
+        logout;
 
-    const forgotPasswordLinks =
-        document.querySelectorAll(
-            'a[href*="forgot-password"]'
+
+
+
+
+    loginForm.onsubmit =
+        login;
+
+
+
+
+    registerForm.onsubmit =
+        register;
+
+
+
+
+
+
+    closeLoginModal.onclick =
+        ()=>closeModal(
+            loginModal
         );
 
 
-    forgotPasswordLinks.forEach(
-        link => {
 
-            link.addEventListener(
-                "click",
-                () => {
 
-                    closeModal(
-                        loginModal
-                    );
+    closeRegisterModal.onclick =
+        ()=>closeModal(
+            registerModal
+        );
 
-                }
+
+
+
+
+
+    document
+    .querySelectorAll(
+        "[data-close-modal]"
+    )
+    .forEach(item=>{
+
+
+        item.onclick =
+            closeAllModal;
+
+
+    });
+
+
+
+
+
+
+    document
+    .querySelectorAll(
+        ".nav-item"
+    )
+    .forEach(button=>{
+
+
+        button.onclick =
+        ()=>{
+
+
+            switchPage(
+                button.dataset.page
             );
 
-        }
-    );
+
+        };
+
+
+    });
+
+
+
 }
 
 
-/* =========================================
-   GLOBAL EVENT LISTENERS
-========================================= */
-
-function setupEventListeners() {
-
-    /* -------------------------------------
-       LOGIN BUTTON
-    ------------------------------------- */
-
-    if (loginButton) {
-
-        loginButton.addEventListener(
-            "click",
-            openLogin
-        );
-    }
 
 
-    /* -------------------------------------
-       REGISTER BUTTON
-    ------------------------------------- */
 
-    if (registerButton) {
-
-        registerButton.addEventListener(
-            "click",
-            openRegister
-        );
-    }
-
-
-    /* -------------------------------------
-       LOGOUT BUTTON
-    ------------------------------------- */
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            handleLogout
-        );
-    }
-
-
-    /* -------------------------------------
-       LOGIN FORM
-    ------------------------------------- */
-
-    if (loginForm) {
-
-        loginForm.addEventListener(
-            "submit",
-            handleLogin
-        );
-    }
-
-
-    /* -------------------------------------
-       REGISTER FORM
-    ------------------------------------- */
-
-    if (registerForm) {
-
-        registerForm.addEventListener(
-            "submit",
-            handleRegister
-        );
-    }
-}
 
 
 /* =========================================
-   APPLICATION INITIALIZATION
+   START
 ========================================= */
 
-async function initializeApp() {
 
-    /*
-     * Setup UI events first.
-     */
-
-    setupEventListeners();
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-    setupModalEvents();
+    initEvents();
 
 
-    setupNavigation();
+    checkSession();
 
 
-    setupForgotPassword();
-
-
-    /*
-     * Start Supabase auth listener.
-     */
-
-    listenForAuthChanges();
-
-
-    /*
-     * Restore existing session.
-     */
-
-    await initializeAuth();
-}
-
-
-/* =========================================
-   START APPLICATION
-========================================= */
-
-if (
-    document.readyState ===
-    "loading"
-) {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        initializeApp
+    switchPage(
+        "home"
     );
 
-} else {
 
-    initializeApp();
-}
+});
