@@ -4,12 +4,11 @@
 
 
 const SUPABASE_URL =
-    "https://moufqvgakqqozybedisj.supabase.co";
+"https://moufqvgakqqozybedisj.supabase.co";
 
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
-
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
 
 
 
@@ -20,10 +19,10 @@ const {
 
 
 const supabaseClient =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_PUBLISHABLE_KEY
-    );
+createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 
 
 
@@ -34,114 +33,132 @@ const supabaseClient =
 ========================================= */
 
 
+const header =
+document.querySelector(
+    ".site-header"
+);
+
+
+
 const loginButton =
-    document.getElementById(
-        "loginButton"
-    );
+document.getElementById(
+    "loginButton"
+);
+
 
 
 const registerButton =
-    document.getElementById(
-        "registerButton"
-    );
-
-
-const logoutButton =
-    document.getElementById(
-        "logoutButton"
-    );
+document.getElementById(
+    "registerButton"
+);
 
 
 
 const loggedOutActions =
-    document.getElementById(
-        "loggedOutActions"
-    );
+document.getElementById(
+    "loggedOutActions"
+);
+
 
 
 const loggedInActions =
-    document.getElementById(
-        "loggedInActions"
-    );
+document.getElementById(
+    "loggedInActions"
+);
 
 
 
 const headerUsername =
-    document.getElementById(
-        "headerUsername"
-    );
+document.getElementById(
+    "headerUsername"
+);
 
 
 
 
-/* LOGIN */
+
+/* =========================================
+   MODAL
+========================================= */
 
 
 const loginModal =
-    document.getElementById(
-        "loginModal"
-    );
+document.getElementById(
+    "loginModal"
+);
 
-
-const closeLoginModal =
-    document.getElementById(
-        "closeLoginModal"
-    );
-
-
-const loginForm =
-    document.getElementById(
-        "loginForm"
-    );
-
-
-const loginSubmit =
-    document.getElementById(
-        "loginSubmit"
-    );
-
-
-const loginMessage =
-    document.getElementById(
-        "loginMessage"
-    );
-
-
-
-
-
-/* REGISTER */
 
 
 const registerModal =
-    document.getElementById(
-        "registerModal"
-    );
+document.getElementById(
+    "registerModal"
+);
+
+
+
+const closeLoginModal =
+document.getElementById(
+    "closeLoginModal"
+);
+
 
 
 const closeRegisterModal =
-    document.getElementById(
-        "closeRegisterModal"
-    );
+document.getElementById(
+    "closeRegisterModal"
+);
+
+
+
+
+
+/* LOGIN FORM */
+
+
+const loginForm =
+document.getElementById(
+    "loginForm"
+);
+
+
+
+const loginSubmit =
+document.getElementById(
+    "loginSubmit"
+);
+
+
+
+const loginMessage =
+document.getElementById(
+    "loginMessage"
+);
+
+
+
+
+
+/* REGISTER FORM */
 
 
 const registerForm =
-    document.getElementById(
-        "registerForm"
-    );
+document.getElementById(
+    "registerForm"
+);
+
 
 
 const registerSubmit =
-    document.getElementById(
-        "registerSubmit"
-    );
+document.getElementById(
+    "registerSubmit"
+);
+
 
 
 const registerMessage =
-    document.getElementById(
-        "registerMessage"
-    );
-
+document.getElementById(
+    "registerMessage"
+);
 
 
 
@@ -149,36 +166,42 @@ const registerMessage =
 
 
 /* =========================================
-   PAGE SYSTEM
+   PAGE
 ========================================= */
 
 
 const pages = {
 
-    home:
-        document.getElementById(
-            "homePage"
-        ),
 
-    shop:
-        document.getElementById(
-            "shopPage"
-        ),
+home:
+document.getElementById(
+    "homePage"
+),
 
-    order:
-        document.getElementById(
-            "orderPage"
-        ),
 
-    inbox:
-        document.getElementById(
-            "inboxPage"
-        ),
+shop:
+document.getElementById(
+    "shopPage"
+),
 
-    me:
-        document.getElementById(
-            "mePage"
-        )
+
+order:
+document.getElementById(
+    "orderPage"
+),
+
+
+inbox:
+document.getElementById(
+    "inboxPage"
+),
+
+
+me:
+document.getElementById(
+    "mePage"
+)
+
 
 };
 
@@ -193,6 +216,135 @@ let currentUser = null;
 
 
 
+
+/* =========================================
+   HEADER CONTROL
+========================================= */
+
+
+function updateHeader(){
+
+
+    /*
+        未登录
+        首页显示完整 Header
+    */
+
+
+    if(!currentUser){
+
+
+        header.classList.remove(
+            "hidden"
+        );
+
+
+        loggedOutActions
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+        loggedInActions
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+        return;
+
+    }
+
+
+
+
+
+    /*
+        登录以后
+
+        只有 home 显示 header
+
+    */
+
+
+    const currentPage =
+    getCurrentPage();
+
+
+
+    if(currentPage==="home"){
+
+
+        header.classList.remove(
+            "hidden"
+        );
+
+
+        loggedOutActions
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+        loggedInActions
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    header.classList.add(
+        "hidden"
+    );
+
+
+}
+
+
+
+
+
+
+function getCurrentPage(){
+
+
+    for(
+        const key in pages
+    ){
+
+
+        if(
+            !pages[key]
+            .classList
+            .contains(
+                "hidden"
+            )
+        ){
+
+            return key;
+
+        }
+
+    }
+
+
+    return "home";
+
+
+}
+
 /* =========================================
    MODAL
 ========================================= */
@@ -200,13 +352,16 @@ let currentUser = null;
 
 function openModal(modal){
 
+
     if(!modal)
         return;
+
 
 
     modal.classList.remove(
         "hidden"
     );
+
 
 
     modal.setAttribute(
@@ -216,6 +371,7 @@ function openModal(modal){
 
 
 }
+
 
 
 
@@ -233,17 +389,21 @@ function closeModal(modal){
     );
 
 
+
     modal.setAttribute(
         "aria-hidden",
         "true"
     );
+
 
 }
 
 
 
 
+
 function closeAllModal(){
+
 
     closeModal(
         loginModal
@@ -253,6 +413,7 @@ function closeAllModal(){
     closeModal(
         registerModal
     );
+
 
 }
 
@@ -269,7 +430,7 @@ function closeAllModal(){
 
 function showMessage(
     element,
-    text,
+    message,
     type="error"
 ){
 
@@ -278,8 +439,10 @@ function showMessage(
         return;
 
 
+
     element.textContent =
-        text;
+        message;
+
 
 
     element.style.color =
@@ -296,10 +459,15 @@ function showMessage(
 
 function clearMessage(element){
 
+
     if(element)
-        element.textContent="";
+        element.textContent =
+        "";
+
 
 }
+
+
 
 
 
@@ -315,8 +483,8 @@ function clearMessage(element){
 function updateAuthUI(user){
 
 
-
-    currentUser = user;
+    currentUser =
+        user;
 
 
 
@@ -324,23 +492,26 @@ function updateAuthUI(user){
 
 
         loggedOutActions
-            .classList
-            .remove(
-                "hidden"
-            );
-
+        .classList
+        .remove(
+            "hidden"
+        );
 
 
         loggedInActions
-            .classList
-            .add(
-                "hidden"
-            );
+        .classList
+        .add(
+            "hidden"
+        );
 
 
 
         headerUsername.textContent =
-            "User";
+        "User";
+
+
+
+        updateHeader();
 
 
         return;
@@ -351,26 +522,31 @@ function updateAuthUI(user){
 
 
 
+
     loggedOutActions
-        .classList
-        .add(
-            "hidden"
-        );
+    .classList
+    .add(
+        "hidden"
+    );
 
 
 
     loggedInActions
-        .classList
-        .remove(
-            "hidden"
-        );
+    .classList
+    .remove(
+        "hidden"
+    );
+
+
 
 
 
     const username =
         user.user_metadata?.username
         ||
-        user.email.split("@")[0];
+        user.email
+        .split("@")[0];
+
 
 
 
@@ -378,7 +554,14 @@ function updateAuthUI(user){
         username;
 
 
+
+    updateHeader();
+
+
+
 }
+
+
 
 
 
@@ -387,30 +570,35 @@ function updateAuthUI(user){
 
 
 /* =========================================
-   SESSION
+   SESSION CHECK
 ========================================= */
 
 
 async function checkSession(){
 
 
-    const {
 
+    const {
         data,
         error
 
     } =
     await supabaseClient
-        .auth
-        .getSession();
+    .auth
+    .getSession();
+
+
 
 
 
     if(error){
 
+
         console.error(
+            "Session error:",
             error
         );
+
 
         return;
 
@@ -418,11 +606,17 @@ async function checkSession(){
 
 
 
+
+
     updateAuthUI(
         data.session?.user || null
     );
 
+
+
 }
+
+
 
 
 
@@ -455,21 +649,24 @@ supabaseClient
 
 
 
+
 /* =========================================
    LOGIN
 ========================================= */
 
 
-async function login(e){
+async function login(event){
 
 
-    e.preventDefault();
+    event.preventDefault();
 
 
 
     clearMessage(
         loginMessage
     );
+
+
 
 
 
@@ -480,15 +677,22 @@ async function login(e){
 
 
 
+
     const email =
-        form.get("email")
+        String(
+            form.get("email")
+        )
         .trim()
         .toLowerCase();
 
 
 
+
     const password =
-        form.get("password");
+        String(
+            form.get("password")
+        );
+
 
 
 
@@ -505,13 +709,15 @@ async function login(e){
 
 
 
-    const {
+    try{
 
-        data,
-        error
 
-    } =
-    await supabaseClient
+        const {
+            data,
+            error
+
+        } =
+        await supabaseClient
         .auth
         .signInWithPassword({
 
@@ -525,54 +731,93 @@ async function login(e){
 
 
 
-    if(error){
+        if(error){
+
+
+            showMessage(
+                loginMessage,
+                error.message
+            );
+
+
+            return;
+
+        }
+
+
+
+
+
 
 
         showMessage(
             loginMessage,
-            error.message
+            "Login successful",
+            "success"
         );
 
 
-        loginSubmit.disabled=false;
-
-        loginSubmit.textContent="Login";
 
 
-        return;
+
+        setTimeout(()=>{
+
+
+            closeModal(
+                loginModal
+            );
+
+
+
+            switchPage(
+                "home"
+            );
+
+
+
+        },500);
+
+
+
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+
+        showMessage(
+            loginMessage,
+            "Login failed"
+        );
+
+
+    }
+    finally{
+
+
+        loginSubmit.disabled =
+            false;
+
+
+
+        loginSubmit.textContent =
+            "Login";
+
 
     }
 
 
 
-
-
-    showMessage(
-        loginMessage,
-        "Login successful",
-        "success"
-    );
-
-
-
-    setTimeout(()=>{
-
-
-        closeModal(
-            loginModal
-        );
-
-
-    },500);
-
-
-
-
-    loginSubmit.disabled=false;
-
-    loginSubmit.textContent="Login";
-
 }
+
+
 
 
 
@@ -585,16 +830,18 @@ async function login(e){
 ========================================= */
 
 
-async function register(e){
+async function register(event){
 
 
-    e.preventDefault();
+    event.preventDefault();
 
 
 
     clearMessage(
         registerMessage
     );
+
+
 
 
 
@@ -605,28 +852,45 @@ async function register(e){
 
 
 
+
+
     const username =
-        form.get("username")
+        String(
+            form.get("username")
+        )
         .trim();
 
 
 
+
+
     const email =
-        form.get("email")
+        String(
+            form.get("email")
+        )
         .trim()
         .toLowerCase();
 
 
 
+
+
     const password =
-        form.get("password");
+        String(
+            form.get("password")
+        );
+
+
 
 
 
     const confirm =
-        form.get(
-            "password_confirm"
+        String(
+            form.get(
+                "password_confirm"
+            )
         );
+
 
 
 
@@ -644,6 +908,8 @@ async function register(e){
         return;
 
     }
+
+
 
 
 
@@ -667,8 +933,9 @@ async function register(e){
 
 
 
+    registerSubmit.disabled =
+        true;
 
-    registerSubmit.disabled=true;
 
 
     registerSubmit.textContent =
@@ -679,13 +946,18 @@ async function register(e){
 
 
 
-    const {
 
-        data,
-        error
+    try{
 
-    } =
-    await supabaseClient
+
+        const {
+
+            data,
+            error
+
+
+        } =
+        await supabaseClient
         .auth
         .signUp({
 
@@ -696,11 +968,15 @@ async function register(e){
 
             options:{
 
+
                 data:{
+
 
                     username
 
+
                 }
+
 
             }
 
@@ -713,69 +989,49 @@ async function register(e){
 
 
 
-    if(error){
+
+        if(error){
+
+
+            showMessage(
+                registerMessage,
+                error.message
+            );
+
+
+            return;
+
+        }
+
+
+
+
+
 
 
         showMessage(
             registerMessage,
-            error.message
+            "Account created",
+            "success"
         );
 
 
-        registerSubmit.disabled=false;
-
-
-        registerSubmit.textContent =
-            "Create Account";
-
-
-        return;
-
-
-    }
 
 
 
+        registerForm.reset();
 
 
 
-    showMessage(
-        registerMessage,
-        "Account created",
-        "success"
-    );
-
-
-
-
-
-    registerForm.reset();
-
-
-
-
-
-    if(data.session){
 
 
         setTimeout(()=>{
+
 
             closeModal(
                 registerModal
             );
 
-        },700);
-
-
-    }
-    else{
-
-
-        setTimeout(()=>{
-
-            closeModal(
-                registerModal
-            );
 
 
             openModal(
@@ -783,50 +1039,46 @@ async function register(e){
             );
 
 
-        },1000);
+        },800);
+
+
+
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+            registerMessage,
+            "Register failed"
+        );
+
+
+    }
+    finally{
+
+
+        registerSubmit.disabled =
+            false;
+
+
+
+        registerSubmit.textContent =
+            "Create Account";
 
 
     }
 
 
 
-
-    registerSubmit.disabled=false;
-
-
-    registerSubmit.textContent =
-        "Create Account";
-
 }
-
-
-
-
-
-
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-
-async function logout(){
-
-
-    await supabaseClient
-        .auth
-        .signOut();
-
-
-}
-
-
-
-
-
-
-
 
 /* =========================================
    PAGE SWITCH
@@ -837,7 +1089,7 @@ async function switchPage(page){
 
 
 
-    const protectedPages=[
+    const protectedPages = [
 
         "order",
 
@@ -849,6 +1101,11 @@ async function switchPage(page){
 
 
 
+
+
+    /*
+        未登录保护页面
+    */
 
 
     if(
@@ -865,7 +1122,9 @@ async function switchPage(page){
 
         return;
 
+
     }
+
 
 
 
@@ -886,14 +1145,29 @@ async function switchPage(page){
 
 
 
-    pages[page]
+
+    if(
+        pages[page]
+    ){
+
+
+        pages[page]
         .classList
         .remove(
             "hidden"
         );
 
 
+    }
 
+
+
+
+
+
+    /*
+        NAV ACTIVE
+    */
 
 
     document
@@ -908,13 +1182,16 @@ async function switchPage(page){
         );
 
 
+
         if(
-            item.dataset.page===page
+            item.dataset.page === page
         ){
+
 
             item.classList.add(
                 "active"
             );
+
 
         }
 
@@ -925,7 +1202,15 @@ async function switchPage(page){
 
 
 
+
+
+    updateHeader();
+
+
+
 }
+
+
 
 
 
@@ -943,56 +1228,75 @@ function initEvents(){
 
 
 
+
+
+
+    /*
+        LOGIN OPEN
+    */
+
+
     loginButton.onclick =
-        ()=>{
+    ()=>{
 
 
-            clearMessage(
-                loginMessage
-            );
-
-
-            openModal(
-                loginModal
-            );
-
-
-        };
+        clearMessage(
+            loginMessage
+        );
 
 
 
+        openModal(
+            loginModal
+        );
+
+
+    };
+
+
+
+
+
+
+
+
+    /*
+        REGISTER OPEN
+    */
 
 
     registerButton.onclick =
-        ()=>{
+    ()=>{
 
 
-            clearMessage(
-                registerMessage
-            );
-
-
-            openModal(
-                registerModal
-            );
-
-
-        };
+        clearMessage(
+            registerMessage
+        );
 
 
 
+        openModal(
+            registerModal
+        );
 
 
-    logoutButton.onclick =
-        logout;
+    };
 
 
 
+
+
+
+
+
+
+    /*
+        FORM
+    */
 
 
     loginForm.onsubmit =
         login;
-
 
 
 
@@ -1004,18 +1308,41 @@ function initEvents(){
 
 
 
+
+
+    /*
+        CLOSE MODAL
+    */
+
+
     closeLoginModal.onclick =
-        ()=>closeModal(
+    ()=>{
+
+
+        closeModal(
             loginModal
         );
+
+
+    };
+
+
 
 
 
 
     closeRegisterModal.onclick =
-        ()=>closeModal(
+    ()=>{
+
+
+        closeModal(
             registerModal
         );
+
+
+    };
+
+
 
 
 
@@ -1030,7 +1357,7 @@ function initEvents(){
 
 
         item.onclick =
-            closeAllModal;
+        closeAllModal;
 
 
     });
@@ -1038,6 +1365,14 @@ function initEvents(){
 
 
 
+
+
+
+
+
+    /*
+        NAV BUTTON
+    */
 
 
     document
@@ -1063,7 +1398,44 @@ function initEvents(){
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+/* =========================================
+   ESC CLOSE MODAL
+========================================= */
+
+
+document.addEventListener(
+"keydown",
+(event)=>{
+
+
+    if(
+        event.key === "Escape"
+    ){
+
+
+        closeAllModal();
+
+
+    }
+
+
+});
+
+
 
 
 
@@ -1078,18 +1450,21 @@ function initEvents(){
 
 document.addEventListener(
 "DOMContentLoaded",
-()=>{
+async ()=>{
 
 
     initEvents();
 
 
-    checkSession();
+
+    await checkSession();
+
 
 
     switchPage(
         "home"
     );
+
 
 
 });
