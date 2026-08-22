@@ -903,3 +903,74 @@ a {
 
 }
 
+/* =================================
+PASSWORD TOGGLE
+================================= */
+
+
+.password-wrapper{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+
+
+.password-wrapper input{
+
+    width:100%;
+
+    padding-right:50px;
+
+}
+
+
+
+
+.password-toggle{
+
+    position:absolute;
+
+    right:12px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:24px;
+
+    height:24px;
+
+    padding:0;
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+}
+
+
+
+.password-toggle img{
+
+    width:20px;
+
+    height:20px;
+
+    object-fit:contain;
+
+    opacity:0.65;
+
+}
+
+
+
+.password-toggle:hover img{
+
+    opacity:1;
+
+}
