@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
+
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1.0"
+>
 
 
-<meta name="description" content="Unine">
+<meta 
+name="description" 
+content="Unine"
+>
 
 
 <title>
@@ -19,28 +28,55 @@ Unine
 
 <!-- GLOBAL CSS -->
 
-<link rel="stylesheet" href="index.css">
+<link 
+rel="stylesheet" 
+href="index.css"
+>
+
 
 
 
 <!-- PAGE CSS -->
 
-<link rel="stylesheet" href="home/home/home.css">
+<link 
+rel="stylesheet" 
+href="home/home/home.css"
+>
 
-<link rel="stylesheet" href="shop/shop/shop.css">
 
-<link rel="stylesheet" href="order/order/order.css">
+<link 
+rel="stylesheet" 
+href="shop/shop/shop.css"
+>
 
-<link rel="stylesheet" href="inbox/inbox/inbox.css">
 
-<link rel="stylesheet" href="me/me/me.css">
+<link 
+rel="stylesheet" 
+href="order/order/order.css"
+>
+
+
+<link 
+rel="stylesheet" 
+href="inbox/inbox/inbox.css"
+>
+
+
+<link 
+rel="stylesheet" 
+href="me/me/me.css"
+>
+
 
 
 </head>
 
 
 
+
 <body>
+
+
 
 
 
@@ -49,7 +85,11 @@ HEADER
 ================================= -->
 
 
-<header class="site-header">
+<header 
+id="siteHeader"
+class="site-header"
+>
+
 
 
 <div class="header-container">
@@ -70,7 +110,12 @@ Unine
 
 
 
-<!-- LOGGED OUT -->
+
+
+
+<!-- =====================
+NOT LOGIN
+===================== -->
 
 
 <div
@@ -79,10 +124,15 @@ class="auth-buttons"
 >
 
 
+
 <button
+
 type="button"
+
 id="loginButton"
+
 class="header-button login-button"
+
 >
 
 Login
@@ -91,15 +141,22 @@ Login
 
 
 
+
+
 <button
+
 type="button"
+
 id="registerButton"
+
 class="header-button register-button"
+
 >
 
 Register
 
 </button>
+
 
 
 </div>
@@ -109,18 +166,27 @@ Register
 
 
 
-<!-- LOGGED IN -->
+
+<!-- =====================
+LOGIN USER
+===================== -->
 
 
 <div
+
 id="loggedInActions"
+
 class="auth-buttons hidden"
+
 >
 
 
 <span
+
 id="headerUsername"
+
 class="username"
+
 >
 
 User
@@ -129,20 +195,11 @@ User
 
 
 
-
-<button
-type="button"
-id="logoutButton"
-class="header-button logout-button"
->
-
-Logout
-
-</button>
-
-
-
 </div>
+
+
+
+
 
 
 
@@ -173,28 +230,47 @@ APPLICATION
 
 <!-- HOME -->
 
+
 <section
+
 id="homePage"
+
 class="page-section"
+
 >
 
+
 <h1>
+
 Home
+
 </h1>
+
 
 </section>
 
-  
+
+
+
+
+
+
 <!-- SHOP -->
 
 
 <section
+
 id="shopPage"
+
 class="page-section hidden"
+
 >
 
+
 <h1>
-shop
+
+Shop
+
 </h1>
 
 
@@ -210,13 +286,20 @@ shop
 
 
 <section
+
 id="orderPage"
+
 class="page-section hidden"
+
 >
 
+
 <h1>
-order
+
+Order
+
 </h1>
+
 
 </section>
 
@@ -230,13 +313,20 @@ order
 
 
 <section
+
 id="inboxPage"
+
 class="page-section hidden"
+
 >
 
+
 <h1>
-inbox
+
+Inbox
+
 </h1>
+
 
 </section>
 
@@ -250,9 +340,13 @@ inbox
 
 
 <section
+
 id="mePage"
+
 class="page-section hidden"
+
 >
+
 
 
 </section>
@@ -261,11 +355,10 @@ class="page-section hidden"
 
 
 
+
 </main>
 
-
-
-<!-- =================================
+  <!-- =================================
 BOTTOM NAVIGATION
 ================================= -->
 
@@ -305,8 +398,6 @@ Home
 
 
 
-
-
 <button
 type="button"
 class="nav-item"
@@ -329,8 +420,6 @@ Shop
 
 
 </button>
-
-
 
 
 
@@ -365,8 +454,6 @@ Order
 
 
 
-
-
 <button
 type="button"
 class="nav-item protected"
@@ -389,8 +476,6 @@ Inbox
 
 
 </button>
-
-
 
 
 
@@ -425,23 +510,39 @@ Me
 
 </nav>
 
+
+
+
+
+
+
+
+
 <!-- =================================
 LOGIN MODAL
 ================================= -->
 
 
 <div
+
 id="loginModal"
+
 class="modal hidden"
+
 aria-hidden="true"
+
 >
 
 
 
 <div
+
 class="modal-background"
+
 data-close-modal
+
 ></div>
+
 
 
 
@@ -451,10 +552,16 @@ data-close-modal
 
 
 
+
+
 <button
+
 type="button"
+
 id="closeLoginModal"
+
 class="close-button"
+
 >
 
 ×
@@ -465,11 +572,16 @@ class="close-button"
 
 
 
+
+
 <h2>
 
 Login
 
 </h2>
+
+
+
 
 
 
@@ -486,13 +598,17 @@ Login to your Unine account.
 
 
 
+
 <form id="loginForm">
 
 
 
 
 
+
+
 <div class="input-group">
+
 
 
 <label for="loginEmail">
@@ -527,8 +643,8 @@ required
 
 
 
-
 <div class="input-group">
+
 
 
 <label for="loginPassword">
@@ -563,11 +679,14 @@ required
 
 
 
+
 <div class="forgot-password">
 
 
 <a
+
 href="forgot-password/forgot-password.html"
+
 >
 
 Forgot password?
@@ -576,6 +695,7 @@ Forgot password?
 
 
 </div>
+
 
 
 
@@ -594,9 +714,12 @@ class="primary-button"
 
 >
 
+
 Login
 
+
 </button>
+
 
 
 
@@ -620,17 +743,21 @@ aria-live="polite"
 
 
 
+
+
 </form>
 
 
 
 
-</div>
 
 
 
 </div>
 
+
+
+</div>
 
 
 
@@ -648,7 +775,6 @@ REGISTER MODAL
 ================================= -->
 
 
-
 <div
 
 id="registerModal"
@@ -658,7 +784,6 @@ class="modal hidden"
 aria-hidden="true"
 
 >
-
 
 
 
@@ -675,8 +800,8 @@ data-close-modal
 
 
 
-<div class="modal-box">
 
+<div class="modal-box">
 
 
 
@@ -701,6 +826,7 @@ class="close-button"
 
 
 
+
 <h2>
 
 Create Account
@@ -712,12 +838,12 @@ Create Account
 
 
 
+
 <p>
 
 Join Unine.
 
 </p>
-
 
 
 
@@ -746,7 +872,6 @@ Username
 
 
 
-
 <input
 
 type="text"
@@ -767,10 +892,7 @@ required
 
 
 
-
 </div>
-
-
 
 
 
@@ -791,7 +913,6 @@ Email
 
 
 
-
 <input
 
 type="email"
@@ -808,10 +929,7 @@ required
 
 
 
-
 </div>
-
-
 
 
 
@@ -832,7 +950,6 @@ Password
 
 
 
-
 <input
 
 type="password"
@@ -848,7 +965,6 @@ autocomplete="new-password"
 required
 
 >
-
 
 
 
@@ -874,7 +990,6 @@ Confirm Password
 
 
 
-
 <input
 
 type="password"
@@ -893,9 +1008,7 @@ required
 
 
 
-
 </div>
-
 
 
 
@@ -926,6 +1039,7 @@ Create Account
 
 
 
+
 <div
 
 id="registerMessage"
@@ -944,17 +1058,20 @@ aria-live="polite"
 
 
 
+
 </form>
 
 
 
 
 
-</div>
-
-
 
 </div>
+
+
+
+</div>
+
 
 
 
@@ -973,8 +1090,12 @@ SUPABASE
 
 
 <script
+
 src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+
 </script>
+
+
 
 
 
@@ -984,8 +1105,12 @@ src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 
 <script
+
 src="index.js">
+
 </script>
+
+
 
 
 
@@ -996,37 +1121,54 @@ src="index.js">
 
 
 <script
+
 src="home/home/home.js">
+
 </script>
 
 
 
+
 <script
+
 src="shop/shop/shop.js">
+
 </script>
 
 
 
+
 <script
+
 src="order/order/order.js">
+
 </script>
 
 
 
+
 <script
+
 src="inbox/inbox/inbox.js">
+
 </script>
+
 
 
 
 <script
+
 src="me/me/me.js">
+
 </script>
+
+
 
 
 
 
 
 </body>
+
 
 </html>
