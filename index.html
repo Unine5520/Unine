@@ -16,24 +16,44 @@ Unine
 </title>
 
 
+
+<!-- GLOBAL CSS -->
+
 <link rel="stylesheet" href="index.css">
+
+
+
+<!-- PAGE CSS -->
+
+<link rel="stylesheet" href="home/home/home.css">
+
+<link rel="stylesheet" href="shop/shop/shop.css">
+
+<link rel="stylesheet" href="order/order/order.css">
+
+<link rel="stylesheet" href="inbox/inbox/inbox.css">
+
+<link rel="stylesheet" href="me/me/me.css">
 
 
 </head>
 
 
+
 <body>
 
 
-<!-- ================================
-     HEADER
-================================ -->
+
+<!-- =================================
+HEADER
+================================= -->
 
 
 <header class="site-header">
 
 
 <div class="header-container">
+
 
 
 <div class="logo">
@@ -44,19 +64,23 @@ Unine
 
 
 
+
+
 <div class="auth-area">
 
 
 
-<!-- NOT LOGIN -->
+<!-- LOGGED OUT -->
 
-<div 
+
+<div
 id="loggedOutActions"
 class="auth-buttons"
 >
 
 
 <button
+type="button"
 id="loginButton"
 class="header-button login-button"
 >
@@ -68,6 +92,7 @@ Login
 
 
 <button
+type="button"
 id="registerButton"
 class="header-button register-button"
 >
@@ -83,7 +108,9 @@ Register
 
 
 
-<!-- LOGIN -->
+
+<!-- LOGGED IN -->
+
 
 <div
 id="loggedInActions"
@@ -95,12 +122,16 @@ class="auth-buttons hidden"
 id="headerUsername"
 class="username"
 >
+
 User
+
 </span>
 
 
 
+
 <button
+type="button"
 id="logoutButton"
 class="header-button logout-button"
 >
@@ -110,12 +141,12 @@ Logout
 </button>
 
 
-</div>
-
-
 
 </div>
 
+
+
+</div>
 
 
 </div>
@@ -127,15 +158,20 @@ Logout
 
 
 
-<!-- ================================
-     APPLICATION CONTENT
-================================ -->
+
+
+<!-- =================================
+APPLICATION
+================================= -->
 
 
 <main id="app">
 
 
-<!-- HOME DEFAULT -->
+
+
+
+<!-- HOME -->
 
 
 <section
@@ -144,32 +180,77 @@ class="page-section"
 >
 
 
-<h1>
-Welcome to Unine
-</h1>
-
-
-<p>
-Your global platform
-</p>
+</section>
 
 
 
-<div
-id="welcomeUser"
-class="welcome-user hidden"
+
+
+
+
+<!-- SHOP -->
+
+
+<section
+id="shopPage"
+class="page-section hidden"
 >
 
 
-Welcome,
-
-<span id="welcomeUsername"></span>
+</section>
 
 
-</div>
+
+
+
+
+
+<!-- ORDER -->
+
+
+<section
+id="orderPage"
+class="page-section hidden"
+>
 
 
 </section>
+
+
+
+
+
+
+
+<!-- INBOX -->
+
+
+<section
+id="inboxPage"
+class="page-section hidden"
+>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ME -->
+
+
+<section
+id="mePage"
+class="page-section hidden"
+>
+
+
+</section>
+
+
 
 
 
@@ -181,29 +262,38 @@ Welcome,
 
 
 
-<!-- ================================
-     BOTTOM NAVIGATION
-================================ -->
+
+<!-- =================================
+BOTTOM NAVIGATION
+================================= -->
 
 
+<nav
+class="bottom-navigation"
+>
 
-<nav class="bottom-navigation">
+
 
 
 <button
+type="button"
 class="nav-item active"
 data-page="home"
 >
 
 
-<span>
+<span class="nav-icon">
+
 🏠
+
 </span>
 
 
-<label>
+<span class="nav-label">
+
 Home
-</label>
+
+</span>
 
 
 </button>
@@ -212,20 +302,28 @@ Home
 
 
 
+
+
+
 <button
+type="button"
 class="nav-item"
 data-page="shop"
 >
 
 
-<span>
+<span class="nav-icon">
+
 🛒
+
 </span>
 
 
-<label>
+<span class="nav-label">
+
 Shop
-</label>
+
+</span>
 
 
 </button>
@@ -235,20 +333,27 @@ Shop
 
 
 
+
+
 <button
+type="button"
 class="nav-item protected"
 data-page="order"
 >
 
 
-<span>
+<span class="nav-icon">
+
 📦
+
 </span>
 
 
-<label>
+<span class="nav-label">
+
 Order
-</label>
+
+</span>
 
 
 </button>
@@ -257,20 +362,28 @@ Order
 
 
 
+
+
+
 <button
+type="button"
 class="nav-item protected"
 data-page="inbox"
 >
 
 
-<span>
+<span class="nav-icon">
+
 💬
+
 </span>
 
 
-<label>
+<span class="nav-label">
+
 Inbox
-</label>
+
+</span>
 
 
 </button>
@@ -280,20 +393,27 @@ Inbox
 
 
 
+
+
 <button
+type="button"
 class="nav-item protected"
 data-page="me"
 >
 
 
-<span>
+<span class="nav-icon">
+
 👤
+
 </span>
 
 
-<label>
+<span class="nav-label">
+
 Me
-</label>
+
+</span>
 
 
 </button>
@@ -303,20 +423,15 @@ Me
 
 </nav>
 
-
-
-
-
-
-
-<!-- ================================
-     LOGIN MODAL
-================================ -->
+<!-- =================================
+LOGIN MODAL
+================================= -->
 
 
 <div
 id="loginModal"
 class="modal hidden"
+aria-hidden="true"
 >
 
 
@@ -335,6 +450,7 @@ data-close-modal
 
 
 <button
+type="button"
 id="closeLoginModal"
 class="close-button"
 >
@@ -345,15 +461,24 @@ class="close-button"
 
 
 
+
+
 <h2>
+
 Login
+
 </h2>
 
 
 
+
 <p>
-Login to your Unine account
+
+Login to your Unine account.
+
 </p>
+
+
 
 
 
@@ -363,12 +488,17 @@ Login to your Unine account
 
 
 
+
+
 <div class="input-group">
 
 
-<label>
+<label for="loginEmail">
+
 Email
+
 </label>
+
 
 
 <input
@@ -386,7 +516,10 @@ required
 >
 
 
+
 </div>
+
+
 
 
 
@@ -396,9 +529,12 @@ required
 <div class="input-group">
 
 
-<label>
+<label for="loginPassword">
+
 Password
+
 </label>
+
 
 
 <input
@@ -416,7 +552,9 @@ required
 >
 
 
+
 </div>
+
 
 
 
@@ -426,7 +564,9 @@ required
 <div class="forgot-password">
 
 
-<a href="forgot-password/forgot-password.html">
+<a
+href="forgot-password/forgot-password.html"
+>
 
 Forgot password?
 
@@ -441,14 +581,18 @@ Forgot password?
 
 
 
+
 <button
+
+type="submit"
+
 id="loginSubmit"
+
 class="primary-button"
+
 >
 
-
 Login
-
 
 </button>
 
@@ -457,9 +601,15 @@ Login
 
 
 
+
 <div
+
 id="loginMessage"
+
 class="form-message"
+
+aria-live="polite"
+
 >
 
 </div>
@@ -476,6 +626,7 @@ class="form-message"
 </div>
 
 
+
 </div>
 
 
@@ -486,23 +637,37 @@ class="form-message"
 
 
 
-<!-- ================================
-     REGISTER MODAL
-================================ -->
+
+
+
+
+<!-- =================================
+REGISTER MODAL
+================================= -->
 
 
 
 <div
+
 id="registerModal"
+
 class="modal hidden"
+
+aria-hidden="true"
+
 >
 
 
 
+
 <div
+
 class="modal-background"
+
 data-close-modal
+
 ></div>
+
 
 
 
@@ -512,9 +677,17 @@ data-close-modal
 
 
 
+
+
+
 <button
+
+type="button"
+
 id="closeRegisterModal"
+
 class="close-button"
+
 >
 
 ×
@@ -524,15 +697,28 @@ class="close-button"
 
 
 
+
+
 <h2>
+
 Create Account
+
 </h2>
 
 
 
+
+
+
 <p>
-Join Unine
+
+Join Unine.
+
 </p>
+
+
+
+
 
 
 
@@ -545,12 +731,18 @@ Join Unine
 
 
 
+
 <div class="input-group">
 
 
-<label>
+
+<label for="registerUsername">
+
 Username
+
 </label>
+
+
 
 
 <input
@@ -565,9 +757,13 @@ minlength="3"
 
 maxlength="30"
 
+autocomplete="username"
+
 required
 
 >
+
+
 
 
 </div>
@@ -577,12 +773,21 @@ required
 
 
 
+
+
+
+
 <div class="input-group">
 
 
-<label>
+
+<label for="registerEmail">
+
 Email
+
 </label>
+
+
 
 
 <input
@@ -593,9 +798,13 @@ id="registerEmail"
 
 name="email"
 
+autocomplete="email"
+
 required
 
 >
+
+
 
 
 </div>
@@ -606,12 +815,20 @@ required
 
 
 
+
+
+
 <div class="input-group">
 
 
-<label>
+
+<label for="registerPassword">
+
 Password
+
 </label>
+
+
 
 
 <input
@@ -624,9 +841,13 @@ name="password"
 
 minlength="8"
 
+autocomplete="new-password"
+
 required
 
 >
+
+
 
 
 </div>
@@ -638,12 +859,18 @@ required
 
 
 
+
 <div class="input-group">
 
 
-<label>
+
+<label for="registerPasswordConfirm">
+
 Confirm Password
+
 </label>
+
+
 
 
 <input
@@ -656,9 +883,13 @@ name="password_confirm"
 
 minlength="8"
 
+autocomplete="new-password"
+
 required
 
 >
+
+
 
 
 </div>
@@ -668,7 +899,12 @@ required
 
 
 
+
+
+
 <button
+
+type="submit"
 
 id="registerSubmit"
 
@@ -694,10 +930,12 @@ id="registerMessage"
 
 class="form-message"
 
+aria-live="polite"
+
 >
 
-
 </div>
+
 
 
 
@@ -709,28 +947,81 @@ class="form-message"
 
 
 
-</div>
-
 
 </div>
 
 
 
+</div>
 
 
 
 
 
 
-<!-- ================================
-     SUPABASE
-================================ -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 
-<script src="index.js"></script>
+
+
+
+<!-- =================================
+SUPABASE
+================================= -->
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+
+
+
+<!-- CORE -->
+
+
+<script
+src="index.js">
+</script>
+
+
+
+
+
+
+<!-- PAGE JS -->
+
+
+<script
+src="home/home/home.js">
+</script>
+
+
+
+<script
+src="shop/shop/shop.js">
+</script>
+
+
+
+<script
+src="order/order/order.js">
+</script>
+
+
+
+<script
+src="inbox/inbox/inbox.js">
+</script>
+
+
+
+<script
+src="me/me/me.js">
+</script>
+
+
 
 
 
