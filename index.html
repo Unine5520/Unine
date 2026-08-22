@@ -1,1 +1,434 @@
-# Unine
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="U9 Platform"
+    >
+
+    <title>U9 Platform</title>
+
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+
+        <div class="header-container">
+
+            <a href="./index.html" class="logo">
+                U9
+            </a>
+
+            <div class="auth-area" id="authArea">
+
+                <!-- Logged out -->
+                <div class="logged-out-actions" id="loggedOutActions">
+
+                    <button
+                        type="button"
+                        class="header-button login-button"
+                        id="loginButton"
+                    >
+                        Login
+                    </button>
+
+                    <button
+                        type="button"
+                        class="header-button register-button"
+                        id="registerButton"
+                    >
+                        Register
+                    </button>
+
+                </div>
+
+
+                <!-- Logged in -->
+                <div
+                    class="logged-in-actions hidden"
+                    id="loggedInActions"
+                >
+
+                    <span
+                        class="user-name"
+                        id="headerUsername"
+                    >
+                        User
+                    </span>
+
+                    <button
+                        type="button"
+                        class="header-button logout-button"
+                        id="logoutButton"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main class="main-content">
+
+        <section class="hero-section">
+
+            <div class="hero-content">
+
+                <p class="hero-label">
+                    U9 PLATFORM
+                </p>
+
+                <h1>
+                    Welcome to U9
+                </h1>
+
+                <p class="hero-description">
+                    Your platform starts here.
+                </p>
+
+                <div
+                    class="welcome-user hidden"
+                    id="welcomeUser"
+                >
+                    Welcome,
+                    <span id="welcomeUsername"></span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         BOTTOM NAVIGATION
+    ========================== -->
+    <nav
+        class="bottom-navigation"
+        aria-label="Main navigation"
+    >
+
+        <a
+            href="./index.html"
+            class="nav-item active"
+            data-page="home"
+        >
+            <span class="nav-icon">⌂</span>
+            <span class="nav-label">Home</span>
+        </a>
+
+
+        <a
+            href="./shop/shop.html"
+            class="nav-item"
+            data-page="shop"
+        >
+            <span class="nav-icon">▣</span>
+            <span class="nav-label">Shop</span>
+        </a>
+
+
+        <a
+            href="./order/order.html"
+            class="nav-item"
+            data-page="order"
+        >
+            <span class="nav-icon">◈</span>
+            <span class="nav-label">Order</span>
+        </a>
+
+
+        <a
+            href="./inbox/inbox.html"
+            class="nav-item"
+            data-page="about"
+        >
+            <span class="nav-icon">✉</span>
+            <span class="nav-label">About</span>
+        </a>
+
+
+        <a
+            href="./me/me.html"
+            class="nav-item"
+            data-page="me"
+        >
+            <span class="nav-icon">●</span>
+            <span class="nav-label">Me</span>
+        </a>
+
+    </nav>
+
+
+    <!-- =========================
+         LOGIN MODAL
+    ========================== -->
+    <div
+        class="modal hidden"
+        id="loginModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-overlay"
+            data-close-modal
+        ></div>
+
+        <div
+            class="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="loginTitle"
+        >
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeLoginModal"
+                aria-label="Close login"
+            >
+                ×
+            </button>
+
+            <h2 id="loginTitle">
+                Login
+            </h2>
+
+            <p class="modal-description">
+                Login to your U9 account.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        name="email"
+                        autocomplete="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        name="password"
+                        autocomplete="current-password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="loginSubmit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+            <p
+                class="form-message"
+                id="loginMessage"
+                role="alert"
+                aria-live="polite"
+            ></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         REGISTER MODAL
+    ========================== -->
+    <div
+        class="modal hidden"
+        id="registerModal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal-overlay"
+            data-close-modal
+        ></div>
+
+        <div
+            class="modal-content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="registerTitle"
+        >
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeRegisterModal"
+                aria-label="Close register"
+            >
+                ×
+            </button>
+
+            <h2 id="registerTitle">
+                Register
+            </h2>
+
+            <p class="modal-description">
+                Create your U9 account.
+            </p>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+
+                    <label for="registerUsername">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="registerUsername"
+                        name="username"
+                        autocomplete="username"
+                        minlength="3"
+                        maxlength="30"
+                        pattern="[A-Za-z0-9_]+"
+                        placeholder="3-30 characters"
+                        required
+                    >
+
+                    <small>
+                        Letters, numbers and underscore only.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        name="email"
+                        autocomplete="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        name="password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        placeholder="At least 8 characters"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerPasswordConfirm">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="registerPasswordConfirm"
+                        name="password_confirm"
+                        autocomplete="new-password"
+                        minlength="8"
+                        placeholder="Enter password again"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="registerSubmit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+            <p
+                class="form-message"
+                id="registerMessage"
+                role="alert"
+                aria-live="polite"
+            ></p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Supabase JavaScript Client -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <!-- Application JavaScript -->
+    <script src="./index.js"></script>
+
+</body>
+</html>
