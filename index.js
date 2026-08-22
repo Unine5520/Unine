@@ -28,6 +28,8 @@ createClient(
 
 
 
+
+
 /* =========================================
    DOM
 ========================================= */
@@ -54,6 +56,8 @@ document.getElementById(
 
 
 
+
+
 const loggedOutActions =
 document.getElementById(
     "loggedOutActions"
@@ -72,6 +76,9 @@ const headerUsername =
 document.getElementById(
     "headerUsername"
 );
+
+
+
 
 
 
@@ -96,6 +103,8 @@ document.getElementById(
 
 
 
+
+
 const closeLoginModal =
 document.getElementById(
     "closeLoginModal"
@@ -112,7 +121,12 @@ document.getElementById(
 
 
 
-/* LOGIN FORM */
+
+
+
+/* =========================================
+   LOGIN FORM
+========================================= */
 
 
 const loginForm =
@@ -138,7 +152,13 @@ document.getElementById(
 
 
 
-/* REGISTER FORM */
+
+
+
+
+/* =========================================
+   REGISTER FORM
+========================================= */
 
 
 const registerForm =
@@ -165,42 +185,43 @@ document.getElementById(
 
 
 
+
 /* =========================================
-   PAGE
+   PAGE SYSTEM
 ========================================= */
 
 
 const pages = {
 
 
-home:
-document.getElementById(
-    "homePage"
-),
+    home:
+    document.getElementById(
+        "homePage"
+    ),
 
 
-shop:
-document.getElementById(
-    "shopPage"
-),
+    shop:
+    document.getElementById(
+        "shopPage"
+    ),
 
 
-order:
-document.getElementById(
-    "orderPage"
-),
+    order:
+    document.getElementById(
+        "orderPage"
+    ),
 
 
-inbox:
-document.getElementById(
-    "inboxPage"
-),
+    inbox:
+    document.getElementById(
+        "inboxPage"
+    ),
 
 
-me:
-document.getElementById(
-    "mePage"
-)
+    me:
+    document.getElementById(
+        "mePage"
+    )
 
 
 };
@@ -209,7 +230,90 @@ document.getElementById(
 
 
 
+
 let currentUser = null;
+
+
+
+
+
+
+
+
+
+/* =========================================
+   PASSWORD TOGGLE
+========================================= */
+
+
+function initPasswordToggle(){
+
+
+    const buttons =
+    document.querySelectorAll(
+        ".password-toggle"
+    );
+
+
+
+    buttons.forEach(button=>{
+
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+
+                const targetId =
+                button.dataset.target;
+
+
+
+                const input =
+                document.getElementById(
+                    targetId
+                );
+
+
+
+                if(!input)
+                    return;
+
+
+
+
+                if(
+                    input.type === "password"
+                ){
+
+
+                    input.type =
+                    "text";
+
+
+
+                }
+                else{
+
+
+                    input.type =
+                    "password";
+
+
+                }
+
+
+
+            }
+        );
+
+
+    });
+
+
+}
+
+
 
 
 
@@ -225,9 +329,12 @@ let currentUser = null;
 function updateHeader(){
 
 
+
     /*
         未登录
-        首页显示完整 Header
+
+        Home 显示 Header
+
     */
 
 
@@ -239,11 +346,13 @@ function updateHeader(){
         );
 
 
+
         loggedOutActions
         .classList
         .remove(
             "hidden"
         );
+
 
 
         loggedInActions
@@ -253,9 +362,12 @@ function updateHeader(){
         );
 
 
+
         return;
 
     }
+
+
 
 
 
@@ -264,9 +376,10 @@ function updateHeader(){
     /*
         登录以后
 
-        只有 home 显示 header
+        只有 Home 显示 Header
 
     */
+
 
 
     const currentPage =
@@ -274,12 +387,18 @@ function updateHeader(){
 
 
 
-    if(currentPage==="home"){
+
+
+    if(
+        currentPage === "home"
+    ){
+
 
 
         header.classList.remove(
             "hidden"
         );
+
 
 
         loggedOutActions
@@ -289,6 +408,7 @@ function updateHeader(){
         );
 
 
+
         loggedInActions
         .classList
         .remove(
@@ -296,10 +416,12 @@ function updateHeader(){
         );
 
 
+
         return;
 
 
     }
+
 
 
 
@@ -310,7 +432,11 @@ function updateHeader(){
     );
 
 
+
 }
+
+
+
 
 
 
@@ -320,9 +446,11 @@ function updateHeader(){
 function getCurrentPage(){
 
 
+
     for(
         const key in pages
     ){
+
 
 
         if(
@@ -333,11 +461,16 @@ function getCurrentPage(){
             )
         ){
 
+
             return key;
+
 
         }
 
+
+
     }
+
 
 
     return "home";
@@ -376,6 +509,7 @@ function openModal(modal){
 
 
 
+
 function closeModal(modal){
 
 
@@ -402,6 +536,7 @@ function closeModal(modal){
 
 
 
+
 function closeAllModal(){
 
 
@@ -416,6 +551,8 @@ function closeAllModal(){
 
 
 }
+
+
 
 
 
@@ -457,12 +594,16 @@ function showMessage(
 
 
 
+
 function clearMessage(element){
 
 
-    if(element)
+    if(element){
+
         element.textContent =
         "";
+
+    }
 
 
 }
@@ -483,12 +624,16 @@ function clearMessage(element){
 function updateAuthUI(user){
 
 
+
     currentUser =
-        user;
+    user;
+
+
 
 
 
     if(!user){
+
 
 
         loggedOutActions
@@ -496,6 +641,7 @@ function updateAuthUI(user){
         .remove(
             "hidden"
         );
+
 
 
         loggedInActions
@@ -516,7 +662,10 @@ function updateAuthUI(user){
 
         return;
 
+
     }
+
+
 
 
 
@@ -542,16 +691,23 @@ function updateAuthUI(user){
 
 
     const username =
+
         user.user_metadata?.username
+
         ||
+
         user.email
         .split("@")[0];
 
 
 
 
+
+
     headerUsername.textContent =
-        username;
+    username;
+
+
 
 
 
@@ -579,13 +735,19 @@ async function checkSession(){
 
 
     const {
+
         data,
+
         error
 
+
     } =
+
     await supabaseClient
     .auth
     .getSession();
+
+
 
 
 
@@ -602,7 +764,9 @@ async function checkSession(){
 
         return;
 
+
     }
+
 
 
 
@@ -632,6 +796,7 @@ async function checkSession(){
 supabaseClient
 .auth
 .onAuthStateChange(
+
 (event,session)=>{
 
 
@@ -640,7 +805,12 @@ supabaseClient
     );
 
 
-});
+}
+
+);
+
+
+
 
 
 
@@ -662,6 +832,8 @@ async function login(event){
 
 
 
+
+
     clearMessage(
         loginMessage
     );
@@ -670,40 +842,59 @@ async function login(event){
 
 
 
+
+
     const form =
-        new FormData(
-            loginForm
-        );
+
+    new FormData(
+        loginForm
+    );
+
+
 
 
 
 
     const email =
-        String(
-            form.get("email")
-        )
-        .trim()
-        .toLowerCase();
+
+    String(
+        form.get("email")
+    )
+
+    .trim()
+
+    .toLowerCase();
+
+
+
 
 
 
 
     const password =
-        String(
-            form.get("password")
-        );
+
+    String(
+        form.get("password")
+    );
+
+
+
 
 
 
 
 
     loginSubmit.disabled =
-        true;
+    true;
 
 
 
     loginSubmit.textContent =
-        "Logging in...";
+    "Logging in...";
+
+
+
+
 
 
 
@@ -712,20 +903,31 @@ async function login(event){
     try{
 
 
+
         const {
+
             data,
+
             error
 
+
         } =
+
         await supabaseClient
         .auth
         .signInWithPassword({
+
 
             email,
 
             password
 
+
         });
+
+
+
+
 
 
 
@@ -734,13 +936,18 @@ async function login(event){
         if(error){
 
 
+
             showMessage(
+
                 loginMessage,
+
                 error.message
+
             );
 
 
             return;
+
 
         }
 
@@ -750,17 +957,28 @@ async function login(event){
 
 
 
+
+
         showMessage(
+
             loginMessage,
+
             "Login successful",
+
             "success"
+
         );
 
 
 
 
 
+
+
+
+
         setTimeout(()=>{
+
 
 
             closeModal(
@@ -782,8 +1000,12 @@ async function login(event){
 
 
 
+
     }
+
+
     catch(error){
+
 
 
         console.error(
@@ -793,25 +1015,36 @@ async function login(event){
 
 
         showMessage(
+
             loginMessage,
+
             "Login failed"
+
         );
 
 
     }
+
+
+
+
+
     finally{
 
 
+
         loginSubmit.disabled =
-            false;
+        false;
 
 
 
         loginSubmit.textContent =
-            "Login";
+        "Login";
+
 
 
     }
+
 
 
 
@@ -833,7 +1066,10 @@ async function login(event){
 async function register(event){
 
 
+
     event.preventDefault();
+
+
 
 
 
@@ -845,51 +1081,78 @@ async function register(event){
 
 
 
+
+
+
     const form =
-        new FormData(
-            registerForm
-        );
+
+    new FormData(
+        registerForm
+    );
+
+
 
 
 
 
 
     const username =
-        String(
-            form.get("username")
-        )
-        .trim();
+
+    String(
+        form.get("username")
+    )
+
+    .trim();
+
+
+
 
 
 
 
 
     const email =
-        String(
-            form.get("email")
-        )
-        .trim()
-        .toLowerCase();
+
+    String(
+        form.get("email")
+    )
+
+    .trim()
+
+    .toLowerCase();
+
+
+
 
 
 
 
 
     const password =
-        String(
-            form.get("password")
-        );
+
+    String(
+        form.get("password")
+    );
+
+
+
 
 
 
 
 
     const confirm =
-        String(
-            form.get(
-                "password_confirm"
-            )
-        );
+
+    String(
+
+        form.get(
+            "password_confirm"
+        )
+
+    );
+
+
+
 
 
 
@@ -899,15 +1162,22 @@ async function register(event){
     if(password !== confirm){
 
 
+
         showMessage(
+
             registerMessage,
+
             "Passwords do not match"
+
         );
 
 
         return;
 
+
     }
+
+
 
 
 
@@ -918,13 +1188,18 @@ async function register(event){
     if(password.length < 8){
 
 
+
         showMessage(
+
             registerMessage,
+
             "Password must be at least 8 characters"
+
         );
 
 
         return;
+
 
     }
 
@@ -933,13 +1208,16 @@ async function register(event){
 
 
 
+
+
     registerSubmit.disabled =
-        true;
+    true;
 
 
 
     registerSubmit.textContent =
-        "Creating...";
+    "Creating...";
+
 
 
 
@@ -950,23 +1228,31 @@ async function register(event){
     try{
 
 
+
         const {
 
             data,
+
             error
 
 
         } =
+
         await supabaseClient
         .auth
         .signUp({
+
+
 
             email,
 
             password,
 
 
+
+
             options:{
+
 
 
                 data:{
@@ -978,7 +1264,9 @@ async function register(event){
                 }
 
 
+
             }
+
 
 
         });
@@ -990,16 +1278,22 @@ async function register(event){
 
 
 
+
         if(error){
 
 
+
             showMessage(
+
                 registerMessage,
+
                 error.message
+
             );
 
 
             return;
+
 
         }
 
@@ -1009,11 +1303,19 @@ async function register(event){
 
 
 
+
         showMessage(
+
             registerMessage,
+
             "Account created",
+
             "success"
+
         );
+
+
+
 
 
 
@@ -1025,7 +1327,12 @@ async function register(event){
 
 
 
+
+
+
+
         setTimeout(()=>{
+
 
 
             closeModal(
@@ -1039,6 +1346,7 @@ async function register(event){
             );
 
 
+
         },800);
 
 
@@ -1046,8 +1354,14 @@ async function register(event){
 
 
 
+
+
+
     }
+
+
     catch(error){
+
 
 
         console.error(
@@ -1055,26 +1369,41 @@ async function register(event){
         );
 
 
+
         showMessage(
+
             registerMessage,
+
             "Register failed"
+
         );
 
 
+
     }
+
+
+
+
+
+
     finally{
 
 
+
         registerSubmit.disabled =
-            false;
+        false;
 
 
 
         registerSubmit.textContent =
-            "Create Account";
+        "Create Account";
+
 
 
     }
+
+
 
 
 
@@ -1103,16 +1432,22 @@ async function switchPage(page){
 
 
 
+
     /*
-        未登录保护页面
+        需要登录页面保护
     */
 
 
     if(
+
         protectedPages.includes(page)
+
         &&
+
         !currentUser
+
     ){
+
 
 
         openModal(
@@ -1130,7 +1465,10 @@ async function switchPage(page){
 
 
 
+
+
     Object.values(pages)
+
     .forEach(section=>{
 
 
@@ -1146,13 +1484,17 @@ async function switchPage(page){
 
 
 
+
     if(
         pages[page]
     ){
 
 
+
         pages[page]
+
         .classList
+
         .remove(
             "hidden"
         );
@@ -1165,16 +1507,21 @@ async function switchPage(page){
 
 
 
+
+
     /*
         NAV ACTIVE
     */
 
 
     document
+
     .querySelectorAll(
         ".nav-item"
     )
+
     .forEach(item=>{
+
 
 
         item.classList.remove(
@@ -1183,9 +1530,14 @@ async function switchPage(page){
 
 
 
+
+
         if(
+
             item.dataset.page === page
+
         ){
+
 
 
             item.classList.add(
@@ -1196,8 +1548,8 @@ async function switchPage(page){
         }
 
 
-    });
 
+    });
 
 
 
@@ -1207,8 +1559,10 @@ async function switchPage(page){
     updateHeader();
 
 
-
 }
+
+
+
 
 
 
@@ -1231,171 +1585,229 @@ function initEvents(){
 
 
 
+
     /*
-        LOGIN OPEN
+        OPEN LOGIN
     */
 
 
-    loginButton.onclick =
-    ()=>{
+    if(loginButton){
 
 
-        clearMessage(
-            loginMessage
-        );
-
-
-
-        openModal(
-            loginModal
-        );
-
-
-    };
-
-
-
-
-
-
-
-
-    /*
-        REGISTER OPEN
-    */
-
-
-    registerButton.onclick =
-    ()=>{
-
-
-        clearMessage(
-            registerMessage
-        );
-
-
-
-        openModal(
-            registerModal
-        );
-
-
-    };
-
-
-
-
-
-
-
-
-
-    /*
-        FORM
-    */
-
-
-    loginForm.onsubmit =
-        login;
-
-
-
-    registerForm.onsubmit =
-        register;
-
-
-
-
-
-
-
-
-    /*
-        CLOSE MODAL
-    */
-
-
-    closeLoginModal.onclick =
-    ()=>{
-
-
-        closeModal(
-            loginModal
-        );
-
-
-    };
-
-
-
-
-
-
-    closeRegisterModal.onclick =
-    ()=>{
-
-
-        closeModal(
-            registerModal
-        );
-
-
-    };
-
-
-
-
-
-
-
-
-    document
-    .querySelectorAll(
-        "[data-close-modal]"
-    )
-    .forEach(item=>{
-
-
-        item.onclick =
-        closeAllModal;
-
-
-    });
-
-
-
-
-
-
-
-
-
-    /*
-        NAV BUTTON
-    */
-
-
-    document
-    .querySelectorAll(
-        ".nav-item"
-    )
-    .forEach(button=>{
-
-
-        button.onclick =
+        loginButton.onclick =
         ()=>{
 
 
-            switchPage(
-                button.dataset.page
+            clearMessage(
+                loginMessage
+            );
+
+
+            openModal(
+                loginModal
             );
 
 
         };
 
 
+    }
+
+
+
+
+
+
+
+
+
+    /*
+        OPEN REGISTER
+    */
+
+
+    if(registerButton){
+
+
+        registerButton.onclick =
+        ()=>{
+
+
+            clearMessage(
+                registerMessage
+            );
+
+
+            openModal(
+                registerModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+        FORM SUBMIT
+    */
+
+
+    if(loginForm){
+
+
+        loginForm.onsubmit =
+        login;
+
+
+    }
+
+
+
+
+    if(registerForm){
+
+
+        registerForm.onsubmit =
+        register;
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+        CLOSE BUTTON
+    */
+
+
+    if(closeLoginModal){
+
+
+        closeLoginModal.onclick =
+        ()=>{
+
+
+            closeModal(
+                loginModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+    if(closeRegisterModal){
+
+
+        closeRegisterModal.onclick =
+        ()=>{
+
+
+            closeModal(
+                registerModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+
+
+
+
+    /*
+        CLICK BACKGROUND CLOSE
+    */
+
+
+    document
+
+    .querySelectorAll(
+        "[data-close-modal]"
+    )
+
+    .forEach(item=>{
+
+
+
+        item.onclick =
+        closeAllModal;
+
+
+
     });
 
+
+
+
+
+
+
+
+
+
+
+
+    /*
+        NAVIGATION
+    */
+
+
+    document
+
+    .querySelectorAll(
+        ".nav-item"
+    )
+
+    .forEach(button=>{
+
+
+
+        button.onclick =
+        ()=>{
+
+
+
+            switchPage(
+
+                button.dataset.page
+
+            );
+
+
+
+        };
+
+
+
+    });
 
 
 
@@ -1412,28 +1824,47 @@ function initEvents(){
 
 
 
+
+
+
+
 /* =========================================
    ESC CLOSE MODAL
 ========================================= */
 
 
 document.addEventListener(
+
 "keydown",
+
 (event)=>{
 
 
+
     if(
+
         event.key === "Escape"
+
     ){
+
 
 
         closeAllModal();
 
 
+
     }
 
 
-});
+
+}
+
+);
+
+
+
+
+
 
 
 
@@ -1449,16 +1880,54 @@ document.addEventListener(
 
 
 document.addEventListener(
+
 "DOMContentLoaded",
+
 async ()=>{
+
+
+
+    /*
+        初始化事件
+    */
 
 
     initEvents();
 
 
 
+
+
+    /*
+        密码眼睛
+    */
+
+
+    initPasswordToggle();
+
+
+
+
+
+
+
+    /*
+        检查登录状态
+    */
+
+
     await checkSession();
 
+
+
+
+
+
+
+
+    /*
+        默认 Home
+    */
 
 
     switchPage(
