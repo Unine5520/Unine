@@ -52,16 +52,14 @@ function closeLogoutModal(){
 
 
     /*
-        remove focus first
-        fix aria-hidden warning
+        remove focus
+        prevent aria-hidden warning
     */
 
 
     if(document.activeElement){
 
-
         document.activeElement.blur();
-
 
     }
 
@@ -108,7 +106,6 @@ function openLogoutModal(){
 
 
 
-
     logoutModal
     .classList
     .remove(
@@ -124,7 +121,6 @@ function openLogoutModal(){
     );
 
 
-
 }
 
 
@@ -136,15 +132,15 @@ function openLogoutModal(){
 
 
 /* =========================================
-   OPEN BUTTON
+   OPEN LOGOUT BUTTON
 ========================================= */
 
 
 if(settingLogoutButton){
 
 
-
-    settingLogoutButton.onclick = ()=>{
+    settingLogoutButton.onclick =
+    ()=>{
 
 
         console.log(
@@ -178,12 +174,11 @@ if(settingLogoutButton){
 if(cancelLogout){
 
 
-
-    cancelLogout.onclick = ()=>{
+    cancelLogout.onclick =
+    ()=>{
 
 
         closeLogoutModal();
-
 
 
     };
@@ -242,7 +237,6 @@ if(logoutBackground){
 if(confirmLogout){
 
 
-
     confirmLogout.onclick =
     async()=>{
 
@@ -256,15 +250,18 @@ if(confirmLogout){
         try{
 
 
-            const result =
+            const {
+                error
+            } =
+
             await supabaseClient
             .auth
             .signOut();
 
-            console.log(
-               "Supabase logout result:",
-               result
-            );
+
+
+
+
 
 
             if(error){
@@ -281,6 +278,14 @@ if(confirmLogout){
 
             }
 
+
+
+
+
+
+            console.log(
+                "Logout successful"
+            );
 
 
 
@@ -309,12 +314,10 @@ if(confirmLogout){
         catch(error){
 
 
-
             console.error(
                 "Logout failed:",
                 error
             );
-
 
 
         }
@@ -322,7 +325,6 @@ if(confirmLogout){
 
 
     };
-
 
 
 }
