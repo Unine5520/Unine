@@ -36,57 +36,10 @@ document.getElementById(
 
 
 
-
-
-/* =========================================
-   CLOSE LOGOUT MODAL
-========================================= */
-
-
-function closeLogoutModal(){
-
-
-    if(!logoutModal)
-        return;
-
-
-
-    /*
-        remove focus
-        prevent aria-hidden warning
-    */
-
-
-    if(document.activeElement){
-
-        document.activeElement.blur();
-
-    }
-
-
-
-
-
-    logoutModal
-    .classList
-    .add(
-        "hidden"
-    );
-
-
-
-    logoutModal
-    .setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-
-
-}
-
-
-
+const logoutBackground =
+document.querySelector(
+    "[data-close-logout]"
+);
 
 
 
@@ -130,9 +83,62 @@ function openLogoutModal(){
 
 
 
+/* =========================================
+   CLOSE LOGOUT MODAL
+========================================= */
+
+
+function closeLogoutModal(){
+
+
+    if(!logoutModal)
+        return;
+
+
+
+    /*
+        remove focus
+        prevent aria-hidden warning
+    */
+
+
+    if(
+        document.activeElement
+    ){
+
+        document.activeElement.blur();
+
+    }
+
+
+
+
+    logoutModal
+    .classList
+    .add(
+        "hidden"
+    );
+
+
+
+    logoutModal
+    .setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+}
+
+
+
+
+
+
+
 
 /* =========================================
-   OPEN LOGOUT BUTTON
+   OPEN BUTTON
 ========================================= */
 
 
@@ -165,9 +171,8 @@ if(settingLogoutButton){
 
 
 
-
 /* =========================================
-   CANCEL LOGOUT
+   CANCEL BUTTON
 ========================================= */
 
 
@@ -181,11 +186,11 @@ if(cancelLogout){
         closeLogoutModal();
 
 
+
     };
 
 
 }
-
 
 
 
@@ -199,13 +204,6 @@ if(cancelLogout){
 ========================================= */
 
 
-const logoutBackground =
-document.querySelector(
-    "[data-close-logout]"
-);
-
-
-
 if(logoutBackground){
 
 
@@ -216,11 +214,11 @@ if(logoutBackground){
         closeLogoutModal();
 
 
+
     };
 
 
 }
-
 
 
 
@@ -257,8 +255,6 @@ if(confirmLogout){
             await supabaseClient
             .auth
             .signOut();
-
-
 
 
 
