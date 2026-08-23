@@ -256,20 +256,18 @@ if(confirmLogout){
         try{
 
 
-            const {
-                error
-            } =
-
+            const result =
             await supabaseClient
             .auth
             .signOut();
 
-
-
+            console.log(
+               "Supabase logout result:",
+               result
+            );
 
 
             if(error){
-
 
 
                 console.error(
