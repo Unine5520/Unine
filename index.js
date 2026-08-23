@@ -1347,6 +1347,10 @@ async function register(event){
                 "home"
             );
 
+        },800);
+
+        }
+
 
     catch(error){
 
