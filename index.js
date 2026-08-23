@@ -1343,20 +1343,9 @@ async function register(event){
 
 
 
-            openModal(
-                loginModal
+            switchPage(
+                "home"
             );
-
-
-
-        },800);
-
-
-
-
-
-
-
 
 
     }
