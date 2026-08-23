@@ -522,25 +522,21 @@ function closeModal(modal){
     if(!modal)
         return;
 
+    if(document.activeElement){
 
+        document.activeElement.blur();
+    }
 
     modal.classList.add(
-        "hidden"
+       "hidden"
     );
-
-
 
     modal.setAttribute(
-        "aria-hidden",
-        "true"
+       "aria-hidden",
+       "true"
     );
-
-
+   
 }
-
-
-
-
 
 
 function closeAllModal(){
