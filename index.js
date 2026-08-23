@@ -1432,6 +1432,8 @@ async function switchPage(page){
 
         "me"
 
+        "setting"
+
     ];
 
 
