@@ -221,6 +221,12 @@ const pages = {
     me:
     document.getElementById(
         "mePage"
+    ),
+
+   
+    setting:
+    document.getElementById(
+       "settingPage"
     )
 
 
