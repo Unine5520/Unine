@@ -1,14 +1,61 @@
-const logoutButton =
+/* =========================================
+   SETTING PAGE
+========================================= */
+
+
+/* =========================================
+   DOM
+========================================= */
+
+
+const settingLogoutButton =
 document.getElementById(
     "logoutButton"
 );
 
 
 
-if(logoutButton){
 
 
-    logoutButton.onclick =
+const logoutModal =
+document.getElementById(
+    "logoutModal"
+);
+
+
+
+
+
+const cancelLogout =
+document.getElementById(
+    "cancelLogout"
+);
+
+
+
+
+
+const confirmLogout =
+document.getElementById(
+    "confirmLogout"
+);
+
+
+
+
+
+
+
+
+/* =========================================
+   OPEN LOGOUT MODAL
+========================================= */
+
+
+if(settingLogoutButton){
+
+
+    settingLogoutButton.onclick =
     ()=>{
 
 
@@ -17,53 +64,91 @@ if(logoutButton){
         );
 
 
-    };
+
+        if(logoutModal){
 
 
-}
+            logoutModal
+            .classList
+            .remove(
+                "hidden"
+            );
 
-console.log("setting.js loaded");
-
-
-const logoutButton =
-document.getElementById(
-    "logoutButton"
-);
-
-
-
-if(logoutButton){
-
-
-    logoutButton.onclick =
-    async()=>{
-
-
-        console.log(
-            "Logout button clicked"
-        );
-
-
-
-        const confirmLogout =
-        confirm(
-            "Are you sure you want to logout?"
-        );
-
-
-
-        if(!confirmLogout){
-
-            return;
 
         }
 
 
 
+    };
 
-        const {
-            error
-        } =
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CANCEL LOGOUT
+========================================= */
+
+
+if(cancelLogout){
+
+
+    cancelLogout.onclick =
+    ()=>{
+
+
+        if(logoutModal){
+
+
+            logoutModal
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        }
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CONFIRM LOGOUT
+========================================= */
+
+
+if(confirmLogout){
+
+
+    confirmLogout.onclick =
+    async()=>{
+
+
+
+        console.log(
+            "Confirm logout"
+        );
+
+
+
         await supabaseClient
         .auth
         .signOut();
@@ -71,27 +156,20 @@ if(logoutButton){
 
 
 
-        if(error){
+
+        if(logoutModal){
 
 
-            console.error(
-                "Logout error:",
-                error
+            logoutModal
+            .classList
+            .add(
+                "hidden"
             );
-
-
-            return;
 
 
         }
 
 
-
-
-
-        console.log(
-            "Logout successful"
-        );
 
 
 
