@@ -104,7 +104,8 @@ function closeLogoutModal(){
 
     if(logoutModal){
 
-
+        document.activeElement.blur();
+       
         logoutModal
         .classList
         .add(
