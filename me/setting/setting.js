@@ -38,49 +38,51 @@ document.getElementById(
 
 
 
-
-
 /* =========================================
-   OPEN LOGOUT MODAL
+   CLOSE LOGOUT MODAL
 ========================================= */
 
 
-if(settingLogoutButton){
+function closeLogoutModal(){
 
 
-    settingLogoutButton.onclick =
-    ()=>{
-
-
-        console.log(
-            "Logout button clicked"
-        );
+    if(!logoutModal)
+        return;
 
 
 
-        if(logoutModal){
+    /*
+        remove focus first
+        fix aria-hidden warning
+    */
 
 
-            logoutModal
-            .classList
-            .remove(
-                "hidden"
-            );
+    if(document.activeElement){
 
 
-
-            logoutModal
-            .setAttribute(
-                "aria-hidden",
-                "false"
-            );
+        document.activeElement.blur();
 
 
-        }
+    }
 
 
 
-    };
+
+
+    logoutModal
+    .classList
+    .add(
+        "hidden"
+    );
+
+
+
+    logoutModal
+    .setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
 
 
 }
@@ -94,34 +96,68 @@ if(settingLogoutButton){
 
 
 /* =========================================
-   CLOSE LOGOUT MODAL
+   OPEN LOGOUT MODAL
 ========================================= */
 
 
-function closeLogoutModal(){
+function openLogoutModal(){
+
+
+    if(!logoutModal)
+        return;
 
 
 
-    if(logoutModal){
 
-        document.activeElement.blur();
-       
-        logoutModal
-        .classList
-        .add(
-            "hidden"
+    logoutModal
+    .classList
+    .remove(
+        "hidden"
+    );
+
+
+
+    logoutModal
+    .setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   OPEN BUTTON
+========================================= */
+
+
+if(settingLogoutButton){
+
+
+
+    settingLogoutButton.onclick = ()=>{
+
+
+        console.log(
+            "Logout button clicked"
         );
 
 
 
-        logoutModal
-        .setAttribute(
-            "aria-hidden",
-            "true"
-        );
+        openLogoutModal();
 
 
-    }
+
+    };
 
 
 }
@@ -142,7 +178,43 @@ function closeLogoutModal(){
 if(cancelLogout){
 
 
-    cancelLogout.onclick =
+
+    cancelLogout.onclick = ()=>{
+
+
+        closeLogoutModal();
+
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CLICK BACKGROUND CLOSE
+========================================= */
+
+
+const logoutBackground =
+document.querySelector(
+    "[data-close-logout]"
+);
+
+
+
+if(logoutBackground){
+
+
+    logoutBackground.onclick =
     ()=>{
 
 
@@ -170,9 +242,9 @@ if(cancelLogout){
 if(confirmLogout){
 
 
+
     confirmLogout.onclick =
     async()=>{
-
 
 
         console.log(
@@ -181,92 +253,78 @@ if(confirmLogout){
 
 
 
+        try{
 
 
-        const {
-            error
-        } =
-
-        await supabaseClient
-        .auth
-        .signOut();
-
-
-
-
-
-
-        if(error){
-
-
-            console.error(
-                "Logout error:",
+            const {
                 error
+            } =
+
+            await supabaseClient
+            .auth
+            .signOut();
+
+
+
+
+
+            if(error){
+
+
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+
+                return;
+
+
+            }
+
+
+
+
+
+
+
+            closeLogoutModal();
+
+
+
+
+
+
+
+            switchPage(
+                "home"
             );
 
 
-            return;
+
+
+
+        }
+
+
+        catch(error){
+
+
+
+            console.error(
+                "Logout failed:",
+                error
+            );
+
 
 
         }
 
 
 
-
-
-
-
-        closeLogoutModal();
-
-
-
-
-
-
-
-
-        switchPage(
-            "home"
-        );
-
-
-
     };
 
 
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   ESC CLOSE
-========================================= */
-
-
-document.addEventListener(
-
-"keydown",
-
-(event)=>{
-
-
-    if(
-        event.key === "Escape"
-    ){
-
-
-        closeLogoutModal();
-
-
-    }
-
 
 }
-
-);
