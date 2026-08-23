@@ -15,14 +15,10 @@ document.getElementById(
 
 
 
-
-
 const logoutModal =
 document.getElementById(
     "logoutModal"
 );
-
-
 
 
 
@@ -33,13 +29,10 @@ document.getElementById(
 
 
 
-
-
 const confirmLogout =
 document.getElementById(
     "confirmLogout"
 );
-
 
 
 
@@ -75,11 +68,59 @@ if(settingLogoutButton){
             );
 
 
+
+            logoutModal
+            .setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
         }
 
 
 
     };
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CLOSE LOGOUT MODAL
+========================================= */
+
+
+function closeLogoutModal(){
+
+
+
+    if(logoutModal){
+
+
+        logoutModal
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+
+        logoutModal
+        .setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+
+    }
 
 
 }
@@ -104,17 +145,7 @@ if(cancelLogout){
     ()=>{
 
 
-        if(logoutModal){
-
-
-            logoutModal
-            .classList
-            .add(
-                "hidden"
-            );
-
-
-        }
+        closeLogoutModal();
 
 
     };
@@ -149,6 +180,12 @@ if(confirmLogout){
 
 
 
+
+
+        const {
+            error
+        } =
+
         await supabaseClient
         .auth
         .signOut();
@@ -157,17 +194,31 @@ if(confirmLogout){
 
 
 
-        if(logoutModal){
+
+        if(error){
 
 
-            logoutModal
-            .classList
-            .add(
-                "hidden"
+            console.error(
+                "Logout error:",
+                error
             );
 
 
+            return;
+
+
         }
+
+
+
+
+
+
+
+        closeLogoutModal();
+
+
+
 
 
 
@@ -183,3 +234,38 @@ if(confirmLogout){
 
 
 }
+
+
+
+
+
+
+
+
+
+/* =========================================
+   ESC CLOSE
+========================================= */
+
+
+document.addEventListener(
+
+"keydown",
+
+(event)=>{
+
+
+    if(
+        event.key === "Escape"
+    ){
+
+
+        closeLogoutModal();
+
+
+    }
+
+
+}
+
+);
