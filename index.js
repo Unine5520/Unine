@@ -1430,7 +1430,7 @@ async function switchPage(page){
 
         "inbox",
 
-        "me"
+        "me",
 
         "setting"
 
