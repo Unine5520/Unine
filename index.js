@@ -1348,9 +1348,6 @@ async function register(event){
             );
 
 
-    }
-
-
     catch(error){
 
 
