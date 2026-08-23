@@ -987,24 +987,15 @@ async function login(event){
 
         }
 
+        closeModal(
+            loginModal
+        );
 
-        setTimeout(()=>{
-
-
-
-            closeModal(
-                loginModal
-            );
-
+        switchPage(
+            "home"
+        );
 
 
-            switchPage(
-                "home"
-            );
-
-
-
-        },500);
 
 
 
