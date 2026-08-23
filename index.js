@@ -971,12 +971,21 @@ async function login(event){
 
         );
 
+       
+        const {
+           data: sessionData
+        } =
+        await supabaseClient
+        .auth
+        .getSession();
 
+        if(sessionData.session){
 
+            updateAuthUI(
+                sessionData.session.user
+            );
 
-
-
-
+        }
 
 
         setTimeout(()=>{
