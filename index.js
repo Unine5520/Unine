@@ -1544,47 +1544,79 @@ async function switchPage(page){
     });
 
 
-   /* =========================================
-      HOME ICON
-   ========================================= */
-   
-   const homeButton =
-   document.querySelector(
-       '.nav-item[data-page="home"]'
-   );
+/* =========================================
+   HOME ICON
+========================================= */
 
-   if(homeButton){
-      
-       const homeIcon =
-       homeButton.querySelector(
-           ".nav-icon-image"
+const homeButton =
+document.querySelector(
+    '.nav-item[data-page="home"]'
+);
 
-       );
+if(homeButton){
 
-       if(homeIcon){
+    const homeIcon =
+    homeButton.querySelector(
+        ".nav-icon-image"
+    );
 
-           if(page === "home"){
+    if(homeIcon){
 
-               homeIcon.src =
-               "assets/icons/home-active.svg";
+        if(page === "home"){
 
-           }
-           else{
-              homeIcon.src =
-              "assets/icons/home.svg";
-           }
+            homeIcon.src =
+            "assets/icons/home-active.svg";
 
-       }
+        }
+        else{
 
-   }
+            homeIcon.src =
+            "assets/icons/home.svg";
 
+        }
 
-    updateHeader();
-
+    }
 
 }
 
 
+/* =========================================
+   SHOP ICON
+========================================= */
+
+const shopButton =
+document.querySelector(
+    '.nav-item[data-page="shop"]'
+);
+
+if(shopButton){
+
+    const shopIcon =
+    shopButton.querySelector(
+        ".nav-icon-image"
+    );
+
+    if(shopIcon){
+
+        if(page === "shop"){
+
+            shopIcon.src =
+            "assets/icons/shop-active.svg";
+
+        }
+        else{
+
+            shopIcon.src =
+            "assets/icons/shop.svg";
+
+        }
+
+    }
+
+}
+
+
+updateHeader();
 
 
 /* =========================================
