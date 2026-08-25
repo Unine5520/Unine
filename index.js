@@ -254,25 +254,20 @@ let currentUser = null;
 
 function initPasswordToggle(){
 
-
     const buttons =
     document.querySelectorAll(
         ".password-toggle"
     );
 
 
-
     buttons.forEach(button=>{
-
 
         button.addEventListener(
             "click",
             ()=>{
 
-
                 const targetId =
                 button.dataset.target;
-
 
 
                 const input =
@@ -281,50 +276,53 @@ function initPasswordToggle(){
                 );
 
 
+                const icon =
+                button.querySelector(
+                    "img"
+                );
 
-                if(!input)
+
+                if(!input || !icon)
                     return;
-
-
 
 
                 if(
                     input.type === "password"
                 ){
 
-
                     input.type =
                     "text";
 
 
+                    icon.src =
+                    "assets/icons/eye-off.svg";
+
+
+                    icon.alt =
+                    "hide password";
 
                 }
                 else{
-
 
                     input.type =
                     "password";
 
 
+                    icon.src =
+                    "assets/icons/eye.svg";
+
+
+                    icon.alt =
+                    "show password";
+
                 }
-
-
 
             }
         );
 
-
     });
 
-
 }
-
-
-
-
-
-
-
 
 
 /* =========================================
