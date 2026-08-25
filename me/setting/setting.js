@@ -324,3 +324,22 @@ if(confirmLogout){
 
 
 }
+
+document.addEventListener(
+    "keydown",
+    (event)=>{
+
+        if(
+            event.key === "Escape"
+            &&
+            logoutModal
+            &&
+            !logoutModal.classList.contains("hidden")
+        ){
+
+            closeLogoutModal();
+
+        }
+
+    }
+);
