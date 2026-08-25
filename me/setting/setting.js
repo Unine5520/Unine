@@ -38,7 +38,7 @@ document.getElementById(
 
 const logoutBackground =
 document.querySelector(
-    "[data-close-logout]"
+    "#logoutModal .modal-background"
 );
 
 
