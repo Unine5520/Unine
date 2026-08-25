@@ -1548,76 +1548,79 @@ async function switchPage(page){
    HOME ICON
 ========================================= */
 
-const homeButton =
-document.querySelector(
-    '.nav-item[data-page="home"]'
-);
-
-if(homeButton){
-
-    const homeIcon =
-    homeButton.querySelector(
-        ".nav-icon-image"
-    );
-
-    if(homeIcon){
-
-        if(page === "home"){
-
-            homeIcon.src =
-            "assets/icons/home-active.svg";
-
-        }
-        else{
-
-            homeIcon.src =
-            "assets/icons/home.svg";
-
-        }
-
-    }
-
-}
-
-
 /* =========================================
-   SHOP ICON
+   NAV ICON CONTROL
 ========================================= */
 
-const shopButton =
-document.querySelector(
-    '.nav-item[data-page="shop"]'
-);
+const navIcons = {
 
-if(shopButton){
+    home: {
+        active: "assets/icons/home-active.svg",
+        normal: "assets/icons/home.svg"
+    },
 
-    const shopIcon =
-    shopButton.querySelector(
+    shop: {
+        active: "assets/icons/shop-active.svg",
+        normal: "assets/icons/shop.svg"
+    },
+
+    order: {
+        active: "assets/icons/order-active.svg",
+        normal: "assets/icons/order.svg"
+    },
+
+    inbox: {
+        active: "assets/icons/inbox-active.svg",
+        normal: "assets/icons/inbox.svg"
+    },
+
+    me: {
+        active: "assets/icons/me-active.svg",
+        normal: "assets/icons/me.svg"
+    }
+
+};
+
+
+Object.keys(navIcons).forEach(navPage => {
+
+    const navButton =
+    document.querySelector(
+        `.nav-item[data-page="${navPage}"]`
+    );
+
+
+    if(!navButton)
+        return;
+
+
+    const navIcon =
+    navButton.querySelector(
         ".nav-icon-image"
     );
 
-    if(shopIcon){
 
-        if(page === "shop"){
+    if(!navIcon)
+        return;
 
-            shopIcon.src =
-            "assets/icons/shop-active.svg";
 
-        }
-        else{
+    if(page === navPage){
 
-            shopIcon.src =
-            "assets/icons/shop.svg";
+        navIcon.src =
+        navIcons[navPage].active;
 
-        }
+    }
+    else{
+
+        navIcon.src =
+        navIcons[navPage].normal;
 
     }
 
-}
+});
 
 
 updateHeader();
-
 
 /* =========================================
    EVENTS
