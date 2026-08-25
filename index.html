@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-
-
 <meta charset="UTF-8">
-
 
 <meta 
 name="viewport" 
 content="width=device-width, initial-scale=1.0"
 >
 
-
 <meta 
 name="description" 
 content="Unine"
 >
 
-
 <title>
 Unine
 </title>
-
-
 
 <!-- GLOBAL CSS -->
 
@@ -33,9 +24,6 @@ rel="stylesheet"
 href="index.css"
 >
 
-
-
-
 <!-- PAGE CSS -->
 
 <link 
@@ -43,63 +31,44 @@ rel="stylesheet"
 href="home/home/home.css"
 >
 
-
 <link 
 rel="stylesheet" 
 href="shop/shop/shop.css"
 >
-
 
 <link 
 rel="stylesheet" 
 href="order/order/order.css"
 >
 
-
 <link 
 rel="stylesheet" 
 href="inbox/inbox/inbox.css"
 >
-
 
 <link 
 rel="stylesheet" 
 href="me/me/me.css"
 >
 
-
 <link 
 rel="stylesheet" 
 href="me/setting/setting.css"
 >
 
-
 </head>
-
-
-
 
 <body>
 
 
-
-
-
-<!-- =================================
-HEADER
-================================= -->
-
+<!-- ======== HEADER ======== -->
 
 <header 
 id="siteHeader"
 class="site-header"
 >
 
-
-
 <div class="header-container">
-
-
 
 <div class="logo">
 
@@ -107,28 +76,15 @@ Unine
 
 </div>
 
-
-
-
-
 <div class="auth-area">
 
 
-
-
-
-
-<!-- =====================
-NOT LOGIN
-===================== -->
-
+<!-- ======== NOT LOGIN ======== -->
 
 <div
 id="loggedOutActions"
 class="auth-buttons"
 >
-
-
 
 <button
 
@@ -144,10 +100,6 @@ Login
 
 </button>
 
-
-
-
-
 <button
 
 type="button"
@@ -162,20 +114,10 @@ Register
 
 </button>
 
-
-
 </div>
 
 
-
-
-
-
-
-<!-- =====================
-LOGIN USER
-===================== -->
-
+<!-- ======== LOGIN USER ======== -->
 
 <div
 
@@ -184,7 +126,6 @@ id="loggedInActions"
 class="auth-buttons hidden"
 
 >
-
 
 <span
 
@@ -198,43 +139,20 @@ User
 
 </span>
 
-
+</div>
 
 </div>
 
-
-
-
-
-
-
 </div>
-
-
-</div>
-
 
 </header>
 
 
-
-
-
-
-
-<!-- =================================
-APPLICATION
-================================= -->
-
+<!-- ======== APPLICATION ======== -->
 
 <main id="app">
 
-
-
-
-
 <!-- HOME -->
-
 
 <section
 
@@ -244,24 +162,15 @@ class="page-section"
 
 >
 
-
 <h1>
 
 Home
 
 </h1>
 
-
 </section>
 
-
-
-
-
-
-
 <!-- SHOP -->
-
 
 <section
 
@@ -271,24 +180,15 @@ class="page-section hidden"
 
 >
 
-
 <h1>
 
 Shop
 
 </h1>
 
-
 </section>
 
-
-
-
-
-
-
 <!-- ORDER -->
-
 
 <section
 
@@ -298,24 +198,15 @@ class="page-section hidden"
 
 >
 
-
 <h1>
 
 Order
 
 </h1>
 
-
 </section>
 
-
-
-
-
-
-
 <!-- INBOX -->
-
 
 <section
 
@@ -325,24 +216,15 @@ class="page-section hidden"
 
 >
 
-
 <h1>
 
 Inbox
 
 </h1>
 
-
 </section>
 
-
-
-
-
-
-
 <!-- ME -->
-
 
 <section
 
@@ -352,15 +234,11 @@ class="page-section hidden"
 
 >
 
-
 <div class="me-container">
-
 
 <h1>
 Me
 </h1>
-
-
 
 <button
 id="settingButton"
@@ -371,21 +249,11 @@ Setting
 
 </button>
 
-
 </div>
-
-
 
 </section>
 
-
-
-
-
-
-
 <!-- SETTING -->
-
 
 <section
 
@@ -395,15 +263,11 @@ class="page-section hidden"
 
 >
 
-
 <div class="setting-container">
-
 
 <h1>
 Setting
 </h1>
-
-
 
 <button
 
@@ -417,36 +281,18 @@ Logout
 
 </button>
 
-
-
 </div>
 
-
 </section>
-
-
-
-
 
 </main>
 
 
-
-
-
-
-
-<!-- =================================
-BOTTOM NAVIGATION
-================================= -->
-
+<!-- ======== BOTTOM NAVIGATION ======== -->
 
 <nav
 class="bottom-navigation"
 >
-
-
-
 
 <button
 type="button"
@@ -454,13 +300,11 @@ class="nav-item active"
 data-page="home"
 >
 
-
 <span class="nav-icon">
 
 🏠
 
 </span>
-
 
 <span class="nav-label">
 
@@ -468,13 +312,7 @@ Home
 
 </span>
 
-
 </button>
-
-
-
-
-
 
 <button
 type="button"
@@ -482,13 +320,11 @@ class="nav-item"
 data-page="shop"
 >
 
-
 <span class="nav-icon">
 
 🛒
 
 </span>
-
 
 <span class="nav-label">
 
@@ -496,13 +332,7 @@ Shop
 
 </span>
 
-
 </button>
-
-
-
-
-
 
 <button
 type="button"
@@ -510,13 +340,11 @@ class="nav-item protected"
 data-page="order"
 >
 
-
 <span class="nav-icon">
 
 📦
 
 </span>
-
 
 <span class="nav-label">
 
@@ -524,13 +352,7 @@ Order
 
 </span>
 
-
 </button>
-
-
-
-
-
 
 <button
 type="button"
@@ -538,13 +360,11 @@ class="nav-item protected"
 data-page="inbox"
 >
 
-
 <span class="nav-icon">
 
 💬
 
 </span>
-
 
 <span class="nav-label">
 
@@ -552,13 +372,7 @@ Inbox
 
 </span>
 
-
 </button>
-
-
-
-
-
 
 <button
 type="button"
@@ -566,13 +380,11 @@ class="nav-item protected"
 data-page="me"
 >
 
-
 <span class="nav-icon">
 
 👤
 
 </span>
-
 
 <span class="nav-label">
 
@@ -580,26 +392,11 @@ Me
 
 </span>
 
-
 </button>
-
-
-
 
 </nav>
 
-
-
-
-
-
-
-
-
-<!-- =================================
-LOGIN MODAL
-================================= -->
-
+<!-- ======== LOGIN MODAL ======== -->
 
 <div
 
@@ -611,8 +408,6 @@ aria-hidden="true"
 
 >
 
-
-
 <div
 
 class="modal-background"
@@ -621,16 +416,7 @@ data-close-modal
 
 ></div>
 
-
-
-
-
-
 <div class="modal-box">
-
-
-
-
 
 <button
 
@@ -646,23 +432,11 @@ class="close-button"
 
 </button>
 
-
-
-
-
-
-
 <h2>
 
 Login
 
 </h2>
-
-
-
-
-
-
 
 <p>
 
@@ -670,32 +444,15 @@ Login to your Unine account.
 
 </p>
 
-
-
-
-
-
-
-
 <form id="loginForm">
 
-
-
-
-
-
-
 <div class="input-group">
-
-
 
 <label for="loginEmail">
 
 Email
 
 </label>
-
-
 
 <input
 
@@ -711,21 +468,11 @@ required
 
 >
 
-
-
 </div>
-
-
-
-
-
-
 
 <!-- PASSWORD -->
 
 <div class="input-group">
-
-
 
 <label for="loginPassword">
 
@@ -733,12 +480,7 @@ Password
 
 </label>
 
-
-
-
 <div class="password-wrapper">
-
-
 
 <input
 
@@ -754,9 +496,6 @@ required
 
 >
 
-
-
-
 <button
 
 type="button"
@@ -767,8 +506,6 @@ data-target="loginPassword"
 
 >
 
-
-
 <img
 
 src="https://airkbwolmkidaokqhxjj.supabase.co/storage/v1/object/public/Photos/Inbox.png"
@@ -777,28 +514,13 @@ alt="show password"
 
 >
 
-
-
 </button>
 
-
-
-
 </div>
 
-
-
 </div>
-
-
-
-
-
-
-
 
 <div class="forgot-password">
-
 
 <a
 
@@ -810,16 +532,7 @@ Forgot password?
 
 </a>
 
-
 </div>
-
-
-
-
-
-
-
-
 
 <button
 
@@ -831,18 +544,9 @@ class="primary-button"
 
 >
 
-
 Login
 
-
 </button>
-
-
-
-
-
-
-
 
 <div
 
@@ -856,30 +560,13 @@ aria-live="polite"
 
 </div>
 
-
-
-
-
-
-
 </form>
 
-
-
-
-
-
+</div>
 
 </div>
 
-
-
-</div>
-
-  <!-- =================================
-REGISTER MODAL
-================================= -->
-
+<!-- ======== REGISTER MODAL ======== -->
 
 <div
 
@@ -891,8 +578,6 @@ aria-hidden="true"
 
 >
 
-
-
 <div
 
 class="modal-background"
@@ -901,17 +586,7 @@ data-close-modal
 
 ></div>
 
-
-
-
-
-
-
 <div class="modal-box">
-
-
-
-
 
 <button
 
@@ -927,23 +602,11 @@ class="close-button"
 
 </button>
 
-
-
-
-
-
-
 <h2>
 
 Create Account
 
 </h2>
-
-
-
-
-
-
 
 <p>
 
@@ -951,34 +614,17 @@ Join Unine.
 
 </p>
 
-
-
-
-
-
-
-
 <form id="registerForm">
-
-
-
-
-
-
 
 <!-- USERNAME -->
 
 <div class="input-group">
-
-
 
 <label for="registerUsername">
 
 Username
 
 </label>
-
-
 
 <input
 
@@ -998,29 +644,17 @@ required
 
 >
 
-
-
 </div>
-
-
-
-
-
-
 
 <!-- EMAIL -->
 
 <div class="input-group">
-
-
 
 <label for="registerEmail">
 
 Email
 
 </label>
-
-
 
 <input
 
@@ -1036,21 +670,11 @@ required
 
 >
 
-
-
 </div>
-
-
-
-
-
-
 
 <!-- PASSWORD -->
 
 <div class="input-group">
-
-
 
 <label for="registerPassword">
 
@@ -1058,12 +682,7 @@ Password
 
 </label>
 
-
-
-
 <div class="password-wrapper">
-
-
 
 <input
 
@@ -1081,10 +700,6 @@ required
 
 >
 
-
-
-
-
 <button
 
 type="button"
@@ -1095,8 +710,6 @@ data-target="registerPassword"
 
 >
 
-
-
 <img
 
 src="https://airkbwolmkidaokqhxjj.supabase.co/storage/v1/object/public/Photos/Inbox.png"
@@ -1105,32 +718,15 @@ alt="show password"
 
 >
 
-
-
 </button>
 
-
-
-
 </div>
 
-
-
 </div>
-
-
-
-
-
-
-
-
 
 <!-- CONFIRM PASSWORD -->
 
 <div class="input-group">
-
-
 
 <label for="registerPasswordConfirm">
 
@@ -1138,12 +734,7 @@ Confirm Password
 
 </label>
 
-
-
-
 <div class="password-wrapper">
-
-
 
 <input
 
@@ -1161,10 +752,6 @@ required
 
 >
 
-
-
-
-
 <button
 
 type="button"
@@ -1175,8 +762,6 @@ data-target="registerPasswordConfirm"
 
 >
 
-
-
 <img
 
 src="https://airkbwolmkidaokqhxjj.supabase.co/storage/v1/object/public/Photos/Inbox.png"
@@ -1185,25 +770,11 @@ alt="show password"
 
 >
 
-
-
 </button>
 
-
-
-
 </div>
 
-
-
 </div>
-
-
-
-
-
-
-
 
 <button
 
@@ -1215,18 +786,9 @@ class="primary-button"
 
 >
 
-
 Create Account
 
-
 </button>
-
-
-
-
-
-
-
 
 <div
 
@@ -1240,31 +802,14 @@ aria-live="polite"
 
 </div>
 
-
-
-
-
-
-
-
 </form>
 
-
-
-
-
+</div>
 
 </div>
 
 
-
-</div>
-
-
-<!-- =================================
-LOGOUT MODAL
-================================= -->
-
+<!-- ======== LOGOUT MODAL ======== -->
 
 <div
 
@@ -1276,7 +821,6 @@ aria-hidden="true"
 
 >
 
-
 <div
 
 class="modal-background"
@@ -1285,11 +829,7 @@ data-close-modal
 
 ></div>
 
-
-
 <div class="modal-box">
-
-
 
 <h2>
 
@@ -1297,19 +837,13 @@ Logout
 
 </h2>
 
-
-
 <p>
 
 Are you sure you want to logout?
 
 </p>
 
-
-
-
 <div class="logout-actions">
-
 
 <button
 
@@ -1323,10 +857,6 @@ No
 
 </button>
 
-
-
-
-
 <button
 
 id="confirmLogout"
@@ -1339,27 +869,13 @@ Yes
 
 </button>
 
-
+</div>
 
 </div>
 
-
-
 </div>
 
-
-
-</div>
-
-
-
-
-
-
-<!-- =================================
-SUPABASE
-================================= -->
-
+<!-- ======== SUPABASE ======== -->
 
 <script
 
@@ -1367,14 +883,7 @@ src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 
 </script>
 
-
-
-
-
-
-
 <!-- CORE -->
-
 
 <script
 
@@ -1384,13 +893,9 @@ src="index.js">
 
 
 
-
-
-
-
-
-<!-- PAGE JS -->
-
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
 
 <script
 
@@ -1398,17 +903,11 @@ src="home/home/home.js">
 
 </script>
 
-
-
-
 <script
 
 src="shop/shop/shop.js">
 
 </script>
-
-
-
 
 <script
 
@@ -1416,17 +915,11 @@ src="order/order/order.js">
 
 </script>
 
-
-
-
 <script
 
 src="inbox/inbox/inbox.js">
 
 </script>
-
-
-
 
 <script
 
@@ -1439,10 +932,6 @@ src="me/me/me.js">
 src="me/setting/setting.js">
 
 </script>
-
-
-
-
 
 </body>
 
