@@ -11,11 +11,9 @@ const SUPABASE_PUBLISHABLE_KEY =
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
 
 
-
 const {
     createClient
 } = window.supabase;
-
 
 
 const supabaseClient =
@@ -23,8 +21,6 @@ createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
-
-
 
 
 
@@ -41,12 +37,10 @@ document.querySelector(
 );
 
 
-
 const loginButton =
 document.getElementById(
     "loginButton"
 );
-
 
 
 const registerButton =
@@ -55,14 +49,10 @@ document.getElementById(
 );
 
 
-
-
-
 const loggedOutActions =
 document.getElementById(
     "loggedOutActions"
 );
-
 
 
 const loggedInActions =
@@ -71,14 +61,10 @@ document.getElementById(
 );
 
 
-
 const headerUsername =
 document.getElementById(
     "headerUsername"
 );
-
-
-
 
 
 
@@ -95,14 +81,10 @@ document.getElementById(
 );
 
 
-
 const registerModal =
 document.getElementById(
     "registerModal"
 );
-
-
-
 
 
 const closeLoginModal =
@@ -111,14 +93,10 @@ document.getElementById(
 );
 
 
-
 const closeRegisterModal =
 document.getElementById(
     "closeRegisterModal"
 );
-
-
-
 
 
 
@@ -135,22 +113,16 @@ document.getElementById(
 );
 
 
-
 const loginSubmit =
 document.getElementById(
     "loginSubmit"
 );
 
 
-
 const loginMessage =
 document.getElementById(
     "loginMessage"
 );
-
-
-
-
 
 
 
@@ -167,20 +139,16 @@ document.getElementById(
 );
 
 
-
 const registerSubmit =
 document.getElementById(
     "registerSubmit"
 );
 
 
-
 const registerMessage =
 document.getElementById(
     "registerMessage"
 );
-
-
 
 
 
@@ -223,10 +191,10 @@ const pages = {
         "mePage"
     ),
 
-   
+
     setting:
     document.getElementById(
-       "settingPage"
+        "settingPage"
     )
 
 
@@ -236,12 +204,7 @@ const pages = {
 
 
 
-
 let currentUser = null;
-
-
-
-
 
 
 
@@ -254,6 +217,7 @@ let currentUser = null;
 
 function initPasswordToggle(){
 
+
     const buttons =
     document.querySelectorAll(
         ".password-toggle"
@@ -262,9 +226,11 @@ function initPasswordToggle(){
 
     buttons.forEach(button=>{
 
+
         button.addEventListener(
             "click",
             ()=>{
+
 
                 const targetId =
                 button.dataset.target;
@@ -290,6 +256,7 @@ function initPasswordToggle(){
                     input.type === "password"
                 ){
 
+
                     input.type =
                     "text";
 
@@ -301,8 +268,10 @@ function initPasswordToggle(){
                     icon.alt =
                     "hide password";
 
+
                 }
                 else{
+
 
                     input.type =
                     "password";
@@ -315,14 +284,21 @@ function initPasswordToggle(){
                     icon.alt =
                     "show password";
 
+
                 }
+
 
             }
         );
 
+
     });
 
+
 }
+
+
+
 
 
 /* =========================================
@@ -333,12 +309,10 @@ function initPasswordToggle(){
 function updateHeader(){
 
 
-
     /*
         未登录
 
         Home 显示 Header
-
     */
 
 
@@ -350,13 +324,11 @@ function updateHeader(){
         );
 
 
-
         loggedOutActions
         .classList
         .remove(
             "hidden"
         );
-
 
 
         loggedInActions
@@ -366,12 +338,10 @@ function updateHeader(){
         );
 
 
-
         return;
 
+
     }
-
-
 
 
 
@@ -381,16 +351,11 @@ function updateHeader(){
         登录以后
 
         只有 Home 显示 Header
-
     */
-
 
 
     const currentPage =
     getCurrentPage();
-
-
-
 
 
     if(
@@ -398,11 +363,9 @@ function updateHeader(){
     ){
 
 
-
         header.classList.remove(
             "hidden"
         );
-
 
 
         loggedOutActions
@@ -412,13 +375,11 @@ function updateHeader(){
         );
 
 
-
         loggedInActions
         .classList
         .remove(
             "hidden"
         );
-
 
 
         return;
@@ -427,14 +388,9 @@ function updateHeader(){
     }
 
 
-
-
-
-
     header.classList.add(
         "hidden"
     );
-
 
 
 }
@@ -443,18 +399,17 @@ function updateHeader(){
 
 
 
-
-
+/* =========================================
+   GET CURRENT PAGE
+========================================= */
 
 
 function getCurrentPage(){
 
 
-
     for(
         const key in pages
     ){
-
 
 
         if(
@@ -472,15 +427,17 @@ function getCurrentPage(){
         }
 
 
-
     }
-
 
 
     return "home";
 
 
 }
+
+
+
+
 
 /* =========================================
    MODAL
@@ -494,11 +451,9 @@ function openModal(modal){
         return;
 
 
-
     modal.classList.remove(
         "hidden"
     );
-
 
 
     modal.setAttribute(
@@ -513,28 +468,37 @@ function openModal(modal){
 
 
 
-
 function closeModal(modal){
 
 
     if(!modal)
         return;
 
+
     if(document.activeElement){
 
+
         document.activeElement.blur();
+
+
     }
 
+
     modal.classList.add(
-       "hidden"
+        "hidden"
     );
 
+
     modal.setAttribute(
-       "aria-hidden",
-       "true"
+        "aria-hidden",
+        "true"
     );
-   
+
+
 }
+
+
+
 
 
 function closeAllModal(){
@@ -556,10 +520,6 @@ function closeAllModal(){
 
 
 
-
-
-
-
 /* =========================================
    MESSAGE
 ========================================= */
@@ -576,10 +536,8 @@ function showMessage(
         return;
 
 
-
     element.textContent =
         message;
-
 
 
     element.style.color =
@@ -594,23 +552,20 @@ function showMessage(
 
 
 
-
 function clearMessage(element){
 
 
     if(element){
 
+
         element.textContent =
         "";
+
 
     }
 
 
 }
-
-
-
-
 
 
 
@@ -624,16 +579,11 @@ function clearMessage(element){
 function updateAuthUI(user){
 
 
-
     currentUser =
     user;
 
 
-
-
-
     if(!user){
-
 
 
         loggedOutActions
@@ -643,7 +593,6 @@ function updateAuthUI(user){
         );
 
 
-
         loggedInActions
         .classList
         .add(
@@ -651,10 +600,8 @@ function updateAuthUI(user){
         );
 
 
-
         headerUsername.textContent =
         "User";
-
 
 
         updateHeader();
@@ -666,12 +613,6 @@ function updateAuthUI(user){
     }
 
 
-
-
-
-
-
-
     loggedOutActions
     .classList
     .add(
@@ -679,15 +620,11 @@ function updateAuthUI(user){
     );
 
 
-
     loggedInActions
     .classList
     .remove(
         "hidden"
     );
-
-
-
 
 
     const username =
@@ -700,26 +637,14 @@ function updateAuthUI(user){
         .split("@")[0];
 
 
-
-
-
-
     headerUsername.textContent =
     username;
-
-
-
 
 
     updateHeader();
 
 
-
 }
-
-
-
-
 
 
 
@@ -733,24 +658,17 @@ function updateAuthUI(user){
 async function checkSession(){
 
 
-
     const {
 
         data,
 
         error
 
-
     } =
 
     await supabaseClient
     .auth
     .getSession();
-
-
-
-
-
 
 
     if(error){
@@ -768,21 +686,12 @@ async function checkSession(){
     }
 
 
-
-
-
-
     updateAuthUI(
         data.session?.user || null
     );
 
 
-
 }
-
-
-
-
 
 
 
@@ -797,24 +706,17 @@ supabaseClient
 .auth
 .onAuthStateChange(
 
-(event,session)=>{
+    (event,session)=>{
 
 
-    updateAuthUI(
-        session?.user || null
-    );
+        updateAuthUI(
+            session?.user || null
+        );
 
 
-}
+    }
 
 );
-
-
-
-
-
-
-
 
 
 
@@ -831,17 +733,9 @@ async function login(event){
     event.preventDefault();
 
 
-
-
-
     clearMessage(
         loginMessage
     );
-
-
-
-
-
 
 
     const form =
@@ -849,10 +743,6 @@ async function login(event){
     new FormData(
         loginForm
     );
-
-
-
-
 
 
     const email =
@@ -866,11 +756,6 @@ async function login(event){
     .toLowerCase();
 
 
-
-
-
-
-
     const password =
 
     String(
@@ -878,30 +763,15 @@ async function login(event){
     );
 
 
-
-
-
-
-
-
     loginSubmit.disabled =
     true;
-
 
 
     loginSubmit.textContent =
     "Logging in...";
 
 
-
-
-
-
-
-
-
     try{
-
 
 
         const {
@@ -909,7 +779,6 @@ async function login(event){
             data,
 
             error
-
 
         } =
 
@@ -926,15 +795,7 @@ async function login(event){
         });
 
 
-
-
-
-
-
-
-
         if(error){
-
 
 
             showMessage(
@@ -952,13 +813,6 @@ async function login(event){
         }
 
 
-
-
-
-
-
-
-
         showMessage(
 
             loginMessage,
@@ -969,36 +823,35 @@ async function login(event){
 
         );
 
-       
+
         const {
-           data: sessionData
+            data: sessionData
         } =
+
         await supabaseClient
         .auth
         .getSession();
 
+
         if(sessionData.session){
+
 
             updateAuthUI(
                 sessionData.session.user
             );
 
+
         }
+
 
         closeModal(
             loginModal
         );
 
+
         switchPage(
             "home"
         );
-
-
-
-
-
-
-
 
 
     }
@@ -1007,11 +860,9 @@ async function login(event){
     catch(error){
 
 
-
         console.error(
             error
         );
-
 
 
         showMessage(
@@ -1026,33 +877,21 @@ async function login(event){
     }
 
 
-
-
-
     finally{
-
 
 
         loginSubmit.disabled =
         false;
 
 
-
         loginSubmit.textContent =
         "Login";
-
 
 
     }
 
 
-
-
 }
-
-
-
-
 
 
 
@@ -1066,22 +905,12 @@ async function login(event){
 async function register(event){
 
 
-
     event.preventDefault();
-
-
-
 
 
     clearMessage(
         registerMessage
     );
-
-
-
-
-
-
 
 
     const form =
@@ -1091,11 +920,6 @@ async function register(event){
     );
 
 
-
-
-
-
-
     const username =
 
     String(
@@ -1103,12 +927,6 @@ async function register(event){
     )
 
     .trim();
-
-
-
-
-
-
 
 
     const email =
@@ -1122,23 +940,11 @@ async function register(event){
     .toLowerCase();
 
 
-
-
-
-
-
-
     const password =
 
     String(
         form.get("password")
     );
-
-
-
-
-
-
 
 
     const confirm =
@@ -1152,15 +958,7 @@ async function register(event){
     );
 
 
-
-
-
-
-
-
-
     if(password !== confirm){
-
 
 
         showMessage(
@@ -1178,15 +976,7 @@ async function register(event){
     }
 
 
-
-
-
-
-
-
-
     if(password.length < 8){
-
 
 
         showMessage(
@@ -1204,29 +994,15 @@ async function register(event){
     }
 
 
-
-
-
-
-
-
     registerSubmit.disabled =
     true;
-
 
 
     registerSubmit.textContent =
     "Creating...";
 
 
-
-
-
-
-
-
     try{
-
 
 
         const {
@@ -1235,7 +1011,6 @@ async function register(event){
 
             error
 
-
         } =
 
         await supabaseClient
@@ -1243,16 +1018,12 @@ async function register(event){
         .signUp({
 
 
-
             email,
 
             password,
 
 
-
-
             options:{
-
 
 
                 data:{
@@ -1264,23 +1035,13 @@ async function register(event){
                 }
 
 
-
             }
-
 
 
         });
 
 
-
-
-
-
-
-
-
         if(error){
-
 
 
             showMessage(
@@ -1298,12 +1059,6 @@ async function register(event){
         }
 
 
-
-
-
-
-
-
         showMessage(
 
             registerMessage,
@@ -1315,24 +1070,10 @@ async function register(event){
         );
 
 
-
-
-
-
-
-
         registerForm.reset();
 
 
-
-
-
-
-
-
-
         setTimeout(()=>{
-
 
 
             closeModal(
@@ -1340,24 +1081,23 @@ async function register(event){
             );
 
 
-
             switchPage(
                 "home"
             );
 
+
         },800);
 
-        }
+
+    }
 
 
     catch(error){
 
 
-
         console.error(
             error
         );
-
 
 
         showMessage(
@@ -1369,35 +1109,28 @@ async function register(event){
         );
 
 
-
     }
 
 
-
-
-
-
     finally{
-
 
 
         registerSubmit.disabled =
         false;
 
 
-
         registerSubmit.textContent =
         "Create Account";
-
 
 
     }
 
 
-
-
-
 }
+
+
+
+
 
 /* =========================================
    PAGE SWITCH
@@ -1405,7 +1138,6 @@ async function register(event){
 
 
 async function switchPage(page){
-
 
 
     const protectedPages = [
@@ -1419,10 +1151,6 @@ async function switchPage(page){
         "setting"
 
     ];
-
-
-
-
 
 
     /*
@@ -1441,7 +1169,6 @@ async function switchPage(page){
     ){
 
 
-
         openModal(
             loginModal
         );
@@ -1451,12 +1178,6 @@ async function switchPage(page){
 
 
     }
-
-
-
-
-
-
 
 
     Object.values(pages)
@@ -1472,15 +1193,9 @@ async function switchPage(page){
     });
 
 
-
-
-
-
-
     if(
         pages[page]
     ){
-
 
 
         pages[page]
@@ -1493,12 +1208,6 @@ async function switchPage(page){
 
 
     }
-
-
-
-
-
-
 
 
     /*
@@ -1515,13 +1224,9 @@ async function switchPage(page){
     .forEach(item=>{
 
 
-
         item.classList.remove(
             "active"
         );
-
-
-
 
 
         if(
@@ -1529,7 +1234,6 @@ async function switchPage(page){
             item.dataset.page === page
 
         ){
-
 
 
             item.classList.add(
@@ -1540,87 +1244,127 @@ async function switchPage(page){
         }
 
 
+    });
+
+
+    /* =========================================
+       NAV ICON CONTROL
+    ========================================= */
+
+
+    const navIcons = {
+
+
+        home: {
+
+            active:
+            "assets/icons/home-active.svg",
+
+            normal:
+            "assets/icons/home.svg"
+
+        },
+
+
+        shop: {
+
+            active:
+            "assets/icons/shop-active.svg",
+
+            normal:
+            "assets/icons/shop.svg"
+
+        },
+
+
+        order: {
+
+            active:
+            "assets/icons/order-active.svg",
+
+            normal:
+            "assets/icons/order.svg"
+
+        },
+
+
+        inbox: {
+
+            active:
+            "assets/icons/inbox-active.svg",
+
+            normal:
+            "assets/icons/inbox.svg"
+
+        },
+
+
+        me: {
+
+            active:
+            "assets/icons/me-active.svg",
+
+            normal:
+            "assets/icons/me.svg"
+
+        }
+
+
+    };
+
+
+    Object.keys(navIcons).forEach(navPage=>{
+
+
+        const navButton =
+        document.querySelector(
+            `.nav-item[data-page="${navPage}"]`
+        );
+
+
+        if(!navButton)
+            return;
+
+
+        const navIcon =
+        navButton.querySelector(
+            ".nav-icon-image"
+        );
+
+
+        if(!navIcon)
+            return;
+
+
+        if(page === navPage){
+
+
+            navIcon.src =
+            navIcons[navPage].active;
+
+
+        }
+        else{
+
+
+            navIcon.src =
+            navIcons[navPage].normal;
+
+
+        }
+
 
     });
 
 
-/* =========================================
-   HOME ICON
-========================================= */
-
-/* =========================================
-   NAV ICON CONTROL
-========================================= */
-
-const navIcons = {
-
-    home: {
-        active: "assets/icons/home-active.svg",
-        normal: "assets/icons/home.svg"
-    },
-
-    shop: {
-        active: "assets/icons/shop-active.svg",
-        normal: "assets/icons/shop.svg"
-    },
-
-    order: {
-        active: "assets/icons/order-active.svg",
-        normal: "assets/icons/order.svg"
-    },
-
-    inbox: {
-        active: "assets/icons/inbox-active.svg",
-        normal: "assets/icons/inbox.svg"
-    },
-
-    me: {
-        active: "assets/icons/me-active.svg",
-        normal: "assets/icons/me.svg"
-    }
-
-};
+    updateHeader();
 
 
-Object.keys(navIcons).forEach(navPage => {
-
-    const navButton =
-    document.querySelector(
-        `.nav-item[data-page="${navPage}"]`
-    );
+}
 
 
-    if(!navButton)
-        return;
 
 
-    const navIcon =
-    navButton.querySelector(
-        ".nav-icon-image"
-    );
-
-
-    if(!navIcon)
-        return;
-
-
-    if(page === navPage){
-
-        navIcon.src =
-        navIcons[navPage].active;
-
-    }
-    else{
-
-        navIcon.src =
-        navIcons[navPage].normal;
-
-    }
-
-});
-
-
-updateHeader();
 
 /* =========================================
    EVENTS
@@ -1628,11 +1372,6 @@ updateHeader();
 
 
 function initEvents(){
-
-
-
-
-
 
 
     /*
@@ -1661,10 +1400,6 @@ function initEvents(){
 
 
     }
-
-
-
-
 
 
 
@@ -1701,10 +1436,6 @@ function initEvents(){
 
 
 
-
-
-
-
     /*
         FORM SUBMIT
     */
@@ -1720,8 +1451,6 @@ function initEvents(){
     }
 
 
-
-
     if(registerForm){
 
 
@@ -1730,10 +1459,6 @@ function initEvents(){
 
 
     }
-
-
-
-
 
 
 
@@ -1765,7 +1490,6 @@ function initEvents(){
 
 
 
-
     if(closeRegisterModal){
 
 
@@ -1787,10 +1511,6 @@ function initEvents(){
 
 
 
-
-
-
-
     /*
         CLICK BACKGROUND CLOSE
     */
@@ -1805,20 +1525,11 @@ function initEvents(){
     .forEach(item=>{
 
 
-
         item.onclick =
         closeAllModal;
 
 
-
     });
-
-
-
-
-
-
-
 
 
 
@@ -1838,10 +1549,8 @@ function initEvents(){
     .forEach(button=>{
 
 
-
         button.onclick =
         ()=>{
-
 
 
             switchPage(
@@ -1851,27 +1560,13 @@ function initEvents(){
             );
 
 
-
         };
-
 
 
     });
 
 
-
-
-
-
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -1884,40 +1579,27 @@ function initEvents(){
 
 document.addEventListener(
 
-"keydown",
+    "keydown",
 
-(event)=>{
-
-
-
-    if(
-
-        event.key === "Escape"
-
-    ){
+    (event)=>{
 
 
+        if(
 
-        closeAllModal();
+            event.key === "Escape"
 
+        ){
+
+
+            closeAllModal();
+
+
+        }
 
 
     }
 
-
-
-}
-
 );
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1930,59 +1612,45 @@ document.addEventListener(
 
 document.addEventListener(
 
-"DOMContentLoaded",
+    "DOMContentLoaded",
 
-async ()=>{
-
-
-
-    /*
-        初始化事件
-    */
+    async ()=>{
 
 
-    initEvents();
+        /*
+            初始化事件
+        */
 
 
+        initEvents();
 
 
-
-    /*
-        密码眼睛
-    */
-
-
-    initPasswordToggle();
+        /*
+            密码眼睛
+        */
 
 
+        initPasswordToggle();
 
 
+        /*
+            检查登录状态
+        */
 
 
-
-    /*
-        检查登录状态
-    */
+        await checkSession();
 
 
-    await checkSession();
+        /*
+            默认 Home
+        */
 
 
+        switchPage(
+            "home"
+        );
 
 
+    }
 
-
-
-
-    /*
-        默认 Home
-    */
-
-
-    switchPage(
-        "home"
-    );
-
-
-
-});
+);
