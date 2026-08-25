@@ -1544,23 +1544,45 @@ async function switchPage(page){
     });
 
 
+   /* =========================================
+      HOME ICON
+   ========================================= */
+   
+   const homeButton =
+   document.querySelector(
+       '.nav-item[data-page="home"]'
+   );
 
+   if(homeButton){
+      
+       const homeIcon =
+       homeButton.querySelector(
+           ".nav-icon-image"
 
+       );
+
+       if(homeIcon){
+
+           if(page === "home"){
+
+               homeIcon.src =
+               "assets/icons/home-active.svg";
+
+           }
+           else{
+              homeIcon.src =
+              "assets/icons/home.svg";
+           }
+
+       }
+
+   }
 
 
     updateHeader();
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
