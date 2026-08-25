@@ -442,7 +442,15 @@ a {
 
 }
 
+.nav-icon-image {
 
+    width:22px;
+
+    height:22px;
+
+    display:block;
+
+}
 
 .nav-label {
 
