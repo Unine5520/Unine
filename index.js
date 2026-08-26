@@ -1,1045 +1,1686 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+/* =========================================
+   SUPABASE CONFIG
+========================================= */
 
-<meta 
-name="viewport" 
-content="width=device-width, initial-scale=1.0"
->
 
-<meta 
-name="description" 
-content="Unine"
->
+const SUPABASE_URL =
+"https://moufqvgakqqozybedisj.supabase.co";
 
-<title>
-Unine
-</title>
 
-<!-- GLOBAL CSS -->
+const SUPABASE_PUBLISHABLE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1vdWZxdmdha3Fxb3p5YmVkaXNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODczNzI0NjQsImV4cCI6MjEwMjk0ODQ2NH0.LjMk0ZDmImS4NYezx6Xp6FbUxVrH_esroZXzXBWkiVc";
 
-<link 
-rel="stylesheet" 
-href="index.css"
->
 
-<!-- PAGE CSS -->
+const {
+    createClient
+} = window.supabase;
 
-<link 
-rel="stylesheet" 
-href="home/home/home.css"
->
 
-<link 
-rel="stylesheet" 
-href="shop/shop/shop.css"
->
+const supabaseClient =
+createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 
-<link 
-rel="stylesheet" 
-href="order/order/order.css"
->
 
-<link 
-rel="stylesheet" 
-href="inbox/inbox/inbox.css"
->
 
-<link 
-rel="stylesheet" 
-href="me/me/me.css"
->
 
-<link 
-rel="stylesheet" 
-href="me/setting/setting.css"
->
 
-</head>
+/* =========================================
+   DOM
+========================================= */
 
-<body>
 
+const header =
+document.querySelector(
+    ".site-header"
+);
 
-<!-- ======== HEADER ======== -->
 
-<header 
-id="siteHeader"
-class="site-header"
->
+const loginButton =
+document.getElementById(
+    "loginButton"
+);
 
-<div class="header-container">
 
-<div class="logo">
+const registerButton =
+document.getElementById(
+    "registerButton"
+);
 
-Unine
 
-</div>
+const loggedOutActions =
+document.getElementById(
+    "loggedOutActions"
+);
 
-<div class="auth-area">
 
+const loggedInActions =
+document.getElementById(
+    "loggedInActions"
+);
 
-<!-- ======== NOT LOGIN ======== -->
 
-<div
-id="loggedOutActions"
-class="auth-buttons"
->
+const headerUsername =
+document.getElementById(
+    "headerUsername"
+);
 
-<button
 
-type="button"
 
-id="loginButton"
 
-class="header-button login-button"
 
->
+/* =========================================
+   MODAL
+========================================= */
 
-Login
 
-</button>
+const loginModal =
+document.getElementById(
+    "loginModal"
+);
 
-<button
 
-type="button"
+const registerModal =
+document.getElementById(
+    "registerModal"
+);
 
-id="registerButton"
 
-class="header-button register-button"
+const closeLoginModal =
+document.getElementById(
+    "closeLoginModal"
+);
 
->
 
-Register
+const closeRegisterModal =
+document.getElementById(
+    "closeRegisterModal"
+);
 
-</button>
 
-</div>
 
 
-<!-- ======== LOGIN USER ======== -->
 
-<div
+/* =========================================
+   LOGIN FORM
+========================================= */
 
-id="loggedInActions"
 
-class="auth-buttons hidden"
+const loginForm =
+document.getElementById(
+    "loginForm"
+);
 
->
 
-<span
+const loginSubmit =
+document.getElementById(
+    "loginSubmit"
+);
 
-id="headerUsername"
 
-class="username"
+const loginMessage =
+document.getElementById(
+    "loginMessage"
+);
 
->
 
-User
 
-</span>
 
-</div>
 
-</div>
+/* =========================================
+   REGISTER FORM
+========================================= */
 
-</div>
 
-</header>
+const registerForm =
+document.getElementById(
+    "registerForm"
+);
 
 
-<!-- ======== APPLICATION ======== -->
+const registerSubmit =
+document.getElementById(
+    "registerSubmit"
+);
 
-<main id="app">
 
-<!-- HOME -->
+const registerMessage =
+document.getElementById(
+    "registerMessage"
+);
 
-<section
 
-id="homePage"
 
-class="page-section"
 
->
 
-<h1>
+/* =========================================
+   PAGE SYSTEM
+========================================= */
 
-Home
 
-</h1>
+const pages = {
 
-</section>
 
-<!-- SHOP -->
+    home:
+    document.getElementById(
+        "homePage"
+    ),
 
-<section
 
-id="shopPage"
+    shop:
+    document.getElementById(
+        "shopPage"
+    ),
 
-class="page-section hidden"
 
->
+    order:
+    document.getElementById(
+        "orderPage"
+    ),
 
-<h1>
 
-Shop
+    inbox:
+    document.getElementById(
+        "inboxPage"
+    ),
 
-</h1>
 
-</section>
+    me:
+    document.getElementById(
+        "mePage"
+    ),
 
-<!-- ORDER -->
 
-<section
+    setting:
+    document.getElementById(
+        "settingPage"
+    )
 
-id="orderPage"
 
-class="page-section hidden"
+};
 
->
 
-<h1>
 
-Order
 
-</h1>
 
-</section>
+let currentUser = null;
 
-<!-- INBOX -->
 
-<section
 
-id="inboxPage"
 
-class="page-section hidden"
 
->
+/* =========================================
+   PASSWORD TOGGLE
+========================================= */
 
-<h1>
 
-Inbox
+function initPasswordToggle(){
 
-</h1>
 
-</section>
+    const buttons =
+    document.querySelectorAll(
+        ".password-toggle"
+    );
 
-<!-- ME -->
 
-<section
+    buttons.forEach(button=>{
 
-id="mePage"
 
-class="page-section hidden"
+        button.addEventListener(
+            "click",
+            ()=>{
 
->
 
-<div class="me-container">
+                const targetId =
+                button.dataset.target;
 
-<h1>
-Me
-</h1>
 
-<button
-type="button"
-id="settingButton"
-class="setting-button"
->
+                const input =
+                document.getElementById(
+                    targetId
+                );
 
-Setting
 
-</button>
+                const icon =
+                button.querySelector(
+                    "img"
+                );
 
-</div>
 
-</section>
+                if(!input || !icon)
+                    return;
 
-<!-- SETTING -->
 
-<section
+                if(
+                    input.type === "password"
+                ){
 
-id="settingPage"
 
-class="page-section hidden"
+                    input.type =
+                    "text";
 
->
 
+                    icon.src =
+                    "assets/icons/eye-off.svg";
 
-<div class="setting-header-container">
 
+                    icon.alt =
+                    "hide password";
 
-<h1>
 
-Setting
+                }
+                else{
 
-</h1>
 
+                    input.type =
+                    "password";
 
 
-<button
+                    icon.src =
+                    "assets/icons/eye.svg";
 
-type="button"
 
-id="closeSettingButton"
+                    icon.alt =
+                    "show password";
 
-class="setting-close-button"
 
->
+                }
 
-×
 
-</button>
+            }
+        );
 
 
+    });
 
-</div>
 
+}
 
 
 
 
-<div class="setting-container">
 
+/* =========================================
+   HEADER CONTROL
+========================================= */
 
 
-<h2>
+function updateHeader(){
 
-Account
 
-</h2>
+    /*
+        未登录
 
+        Home 显示 Header
+    */
 
 
+    if(!currentUser){
 
 
-<div class="account-email">
+        header.classList.remove(
+            "hidden"
+        );
 
 
+        loggedOutActions
+        .classList
+        .remove(
+            "hidden"
+        );
 
-<span id="accountEmail">
 
-Email
+        loggedInActions
+        .classList
+        .add(
+            "hidden"
+        );
 
-</span>
 
+        return;
 
 
-</div>
+    }
 
 
 
 
 
-<button
+    /*
+        登录以后
 
-type="button"
+        只有 Home 显示 Header
+    */
 
-id="confirmEmailButton"
 
-class="confirm-email-button"
+    const currentPage =
+    getCurrentPage();
 
->
 
-Confirm Email
+    if(
+        currentPage === "home"
+    ){
 
-</button>
 
+        header.classList.remove(
+            "hidden"
+        );
 
 
+        loggedOutActions
+        .classList
+        .add(
+            "hidden"
+        );
 
 
-<button
+        loggedInActions
+        .classList
+        .remove(
+            "hidden"
+        );
 
-type="button"
 
-id="setting-logoutButton"
+        return;
 
-class="logout-button"
 
->
+    }
 
-Logout
 
-</button>
+    header.classList.add(
+        "hidden"
+    );
 
 
+}
 
 
 
-</div>
 
 
+/* =========================================
+   GET CURRENT PAGE
+========================================= */
 
-</section>
 
+function getCurrentPage(){
 
-<!-- ======== BOTTOM NAVIGATION ======== -->
 
-<nav
-class="bottom-navigation"
->
+    for(
+        const key in pages
+    ){
 
-<button
-type="button"
-class="nav-item active"
-data-page="home"
->
 
-<span class="nav-icon">
+        if(
+            !pages[key]
+            .classList
+            .contains(
+                "hidden"
+            )
+        ){
 
-<img
-class="nav-icon-image"
-src="assets/icons/home-active.svg"
-alt="Home"
->
 
-</span>
+            return key;
 
-<span class="nav-label">
 
-Home
+        }
 
-</span>
 
-</button>
+    }
 
-<button
-type="button"
-class="nav-item"
-data-page="shop"
->
 
-<span class="nav-icon">
+    return "home";
 
-<img
-class="nav-icon-image"
-src="assets/icons/shop.svg"
-alt="Shop"
->
 
-</span>
+}
 
-<span class="nav-label">
 
-Shop
 
-</span>
 
-</button>
 
-<button
-type="button"
-class="nav-item protected"
-data-page="order"
->
+/* =========================================
+   MODAL
+========================================= */
 
-<span class="nav-icon">
 
-<img
-class="nav-icon-image"
-src="assets/icons/order.svg"
-alt="Order"
->
+function openModal(modal){
 
-</span>
 
-<span class="nav-label">
+    if(!modal)
+        return;
 
-Order
 
-</span>
+    modal.classList.remove(
+        "hidden"
+    );
 
-</button>
 
-<button
-type="button"
-class="nav-item protected"
-data-page="inbox"
->
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-<span class="nav-icon">
 
-<img
-class="nav-icon-image"
-src="assets/icons/inbox.svg"
-alt="Inbox"
->
+}
 
-</span>
 
-<span class="nav-label">
 
-Inbox
 
-</span>
 
-</button>
+function closeModal(modal){
 
-<button
-type="button"
-class="nav-item protected"
-data-page="me"
->
 
-<span class="nav-icon">
+    if(!modal)
+        return;
 
-<img
-class="nav-icon-image"
-src="assets/icons/me.svg"
-alt="Me"
->
 
-</span>
+    if(document.activeElement){
 
-<span class="nav-label">
 
-Me
+        document.activeElement.blur();
 
-</span>
 
-</button>
+    }
 
-</nav>
 
-<!-- ======== LOGIN MODAL ======== -->
+    modal.classList.add(
+        "hidden"
+    );
 
-<div
 
-id="loginModal"
+    modal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-class="modal hidden"
 
-aria-hidden="true"
+}
 
->
 
-<div
 
-class="modal-background"
 
-data-close-modal
 
-></div>
+function closeAllModal(){
 
-<div class="modal-box">
 
-<button
+    closeModal(
+        loginModal
+    );
 
-type="button"
 
-id="closeLoginModal"
+    closeModal(
+        registerModal
+    );
 
-class="close-button"
 
->
+}
 
-×
 
-</button>
 
-<h2>
 
-Login
 
-</h2>
+/* =========================================
+   MESSAGE
+========================================= */
 
-<p>
 
-Login to your Unine account.
+function showMessage(
+    element,
+    message,
+    type="error"
+){
 
-</p>
 
-<form id="loginForm">
+    if(!element)
+        return;
 
-<div class="input-group">
 
-<label for="loginEmail">
+    element.textContent =
+        message;
 
-Email
 
-</label>
+    element.style.color =
+        type === "success"
+        ? "#15803d"
+        : "#dc2626";
 
-<input
 
-type="email"
+}
 
-id="loginEmail"
 
-name="email"
 
-autocomplete="email"
 
-required
 
->
+function clearMessage(element){
 
-</div>
 
-<!-- PASSWORD -->
+    if(element){
 
-<div class="input-group">
 
-<label for="loginPassword">
+        element.textContent =
+        "";
 
-Password
 
-</label>
+    }
 
-<div class="password-wrapper">
 
-<input
+}
 
-type="password"
 
-id="loginPassword"
 
-name="password"
 
-autocomplete="current-password"
 
-required
+/* =========================================
+   AUTH UI
+========================================= */
 
->
 
-<button
+function updateAuthUI(user){
 
-type="button"
 
-class="password-toggle"
+    currentUser =
+    user;
 
-data-target="loginPassword"
 
->
+    if(!user){
 
-<img
 
-src="assets/icons/eye.svg"
+        loggedOutActions
+        .classList
+        .remove(
+            "hidden"
+        );
 
-alt="show password"
 
->
+        loggedInActions
+        .classList
+        .add(
+            "hidden"
+        );
 
-</button>
 
-</div>
+        headerUsername.textContent =
+        "User";
 
-</div>
 
-<div class="forgot-password">
+        updateHeader();
 
-<a
 
-href="forgot-password/forgot-password.html"
+        return;
 
->
 
-Forgot password?
+    }
 
-</a>
 
-</div>
+    loggedOutActions
+    .classList
+    .add(
+        "hidden"
+    );
 
-<button
 
-type="submit"
+    loggedInActions
+    .classList
+    .remove(
+        "hidden"
+    );
 
-id="loginSubmit"
 
-class="primary-button"
+    const username =
 
->
+        user.user_metadata?.username
 
-Login
+        ||
 
-</button>
+        user.email
+        .split("@")[0];
 
-<div
 
-id="loginMessage"
+    headerUsername.textContent =
+    username;
 
-class="form-message"
 
-aria-live="polite"
+    updateHeader();
 
->
 
-</div>
+}
 
-</form>
 
-</div>
 
-</div>
 
-<!-- ======== REGISTER MODAL ======== -->
 
-<div
+/* =========================================
+   SESSION CHECK
+========================================= */
 
-id="registerModal"
 
-class="modal hidden"
+async function checkSession(){
 
-aria-hidden="true"
 
->
+    const {
 
-<div
+        data,
 
-class="modal-background"
+        error
 
-data-close-modal
+    } =
 
-></div>
+    await supabaseClient
+    .auth
+    .getSession();
 
-<div class="modal-box">
 
-<button
+    if(error){
 
-type="button"
 
-id="closeRegisterModal"
+        console.error(
+            "Session error:",
+            error
+        );
 
-class="close-button"
 
->
+        return;
 
-×
 
-</button>
+    }
 
-<h2>
 
-Create Account
+    updateAuthUI(
+        data.session?.user || null
+    );
 
-</h2>
 
-<p>
+}
 
-Join Unine.
 
-</p>
 
-<form id="registerForm">
 
-<!-- USERNAME -->
 
-<div class="input-group">
+/* =========================================
+   AUTH LISTENER
+========================================= */
 
-<label for="registerUsername">
 
-Username
+supabaseClient
+.auth
+.onAuthStateChange(
 
-</label>
+    (event,session)=>{
 
-<input
 
-type="text"
+        updateAuthUI(
+            session?.user || null
+        );
 
-id="registerUsername"
 
-name="username"
+    }
 
-minlength="3"
+);
 
-maxlength="30"
 
-autocomplete="username"
 
-required
 
->
 
-</div>
+/* =========================================
+   LOGIN
+========================================= */
 
-<!-- EMAIL -->
 
-<div class="input-group">
+async function login(event){
 
-<label for="registerEmail">
 
-Email
+    event.preventDefault();
 
-</label>
 
-<input
+    clearMessage(
+        loginMessage
+    );
 
-type="email"
 
-id="registerEmail"
+    const form =
 
-name="email"
+    new FormData(
+        loginForm
+    );
 
-autocomplete="email"
 
-pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+    const email =
 
-required
+    String(
+        form.get("email")
+    )
 
->
+    .trim()
 
-</div>
+    .toLowerCase();
 
-<!-- PASSWORD -->
 
-<div class="input-group">
+    const password =
 
-<label for="registerPassword">
+    String(
+        form.get("password")
+    );
 
-Password
 
-</label>
+    loginSubmit.disabled =
+    true;
 
-<div class="password-wrapper">
 
-<input
+    loginSubmit.textContent =
+    "Logging in...";
 
-type="password"
 
-id="registerPassword"
+    try{
 
-name="password"
 
-minlength="8"
+        const {
 
-autocomplete="new-password"
+            data,
 
-required
+            error
 
->
+        } =
 
-<button
+        await supabaseClient
+        .auth
+        .signInWithPassword({
 
-type="button"
 
-class="password-toggle"
+            email,
 
-data-target="registerPassword"
+            password
 
->
 
-<img
+        });
 
-src="assets/icons/eye.svg"
 
-alt="show password"
+        if(error){
 
->
 
-</button>
+            showMessage(
 
-</div>
+                loginMessage,
 
-</div>
+                error.message
 
-<!-- CONFIRM PASSWORD -->
+            );
 
-<div class="input-group">
 
-<label for="registerPasswordConfirm">
+            return;
 
-Confirm Password
 
-</label>
+        }
 
-<div class="password-wrapper">
 
-<input
+        showMessage(
 
-type="password"
+            loginMessage,
 
-id="registerPasswordConfirm"
+            "Login successful",
 
-name="password_confirm"
+            "success"
 
-minlength="8"
+        );
 
-autocomplete="new-password"
 
-required
+        const {
+            data: sessionData
+        } =
 
->
+        await supabaseClient
+        .auth
+        .getSession();
 
-<button
 
-type="button"
+        if(sessionData.session){
 
-class="password-toggle"
 
-data-target="registerPasswordConfirm"
+            updateAuthUI(
+                sessionData.session.user
+            );
 
->
 
-<img
+        }
 
-src="assets/icons/eye.svg"
 
-alt="show password"
+        closeModal(
+            loginModal
+        );
 
->
 
-</button>
+        switchPage(
+            "home"
+        );
 
-</div>
 
-</div>
+    }
 
-<button
 
-type="submit"
+    catch(error){
 
-id="registerSubmit"
 
-class="primary-button"
+        console.error(
+            error
+        );
 
->
 
-Create Account
+        showMessage(
 
-</button>
+            loginMessage,
 
-<div
+            "Login failed"
 
-id="registerMessage"
+        );
 
-class="form-message"
 
-aria-live="polite"
+    }
 
->
 
-</div>
+    finally{
 
-</form>
 
-</div>
+        loginSubmit.disabled =
+        false;
 
-</div>
 
+        loginSubmit.textContent =
+        "Login";
 
-<!-- ======== LOGOUT MODAL ======== -->
 
-<div
+    }
 
-id="logoutModal"
 
-class="modal hidden"
+}
 
-aria-hidden="true"
 
->
 
-<div
 
-class="modal-background"
 
-data-close-modal
+/* =========================================
+   REGISTER
+========================================= */
 
-></div>
 
-<div class="modal-box">
+async function register(event){
 
-<h2>
 
-Logout
+    event.preventDefault();
 
-</h2>
 
-<p>
+    clearMessage(
+        registerMessage
+    );
 
-Are you sure you want to logout?
 
-</p>
+    const form =
 
-<div class="logout-actions">
+    new FormData(
+        registerForm
+    );
 
-<button
 
-id="cancelLogout"
+    const username =
 
-class="cancel-button"
+    String(
+        form.get("username")
+    )
 
->
+    .trim();
 
-No
 
-</button>
+    const email =
 
-<button
+    String(
+        form.get("email")
+    )
 
-id="confirmLogout"
+    .trim()
 
-class="danger-button"
+    .toLowerCase();
 
->
+    const emailRegex =
 
-Yes
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+   
 
-</button>
+    if(!emailRegex.test(email)){
 
-</div>
+        showMessage(
 
-</div>
+            registerMessage,
 
-</div>
+            "Please enter a valid email address"
 
-<!-- ======== SUPABASE ======== -->
+        );
 
-<script
+        return;
 
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    }
 
-</script>
 
-<!-- CORE -->
+    const password =
 
-<script
+    String(
+        form.get("password")
+    );
 
-src="index.js">
 
-</script>
+    const confirm =
 
+    String(
 
+        form.get(
+            "password_confirm"
+        )
 
-<!-- ======== PAGE JS ======== -->
-<!-- ======== PAGE JS ======== -->
-<!-- ======== PAGE JS ======== -->
+    );
 
-<script
 
-src="home/home/home.js">
+    if(password !== confirm){
 
-</script>
 
-<script
+        showMessage(
 
-src="shop/shop/shop.js">
+            registerMessage,
 
-</script>
+            "Passwords do not match"
 
-<script
+        );
 
-src="order/order/order.js">
 
-</script>
+        return;
 
-<script
 
-src="inbox/inbox/inbox.js">
+    }
 
-</script>
 
-<script
+    if(password.length < 8){
 
-src="me/me/me.js">
 
-</script>
+        showMessage(
 
-<script
-  
-src="me/setting/setting.js">
+            registerMessage,
 
-</script>
+            "Password must be at least 8 characters"
 
-</body>
+        );
 
-</html>
+
+        return;
+
+
+    }
+
+
+    registerSubmit.disabled =
+    true;
+
+
+    registerSubmit.textContent =
+    "Creating...";
+
+
+    try{
+
+
+        const {
+
+            data,
+
+            error
+
+        } =
+
+        await supabaseClient
+        .auth
+        .signUp({
+
+
+            email,
+
+            password,
+
+
+            options:{
+
+
+                data:{
+
+
+                    username
+
+
+                }
+
+
+            }
+
+
+        });
+
+
+        if(error){
+
+
+            showMessage(
+
+                registerMessage,
+
+                error.message
+
+            );
+
+
+            return;
+
+
+        }
+
+
+        showMessage(
+
+            registerMessage,
+
+            "Account created",
+
+            "success"
+
+        );
+
+
+        registerForm.reset();
+
+
+        setTimeout(()=>{
+
+
+            closeModal(
+                registerModal
+            );
+
+
+            switchPage(
+                "home"
+            );
+
+
+        },800);
+
+
+    }
+
+
+    catch(error){
+
+
+        console.error(
+            error
+        );
+
+
+        showMessage(
+
+            registerMessage,
+
+            "Register failed"
+
+        );
+
+
+    }
+
+
+    finally{
+
+
+        registerSubmit.disabled =
+        false;
+
+
+        registerSubmit.textContent =
+        "Create Account";
+
+
+    }
+
+
+}
+
+
+
+
+
+/* =========================================
+   PAGE SWITCH
+========================================= */
+
+
+async function switchPage(page){
+
+
+    const protectedPages = [
+
+        "order",
+
+        "inbox",
+
+        "me",
+
+        "setting"
+
+    ];
+
+
+    /*
+        需要登录页面保护
+    */
+
+
+    if(
+
+        protectedPages.includes(page)
+
+        &&
+
+        !currentUser
+
+    ){
+
+
+        openModal(
+            loginModal
+        );
+
+
+        return;
+
+
+    }
+
+
+    Object.values(pages)
+
+    .forEach(section=>{
+
+
+        section.classList.add(
+            "hidden"
+        );
+
+
+    });
+
+
+    if(
+        pages[page]
+    ){
+
+
+        pages[page]
+
+        .classList
+
+        .remove(
+            "hidden"
+        );
+
+
+    }
+
+    if(
+        page === "setting"
+    ){
+
+        if(
+            typeof loadSettingPage === "function"
+        ){
+            loadSettingPage();
+
+        }
+    }
+       
+    /*
+        NAV ACTIVE
+    */
+
+
+    document
+
+    .querySelectorAll(
+        ".nav-item"
+    )
+
+    .forEach(item=>{
+
+
+        item.classList.remove(
+            "active"
+        );
+
+
+        if(
+
+            item.dataset.page === page
+
+        ){
+
+
+            item.classList.add(
+                "active"
+            );
+
+
+        }
+
+
+    });
+
+
+    /* =========================================
+       NAV ICON CONTROL
+    ========================================= */
+
+
+    const navIcons = {
+
+
+        home: {
+
+            active:
+            "assets/icons/home-active.svg",
+
+            normal:
+            "assets/icons/home.svg"
+
+        },
+
+
+        shop: {
+
+            active:
+            "assets/icons/shop-active.svg",
+
+            normal:
+            "assets/icons/shop.svg"
+
+        },
+
+
+        order: {
+
+            active:
+            "assets/icons/order-active.svg",
+
+            normal:
+            "assets/icons/order.svg"
+
+        },
+
+
+        inbox: {
+
+            active:
+            "assets/icons/inbox-active.svg",
+
+            normal:
+            "assets/icons/inbox.svg"
+
+        },
+
+
+        me: {
+
+            active:
+            "assets/icons/me-active.svg",
+
+            normal:
+            "assets/icons/me.svg"
+
+        }
+
+
+    };
+
+
+    Object.keys(navIcons).forEach(navPage=>{
+
+
+        const navButton =
+        document.querySelector(
+            `.nav-item[data-page="${navPage}"]`
+        );
+
+
+        if(!navButton)
+            return;
+
+
+        const navIcon =
+        navButton.querySelector(
+            ".nav-icon-image"
+        );
+
+
+        if(!navIcon)
+            return;
+
+
+        if(page === navPage){
+
+
+            navIcon.src =
+            navIcons[navPage].active;
+
+
+        }
+        else{
+
+
+            navIcon.src =
+            navIcons[navPage].normal;
+
+
+        }
+
+
+    });
+
+
+    updateHeader();
+
+
+}
+
+
+
+
+
+/* =========================================
+   EVENTS
+========================================= */
+
+
+function initEvents(){
+
+
+    /*
+        OPEN LOGIN
+    */
+
+
+    if(loginButton){
+
+
+        loginButton.onclick =
+        ()=>{
+
+
+            clearMessage(
+                loginMessage
+            );
+
+
+            openModal(
+                loginModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+    /*
+        OPEN REGISTER
+    */
+
+
+    if(registerButton){
+
+
+        registerButton.onclick =
+        ()=>{
+
+
+            clearMessage(
+                registerMessage
+            );
+
+
+            openModal(
+                registerModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+    /*
+        FORM SUBMIT
+    */
+
+
+    if(loginForm){
+
+
+        loginForm.onsubmit =
+        login;
+
+
+    }
+
+
+    if(registerForm){
+
+
+        registerForm.onsubmit =
+        register;
+
+
+    }
+
+
+
+
+
+    /*
+        CLOSE BUTTON
+    */
+
+
+    if(closeLoginModal){
+
+
+        closeLoginModal.onclick =
+        ()=>{
+
+
+            closeModal(
+                loginModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+    if(closeRegisterModal){
+
+
+        closeRegisterModal.onclick =
+        ()=>{
+
+
+            closeModal(
+                registerModal
+            );
+
+
+        };
+
+
+    }
+
+
+
+
+
+    /*
+        CLICK BACKGROUND CLOSE
+    */
+
+
+    document
+
+    .querySelectorAll(
+        "[data-close-modal]"
+    )
+
+    .forEach(item=>{
+
+
+        item.onclick =
+        closeAllModal;
+
+
+    });
+
+
+
+
+
+    /*
+        NAVIGATION
+    */
+
+
+    document
+
+    .querySelectorAll(
+        ".nav-item"
+    )
+
+    .forEach(button=>{
+
+
+        button.onclick =
+        ()=>{
+
+
+            switchPage(
+
+                button.dataset.page
+
+            );
+
+
+        };
+
+
+    });
+
+
+}
+
+
+
+
+
+/* =========================================
+   ESC CLOSE MODAL
+========================================= */
+
+
+document.addEventListener(
+
+    "keydown",
+
+    (event)=>{
+
+
+        if(
+
+            event.key === "Escape"
+
+        ){
+
+
+            closeAllModal();
+
+
+        }
+
+
+    }
+
+);
+
+
+
+
+
+/* =========================================
+   START
+========================================= */
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    async ()=>{
+
+
+        /*
+            初始化事件
+        */
+
+
+        initEvents();
+
+
+        /*
+            密码眼睛
+        */
+
+
+        initPasswordToggle();
+
+
+        /*
+            检查登录状态
+        */
+
+
+        await checkSession();
+
+
+        /*
+            默认 Home
+        */
+
+
+        switchPage(
+            "home"
+        );
+
+
+    }
+
+);
