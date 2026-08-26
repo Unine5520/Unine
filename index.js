@@ -939,6 +939,25 @@ async function register(event){
 
     .toLowerCase();
 
+    const emailRegex =
+
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+   
+
+    if(!emailRegex.test(email)){
+
+        showMessage(
+
+            registerMessage,
+
+            "Please enter a valid email address"
+
+        );
+
+        return;
+
+    }
+
 
     const password =
 
