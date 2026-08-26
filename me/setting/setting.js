@@ -248,6 +248,115 @@ if(closeSettingButton){
 ========================================= */
 
 
+async function checkEmailVerified(){
+
+
+    if(!currentUser)
+        return false;
+
+
+    const {
+        data,
+        error
+    } =
+
+    await supabaseClient
+    .auth
+    .getUser();
+
+
+
+    if(error){
+
+        console.error(
+            "Check email error:",
+            error
+        );
+
+        return false;
+
+    }
+
+
+
+    return Boolean(
+        data.user.email_confirmed_at
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+async function updateConfirmEmailButton(){
+
+
+    if(!confirmEmailButton)
+        return;
+
+
+
+    const verified =
+    await checkEmailVerified();
+
+
+
+    if(verified){
+
+
+        confirmEmailButton.textContent =
+        "Email Confirmed";
+
+
+        confirmEmailButton.disabled =
+        true;
+
+
+        confirmEmailButton
+        .classList
+        .add(
+            "verified"
+        );
+
+
+    }
+    else{
+
+
+        confirmEmailButton.textContent =
+        "Confirm Email";
+
+
+        confirmEmailButton.disabled =
+        false;
+
+
+        confirmEmailButton
+        .classList
+        .remove(
+            "verified"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
 if(confirmEmailButton){
 
 
@@ -260,26 +369,105 @@ if(confirmEmailButton){
 
 
 
-        console.log(
-            "Confirm email:",
-            currentUser.email
-        );
+        confirmEmailButton.disabled =
+        true;
 
 
-        /*
-            Later:
-            resend confirmation email
-        */
+
+        confirmEmailButton.textContent =
+        "Sending...";
+
+
+
+        try{
+
+
+            const {
+                error
+            } =
+
+            await supabaseClient
+            .auth
+            .resend({
+
+                type:
+                "signup",
+
+                email:
+                currentUser.email
+
+            });
+
+
+
+            if(error){
+
+
+                console.error(
+                    "Resend email error:",
+                    error
+                );
+
+
+                confirmEmailButton.textContent =
+                "Try Again";
+
+
+                confirmEmailButton.disabled =
+                false;
+
+
+                return;
+
+
+            }
+
+
+
+
+
+            confirmEmailButton.textContent =
+            "Email Sent";
+
+
+
+            setTimeout(()=>{
+
+
+                updateConfirmEmailButton();
+
+
+            },3000);
+
+
+
+        }
+
+
+        catch(error){
+
+
+            console.error(
+                "Confirm email failed:",
+                error
+            );
+
+
+            confirmEmailButton.textContent =
+            "Try Again";
+
+
+            confirmEmailButton.disabled =
+            false;
+
+
+        }
 
 
     };
 
 
 }
-
-
-
-
 
 
 
