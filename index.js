@@ -1312,7 +1312,7 @@ async function switchPage(page){
         if(
             typeof loadSettingPage === "function"
         ){
-            loadSettingPage();
+            await loadSettingPage();
 
         }
     }
