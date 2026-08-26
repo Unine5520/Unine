@@ -656,3 +656,12 @@ document.addEventListener(
 
     }
 );
+
+
+function loadSettingPage(){
+
+    loadSettingEmail();
+
+    hideBottomNavigation();
+
+}
