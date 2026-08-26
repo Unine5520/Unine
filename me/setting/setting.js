@@ -359,11 +359,13 @@ async function updateConfirmEmailButton(){
 async function loadSettingPage(){
 
 
-    await loadSettingEmail();
+    await syncEmailVerified();
 
 
-    await updateConfirmEmailButton();
+    loadSettingEmail();
 
+
+    updateConfirmEmailButton();
 
     hideBottomNavigation();
 
