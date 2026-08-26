@@ -213,77 +213,33 @@ async function loadSettingEmail(){
    CHECK EMAIL VERIFY
 ========================================= */
 
-
 async function checkEmailVerified(){
 
 
-    if(!currentUser){
-
-
-        return false;
-
-
-    }
-
-
-
-
-
     const {
-
         data,
-
         error
-
     } =
-
     await supabaseClient
-    .from(
-        "profiles"
-    )
-    .select(
-        "email_verified"
-    )
-    .eq(
-        "id",
-        currentUser.id
-    )
-    .single();
+    .auth
+    .getUser();
 
 
 
-
-
-    if(error){
-
-
-        console.error(
-
-            "Check profile verify error:",
-
-            error
-
-        );
-
+    if(error || !data.user){
 
         return false;
 
-
     }
-
-
 
 
 
     return Boolean(
-
-        data.email_verified
-
+        data.user.email_confirmed_at
     );
 
 
 }
-
 
 
 
@@ -792,3 +748,32 @@ document.addEventListener(
 
     }
 );
+
+
+async function syncEmailVerified(){
+
+
+    const verified =
+    await checkEmailVerified();
+
+
+
+    if(!currentUser)
+        return;
+
+
+
+    await supabaseClient
+    .from("profiles")
+    .update({
+
+        email_verified:verified
+
+    })
+    .eq(
+        "id",
+        currentUser.id
+    );
+
+
+}
