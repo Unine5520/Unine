@@ -178,42 +178,6 @@ function loadSettingEmail(){
 
 
 
-
-
-
-
-/* =========================================
-   AUTH STATE LISTENER
-========================================= */
-
-
-supabaseClient
-.auth
-.onAuthStateChange(
-(event,session)=>{
-
-
-    currentUser =
-    session?.user || null;
-
-
-
-    loadSettingEmail();
-
-
-
-}
-
-);
-
-
-
-
-
-
-
-
-
 /* =========================================
    OPEN SETTING
 ========================================= */
