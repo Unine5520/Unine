@@ -75,12 +75,6 @@ if(settingButton){
             "setting"
         );
 
-
-
-        hideMeBottomNavigation();
-
-
-
     };
 
 
