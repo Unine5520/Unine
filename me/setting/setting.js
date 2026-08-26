@@ -8,9 +8,45 @@
 ========================================= */
 
 
+const closeSettingButton =
+document.getElementById(
+    "closeSettingButton"
+);
+
+
+
+const bottomNavigation =
+document.querySelector(
+    ".bottom-navigation"
+);
+
+
+
+const accountEmail =
+document.getElementById(
+    "accountEmail"
+);
+
+
+
+const confirmEmailButton =
+document.getElementById(
+    "confirmEmailButton"
+);
+
+
+
+
+
+
+/* =========================================
+   LOGOUT DOM
+========================================= */
+
+
 const settingLogoutButton =
 document.getElementById(
-    "logoutButton"
+    "setting-logoutButton"
 );
 
 
@@ -40,6 +76,141 @@ const logoutBackground =
 document.querySelector(
     "#logoutModal .modal-background"
 );
+
+
+
+
+
+
+
+/* =========================================
+   SHOW USER EMAIL
+========================================= */
+
+
+function loadSettingEmail(){
+
+
+    if(
+        !accountEmail
+    )
+        return;
+
+
+
+    if(
+        currentUser
+    ){
+
+
+        accountEmail.textContent =
+        currentUser.email;
+
+
+
+    }
+    else{
+
+
+        accountEmail.textContent =
+        "Email";
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   CLOSE SETTING
+========================================= */
+
+
+if(closeSettingButton){
+
+
+    closeSettingButton.onclick =
+    ()=>{
+
+
+        switchPage(
+            "me"
+        );
+
+
+
+        if(bottomNavigation){
+
+
+            bottomNavigation
+            .classList
+            .remove(
+                "hidden"
+            );
+
+
+        }
+
+
+
+    };
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   CONFIRM EMAIL
+========================================= */
+
+
+if(confirmEmailButton){
+
+
+    confirmEmailButton.onclick =
+    async()=>{
+
+
+        if(
+            !currentUser
+        )
+            return;
+
+
+
+        console.log(
+            "Confirm email:",
+            currentUser.email
+        );
+
+
+
+        /*
+            Later:
+            Supabase resend confirmation email
+        */
+
+
+
+    };
+
+
+}
+
+
 
 
 
@@ -96,23 +267,6 @@ function closeLogoutModal(){
 
 
 
-    /*
-        remove focus
-        prevent aria-hidden warning
-    */
-
-
-    if(
-        document.activeElement
-    ){
-
-        document.activeElement.blur();
-
-    }
-
-
-
-
     logoutModal
     .classList
     .add(
@@ -138,7 +292,7 @@ function closeLogoutModal(){
 
 
 /* =========================================
-   OPEN BUTTON
+   LOGOUT BUTTON
 ========================================= */
 
 
@@ -147,12 +301,6 @@ if(settingLogoutButton){
 
     settingLogoutButton.onclick =
     ()=>{
-
-
-        console.log(
-            "Logout button clicked"
-        );
-
 
 
         openLogoutModal();
@@ -172,7 +320,7 @@ if(settingLogoutButton){
 
 
 /* =========================================
-   CANCEL BUTTON
+   CANCEL LOGOUT
 ========================================= */
 
 
@@ -239,12 +387,6 @@ if(confirmLogout){
     async()=>{
 
 
-        console.log(
-            "Confirm logout"
-        );
-
-
-
         try{
 
 
@@ -259,12 +401,10 @@ if(confirmLogout){
 
 
 
-
             if(error){
 
 
                 console.error(
-                    "Logout error:",
                     error
                 );
 
@@ -277,30 +417,27 @@ if(confirmLogout){
 
 
 
-
-
-            console.log(
-                "Logout successful"
-            );
-
-
-
-
-
-
             closeLogoutModal();
 
 
 
+            if(bottomNavigation){
 
+
+                bottomNavigation
+                .classList
+                .remove(
+                    "hidden"
+                );
+
+
+            }
 
 
 
             switchPage(
                 "home"
             );
-
-
 
 
 
@@ -325,21 +462,64 @@ if(confirmLogout){
 
 }
 
+
+
+
+
+
+
+
+/* =========================================
+   ESC CLOSE
+========================================= */
+
+
 document.addEventListener(
     "keydown",
     (event)=>{
+
 
         if(
             event.key === "Escape"
             &&
             logoutModal
             &&
-            !logoutModal.classList.contains("hidden")
+            !logoutModal.classList.contains(
+                "hidden"
+            )
         ){
+
 
             closeLogoutModal();
 
+
+
         }
+
+
+    }
+);
+
+
+
+
+
+
+
+
+/* =========================================
+   LOAD SETTING
+========================================= */
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+
+        loadSettingEmail();
+
+
 
     }
 );
