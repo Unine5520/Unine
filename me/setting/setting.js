@@ -255,12 +255,6 @@ async function checkEmailVerified(){
     }
 
 
-
-    return Boolean(
-        data.user.email_confirmed_at
-    );
-
-
 }
 
 
