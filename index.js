@@ -1228,7 +1228,18 @@ async function switchPage(page){
 
     }
 
+    if(
+        page === "setting"
+    ){
 
+        if(
+            typeof loadSettingPage === "function"
+        ){
+            loadSettingPage();
+
+        }
+    }
+       
     /*
         NAV ACTIVE
     */
