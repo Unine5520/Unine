@@ -252,10 +252,6 @@ if(closeSettingButton){
 async function checkEmailVerified(){
 
 
-    if(!currentUser)
-        return false;
-
-
     const {
         data,
         error
@@ -269,10 +265,23 @@ async function checkEmailVerified(){
 
     if(error){
 
+
         console.error(
             "Check email error:",
             error
         );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(
+        !data.user
+    ){
 
         return false;
 
@@ -286,8 +295,6 @@ async function checkEmailVerified(){
 
 
 }
-
-
 
 
 
