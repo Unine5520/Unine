@@ -1105,7 +1105,7 @@ async function register(event){
             );
 
 
-        },800);
+        },500);
 
 
     }
