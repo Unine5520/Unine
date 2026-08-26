@@ -1,9 +1,33 @@
+/* =========================================
+   ME PAGE
+========================================= */
+
+
+/* =========================================
+   DOM
+========================================= */
+
+
 const settingButton =
 document.getElementById(
-"settingButton"
+    "settingButton"
 );
 
 
+
+const bottomNavigation =
+document.querySelector(
+    ".bottom-navigation"
+);
+
+
+
+
+
+
+/* =========================================
+   OPEN SETTING
+========================================= */
 
 
 if(settingButton){
@@ -16,6 +40,25 @@ if(settingButton){
         switchPage(
             "setting"
         );
+
+
+        /*
+            Hide bottom menu
+        */
+
+
+        if(bottomNavigation){
+
+
+            bottomNavigation
+            .classList
+            .add(
+                "hidden"
+            );
+
+
+        }
+
 
 
     };
