@@ -35,17 +35,7 @@ if(settingButton){
         );
 
 
-        /*
-            Hide bottom menu
-        */
+    };
 
 
-        if(settingButton){
-
-
-            settingButton.onclick =
-            ()=>{
-                switchPage(
-                    "setting"
-                );
-        }
+}
