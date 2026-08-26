@@ -40,21 +40,12 @@ if(settingButton){
         */
 
 
-        if(bottomNavigation){
+        if(settingButton){
 
 
-            bottomNavigation
-            .classList
-            .add(
-                "hidden"
-            );
-
-
+            settingButton.onclick =
+            ()=>{
+                switchPage(
+                    "setting"
+                );
         }
-
-
-
-    };
-
-
-}
