@@ -372,9 +372,6 @@ if(logoutBackground){
 
 
 
-
-
-
 /* =========================================
    CONFIRM LOGOUT
 ========================================= */
@@ -387,11 +384,26 @@ if(confirmLogout){
     async()=>{
 
 
+        /*
+            remove button focus
+            prevent aria-hidden warning
+        */
+
+        if(document.activeElement){
+
+            document.activeElement.blur();
+
+        }
+
+
+
         try{
 
 
             const {
+
                 error
+
             } =
 
             await supabaseClient
@@ -401,10 +413,12 @@ if(confirmLogout){
 
 
 
+
             if(error){
 
 
                 console.error(
+                    "Logout error:",
                     error
                 );
 
@@ -417,9 +431,27 @@ if(confirmLogout){
 
 
 
+
+
+            console.log(
+                "Logout successful"
+            );
+
+
+
+
+
+
             closeLogoutModal();
 
 
+
+
+
+
+            /*
+                show bottom navigation
+            */
 
             if(bottomNavigation){
 
@@ -435,9 +467,18 @@ if(confirmLogout){
 
 
 
+
+
+
+            /*
+                back to home
+            */
+
             switchPage(
                 "home"
             );
+
+
 
 
 
@@ -461,9 +502,6 @@ if(confirmLogout){
 
 
 }
-
-
-
 
 
 
