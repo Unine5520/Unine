@@ -317,6 +317,8 @@ async function loadSettingPage(){
 
     await loadSettingEmail();
 
+    await loadSettingEmail();
+
 
     await updateConfirmEmailButton();
 
