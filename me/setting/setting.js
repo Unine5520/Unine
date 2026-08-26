@@ -520,16 +520,6 @@ if(confirmLogout){
             );
 
 
-
-
-
-            await supabaseClient
-            .auth
-            .signOut();
-            
-
-
-
             updateAuthUI(null);
 
 
