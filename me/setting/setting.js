@@ -17,7 +17,7 @@ document.getElementById(
 
 const settingBottomNavigation =
 document.querySelector(
-".bottom-navigation"
+    ".bottom-navigation"
 );
 
 
@@ -33,6 +33,7 @@ const confirmEmailButton =
 document.getElementById(
     "confirmEmailButton"
 );
+
 
 
 
@@ -83,6 +84,8 @@ document.querySelector(
 
 
 
+
+
 /* =========================================
    BOTTOM NAV CONTROL
 ========================================= */
@@ -91,10 +94,10 @@ document.querySelector(
 function hideBottomNavigation(){
 
 
-    if(bottomNavigation){
+    if(settingBottomNavigation){
 
 
-        bottomNavigation
+        settingBottomNavigation
         .classList
         .add(
             "hidden"
@@ -110,14 +113,13 @@ function hideBottomNavigation(){
 
 
 
-
 function showBottomNavigation(){
 
 
-    if(bottomNavigation){
+    if(settingBottomNavigation){
 
 
-        bottomNavigation
+        settingBottomNavigation
         .classList
         .remove(
             "hidden"
@@ -178,12 +180,17 @@ function loadSettingEmail(){
 
 
 
+
+
+
+
+
 /* =========================================
-   OPEN SETTING
+   LOAD SETTING PAGE
 ========================================= */
 
 
-function openSettingPage(){
+function loadSettingPage(){
 
 
     loadSettingEmail();
@@ -217,7 +224,6 @@ if(closeSettingButton){
         switchPage(
             "me"
         );
-
 
 
         showBottomNavigation();
@@ -330,19 +336,11 @@ function closeLogoutModal(){
 
 
 
-    /*
-        remove focus first
-        prevent aria-hidden warning
-    */
-
-
     if(
         document.activeElement
     ){
 
-
         document.activeElement.blur();
-
 
     }
 
@@ -477,12 +475,9 @@ if(confirmLogout){
             document.activeElement
         ){
 
-
             document.activeElement.blur();
 
-
         }
-
 
 
 
@@ -491,18 +486,12 @@ if(confirmLogout){
 
 
             const {
-
                 error
-
             } =
 
             await supabaseClient
             .auth
-            .signOut({
-
-                scope:"local"
-
-            });
+            .signOut();
 
 
 
@@ -526,22 +515,9 @@ if(confirmLogout){
 
 
 
-
             console.log(
                 "Logout successful"
             );
-
-
-
-
-
-            closeLogoutModal();
-
-
-
-
-
-            showBottomNavigation();
 
 
 
@@ -555,6 +531,12 @@ if(confirmLogout){
             loadSettingEmail();
 
 
+
+            closeLogoutModal();
+
+
+
+            showBottomNavigation();
 
 
 
@@ -631,37 +613,3 @@ document.addEventListener(
 
     }
 );
-
-
-
-
-
-
-
-
-
-/* =========================================
-   INIT
-========================================= */
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    ()=>{
-
-
-        loadSettingEmail();
-
-
-
-    }
-);
-
-
-function loadSettingPage(){
-
-    loadSettingEmail();
-
-    hideBottomNavigation();
-
-}
