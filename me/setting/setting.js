@@ -502,7 +502,45 @@ document.addEventListener(
 
 
 
+function loadSettingPage(){
 
+
+    const accountEmail =
+    document.getElementById(
+        "accountEmail"
+    );
+
+
+    if(
+        !accountEmail
+    )
+        return;
+
+
+
+    if(
+        currentUser
+        &&
+        currentUser.email
+    ){
+
+
+        accountEmail.textContent =
+        currentUser.email;
+
+
+    }
+    else{
+
+
+        accountEmail.textContent =
+        "Email";
+
+
+    }
+
+
+}
 
 
 
@@ -523,3 +561,4 @@ document.addEventListener(
 
     }
 );
+
