@@ -195,6 +195,7 @@ function loadSettingPage(){
 
     loadSettingEmail();
 
+    updateConfirmEmailButton();
 
     hideBottomNavigation();
 
