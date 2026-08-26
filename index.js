@@ -1061,47 +1061,6 @@ async function register(event){
 
         }
 
-
-
-        /*
-            CREATE PROFILE
-        */
-
-
-        const {
-
-            error:profileError
-
-        } =
-
-        await supabaseClient
-        .from("profiles")
-        .insert({
-
-
-            id:data.user.id,
-
-
-            username:username
-
-
-        });
-
-
-
-        if(profileError){
-
-
-            console.error(
-                "Profile error:",
-                profileError
-            );
-
-
-        }
-
-
-
         showMessage(
             registerMessage,
             "Account created",
