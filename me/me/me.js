@@ -15,6 +15,47 @@ document.getElementById(
 
 
 
+const meBottomNavigation =
+document.querySelector(
+    ".bottom-navigation"
+);
+
+
+
+
+
+
+
+
+
+/* =========================================
+   BOTTOM NAV CONTROL
+========================================= */
+
+
+function hideMeBottomNavigation(){
+
+
+    if(meBottomNavigation){
+
+
+        meBottomNavigation
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
 
 
 
@@ -33,6 +74,11 @@ if(settingButton){
         switchPage(
             "setting"
         );
+
+
+
+        hideMeBottomNavigation();
+
 
 
     };
