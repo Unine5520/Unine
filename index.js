@@ -1079,16 +1079,10 @@ async function register(event){
         .insert({
 
 
-            id:
-            data.user.id,
+            id:data.user.id,
 
 
-            username:
-            username,
-
-
-            email_verified:
-            false
+            username:username
 
 
         });
