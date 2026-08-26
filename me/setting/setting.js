@@ -83,6 +83,69 @@ document.querySelector(
 
 
 
+
+
+/* =========================================
+   HIDE BOTTOM NAV
+========================================= */
+
+
+function hideBottomNavigation(){
+
+
+    if(bottomNavigation){
+
+
+        bottomNavigation
+        .classList
+        .add(
+            "hidden"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   SHOW BOTTOM NAV
+========================================= */
+
+
+function showBottomNavigation(){
+
+
+    if(bottomNavigation){
+
+
+        bottomNavigation
+        .classList
+        .remove(
+            "hidden"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
 /* =========================================
    SHOW USER EMAIL
 ========================================= */
@@ -100,12 +163,13 @@ function loadSettingEmail(){
 
     if(
         currentUser
+        &&
+        currentUser.email
     ){
 
 
         accountEmail.textContent =
         currentUser.email;
-
 
 
     }
@@ -120,6 +184,7 @@ function loadSettingEmail(){
 
 
 }
+
 
 
 
@@ -145,18 +210,7 @@ if(closeSettingButton){
         );
 
 
-
-        if(bottomNavigation){
-
-
-            bottomNavigation
-            .classList
-            .remove(
-                "hidden"
-            );
-
-
-        }
+        showBottomNavigation();
 
 
 
@@ -164,6 +218,7 @@ if(closeSettingButton){
 
 
 }
+
 
 
 
@@ -199,16 +254,16 @@ if(confirmEmailButton){
 
 
         /*
-            Later:
+            TODO:
             Supabase resend confirmation email
         */
-
 
 
     };
 
 
 }
+
 
 
 
@@ -225,7 +280,9 @@ if(confirmEmailButton){
 function openLogoutModal(){
 
 
-    if(!logoutModal)
+    if(
+        !logoutModal
+    )
         return;
 
 
@@ -254,6 +311,7 @@ function openLogoutModal(){
 
 
 
+
 /* =========================================
    CLOSE LOGOUT MODAL
 ========================================= */
@@ -262,8 +320,20 @@ function openLogoutModal(){
 function closeLogoutModal(){
 
 
-    if(!logoutModal)
+    if(
+        !logoutModal
+    )
         return;
+
+
+
+    if(
+        document.activeElement
+    ){
+
+        document.activeElement.blur();
+
+    }
 
 
 
@@ -283,6 +353,7 @@ function closeLogoutModal(){
 
 
 }
+
 
 
 
@@ -319,6 +390,7 @@ if(settingLogoutButton){
 
 
 
+
 /* =========================================
    CANCEL LOGOUT
 ========================================= */
@@ -347,8 +419,9 @@ if(cancelLogout){
 
 
 
+
 /* =========================================
-   CLICK BACKGROUND CLOSE
+   BACKGROUND CLOSE
 ========================================= */
 
 
@@ -372,6 +445,10 @@ if(logoutBackground){
 
 
 
+
+
+
+
 /* =========================================
    CONFIRM LOGOUT
 ========================================= */
@@ -384,12 +461,9 @@ if(confirmLogout){
     async()=>{
 
 
-        /*
-            remove button focus
-            prevent aria-hidden warning
-        */
-
-        if(document.activeElement){
+        if(
+            document.activeElement
+        ){
 
             document.activeElement.blur();
 
@@ -408,8 +482,10 @@ if(confirmLogout){
 
             await supabaseClient
             .auth
-            signOut({
-               scope:"local"
+            .signOut({
+
+                scope:"local"
+
             });
 
 
@@ -448,33 +524,9 @@ if(confirmLogout){
 
 
 
+            showBottomNavigation();
 
 
-
-            /*
-                show bottom navigation
-            */
-
-            if(bottomNavigation){
-
-
-                bottomNavigation
-                .classList
-                .remove(
-                    "hidden"
-                );
-
-
-            }
-
-
-
-
-
-
-            /*
-                back to home
-            */
 
             switchPage(
                 "home"
@@ -509,6 +561,10 @@ if(confirmLogout){
 
 
 
+
+
+
+
 /* =========================================
    ESC CLOSE
 ========================================= */
@@ -520,13 +576,21 @@ document.addEventListener(
 
 
         if(
+
             event.key === "Escape"
+
             &&
+
             logoutModal
+
             &&
-            !logoutModal.classList.contains(
+
+            !logoutModal
+            .classList
+            .contains(
                 "hidden"
             )
+
         ){
 
 
@@ -542,45 +606,8 @@ document.addEventListener(
 
 
 
-function loadSettingPage(){
 
 
-    const accountEmail =
-    document.getElementById(
-        "accountEmail"
-    );
-
-
-    if(
-        !accountEmail
-    )
-        return;
-
-
-
-    if(
-        currentUser
-        &&
-        currentUser.email
-    ){
-
-
-        accountEmail.textContent =
-        currentUser.email;
-
-
-    }
-    else{
-
-
-        accountEmail.textContent =
-        "Email";
-
-
-    }
-
-
-}
 
 
 
@@ -601,4 +628,3 @@ document.addEventListener(
 
     }
 );
-
