@@ -941,7 +941,7 @@ async function register(event){
 
     const emailRegex =
 
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
    
 
     if(!emailRegex.test(email)){
