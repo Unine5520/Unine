@@ -419,152 +419,101 @@ if(closeSettingButton){
 if(confirmEmailButton){
 
 
-    confirmEmailButton.onclick =
-    async()=>{
+confirmEmailButton.onclick =
+async()=>{
 
 
-        const {
-            data,
-            error:userError
-        } =
-
-        await supabaseClient
-        .auth
-        .getUser();
-
-
-
-        if(userError || !data.user){
-
-
-            return;
-
-
-        }
+    const {
+        data,
+        error
+    } =
+    await supabaseClient
+    .auth
+    .getUser();
 
 
 
-        if(
-            data.user.email_confirmed_at
-        ){
+    if(error || !data.user){
 
+        console.error(error);
 
-            await updateConfirmEmailButton();
+        return;
 
-
-            return;
-
-
-        }
+    }
 
 
 
-        confirmEmailButton.disabled =
-        true;
-
+    if(data.user.email_confirmed_at){
 
 
         confirmEmailButton.textContent =
-        "Sending...";
+        "Email Verified";
+
+
+        return;
+
+
+    }
 
 
 
-        try{
+    confirmEmailButton.disabled =
+    true;
 
 
-            const {
-                error
-            } =
-
-            await supabaseClient
-            .auth
-            .resend({
-
-                type:
-                "signup",
-
-                email:
-                data.user.email
-
-            });
+    confirmEmailButton.textContent =
+    "Sending...";
 
 
 
-            if(error){
+    const {
+        error: resendError
+    } =
 
+    await supabaseClient
+    .auth
+    .resend({
 
-                console.error(
-                    "Send email error:",
-                    error
-                );
+        type:"signup",
 
+        email:data.user.email
 
-                confirmEmailButton.textContent =
-                "Try Again";
-
-
-                confirmEmailButton.disabled =
-                false;
-
-
-                return;
-
-
-            }
+    });
 
 
 
-            confirmEmailButton.textContent =
-            "Email Sent";
+    if(resendError){
+
+
+        console.error(
+            "Resend error:",
+            resendError
+        );
+
+
+        confirmEmailButton.textContent =
+        "Try Again";
+
+
+        confirmEmailButton.disabled =
+        false;
+
+
+        return;
+
+
+    }
 
 
 
-            setTimeout(
-                async()=>{
+    confirmEmailButton.textContent =
+    "Email Sent";
 
 
-                    await updateConfirmEmailButton();
-
-
-                },
-                3000
-            );
-
-
-        }
-
-
-        catch(error){
-
-
-            console.error(
-                "Confirm email failed:",
-                error
-            );
-
-
-            confirmEmailButton.textContent =
-            "Try Again";
-
-
-            confirmEmailButton.disabled =
-            false;
-
-
-        }
-
-
-    };
+};
 
 
 }
-
-
-
-
-
-
-
 
 
 /* =========================================
