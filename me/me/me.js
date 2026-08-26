@@ -15,13 +15,6 @@ document.getElementById(
 
 
 
-const bottomNavigation =
-document.querySelector(
-    ".bottom-navigation"
-);
-
-
-
 
 
 
