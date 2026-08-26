@@ -898,378 +898,53 @@ async function login(event){
 
 
 /* =========================================
-   REGISTER
+   CHECK EMAIL VERIFY
 ========================================= */
 
 
-async function register(event){
+async function checkEmailVerified(){
 
 
-    event.preventDefault();
+    const {
+        data,
+        error
+    } =
 
+    await supabaseClient
+    .auth
+    .getUser();
 
-    clearMessage(
-        registerMessage
-    );
 
 
-
-    const form =
-
-    new FormData(
-        registerForm
-    );
-
-
-
-    const username =
-
-    String(
-        form.get("username")
-    )
-    .trim();
-
-
-
-    const email =
-
-    String(
-        form.get("email")
-    )
-    .trim()
-    .toLowerCase();
-
-
-
-    const emailRegex =
-
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-
-
-    if(!emailRegex.test(email)){
-
-
-        showMessage(
-
-            registerMessage,
-
-            "Please enter a valid email address"
-
-        );
-
-
-        return;
-
-
-    }
-
-
-
-
-    const password =
-
-    String(
-        form.get("password")
-    );
-
-
-
-    const confirm =
-
-    String(
-        form.get("password_confirm")
-    );
-
-
-
-    if(password !== confirm){
-
-
-        showMessage(
-
-            registerMessage,
-
-            "Passwords do not match"
-
-        );
-
-
-        return;
-
-
-    }
-
-
-
-
-    if(password.length < 8){
-
-
-        showMessage(
-
-            registerMessage,
-
-            "Password must be at least 8 characters"
-
-        );
-
-
-        return;
-
-
-    }
-
-
-
-
-
-    registerSubmit.disabled =
-    true;
-
-
-
-    registerSubmit.textContent =
-    "Creating...";
-
-
-
-
-
-    try{
-
-
-
-        /*
-            CREATE AUTH USER
-        */
-
-
-        const {
-
-            data,
-
-            error
-
-        } =
-
-        await supabaseClient
-        .auth
-        .signUp({
-
-
-            email,
-
-            password,
-
-
-            options:{
-
-
-                data:{
-
-
-                    username
-
-
-                }
-
-
-            }
-
-
-        });
-
-
-
-
-
-        if(error){
-
-
-            showMessage(
-
-                registerMessage,
-
-                error.message
-
-            );
-
-
-            return;
-
-
-        }
-
-
-
-
-
-        if(
-            !data.user
-        ){
-
-
-            showMessage(
-
-                registerMessage,
-
-                "Account creation failed"
-
-            );
-
-
-            return;
-
-
-        }
-
-
-
-
-
-        /*
-            CREATE PROFILE
-        */
-
-
-        const {
-
-            error:profileError
-
-        } =
-
-        await supabaseClient
-        .from(
-            "profiles"
-        )
-        .insert({
-
-
-            id:
-            data.user.id,
-
-
-            username:
-            username,
-
-
-            email_verified:
-            false
-
-
-        });
-
-
-
-
-
-        if(profileError){
-
-
-            console.error(
-                "Profile create error:",
-                profileError
-            );
-
-
-            showMessage(
-
-                registerMessage,
-
-                "Profile creation failed"
-
-            );
-
-
-            return;
-
-
-        }
-
-
-
-
-
-
-
-        showMessage(
-
-            registerMessage,
-
-            "Account created",
-
-            "success"
-
-        );
-
-
-
-
-
-        registerForm.reset();
-
-
-
-
-
-        setTimeout(()=>{
-
-
-            closeModal(
-                registerModal
-            );
-
-
-            switchPage(
-                "home"
-            );
-
-
-        },500);
-
-
-
-
-
-    }
-
-
-    catch(error){
+    if(error){
 
 
         console.error(
-            "Register error:",
+            "Check verify error:",
             error
         );
 
 
-        showMessage(
-
-            registerMessage,
-
-            "Register failed"
-
-        );
+        return false;
 
 
     }
 
 
 
-    finally{
+    if(!data.user){
 
 
-        registerSubmit.disabled =
-        false;
-
-
-
-        registerSubmit.textContent =
-        "Create Account";
+        return false;
 
 
     }
+
+
+
+    return Boolean(
+        data.user.email_confirmed_at
+    );
 
 
 }
