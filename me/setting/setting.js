@@ -15,9 +15,9 @@ document.getElementById(
 
 
 
-const bottomNavigation =
+const settingBottomNavigation =
 document.querySelector(
-    ".bottom-navigation"
+".bottom-navigation"
 );
 
 
