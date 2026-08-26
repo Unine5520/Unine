@@ -217,14 +217,40 @@ async function loadSettingEmail(){
 async function checkEmailVerified(){
 
 
+    if(!currentUser){
+
+
+        return false;
+
+
+    }
+
+
+
+
+
     const {
+
         data,
+
         error
+
     } =
 
     await supabaseClient
-    .auth
-    .getUser();
+    .from(
+        "profiles"
+    )
+    .select(
+        "email_verified"
+    )
+    .eq(
+        "id",
+        currentUser.id
+    )
+    .single();
+
+
 
 
 
@@ -232,8 +258,11 @@ async function checkEmailVerified(){
 
 
         console.error(
-            "Check verify error:",
+
+            "Check profile verify error:",
+
             error
+
         );
 
 
@@ -244,23 +273,16 @@ async function checkEmailVerified(){
 
 
 
-    if(
-        !data.user
-    ){
 
 
-        return false;
+    return Boolean(
 
+        data.email_verified
 
-    }
+    );
 
 
 }
-
-
-
-
-
 
 
 
