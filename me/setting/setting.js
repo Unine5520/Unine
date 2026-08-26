@@ -408,7 +408,9 @@ if(confirmLogout){
 
             await supabaseClient
             .auth
-            .signOut();
+            signOut({
+               scope:"local"
+            });
 
 
 
