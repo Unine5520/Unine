@@ -894,6 +894,9 @@ async function login(event){
 }
 
 
+
+
+
 /* =========================================
    REGISTER
 ========================================= */
@@ -905,57 +908,84 @@ async function register(event){
     event.preventDefault();
 
 
-
     clearMessage(
         registerMessage
     );
 
 
-
     const form =
+
     new FormData(
         registerForm
     );
 
 
-
     const username =
+
     String(
         form.get("username")
     )
+
     .trim();
 
 
-
     const email =
+
     String(
         form.get("email")
     )
+
     .trim()
+
     .toLowerCase();
 
+    const emailRegex =
+
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+   
+
+    if(!emailRegex.test(email)){
+
+        showMessage(
+
+            registerMessage,
+
+            "Please enter a valid email address"
+
+        );
+
+        return;
+
+    }
 
 
     const password =
+
     String(
         form.get("password")
     );
 
 
-
     const confirm =
-    String(
-        form.get("password_confirm")
-    );
 
+    String(
+
+        form.get(
+            "password_confirm"
+        )
+
+    );
 
 
     if(password !== confirm){
 
 
         showMessage(
+
             registerMessage,
+
             "Passwords do not match"
+
         );
 
 
@@ -963,15 +993,17 @@ async function register(event){
 
 
     }
-
 
 
     if(password.length < 8){
 
 
         showMessage(
+
             registerMessage,
+
             "Password must be at least 8 characters"
+
         );
 
 
@@ -981,15 +1013,12 @@ async function register(event){
     }
 
 
-
     registerSubmit.disabled =
     true;
 
 
-
     registerSubmit.textContent =
     "Creating...";
-
 
 
     try{
@@ -1021,6 +1050,7 @@ async function register(event){
 
                     username
 
+
                 }
 
 
@@ -1030,13 +1060,15 @@ async function register(event){
         });
 
 
-
         if(error){
 
 
             showMessage(
+
                 registerMessage,
+
                 error.message
+
             );
 
 
@@ -1045,32 +1077,19 @@ async function register(event){
 
         }
 
-
-
-        if(!data.user){
-
-
-            showMessage(
-                registerMessage,
-                "Register failed"
-            );
-
-
-            return;
-
-
-        }
 
         showMessage(
+
             registerMessage,
+
             "Account created",
+
             "success"
+
         );
 
 
-
         registerForm.reset();
-
 
 
         setTimeout(()=>{
@@ -1086,8 +1105,7 @@ async function register(event){
             );
 
 
-        },500);
-
+        },800);
 
 
     }
@@ -1102,13 +1120,15 @@ async function register(event){
 
 
         showMessage(
+
             registerMessage,
+
             "Register failed"
+
         );
 
 
     }
-
 
 
     finally{
@@ -1116,7 +1136,6 @@ async function register(event){
 
         registerSubmit.disabled =
         false;
-
 
 
         registerSubmit.textContent =
@@ -1129,57 +1148,8 @@ async function register(event){
 }
 
 
-/* =========================================
-   CHECK EMAIL VERIFY
-========================================= */
 
 
-async function checkEmailVerified(){
-
-
-    const {
-        data,
-        error
-    } =
-
-    await supabaseClient
-    .auth
-    .getUser();
-
-
-
-    if(error){
-
-
-        console.error(
-            "Check verify error:",
-            error
-        );
-
-
-        return false;
-
-
-    }
-
-
-
-    if(!data.user){
-
-
-        return false;
-
-
-    }
-
-
-
-    return Boolean(
-        data.user.email_confirmed_at
-    );
-
-
-}
 
 /* =========================================
    PAGE SWITCH
@@ -1265,7 +1235,7 @@ async function switchPage(page){
         if(
             typeof loadSettingPage === "function"
         ){
-            await loadSettingPage();
+            loadSettingPage();
 
         }
     }
