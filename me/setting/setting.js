@@ -38,8 +38,6 @@ document.getElementById(
 
 
 
-
-
 /* =========================================
    LOGOUT DOM
 ========================================= */
@@ -87,7 +85,7 @@ document.querySelector(
 
 
 /* =========================================
-   BOTTOM NAV CONTROL
+   BOTTOM NAV
 ========================================= */
 
 
@@ -97,9 +95,7 @@ function hideBottomNavigation(){
     if(settingBottomNavigation){
 
 
-        settingBottomNavigation
-        .classList
-        .add(
+        settingBottomNavigation.classList.add(
             "hidden"
         );
 
@@ -119,9 +115,7 @@ function showBottomNavigation(){
     if(settingBottomNavigation){
 
 
-        settingBottomNavigation
-        .classList
-        .remove(
+        settingBottomNavigation.classList.remove(
             "hidden"
         );
 
@@ -144,7 +138,7 @@ function showBottomNavigation(){
 ========================================= */
 
 
-function loadSettingEmail(){
+async function loadSettingEmail(){
 
 
     if(!accountEmail)
@@ -152,16 +146,46 @@ function loadSettingEmail(){
 
 
 
+    const {
+        data,
+        error
+    } =
+
+    await supabaseClient
+    .auth
+    .getUser();
+
+
+
+    if(error){
+
+
+        console.error(
+            "Load email error:",
+            error
+        );
+
+
+        accountEmail.textContent =
+        "Email";
+
+
+        return;
+
+
+    }
+
+
+
     if(
-        currentUser
+        data.user
         &&
-        currentUser.email
+        data.user.email
     ){
 
 
         accountEmail.textContent =
-        currentUser.email;
-
+        data.user.email;
 
 
     }
@@ -186,16 +210,144 @@ function loadSettingEmail(){
 
 
 /* =========================================
+   CHECK EMAIL VERIFY
+========================================= */
+
+
+async function checkEmailVerified(){
+
+
+    const {
+        data,
+        error
+    } =
+
+    await supabaseClient
+    .auth
+    .getUser();
+
+
+
+    if(error){
+
+
+        console.error(
+            "Check verify error:",
+            error
+        );
+
+
+        return false;
+
+
+    }
+
+
+
+    if(
+        !data.user
+    ){
+
+
+        return false;
+
+
+    }
+
+
+
+    return Boolean(
+        data.user.email_confirmed_at
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   UPDATE BUTTON
+========================================= */
+
+
+async function updateConfirmEmailButton(){
+
+
+    if(!confirmEmailButton)
+        return;
+
+
+
+    const verified =
+    await checkEmailVerified();
+
+
+
+    if(verified){
+
+
+        confirmEmailButton.textContent =
+        "Email Verified";
+
+
+        confirmEmailButton.disabled =
+        true;
+
+
+        confirmEmailButton.classList.add(
+            "verified"
+        );
+
+
+    }
+    else{
+
+
+        confirmEmailButton.textContent =
+        "Confirm Email";
+
+
+        confirmEmailButton.disabled =
+        false;
+
+
+        confirmEmailButton.classList.remove(
+            "verified"
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
    LOAD SETTING PAGE
 ========================================= */
 
 
-function loadSettingPage(){
+async function loadSettingPage(){
 
 
-    loadSettingEmail();
+    await loadSettingEmail();
 
-    updateConfirmEmailButton();
+
+    await updateConfirmEmailButton();
+
 
     hideBottomNavigation();
 
@@ -230,7 +382,6 @@ if(closeSettingButton){
         showBottomNavigation();
 
 
-
     };
 
 
@@ -245,124 +396,8 @@ if(closeSettingButton){
 
 
 /* =========================================
-   CONFIRM EMAIL
+   SEND CONFIRM EMAIL
 ========================================= */
-
-
-async function checkEmailVerified(){
-
-
-    const {
-        data,
-        error
-    } =
-
-    await supabaseClient
-    .auth
-    .getUser();
-
-
-
-    if(error){
-
-
-        console.error(
-            "Check email error:",
-            error
-        );
-
-
-        return false;
-
-
-    }
-
-
-
-    if(
-        !data.user
-    ){
-
-        return false;
-
-    }
-
-
-
-    return Boolean(
-        data.user.email_confirmed_at
-    );
-
-
-}
-
-
-
-
-
-
-
-async function updateConfirmEmailButton(){
-
-
-    if(!confirmEmailButton)
-        return;
-
-
-
-    const verified =
-    await checkEmailVerified();
-
-
-
-    if(verified){
-
-
-        confirmEmailButton.textContent =
-        "Email Confirmed";
-
-
-        confirmEmailButton.disabled =
-        true;
-
-
-        confirmEmailButton
-        .classList
-        .add(
-            "verified"
-        );
-
-
-    }
-    else{
-
-
-        confirmEmailButton.textContent =
-        "Confirm Email";
-
-
-        confirmEmailButton.disabled =
-        false;
-
-
-        confirmEmailButton
-        .classList
-        .remove(
-            "verified"
-        );
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
 
 
 if(confirmEmailButton){
@@ -372,8 +407,39 @@ if(confirmEmailButton){
     async()=>{
 
 
-        if(!currentUser)
+        const {
+            data,
+            error:userError
+        } =
+
+        await supabaseClient
+        .auth
+        .getUser();
+
+
+
+        if(userError || !data.user){
+
+
             return;
+
+
+        }
+
+
+
+        if(
+            data.user.email_confirmed_at
+        ){
+
+
+            await updateConfirmEmailButton();
+
+
+            return;
+
+
+        }
 
 
 
@@ -402,7 +468,7 @@ if(confirmEmailButton){
                 "signup",
 
                 email:
-                currentUser.email
+                data.user.email
 
             });
 
@@ -412,7 +478,7 @@ if(confirmEmailButton){
 
 
                 console.error(
-                    "Resend email error:",
+                    "Send email error:",
                     error
                 );
 
@@ -432,21 +498,21 @@ if(confirmEmailButton){
 
 
 
-
-
             confirmEmailButton.textContent =
             "Email Sent";
 
 
 
-            setTimeout(()=>{
+            setTimeout(
+                async()=>{
 
 
-                updateConfirmEmailButton();
+                    await updateConfirmEmailButton();
 
 
-            },3000);
-
+                },
+                3000
+            );
 
 
         }
@@ -481,8 +547,12 @@ if(confirmEmailButton){
 
 
 
+
+
+
+
 /* =========================================
-   OPEN LOGOUT MODAL
+   OPEN LOGOUT
 ========================================= */
 
 
@@ -494,16 +564,12 @@ function openLogoutModal(){
 
 
 
-    logoutModal
-    .classList
-    .remove(
+    logoutModal.classList.remove(
         "hidden"
     );
 
 
-
-    logoutModal
-    .setAttribute(
+    logoutModal.setAttribute(
         "aria-hidden",
         "false"
     );
@@ -520,7 +586,7 @@ function openLogoutModal(){
 
 
 /* =========================================
-   CLOSE LOGOUT MODAL
+   CLOSE LOGOUT
 ========================================= */
 
 
@@ -532,27 +598,22 @@ function closeLogoutModal(){
 
 
 
-    if(
-        document.activeElement
-    ){
+    if(document.activeElement){
+
 
         document.activeElement.blur();
+
 
     }
 
 
 
-
-    logoutModal
-    .classList
-    .add(
+    logoutModal.classList.add(
         "hidden"
     );
 
 
-
-    logoutModal
-    .setAttribute(
+    logoutModal.setAttribute(
         "aria-hidden",
         "true"
     );
@@ -583,7 +644,6 @@ if(settingLogoutButton){
         openLogoutModal();
 
 
-
     };
 
 
@@ -610,7 +670,6 @@ if(cancelLogout){
 
 
         closeLogoutModal();
-
 
 
     };
@@ -641,7 +700,6 @@ if(logoutBackground){
         closeLogoutModal();
 
 
-
     };
 
 
@@ -667,17 +725,6 @@ if(confirmLogout){
     async()=>{
 
 
-        if(
-            document.activeElement
-        ){
-
-            document.activeElement.blur();
-
-        }
-
-
-
-
         try{
 
 
@@ -688,8 +735,6 @@ if(confirmLogout){
             await supabaseClient
             .auth
             .signOut();
-
-
 
 
 
@@ -709,29 +754,20 @@ if(confirmLogout){
 
 
 
-
-
-            console.log(
-                "Logout successful"
+            updateAuthUI(
+                null
             );
-
-
-            updateAuthUI(null);
-
 
 
             closeLogoutModal();
 
 
-
             showBottomNavigation();
-
 
 
             switchPage(
                 "home"
             );
-
 
 
         }
@@ -749,7 +785,6 @@ if(confirmLogout){
         }
 
 
-
     };
 
 
@@ -764,7 +799,7 @@ if(confirmLogout){
 
 
 /* =========================================
-   ESC CLOSE LOGOUT
+   ESC CLOSE
 ========================================= */
 
 
@@ -774,26 +809,17 @@ document.addEventListener(
 
 
         if(
-
             event.key === "Escape"
-
             &&
-
             logoutModal
-
             &&
-
-            !logoutModal
-            .classList
-            .contains(
+            !logoutModal.classList.contains(
                 "hidden"
             )
-
         ){
 
 
             closeLogoutModal();
-
 
 
         }
