@@ -523,12 +523,14 @@ if(confirmLogout){
 
 
 
-            currentUser =
-            null;
+            await supabaseClient
+            .auth
+            .signOut();
+            
 
 
 
-            loadSettingEmail();
+            updateAuthUI(null);
 
 
 
