@@ -83,10 +83,8 @@ document.querySelector(
 
 
 
-
-
 /* =========================================
-   HIDE BOTTOM NAV
+   BOTTOM NAV CONTROL
 ========================================= */
 
 
@@ -111,13 +109,6 @@ function hideBottomNavigation(){
 
 
 
-
-
-
-
-/* =========================================
-   SHOW BOTTOM NAV
-========================================= */
 
 
 function showBottomNavigation(){
@@ -147,16 +138,14 @@ function showBottomNavigation(){
 
 
 /* =========================================
-   SHOW USER EMAIL
+   ACCOUNT EMAIL
 ========================================= */
 
 
 function loadSettingEmail(){
 
 
-    if(
-        !accountEmail
-    )
+    if(!accountEmail)
         return;
 
 
@@ -172,6 +161,7 @@ function loadSettingEmail(){
         currentUser.email;
 
 
+
     }
     else{
 
@@ -181,6 +171,61 @@ function loadSettingEmail(){
 
 
     }
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   AUTH STATE LISTENER
+========================================= */
+
+
+supabaseClient
+.auth
+.onAuthStateChange(
+(event,session)=>{
+
+
+    currentUser =
+    session?.user || null;
+
+
+
+    loadSettingEmail();
+
+
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+/* =========================================
+   OPEN SETTING
+========================================= */
+
+
+function openSettingPage(){
+
+
+    loadSettingEmail();
+
+
+    hideBottomNavigation();
 
 
 }
@@ -208,6 +253,7 @@ if(closeSettingButton){
         switchPage(
             "me"
         );
+
 
 
         showBottomNavigation();
@@ -239,9 +285,7 @@ if(confirmEmailButton){
     async()=>{
 
 
-        if(
-            !currentUser
-        )
+        if(!currentUser)
             return;
 
 
@@ -252,10 +296,9 @@ if(confirmEmailButton){
         );
 
 
-
         /*
-            TODO:
-            Supabase resend confirmation email
+            Later:
+            resend confirmation email
         */
 
 
@@ -280,9 +323,7 @@ if(confirmEmailButton){
 function openLogoutModal(){
 
 
-    if(
-        !logoutModal
-    )
+    if(!logoutModal)
         return;
 
 
@@ -320,20 +361,27 @@ function openLogoutModal(){
 function closeLogoutModal(){
 
 
-    if(
-        !logoutModal
-    )
+    if(!logoutModal)
         return;
 
+
+
+    /*
+        remove focus first
+        prevent aria-hidden warning
+    */
 
 
     if(
         document.activeElement
     ){
 
+
         document.activeElement.blur();
 
+
     }
+
 
 
 
@@ -465,9 +513,13 @@ if(confirmLogout){
             document.activeElement
         ){
 
+
             document.activeElement.blur();
 
+
         }
+
+
 
 
 
@@ -519,8 +571,9 @@ if(confirmLogout){
 
 
 
-
             closeLogoutModal();
+
+
 
 
 
@@ -528,11 +581,22 @@ if(confirmLogout){
 
 
 
+
+
+            currentUser =
+            null;
+
+
+
+            loadSettingEmail();
+
+
+
+
+
             switchPage(
                 "home"
             );
-
-
 
 
 
@@ -566,7 +630,7 @@ if(confirmLogout){
 
 
 /* =========================================
-   ESC CLOSE
+   ESC CLOSE LOGOUT
 ========================================= */
 
 
@@ -613,7 +677,7 @@ document.addEventListener(
 
 
 /* =========================================
-   LOAD SETTING
+   INIT
 ========================================= */
 
 
