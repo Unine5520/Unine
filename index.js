@@ -913,6 +913,7 @@ async function register(event){
     );
 
 
+
     const form =
 
     new FormData(
@@ -920,13 +921,14 @@ async function register(event){
     );
 
 
+
     const username =
 
     String(
         form.get("username")
     )
-
     .trim();
+
 
 
     const email =
@@ -934,17 +936,19 @@ async function register(event){
     String(
         form.get("email")
     )
-
     .trim()
-
     .toLowerCase();
+
+
 
     const emailRegex =
 
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-   
+
+
 
     if(!emailRegex.test(email)){
+
 
         showMessage(
 
@@ -954,9 +958,13 @@ async function register(event){
 
         );
 
+
         return;
 
+
     }
+
+
 
 
     const password =
@@ -966,15 +974,13 @@ async function register(event){
     );
 
 
+
     const confirm =
 
     String(
-
-        form.get(
-            "password_confirm"
-        )
-
+        form.get("password_confirm")
     );
+
 
 
     if(password !== confirm){
@@ -995,6 +1001,8 @@ async function register(event){
     }
 
 
+
+
     if(password.length < 8){
 
 
@@ -1013,15 +1021,28 @@ async function register(event){
     }
 
 
+
+
+
     registerSubmit.disabled =
     true;
+
 
 
     registerSubmit.textContent =
     "Creating...";
 
 
+
+
+
     try{
+
+
+
+        /*
+            CREATE AUTH USER
+        */
 
 
         const {
@@ -1060,6 +1081,9 @@ async function register(event){
         });
 
 
+
+
+
         if(error){
 
 
@@ -1078,6 +1102,97 @@ async function register(event){
         }
 
 
+
+
+
+        if(
+            !data.user
+        ){
+
+
+            showMessage(
+
+                registerMessage,
+
+                "Account creation failed"
+
+            );
+
+
+            return;
+
+
+        }
+
+
+
+
+
+        /*
+            CREATE PROFILE
+        */
+
+
+        const {
+
+            error:profileError
+
+        } =
+
+        await supabaseClient
+        .from(
+            "profiles"
+        )
+        .insert({
+
+
+            id:
+            data.user.id,
+
+
+            username:
+            username,
+
+
+            email_verified:
+            false
+
+
+        });
+
+
+
+
+
+        if(profileError){
+
+
+            console.error(
+                "Profile create error:",
+                profileError
+            );
+
+
+            showMessage(
+
+                registerMessage,
+
+                "Profile creation failed"
+
+            );
+
+
+            return;
+
+
+        }
+
+
+
+
+
+
+
         showMessage(
 
             registerMessage,
@@ -1089,7 +1204,13 @@ async function register(event){
         );
 
 
+
+
+
         registerForm.reset();
+
+
+
 
 
         setTimeout(()=>{
@@ -1108,6 +1229,9 @@ async function register(event){
         },500);
 
 
+
+
+
     }
 
 
@@ -1115,6 +1239,7 @@ async function register(event){
 
 
         console.error(
+            "Register error:",
             error
         );
 
@@ -1131,11 +1256,13 @@ async function register(event){
     }
 
 
+
     finally{
 
 
         registerSubmit.disabled =
         false;
+
 
 
         registerSubmit.textContent =
@@ -1146,10 +1273,6 @@ async function register(event){
 
 
 }
-
-
-
-
 
 /* =========================================
    PAGE SWITCH
