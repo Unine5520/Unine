@@ -11,10 +11,186 @@
     bottom: 0;
 
     width: 100%;
+    height: 72px;
 
     display: flex;
 
     justify-content: space-around;
     align-items: center;
+
+    background: #ffffff;
+
+    border-top: 1px solid #eeeeee;
+
+    z-index: 1000;
+
+}
+
+
+/* ======== NAV BUTTON ======== */
+/* ======== NAV BUTTON ======== */
+/* ======== NAV BUTTON ======== */
+
+#Menu-button .nav-button {
+
+    position: relative;
+
+    width: 20%;
+    height: 72px;
+
+    padding: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 4px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+}
+
+
+/* ======== NAV ICON ======== */
+/* ======== NAV ICON ======== */
+/* ======== NAV ICON ======== */
+
+#Menu-button .nav-button img {
+
+    width: 24px;
+    height: 24px;
+
+    display: block;
+
+}
+
+
+/* ======== NAV TEXT ======== */
+/* ======== NAV TEXT ======== */
+/* ======== NAV TEXT ======== */
+
+#Menu-button .nav-button span {
+
+    font-size: 12px;
+
+    line-height: 16px;
+
+    color: #000000;
+
+    white-space: nowrap;
+
+}
+
+
+/* ======== ACTIVE NAV TEXT ======== */
+/* ======== ACTIVE NAV TEXT ======== */
+/* ======== ACTIVE NAV TEXT ======== */
+
+#Menu-button .nav-button.active span {
+
+    color: #4f46e5;
+
+}
+
+
+/* ======== ORDER CENTER BUTTON ======== */
+/* ======== ORDER CENTER BUTTON ======== */
+/* ======== ORDER CENTER BUTTON ======== */
+
+#Menu-button #orderButton {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 64px;
+    height: 64px;
+
+    margin-top: -32px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 3px;
+
+    border-radius: 50%;
+
+    background: #4f46e5;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.20);
+
+}
+
+
+/* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
+
+#Menu-button #orderButton img {
+
+    width: 24px;
+    height: 24px;
+
+    filter: brightness(0) invert(1);
+
+}
+
+
+/* ======== ORDER TEXT ======== */
+/* ======== ORDER TEXT ======== */
+/* ======== ORDER TEXT ======== */
+
+#Menu-button #orderButton span {
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    line-height: 14px;
+
+}
+
+
+/* ======== BUTTON OUTLINE ======== */
+/* ======== BUTTON OUTLINE ======== */
+/* ======== BUTTON OUTLINE ======== */
+
+#Menu-button .nav-button:focus {
+
+    outline: none;
+
+}
+
+
+/* ======== ORDER BUTTON FOCUS ======== */
+/* ======== ORDER BUTTON FOCUS ======== */
+/* ======== ORDER BUTTON FOCUS ======== */
+
+#Menu-button #orderButton:focus {
+
+    outline: none;
+
+}
+
+
+/* ======== ORDER BUTTON ACTIVE ======== */
+/* ======== ORDER BUTTON ACTIVE ======== */
+/* ======== ORDER BUTTON ACTIVE ======== */
+
+#Menu-button #orderButton.active {
+
+    background: #4f46e5;
 
 }
