@@ -29,17 +29,6 @@ document.getElementById(
 
 
 
-const confirmEmailButton =
-document.getElementById(
-    "confirmEmailButton"
-);
-
-
-
-
-
-
-
 /* =========================================
    LOGOUT DOM
 ========================================= */
@@ -234,53 +223,6 @@ if(closeSettingButton){
 
 
 }
-
-
-
-
-
-
-
-
-
-/* =========================================
-   CONFIRM EMAIL
-========================================= */
-
-
-if(confirmEmailButton){
-
-
-    confirmEmailButton.onclick =
-    async()=>{
-
-
-        if(!currentUser)
-            return;
-
-
-
-        console.log(
-            "Confirm email:",
-            currentUser.email
-        );
-
-
-        /*
-            Later:
-            resend confirmation email
-        */
-
-
-    };
-
-
-}
-
-
-
-
-
 
 
 
