@@ -44,14 +44,11 @@
     background:
         linear-gradient(
             to right,
-
             #eeeeee 0,
-            #eeeeee calc(50% - 42px),
-
-            transparent calc(50% - 42px),
-            transparent calc(50% + 42px),
-
-            #eeeeee calc(50% + 42px),
+            #eeeeee calc(50% - 41px),
+            transparent calc(50% - 41px),
+            transparent calc(50% + 41px),
+            #eeeeee calc(50% + 41px),
             #eeeeee 100%
         );
 
@@ -70,19 +67,21 @@
 
     position: absolute;
 
-    top: -42px;
+    top: 19px;
     left: 50%;
 
-    width: 84px;
-    height: 84px;
+    width: 82px;
+    height: 41px;
 
     transform: translateX(-50%);
 
     background: #ffffff;
 
-    border: 1px solid #eeeeee;
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
 
-    border-radius: 50%;
+    border-radius: 0 0 41px 41px;
 
     z-index: 2;
 
@@ -138,6 +137,7 @@
 
 /* ======== NAV TEXT ======== */
 /* ======== NAV TEXT ======== */
+/* ======== NAV TEXT ======== */
 
 #Menu-button .nav-button span {
 
@@ -154,6 +154,7 @@
 
 /* ======== ACTIVE NAV TEXT ======== */
 /* ======== ACTIVE NAV TEXT ======== */
+/* ======== ACTIVE NAV TEXT ======== */
 
 #Menu-button .nav-button.active span {
 
@@ -162,6 +163,7 @@
 }
 
 
+/* ======== ORDER CENTER BUTTON ======== */
 /* ======== ORDER CENTER BUTTON ======== */
 /* ======== ORDER CENTER BUTTON ======== */
 
@@ -199,6 +201,8 @@
 
 
 /* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
 
 #Menu-button #orderButton img {
 
@@ -210,6 +214,8 @@
 }
 
 
+/* ======== ORDER TEXT ======== */
+/* ======== ORDER TEXT ======== */
 /* ======== ORDER TEXT ======== */
 
 #Menu-button #orderButton span {
@@ -223,6 +229,8 @@
 }
 
 
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
 /* ======== BUTTON FOCUS ======== */
 
 #Menu-button .nav-button:focus {
