@@ -37,19 +37,23 @@
 
     position: absolute;
 
-    top: -38px;
+    top: -1px;
     left: 50%;
 
-    width: 76px;
-    height: 76px;
+    width: 82px;
+    height: 41px;
 
     transform: translateX(-50%);
 
-    border-radius: 50%;
-
     background: #ffffff;
 
-    z-index: 0;
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
+
+    border-radius: 0 0 41px 41px;
+
+    z-index: 1;
 
 }
 
@@ -153,13 +157,15 @@
 
     gap: 3px;
 
+    border: none;
+
     border-radius: 50%;
 
     background: #2563eb;
 
     box-shadow:
         0 6px 16px rgba(37, 99, 235, 0.35),
-        0 0 18px rgba(37, 99, 235, 0.30);
+        0 0 20px rgba(37, 99, 235, 0.30);
 
 }
 
@@ -193,9 +199,9 @@
 }
 
 
-/* ======== BUTTON OUTLINE ======== */
-/* ======== BUTTON OUTLINE ======== */
-/* ======== BUTTON OUTLINE ======== */
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
 
 #Menu-button .nav-button:focus {
 
