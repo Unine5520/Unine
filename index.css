@@ -27,6 +27,33 @@
 }
 
 
+/* ======== CENTER NOTCH ======== */
+/* ======== CENTER NOTCH ======== */
+/* ======== CENTER NOTCH ======== */
+
+#Menu-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -38px;
+    left: 50%;
+
+    width: 76px;
+    height: 76px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    z-index: 0;
+
+}
+
+
 /* ======== NAV BUTTON ======== */
 /* ======== NAV BUTTON ======== */
 /* ======== NAV BUTTON ======== */
@@ -54,6 +81,8 @@
     background: transparent;
 
     cursor: pointer;
+
+    z-index: 2;
 
 }
 
@@ -108,12 +137,12 @@
 
     position: relative;
 
-    z-index: 2;
+    z-index: 5;
 
     width: 64px;
     height: 64px;
 
-    margin-top: -32px;
+    margin-top: -34px;
 
     flex-shrink: 0;
 
@@ -126,10 +155,11 @@
 
     border-radius: 50%;
 
-    background: #4f46e5;
+    background: #2563eb;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.20);
+        0 6px 16px rgba(37, 99, 235, 0.35),
+        0 0 18px rgba(37, 99, 235, 0.30);
 
 }
 
@@ -170,27 +200,5 @@
 #Menu-button .nav-button:focus {
 
     outline: none;
-
-}
-
-
-/* ======== ORDER BUTTON FOCUS ======== */
-/* ======== ORDER BUTTON FOCUS ======== */
-/* ======== ORDER BUTTON FOCUS ======== */
-
-#Menu-button #orderButton:focus {
-
-    outline: none;
-
-}
-
-
-/* ======== ORDER BUTTON ACTIVE ======== */
-/* ======== ORDER BUTTON ACTIVE ======== */
-/* ======== ORDER BUTTON ACTIVE ======== */
-
-#Menu-button #orderButton.active {
-
-    background: #4f46e5;
 
 }
