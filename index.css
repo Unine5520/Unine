@@ -191,7 +191,7 @@
 
     border-radius: 50%;
 
-    background: #2563eb;
+    background: linear-gradient(180deg, #4da8ff 0%, #2762ea 100%);
 
     box-shadow:
         0 6px 16px rgba(37, 99, 235, 0.35),
