@@ -6,12 +6,16 @@ const SUPABASE_URL =
 "---------";
 
 const SUPABASE_PUBLISHABLE_KEY =
-"--------";
-
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxheXpjZ2t0Z3RycXZzZ3h3d3ljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc4OTIxNDUsImV4cCI6MjEwMzQ2ODE0NX0.A-9DppiKBSLkjsFEW5fT1WZuWd1b4f_bFp7iTdm9t6E";
 
 /* =========================================
-   SUPABASE CONFIG
+   SUPABASE CLIENT
 ========================================= */
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
 
 
 /* ======== PAGE NAVIGATION ======== */
