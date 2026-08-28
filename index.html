@@ -1,413 +1,407 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
 
-<title>Unine Auth Test</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Unine Login Test
+</title>
+
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
 
-    body {
-        margin: 0;
-        padding: 30px;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        color: #222;
-    }
 
-    .container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
+*{
+    box-sizing:border-box;
+}
 
-    h1 {
-        margin-bottom: 10px;
-    }
 
-    .status {
-        padding: 15px;
-        margin-bottom: 20px;
-        background: #fff;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+body{
 
-    .section {
-        background: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+    margin:0;
 
-    h2 {
-        margin-top: 0;
-    }
+    padding:30px;
 
-    input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 15px;
-    }
+    font-family:Arial,sans-serif;
 
-    button {
-        padding: 11px 18px;
-        margin: 4px 4px 4px 0;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+    background:#f5f5f5;
 
-    button:hover {
-        opacity: 0.85;
-    }
+}
 
-    .result {
-        margin-top: 15px;
-        padding: 15px;
-        background: #111;
-        color: #fff;
-        border-radius: 8px;
-        white-space: pre-wrap;
-        word-break: break-word;
-        font-family: monospace;
-        font-size: 13px;
-        min-height: 60px;
-    }
 
-    .user-info {
-        display: none;
-        margin-top: 15px;
-        padding: 15px;
-        background: #f0f7ff;
-        border-radius: 8px;
-    }
+.container{
 
-    .user-info div {
-        margin: 6px 0;
-    }
+    max-width:500px;
 
-    .label {
-        font-weight: bold;
-    }
+    margin:auto;
+
+}
+
+
+.box{
+
+    background:white;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    border-radius:12px;
+
+    border:1px solid #ddd;
+
+}
+
+
+
+h2{
+
+    margin-top:0;
+
+}
+
+
+
+input{
+
+    width:100%;
+
+    padding:12px;
+
+    margin-bottom:12px;
+
+    border-radius:6px;
+
+    border:1px solid #ccc;
+
+    font-size:15px;
+
+}
+
+
+
+button{
+
+    width:100%;
+
+    padding:12px;
+
+    background:#2762ea;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+
+
+button:hover{
+
+    opacity:.85;
+
+}
+
+
+
+.result{
+
+    margin-top:15px;
+
+    background:#111;
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    white-space:pre-wrap;
+
+    font-family:monospace;
+
+    font-size:13px;
+
+}
+
+
+
+.status{
+
+    padding:12px;
+
+    background:#eee;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+}
+
+
+
 </style>
 
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
 
-<h1>Unine Auth Test</h1>
+<h1>
+Unine Auth
+</h1>
+
+
 
 <div class="status">
-    <strong>Auth Status:</strong>
-    <span id="authStatus">Checking...</span>
-</div>
 
+Status:
 
-<!-- =====================================
-     REGISTER
-====================================== -->
+<span id="status">
+Checking...
+</span>
 
-<div class="section">
-
-    <h2>Register</h2>
-
-    <input
-        id="registerUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-    >
-
-    <input
-        id="registerEmail"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-    >
-
-    <input
-        id="registerPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="new-password"
-    >
-
-    <button onclick="registerUser()">
-        Register
-    </button>
-
-    <div
-        id="registerResult"
-        class="result"
-    >
-        Waiting...
-    </div>
 
 </div>
 
 
-<!-- =====================================
-     LOGIN
-====================================== -->
-
-<div class="section">
-
-    <h2>Login</h2>
-
-    <input
-        id="login"
-        type="text"
-        placeholder="Username or Email"
-        autocomplete="username"
-    >
-
-    <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-    >
-
-    <button onclick="loginUser()">
-        Login
-    </button>
-
-    <div
-        id="loginResult"
-        class="result"
-    >
-        Waiting...
-    </div>
-
-</div>
 
 
-<!-- =====================================
-     ME
-====================================== -->
+<!-- LOGIN -->
 
-<div class="section">
+<div class="box">
 
-    <h2>Current Session</h2>
 
-    <button onclick="getMe()">
-        Check Me
-    </button>
+<h2>
+Login
+</h2>
 
-    <div
-        id="userInfo"
-        class="user-info"
-    >
 
-        <div>
-            <span class="label">ID:</span>
-            <span id="userId"></span>
-        </div>
+<input
+id="login"
+placeholder="Username or Email"
+>
 
-        <div>
-            <span class="label">Username:</span>
-            <span id="userUsername"></span>
-        </div>
 
-        <div>
-            <span class="label">Email:</span>
-            <span id="userEmail"></span>
-        </div>
+<input
+id="password"
+type="password"
+placeholder="Password"
+>
 
-        <div>
-            <span class="label">Coins:</span>
-            <span id="userCoins"></span>
-        </div>
 
-        <div>
-            <span class="label">Balance:</span>
-            <span id="userBalance"></span>
-        </div>
+<button onclick="loginUser()">
 
-        <div>
-            <span class="label">Status:</span>
-            <span id="userStatus"></span>
-        </div>
+Login
 
-        <div>
-            <span class="label">Created:</span>
-            <span id="userCreated"></span>
-        </div>
+</button>
 
-    </div>
 
-    <div
-        id="meResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+<div
+id="loginResult"
+class="result"
+>
+
+Waiting...
 
 </div>
 
 
-<!-- =====================================
-     LOGOUT
-====================================== -->
+</div>
 
-<div class="section">
 
-    <h2>Logout</h2>
 
-    <button onclick="logoutUser()">
-        Logout
-    </button>
 
-    <div
-        id="logoutResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+
+<!-- CHANGE PASSWORD -->
+
+
+<div class="box">
+
+
+<h2>
+Change Password
+</h2>
+
+
+
+<input
+id="currentPassword"
+type="password"
+placeholder="Current Password"
+>
+
+
+<input
+id="newPassword"
+type="password"
+placeholder="New Password"
+>
+
+
+<input
+id="confirmPassword"
+type="password"
+placeholder="Confirm New Password"
+>
+
+
+<button onclick="changePassword()">
+
+Change Password
+
+</button>
+
+
+
+<div
+id="passwordResult"
+class="result"
+>
+
+Waiting...
 
 </div>
 
 
-<!-- =====================================
-     RAW API RESPONSE
-====================================== -->
-
-<div class="section">
-
-    <h2>Last API Response</h2>
-
-    <div
-        id="rawResult"
-        class="result"
-    >
-        No request yet.
-    </div>
 
 </div>
 
+
+
+
+
+<!-- API -->
+
+
+<div class="box">
+
+
+<h2>
+Last API Response
+</h2>
+
+
+<div
+id="apiResult"
+class="result"
+>
+
+No request
+
 </div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
 
 <script>
 
-/* =========================================
-   SUPABASE EDGE FUNCTION CONFIG
-========================================= */
 
 const API_BASE =
-    "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+
+"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
 
-/* =========================================
-   API HELPER
-========================================= */
+
+
 
 async function apiRequest(
     endpoint,
-    options = {}
-) {
-
-    const url =
-        API_BASE + endpoint;
-
-
-    const defaultOptions = {
-
-        credentials: "include",
-
-        headers: {
-
-            "Content-Type":
-                "application/json"
-
-        }
-
-    };
-
-
-    const finalOptions = {
-
-        ...defaultOptions,
-
-        ...options,
-
-        headers: {
-
-            ...defaultOptions.headers,
-
-            ...(options.headers || {})
-
-        }
-
-    };
-
-
-    console.log(
-        "API Request:",
-        url,
-        finalOptions
-    );
+    options={}
+){
 
 
     const response =
-        await fetch(
-            url,
-            finalOptions
-        );
+
+    await fetch(
+        API_BASE + endpoint,
+        {
+
+            credentials:"include",
+
+            headers:{
+
+                "Content-Type":
+                "application/json"
+
+            },
+
+            ...options
+
+        }
+    );
+
 
 
     let data;
 
 
-    try {
+    try{
 
         data =
-            await response.json();
+        await response.json();
 
-    } catch {
+    }
+    catch{
 
-        data = {
+        data={
 
-            success: false,
+            success:false,
 
-            error:
-                "Server returned invalid JSON"
+            error:"Invalid JSON"
 
         };
 
     }
 
 
-    document.getElementById(
-        "rawResult"
-    ).textContent =
-        JSON.stringify(
-            {
-                http_status:
-                    response.status,
 
-                response:
-                    data
-            },
-            null,
-            2
-        );
+    document.getElementById(
+        "apiResult"
+    ).textContent =
+
+    JSON.stringify(
+
+        {
+
+            status:
+            response.status,
+
+            data
+
+        },
+
+        null,
+
+        2
+
+    );
+
 
 
     return {
@@ -418,461 +412,412 @@ async function apiRequest(
 
     };
 
-}
-
-
-/* =========================================
-   REGISTER
-========================================= */
-
-async function registerUser() {
-
-    const username =
-        document.getElementById(
-            "registerUsername"
-        ).value.trim();
-
-
-    const email =
-        document.getElementById(
-            "registerEmail"
-        ).value.trim();
-
-
-    const password =
-        document.getElementById(
-            "registerPassword"
-        ).value;
-
-
-    const resultElement =
-        document.getElementById(
-            "registerResult"
-        );
-
-
-    resultElement.textContent =
-        "Registering...";
-
-
-    if (
-        !username ||
-        !email ||
-        !password
-    ) {
-
-        resultElement.textContent =
-            "Please fill in all fields.";
-
-        return;
-
-    }
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/register",
-                {
-
-                    method: "POST",
-
-                    body:
-                        JSON.stringify({
-
-                            username,
-
-                            email,
-
-                            password
-
-                        })
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        if (
-            response.ok &&
-            data.success
-        ) {
-
-            await getMe();
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Register error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
-
-    }
 
 }
 
 
-/* =========================================
-   LOGIN
-========================================= */
 
-async function loginUser() {
+
+
+
+
+
+/*
+==========================
+LOGIN
+==========================
+*/
+
+
+async function loginUser(){
+
 
     const login =
-        document.getElementById(
-            "login"
-        ).value.trim();
+
+    document.getElementById(
+        "login"
+    ).value.trim();
+
 
 
     const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
+
+    document.getElementById(
+        "password"
+    ).value;
 
 
-    const resultElement =
-        document.getElementById(
-            "loginResult"
-        );
+
+    const result =
+
+    document.getElementById(
+        "loginResult"
+    );
 
 
-    resultElement.textContent =
-        "Logging in...";
 
-
-    if (
+    if(
         !login ||
         !password
-    ) {
+    ){
 
-        resultElement.textContent =
-            "Please enter username/email and password.";
+        result.textContent =
+        "Please enter login and password";
 
         return;
 
     }
 
 
-    try {
+
+    result.textContent =
+    "Logging in...";
+
+
+
+    try{
+
 
         const {
+
             response,
+
             data
-        } =
-            await apiRequest(
-                "/login",
-                {
-
-                    method: "POST",
-
-                    body:
-                        JSON.stringify({
-
-                            login,
-
-                            password
-
-                        })
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        if (
-            response.ok &&
-            data.success
-        ) {
-
-            await getMe();
 
         }
 
-    } catch (error) {
+        =
 
-        console.error(
-            "Login error:",
-            error
+        await apiRequest(
+            "/login",
+            {
+
+                method:"POST",
+
+                body:
+
+                JSON.stringify({
+
+                    login,
+
+                    password
+
+                })
+
+            }
         );
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
+
+        result.textContent =
+
+        JSON.stringify(
+            data,
+            null,
+            2
+        );
+
+
+
+        if(
+            response.ok &&
+            data.success
+        ){
+
+            checkSession();
+
+        }
+
+
 
     }
+
+    catch(error){
+
+
+        result.textContent =
+
+        error.message;
+
+
+    }
+
 
 }
 
 
-/* =========================================
-   ME
-========================================= */
-
-async function getMe() {
-
-    const resultElement =
-        document.getElementById(
-            "meResult"
-        );
 
 
-    resultElement.textContent =
-        "Checking session...";
 
 
-    try {
+
+
+
+
+/*
+==========================
+CHANGE PASSWORD
+==========================
+*/
+
+
+async function changePassword(){
+
+
+    const currentPassword =
+
+    document.getElementById(
+        "currentPassword"
+    ).value;
+
+
+
+    const newPassword =
+
+    document.getElementById(
+        "newPassword"
+    ).value;
+
+
+
+    const confirmPassword =
+
+    document.getElementById(
+        "confirmPassword"
+    ).value;
+
+
+
+    const result =
+
+    document.getElementById(
+        "passwordResult"
+    );
+
+
+
+
+    if(
+        !currentPassword ||
+        !newPassword ||
+        !confirmPassword
+    ){
+
+        result.textContent =
+        "Please fill all fields";
+
+        return;
+
+    }
+
+
+
+    if(
+        newPassword !== confirmPassword
+    ){
+
+        result.textContent =
+        "Password does not match";
+
+        return;
+
+    }
+
+
+
+    result.textContent =
+    "Changing password...";
+
+
+
+    try{
+
 
         const {
+
             response,
+
             data
-        } =
-            await apiRequest(
-                "/me",
-                {
 
-                    method: "GET"
+        }
 
-                }
-            );
+        =
+
+        await apiRequest(
+            "/change-password",
+            {
+
+                method:"POST",
+
+                body:
+
+                JSON.stringify({
+
+                    current_password:
+                    currentPassword,
 
 
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+                    new_password:
+                    newPassword
 
+                })
 
-        updateUserInterface(
-            data
+            }
         );
 
 
-        return data;
 
-    } catch (error) {
+        result.textContent =
 
-        console.error(
-            "Me error:",
-            error
+        JSON.stringify(
+            data,
+            null,
+            2
         );
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
+
+        if(
+            response.ok &&
+            data.success
+        ){
 
 
-        updateUserInterface({
-
-            success: false,
-
-            logged_in: false
-
-        });
+            document.getElementById(
+                "currentPassword"
+            ).value="";
 
 
-        return null;
+            document.getElementById(
+                "newPassword"
+            ).value="";
+
+
+            document.getElementById(
+                "confirmPassword"
+            ).value="";
+
+
+            checkSession();
+
+
+        }
+
+
 
     }
+
+    catch(error){
+
+
+        result.textContent =
+        error.message;
+
+
+    }
+
 
 }
 
 
-/* =========================================
-   UPDATE USER UI
-========================================= */
 
-function updateUserInterface(
-    data
-) {
 
-    const statusElement =
-        document.getElementById(
-            "authStatus"
+
+
+
+
+
+
+/*
+==========================
+CHECK SESSION
+==========================
+*/
+
+
+async function checkSession(){
+
+
+    try{
+
+
+        const {
+
+            data
+
+        }
+
+        =
+
+        await apiRequest(
+            "/me",
+            {
+
+                method:"GET"
+
+            }
         );
 
 
-    const userInfo =
-        document.getElementById(
-            "userInfo"
-        );
 
+        if(
+            data.success &&
+            data.logged_in
+        ){
 
-    if (
-        data &&
-        data.success &&
-        data.logged_in &&
-        data.user
-    ) {
-
-        const user =
-            data.user;
-
-
-        statusElement.textContent =
+            document.getElementById(
+                "status"
+            ).textContent =
             "LOGGED IN";
 
 
-        userInfo.style.display =
-            "block";
+        }
+
+        else{
 
 
-        document.getElementById(
-            "userId"
-        ).textContent =
-            user.id ?? "";
-
-
-        document.getElementById(
-            "userUsername"
-        ).textContent =
-            user.username ?? "";
-
-
-        document.getElementById(
-            "userEmail"
-        ).textContent =
-            user.email ?? "";
-
-
-        document.getElementById(
-            "userCoins"
-        ).textContent =
-            user.coins ?? "0.00";
-
-
-        document.getElementById(
-            "userBalance"
-        ).textContent =
-            user.balance ?? "0.00";
-
-
-        document.getElementById(
-            "userStatus"
-        ).textContent =
-            user.status ?? "";
-
-
-        document.getElementById(
-            "userCreated"
-        ).textContent =
-            user.created_at ?? "";
-
-    } else {
-
-        statusElement.textContent =
+            document.getElementById(
+                "status"
+            ).textContent =
             "NOT LOGGED IN";
 
 
-        userInfo.style.display =
-            "none";
+        }
+
+
 
     }
 
-}
+    catch{
 
 
-/* =========================================
-   LOGOUT
-========================================= */
-
-async function logoutUser() {
-
-    const resultElement =
         document.getElementById(
-            "logoutResult"
-        );
+            "status"
+        ).textContent =
+        "ERROR";
 
-
-    resultElement.textContent =
-        "Logging out...";
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/logout",
-                {
-
-                    method: "POST"
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        await getMe();
-
-    } catch (error) {
-
-        console.error(
-            "Logout error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
 
     }
+
 
 }
 
 
-/* =========================================
-   INITIAL SESSION CHECK
-========================================= */
+
 
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+"DOMContentLoaded",
+()=>{
 
-        getMe();
+    checkSession();
 
-    }
-);
+});
+
+
 
 </script>
 
+
 </body>
+
 </html>
