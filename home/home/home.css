@@ -1,1 +1,85 @@
+/* ======== HOME AUTH ======== */
 
+#home-header .home-auth {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+}
+
+
+/* ======== LOGIN / REGISTER ======== */
+
+#home-header .home-auth button {
+
+    width: 110px;
+    height: 44px;
+
+    border-radius: 24px;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ======== LOGIN ======== */
+
+#home-header #loginButton {
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4da8ff 0%,
+            #2762ea 100%
+        );
+
+    border: 2px solid #8fc4ff;
+
+    box-shadow:
+        0 2px 6px rgba(39, 98, 234, 0.25),
+        0 0 0 2px rgba(39, 98, 234, 0.08);
+
+}
+
+
+/* ======== REGISTER ======== */
+
+#home-header #registerButton {
+
+    color: #2762ea;
+
+    background: #ffffff;
+
+    border: 2px solid #2762ea;
+
+    box-shadow: none;
+
+}
+
+
+/* ======== BUTTON ACTIVE ======== */
+
+#home-header .home-auth button:active {
+
+    transform: scale(0.97);
+
+}
+
+
+/* ======== BUTTON FOCUS ======== */
+
+#home-header .home-auth button:focus {
+
+    outline: none;
+
+}
