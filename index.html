@@ -1,1054 +1,1892 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
 
-<title>Unine Auth Test</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Unine Auth Test
+</title>
+
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
 
-    body {
-        margin: 0;
-        padding: 30px;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        color: #222;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    .container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
 
-    h1 {
-        margin-bottom: 10px;
-    }
+body {
 
-    .status {
-        padding: 15px;
-        margin-bottom: 20px;
-        background: #fff;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+    margin:0;
 
-    .section {
-        background: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+    padding:30px;
 
-    h2 {
-        margin-top: 0;
-    }
+    font-family:
+        Arial,
+        sans-serif;
 
-    input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 15px;
-    }
+    background:#f5f5f5;
 
-    button {
-        padding: 11px 18px;
-        margin: 4px 4px 4px 0;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+    color:#222;
 
-    button:hover {
-        opacity: 0.85;
-    }
+}
 
-    .result {
-        margin-top: 15px;
-        padding: 15px;
-        background: #111;
-        color: #fff;
-        border-radius: 8px;
-        white-space: pre-wrap;
-        word-break: break-word;
-        font-family: monospace;
-        font-size: 13px;
-        min-height: 60px;
-    }
 
-    .user-info {
-        display: none;
-        margin-top: 15px;
-        padding: 15px;
-        background: #f0f7ff;
-        border-radius: 8px;
-    }
+.container {
 
-    .user-info div {
-        margin: 6px 0;
-    }
+    max-width:900px;
 
-    .label {
-        font-weight: bold;
-    }
+    margin:0 auto;
+
+}
+
+
+h1 {
+
+    margin-bottom:10px;
+
+}
+
+
+.status {
+
+    padding:15px;
+
+    margin-bottom:20px;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+}
+
+
+.section {
+
+    background:#fff;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+}
+
+
+h2 {
+
+    margin-top:0;
+
+}
+
+
+input {
+
+    width:100%;
+
+    padding:12px;
+
+    margin-bottom:10px;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+    font-size:15px;
+
+}
+
+
+button {
+
+    padding:11px 18px;
+
+    margin:4px 4px 4px 0;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+}
+
+
+button:hover {
+
+    opacity:.85;
+
+}
+
+
+.result {
+
+    margin-top:15px;
+
+    padding:15px;
+
+    background:#111;
+
+    color:#fff;
+
+    border-radius:8px;
+
+    white-space:pre-wrap;
+
+    word-break:break-word;
+
+    font-family:monospace;
+
+    font-size:13px;
+
+    min-height:60px;
+
+}
+
+
+.user-info {
+
+    display:none;
+
+    margin-top:15px;
+
+    padding:15px;
+
+    background:#f0f7ff;
+
+    border-radius:8px;
+
+}
+
+
+.user-info div {
+
+    margin:6px 0;
+
+}
+
+
+.label {
+
+    font-weight:bold;
+
+}
+
+
 </style>
 
 
 </head>
 
+
+
 <body>
+
 
 <div class="container">
 
 
-<h1>Unine Auth Test</h1>
+<h1>
+    Unine Auth Test
+</h1>
+
 
 <div class="status">
-    <strong>Auth Status:</strong>
-    <span id="authStatus">Checking...</span>
+
+<strong>
+    Auth Status:
+</strong>
+
+<span id="authStatus">
+    Checking...
+</span>
+
 </div>
 
 
-<!-- =====================================
+
+
+<!-- ===========================
      REGISTER
-====================================== -->
+=========================== -->
+
 
 <div class="section">
 
-    <h2>Register</h2>
 
-    <input
-        id="registerUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-    >
+<h2>
+    Register
+</h2>
 
-    <input
-        id="registerEmail"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-    >
 
-    <input
-        id="registerPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="new-password"
-    >
+<input
+    id="registerUsername"
+    type="text"
+    placeholder="Username"
+    autocomplete="username"
+>
 
-    <button onclick="registerUser()">
-        Register
-    </button>
 
-    <div
-        id="registerResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+<input
+    id="registerEmail"
+    type="email"
+    placeholder="Email"
+    autocomplete="email"
+>
+
+
+<input
+    id="registerPassword"
+    type="password"
+    placeholder="Password"
+    autocomplete="new-password"
+>
+
+
+<button onclick="registerUser()">
+
+Register
+
+</button>
+
+
+<div
+    id="registerResult"
+    class="result"
+>
+
+Waiting...
 
 </div>
 
 
-<!-- =====================================
+</div>
+
+
+
+
+
+<!-- ===========================
      LOGIN
-====================================== -->
+=========================== -->
+
 
 <div class="section">
 
-    <h2>Login</h2>
 
-    <input
-        id="login"
-        type="text"
-        placeholder="Username or Email"
-        autocomplete="username"
-    >
+<h2>
+    Login
+</h2>
 
-    <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-    >
 
-    <button onclick="loginUser()">
-        Login
-    </button>
+<input
+    id="login"
+    type="text"
+    placeholder="Username or Email"
+    autocomplete="username"
+>
 
-    <div
-        id="loginResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+
+<input
+    id="loginPassword"
+    type="password"
+    placeholder="Password"
+    autocomplete="current-password"
+>
+
+
+<button onclick="loginUser()">
+
+Login
+
+</button>
+
+
+<div
+    id="loginResult"
+    class="result"
+>
+
+Waiting...
 
 </div>
 
 
-<!-- =====================================
-     ME
-====================================== -->
+</div>
+
+
+
+
+
+
+<!-- ===========================
+     CURRENT SESSION
+=========================== -->
+
 
 <div class="section">
 
-    <h2>Current Session</h2>
 
-    <button onclick="getMe()">
-        Check Me
-    </button>
+<h2>
+    Current Session
+</h2>
 
-    <div
-        id="userInfo"
-        class="user-info"
-    >
 
-        <div>
-            <span class="label">ID:</span>
-            <span id="userId"></span>
-        </div>
+<button onclick="getMe()">
 
-        <div>
-            <span class="label">Username:</span>
-            <span id="userUsername"></span>
-        </div>
+Check Me
 
-        <div>
-            <span class="label">Email:</span>
-            <span id="userEmail"></span>
-        </div>
+</button>
 
-        <div>
-            <span class="label">Coins:</span>
-            <span id="userCoins"></span>
-        </div>
 
-        <div>
-            <span class="label">Balance:</span>
-            <span id="userBalance"></span>
-        </div>
 
-        <div>
-            <span class="label">Status:</span>
-            <span id="userStatus"></span>
-        </div>
+<div
+id="userInfo"
+class="user-info"
+>
 
-        <div>
-            <span class="label">Created:</span>
-            <span id="userCreated"></span>
-        </div>
 
-    </div>
+<div>
 
-    <div
-        id="meResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+<span class="label">
+ID:
+</span>
+
+<span id="userId"></span>
 
 </div>
 
-<!-- =====================================
+
+
+<div>
+
+<span class="label">
+Username:
+</span>
+
+<span id="userUsername"></span>
+
+</div>
+
+
+
+<div>
+
+<span class="label">
+Email:
+</span>
+
+<span id="userEmail"></span>
+
+</div>
+
+
+
+<div>
+
+<span class="label">
+Coins:
+</span>
+
+<span id="userCoins"></span>
+
+</div>
+
+
+
+<div>
+
+<span class="label">
+Balance:
+</span>
+
+<span id="userBalance"></span>
+
+</div>
+
+
+
+<div>
+
+<span class="label">
+Status:
+</span>
+
+<span id="userStatus"></span>
+
+</div>
+
+
+
+<div>
+
+<span class="label">
+Created:
+</span>
+
+<span id="userCreated"></span>
+
+</div>
+
+
+
+</div>
+
+
+
+<div
+id="meResult"
+class="result"
+>
+
+Waiting...
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- ===========================
      CHANGE PASSWORD
-====================================== -->
+=========================== -->
+
 
 <div class="section">
 
-    <h2>Change Password</h2>
+
+<h2>
+    Change Password
+</h2>
 
 
-    <input
-        id="oldPassword"
-        type="password"
-        placeholder="Old Password"
-        autocomplete="current-password"
-    >
+
+<input
+    id="oldPassword"
+    type="password"
+    placeholder="Old Password"
+    autocomplete="current-password"
+>
 
 
-    <input
-        id="newPassword"
-        type="password"
-        placeholder="New Password"
-        autocomplete="new-password"
-    >
+
+<input
+    id="newPassword"
+    type="password"
+    placeholder="New Password"
+    autocomplete="new-password"
+>
 
 
-    <input
-        id="confirmPassword"
-        type="password"
-        placeholder="Confirm New Password"
-        autocomplete="new-password"
-    >
+
+<input
+    id="confirmPassword"
+    type="password"
+    placeholder="Confirm New Password"
+    autocomplete="new-password"
+>
 
 
-    <button onclick="changePassword()">
-        Change Password
-    </button>
+
+<button onclick="changePassword()">
+
+Change Password
+
+</button>
 
 
-    <div
-        id="changePasswordResult"
-        class="result"
-    >
-        Waiting...
-    </div>
+
+<div
+id="changePasswordResult"
+class="result"
+>
+
+Waiting...
 
 </div>
 
 
-<!-- =====================================
-     LOGOUT
-====================================== -->
-
-<div class="section">
-
-    <h2>Logout</h2>
-
-    <button onclick="logoutUser()">
-        Logout
-    </button>
-
-    <div
-        id="logoutResult"
-        class="result"
-    >
-        Waiting...
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     RAW API RESPONSE
-====================================== -->
-
-<div class="section">
-
-    <h2>Last API Response</h2>
-
-    <div
-        id="rawResult"
-        class="result"
-    >
-        No request yet.
-    </div>
-
-</div>
 
 </div>
 
 <script>
 
+
 /* =========================================
    SUPABASE EDGE FUNCTION CONFIG
 ========================================= */
 
+
 const API_BASE =
-    "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+
+"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+
+
+
 
 
 /* =========================================
-   API HELPER
+   API REQUEST
 ========================================= */
 
+
 async function apiRequest(
+
     endpoint,
+
     options = {}
-) {
+
+){
+
 
     const url =
+
         API_BASE + endpoint;
+
 
 
     const defaultOptions = {
 
-        credentials: "include",
 
-        headers: {
+        credentials:
+
+            "include",
+
+
+        headers:{
+
 
             "Content-Type":
+
                 "application/json"
+
 
         }
 
+
     };
+
 
 
     const finalOptions = {
 
+
         ...defaultOptions,
+
 
         ...options,
 
-        headers: {
+
+        headers:{
+
 
             ...defaultOptions.headers,
 
+
             ...(options.headers || {})
 
+
         }
+
 
     };
 
 
+
     console.log(
+
         "API Request:",
+
         url,
+
         finalOptions
+
     );
 
 
+
     const response =
+
         await fetch(
+
             url,
+
             finalOptions
+
         );
+
+
 
 
     let data;
 
 
-    try {
+
+    try{
+
 
         data =
+
             await response.json();
 
-    } catch {
+
+    }
+
+    catch{
+
 
         data = {
 
-            success: false,
+
+            success:false,
+
 
             error:
-                "Server returned invalid JSON"
+
+                "Invalid JSON response"
+
 
         };
+
 
     }
 
 
+
+
     document.getElementById(
+
         "rawResult"
+
     ).textContent =
+
+
         JSON.stringify(
+
             {
+
                 http_status:
+
                     response.status,
 
+
                 response:
+
                     data
+
+
             },
+
+
             null,
+
             2
+
         );
+
+
+
 
 
     return {
 
+
         response,
+
 
         data
 
+
     };
 
+
 }
+
+
+
+
+
 
 
 /* =========================================
    REGISTER
 ========================================= */
 
-async function registerUser() {
 
-    const username =
-        document.getElementById(
-            "registerUsername"
-        ).value.trim();
+async function registerUser(){
 
 
-    const email =
-        document.getElementById(
-            "registerEmail"
-        ).value.trim();
+
+const username =
+
+document.getElementById(
+
+"registerUsername"
+
+).value.trim();
 
 
-    const password =
-        document.getElementById(
-            "registerPassword"
-        ).value;
 
 
-    const resultElement =
-        document.getElementById(
-            "registerResult"
-        );
+const email =
+
+document.getElementById(
+
+"registerEmail"
+
+).value.trim();
 
 
-    resultElement.textContent =
-        "Registering...";
 
 
-    if (
-        !username ||
-        !email ||
-        !password
-    ) {
+const password =
 
-        resultElement.textContent =
-            "Please fill in all fields.";
+document.getElementById(
 
-        return;
+"registerPassword"
 
-    }
+).value;
 
 
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/register",
-                {
-
-                    method: "POST",
-
-                    body:
-                        JSON.stringify({
-
-                            username,
-
-                            email,
-
-                            password
-
-                        })
-
-                }
-            );
 
 
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+const result =
+
+document.getElementById(
+
+"registerResult"
+
+);
 
 
-        if (
-            response.ok &&
-            data.success
-        ) {
-
-            await getMe();
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Register error:",
-            error
-        );
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
+result.textContent =
 
-    }
+"Registering...";
+
+
+
+
+
+if(
+
+!username ||
+
+!email ||
+
+!password
+
+){
+
+
+result.textContent =
+
+"Please fill all fields.";
+
+
+return;
+
 
 }
+
+
+
+
+
+try{
+
+
+const {
+
+response,
+
+data
+
+}=
+
+await apiRequest(
+
+"/register",
+
+{
+
+
+method:"POST",
+
+
+body:
+
+JSON.stringify({
+
+username,
+
+email,
+
+password
+
+})
+
+
+}
+
+);
+
+
+
+
+
+result.textContent =
+
+JSON.stringify(
+
+data,
+
+null,
+
+2
+
+);
+
+
+
+
+
+if(
+
+response.ok &&
+
+data.success
+
+){
+
+
+await getMe();
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+
+console.error(
+
+"Register error:",
+
+error
+
+);
+
+
+
+result.textContent =
+
+"Network error: "
+
++
+
+error.message;
+
+
+
+}
+
+
+}
+
+
+
+
+
+
+
 
 
 /* =========================================
    LOGIN
 ========================================= */
 
-async function loginUser() {
 
-    const login =
-        document.getElementById(
-            "login"
-        ).value.trim();
+async function loginUser(){
 
 
-    const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
+
+const login =
+
+document.getElementById(
+
+"login"
+
+).value.trim();
 
 
-    const resultElement =
-        document.getElementById(
-            "loginResult"
-        );
 
 
-    resultElement.textContent =
-        "Logging in...";
+const password =
+
+document.getElementById(
+
+"loginPassword"
+
+).value;
 
 
-    if (
-        !login ||
-        !password
-    ) {
-
-        resultElement.textContent =
-            "Please enter username/email and password.";
-
-        return;
-
-    }
 
 
-    try {
+const result =
 
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/login",
-                {
+document.getElementById(
 
-                    method: "POST",
+"loginResult"
 
-                    body:
-                        JSON.stringify({
-
-                            login,
-
-                            password
-
-                        })
-
-                }
-            );
+);
 
 
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
 
 
-        if (
-            response.ok &&
-            data.success
-        ) {
+result.textContent =
 
-            await getMe();
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Login error:",
-            error
-        );
+"Logging in...";
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
 
-    }
+
+
+if(
+
+!login ||
+
+!password
+
+){
+
+
+result.textContent =
+
+"Enter username/email and password.";
+
+
+return;
+
 
 }
 
 
-/* =========================================
-   ME
-========================================= */
-
-async function getMe() {
-
-    const resultElement =
-        document.getElementById(
-            "meResult"
-        );
 
 
-    resultElement.textContent =
-        "Checking session...";
 
 
-    try {
 
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/me",
-                {
-
-                    method: "GET"
-
-                }
-            );
+try{
 
 
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+const {
+
+response,
+
+data
+
+}=
 
 
-        updateUserInterface(
-            data
-        );
+await apiRequest(
+
+"/login",
+
+{
 
 
-        return data;
-
-    } catch (error) {
-
-        console.error(
-            "Me error:",
-            error
-        );
+method:"POST",
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
+body:
+
+JSON.stringify({
+
+login,
+
+password
+
+})
 
 
-        updateUserInterface({
+}
 
-            success: false,
-
-            logged_in: false
-
-        });
+);
 
 
-        return null;
 
-    }
+
+
+
+result.textContent =
+
+JSON.stringify(
+
+data,
+
+null,
+
+2
+
+);
+
+
+
+
+
+
+if(
+
+response.ok &&
+
+data.success
+
+){
+
+
+await getMe();
+
 
 }
 
 
+
+}
+
+
+catch(error){
+
+
+
+console.error(
+
+"Login error:",
+
+error
+
+);
+
+
+
+result.textContent =
+
+"Network error: "
+
++
+
+error.message;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
 /* =========================================
-   UPDATE USER UI
+   GET ME
 ========================================= */
+
+
+async function getMe(){
+
+
+
+const result =
+
+document.getElementById(
+
+"meResult"
+
+);
+
+
+
+
+result.textContent =
+
+"Checking session...";
+
+
+
+
+
+
+try{
+
+
+
+const {
+
+response,
+
+data
+
+}=
+
+
+await apiRequest(
+
+"/me",
+
+{
+
+
+method:"GET"
+
+
+}
+
+);
+
+
+
+
+
+
+result.textContent =
+
+JSON.stringify(
+
+data,
+
+null,
+
+2
+
+);
+
+
+
+
+
+
+updateUserInterface(
+
+data
+
+);
+
+
+
+
+return data;
+
+
+
+}
+
+
+
+catch(error){
+
+
+
+console.error(
+
+"Me error:",
+
+error
+
+);
+
+
+
+result.textContent =
+
+"Network error: "
+
++
+
+error.message;
+
+
+
+updateUserInterface({
+
+success:false,
+
+logged_in:false
+
+});
+
+
+
+
+return null;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   UPDATE USER INTERFACE
+========================================= */
+
 
 function updateUserInterface(
-    data
-) {
 
-    const statusElement =
-        document.getElementById(
-            "authStatus"
-        );
+data
+
+){
 
 
-    const userInfo =
-        document.getElementById(
-            "userInfo"
-        );
+
+const status =
+
+document.getElementById(
+
+"authStatus"
+
+);
 
 
-    if (
-        data &&
-        data.success &&
-        data.logged_in &&
-        data.user
-    ) {
 
-        const user =
-            data.user;
+const userInfo =
 
+document.getElementById(
 
-        statusElement.textContent =
-            "LOGGED IN";
+"userInfo"
+
+);
 
 
-        userInfo.style.display =
-            "block";
 
 
-        document.getElementById(
-            "userId"
-        ).textContent =
-            user.id ?? "";
 
 
-        document.getElementById(
-            "userUsername"
-        ).textContent =
-            user.username ?? "";
+
+if(
+
+data &&
+
+data.success &&
+
+data.logged_in &&
+
+data.user
+
+){
 
 
-        document.getElementById(
-            "userEmail"
-        ).textContent =
-            user.email ?? "";
+
+const user =
+
+data.user;
 
 
-        document.getElementById(
-            "userCoins"
-        ).textContent =
-            user.coins ?? "0.00";
 
 
-        document.getElementById(
-            "userBalance"
-        ).textContent =
-            user.balance ?? "0.00";
+
+status.textContent =
+
+"LOGGED IN";
 
 
-        document.getElementById(
-            "userStatus"
-        ).textContent =
-            user.status ?? "";
 
 
-        document.getElementById(
-            "userCreated"
-        ).textContent =
-            user.created_at ?? "";
+userInfo.style.display =
 
-    } else {
-
-        statusElement.textContent =
-            "NOT LOGGED IN";
+"block";
 
 
-        userInfo.style.display =
-            "none";
 
-    }
+
+
+
+document.getElementById(
+
+"userId"
+
+).textContent =
+
+user.id ?? "";
+
+
+
+
+
+document.getElementById(
+
+"userUsername"
+
+).textContent =
+
+user.username ?? "";
+
+
+
+
+
+document.getElementById(
+
+"userEmail"
+
+).textContent =
+
+user.email ?? "";
+
+
+
+
+
+document.getElementById(
+
+"userCoins"
+
+).textContent =
+
+user.coins ?? "0";
+
+
+
+
+
+document.getElementById(
+
+"userBalance"
+
+).textContent =
+
+user.balance ?? "0";
+
+
+
+
+
+document.getElementById(
+
+"userStatus"
+
+).textContent =
+
+user.status ?? "";
+
+
+
+
+
+document.getElementById(
+
+"userCreated"
+
+).textContent =
+
+user.created_at ?? "";
+
+
+
 
 }
+
+
+
+else{
+
+
+
+status.textContent =
+
+"NOT LOGGED IN";
+
+
+
+userInfo.style.display =
+
+"none";
+
+
+
+}
+
+
+
+}
+
+
+
+
 
 
 /* =========================================
    LOGOUT
 ========================================= */
 
-async function logoutUser() {
 
-    const resultElement =
-        document.getElementById(
-            "logoutResult"
-        );
+async function logoutUser(){
 
 
-    resultElement.textContent =
-        "Logging out...";
+
+const result =
+
+document.getElementById(
+
+"logoutResult"
+
+);
 
 
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/logout",
-                {
-
-                    method: "POST"
-
-                }
-            );
 
 
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+result.textContent =
+
+"Logging out...";
 
 
-        await getMe();
-
-    } catch (error) {
-
-        console.error(
-            "Logout error:",
-            error
-        );
 
 
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
 
-    }
+
+try{
+
+
+
+const {
+
+data
+
+}=
+
+
+await apiRequest(
+
+"/logout",
+
+{
+
+
+method:"POST"
+
 
 }
+
+);
+
+
+
+
+
+result.textContent =
+
+JSON.stringify(
+
+data,
+
+null,
+
+2
+
+);
+
+
+
+
+
+await getMe();
+
+
+
+
+}
+
+
+catch(error){
+
+
+
+console.error(
+
+"Logout error:",
+
+error
+
+);
+
+
+
+result.textContent =
+
+"Network error: "
+
++
+
+error.message;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   CHANGE PASSWORD
+========================================= */
+
+
+async function changePassword(){
+
+
+
+const oldPassword =
+
+document.getElementById(
+
+"oldPassword"
+
+).value;
+
+
+
+
+
+const newPassword =
+
+document.getElementById(
+
+"newPassword"
+
+).value;
+
+
+
+
+
+const confirmPassword =
+
+document.getElementById(
+
+"confirmPassword"
+
+).value;
+
+
+
+
+
+const result =
+
+document.getElementById(
+
+"changePasswordResult"
+
+);
+
+
+
+
+
+
+
+if(
+
+!oldPassword ||
+
+!newPassword ||
+
+!confirmPassword
+
+){
+
+
+
+result.textContent =
+
+"Please fill all fields.";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+if(
+
+newPassword !== confirmPassword
+
+){
+
+
+
+result.textContent =
+
+"New passwords do not match.";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+if(
+
+newPassword.length < 8
+
+){
+
+
+
+result.textContent =
+
+"Password must be at least 8 characters.";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+result.textContent =
+
+"Changing password...";
+
+
+
+
+
+
+
+try{
+
+
+
+const {
+
+response,
+
+data
+
+}=
+
+
+await apiRequest(
+
+"/change-password",
+
+{
+
+
+method:"POST",
+
+
+body:
+
+JSON.stringify({
+
+old_password:
+
+oldPassword,
+
+
+new_password:
+
+newPassword
+
+
+})
+
+
+}
+
+);
+
+
+
+
+
+
+result.textContent =
+
+JSON.stringify(
+
+data,
+
+null,
+
+2
+
+);
+
+
+
+
+
+
+if(
+
+response.ok &&
+
+data.success
+
+){
+
+
+
+document.getElementById(
+
+"oldPassword"
+
+).value = "";
+
+
+
+document.getElementById(
+
+"newPassword"
+
+).value = "";
+
+
+
+document.getElementById(
+
+"confirmPassword"
+
+).value = "";
+
+
+
+}
+
+
+
+}
+
+
+
+catch(error){
+
+
+
+console.error(
+
+"Change password error:",
+
+error
+
+);
+
+
+
+result.textContent =
+
+"Network error: "
+
++
+
+error.message;
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
 
 
 /* =========================================
    INITIAL SESSION CHECK
 ========================================= */
 
+
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
 
-        getMe();
+"DOMContentLoaded",
 
-    }
-);
-
-/* =========================================
-   CHANGE PASSWORD
-========================================= */
-
-async function changePassword() {
+()=>{
 
 
-    const oldPassword =
-        document.getElementById(
-            "oldPassword"
-        ).value;
+getMe();
 
-
-    const newPassword =
-        document.getElementById(
-            "newPassword"
-        ).value;
-
-
-    const confirmPassword =
-        document.getElementById(
-            "confirmPassword"
-        ).value;
-
-
-    const resultElement =
-        document.getElementById(
-            "changePasswordResult"
-        );
-
-
-    if (
-        !oldPassword ||
-        !newPassword ||
-        !confirmPassword
-    ) {
-
-        resultElement.textContent =
-            "Please fill all fields.";
-
-        return;
-
-    }
-
-
-    if (
-        newPassword !== confirmPassword
-    ) {
-
-        resultElement.textContent =
-            "New password confirmation does not match.";
-
-        return;
-
-    }
-
-
-    if (
-        newPassword.length < 8
-    ) {
-
-        resultElement.textContent =
-            "Password must be at least 8 characters.";
-
-        return;
-
-    }
-
-
-    resultElement.textContent =
-        "Changing password...";
-
-
-    try {
-
-
-        const {
-            response,
-            data
-        } =
-        await apiRequest(
-            "/change-password",
-            {
-
-                method:"POST",
-
-                body:
-                JSON.stringify({
-
-                    old_password:
-                        oldPassword,
-
-
-                    new_password:
-                        newPassword
-
-                })
-
-            }
-        );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-    }
-    catch(error){
-
-
-        console.error(
-            "Change password error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: "
-            +
-            error.message;
-
-    }
 
 }
 
+);
+
+
+
 </script>
 
+
 </body>
+
 </html>
