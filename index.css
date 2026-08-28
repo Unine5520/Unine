@@ -76,9 +76,9 @@
 
     background: #ffffff;
 
-    border-left: 1px solid #3e8af6;
-    border-right: 1px solid #3e8af6;
-    border-bottom: 1px solid #3e8af6;
+    border-left: 0px solid #3e8af6;
+    border-right: 0px solid #3e8af6;
+    border-bottom: 0.1px solid #3e8af6;
 
     border-radius: 0 0 41px 41px;
 
