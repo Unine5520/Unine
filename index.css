@@ -13,10 +13,18 @@
     width: 100%;
     height: 72px;
 
-    display: flex;
+    display: grid;
 
-    justify-content: space-around;
+    grid-template-columns:
+        1fr
+        1fr
+        82px
+        1fr
+        1fr;
+
     align-items: center;
+
+    justify-items: center;
 
     background: #ffffff;
 
@@ -87,7 +95,7 @@
 
     position: relative;
 
-    width: 20%;
+    width: 72px;
     height: 72px;
 
     padding: 0;
@@ -182,7 +190,12 @@
 
     border-radius: 50%;
 
-    background: linear-gradient(180deg, #4da8ff 0%, #2762ea 100%);
+    background:
+        linear-gradient(
+            180deg,
+            #4da8ff 0%,
+            #2762ea 100%
+        );
 
 }
 
@@ -226,6 +239,13 @@
 
 }
 
+
+/* ======== HIDDEN ======== */
+/* ======== HIDDEN ======== */
+/* ======== HIDDEN ======== */
+
 .hidden {
+
     display: none !important;
+
 }
