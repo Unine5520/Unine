@@ -41,16 +41,7 @@
     width: 100%;
     height: 1px;
 
-    background:
-        linear-gradient(
-            to right,
-            #eeeeee 0,
-            #eeeeee calc(50% - 41px),
-            transparent calc(50% - 41px),
-            transparent calc(50% + 41px),
-            #eeeeee calc(50% + 41px),
-            #eeeeee 100%
-        );
+    background: #ffffff;
 
     z-index: 1;
 
