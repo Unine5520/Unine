@@ -18,7 +18,7 @@
     grid-template-columns:
         1fr
         1fr
-        150px
+        100px
         1fr
         1fr;
 
@@ -236,6 +236,164 @@
 #Menu-button .nav-button:focus {
 
     outline: none;
+
+}
+
+
+/* ======== MOBILE ======== */
+/* ======== MOBILE ======== */
+/* ======== MOBILE ======== */
+
+@media (max-width: 480px) {
+
+    #Menu-button {
+
+        grid-template-columns:
+            1fr
+            1fr
+            90px
+            1fr
+            1fr;
+
+    }
+
+
+    #Menu-button .nav-button {
+
+        width: 64px;
+
+    }
+
+
+    #Menu-button .nav-button img {
+
+        width: 22px;
+        height: 22px;
+
+    }
+
+
+    #Menu-button .nav-button span {
+
+        font-size: 11px;
+
+        line-height: 15px;
+
+    }
+
+
+    #Menu-button #orderButton {
+
+        width: 60px;
+        height: 60px;
+
+    }
+
+
+    #Menu-button #orderButton img {
+
+        width: 22px;
+        height: 22px;
+
+    }
+
+
+    #Menu-button #orderButton span {
+
+        font-size: 11px;
+
+        line-height: 13px;
+
+    }
+
+
+    #Menu-button::before {
+
+        width: 76px;
+        height: 38px;
+
+        border-radius: 0 0 38px 38px;
+
+    }
+
+}
+
+
+/* ======== VERY SMALL MOBILE ======== */
+/* ======== VERY SMALL MOBILE ======== */
+/* ======== VERY SMALL MOBILE ======== */
+
+@media (max-width: 360px) {
+
+    #Menu-button {
+
+        grid-template-columns:
+            1fr
+            1fr
+            82px
+            1fr
+            1fr;
+
+    }
+
+
+    #Menu-button .nav-button {
+
+        width: 58px;
+
+    }
+
+
+    #Menu-button .nav-button img {
+
+        width: 20px;
+        height: 20px;
+
+    }
+
+
+    #Menu-button .nav-button span {
+
+        font-size: 10px;
+
+        line-height: 14px;
+
+    }
+
+
+    #Menu-button #orderButton {
+
+        width: 56px;
+        height: 56px;
+
+    }
+
+
+    #Menu-button #orderButton img {
+
+        width: 20px;
+        height: 20px;
+
+    }
+
+
+    #Menu-button #orderButton span {
+
+        font-size: 10px;
+
+        line-height: 12px;
+
+    }
+
+
+    #Menu-button::before {
+
+        width: 72px;
+        height: 36px;
+
+        border-radius: 0 0 36px 36px;
+
+    }
 
 }
 
