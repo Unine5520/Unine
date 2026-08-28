@@ -1,6 +1,27 @@
+/* ======== HOME PAGE ======== */
+/* ======== HOME PAGE ======== */
+/* ======== HOME PAGE ======== */
+
+#homePage {
+
+    padding-top: 72px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ======== HOME HEADER ======== */
+/* ======== HOME HEADER ======== */
 /* ======== HOME HEADER ======== */
 
 #home-header {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
 
     width: 100%;
     height: 72px;
@@ -13,11 +34,17 @@
 
     box-sizing: border-box;
 
+    background: #ffffff;
+
     border-bottom: 1px solid rgb(34 68 225 / 20%);
+
+    z-index: 1000;
 
 }
 
 
+/* ======== HOME BRAND ======== */
+/* ======== HOME BRAND ======== */
 /* ======== HOME BRAND ======== */
 
 #home-header .home-brand {
@@ -33,6 +60,8 @@
 
 
 /* ======== HOME AUTH ======== */
+/* ======== HOME AUTH ======== */
+/* ======== HOME AUTH ======== */
 
 #home-header .home-auth {
 
@@ -45,6 +74,8 @@
 }
 
 
+/* ======== LOGIN / REGISTER ======== */
+/* ======== LOGIN / REGISTER ======== */
 /* ======== LOGIN / REGISTER ======== */
 
 #home-header .home-auth button {
@@ -70,6 +101,8 @@
 
 
 /* ======== LOGIN ======== */
+/* ======== LOGIN ======== */
+/* ======== LOGIN ======== */
 
 #home-header #loginButton {
 
@@ -92,6 +125,8 @@
 
 
 /* ======== REGISTER ======== */
+/* ======== REGISTER ======== */
+/* ======== REGISTER ======== */
 
 #home-header #registerButton {
 
@@ -107,6 +142,8 @@
 
 
 /* ======== BUTTON ACTIVE ======== */
+/* ======== BUTTON ACTIVE ======== */
+/* ======== BUTTON ACTIVE ======== */
 
 #home-header .home-auth button:active {
 
@@ -115,6 +152,8 @@
 }
 
 
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
 /* ======== BUTTON FOCUS ======== */
 
 #home-header .home-auth button:focus {
