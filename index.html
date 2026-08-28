@@ -262,6 +262,53 @@
 
 </div>
 
+<!-- =====================================
+     CHANGE PASSWORD
+====================================== -->
+
+<div class="section">
+
+    <h2>Change Password</h2>
+
+
+    <input
+        id="oldPassword"
+        type="password"
+        placeholder="Old Password"
+        autocomplete="current-password"
+    >
+
+
+    <input
+        id="newPassword"
+        type="password"
+        placeholder="New Password"
+        autocomplete="new-password"
+    >
+
+
+    <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm New Password"
+        autocomplete="new-password"
+    >
+
+
+    <button onclick="changePassword()">
+        Change Password
+    </button>
+
+
+    <div
+        id="changePasswordResult"
+        class="result"
+    >
+        Waiting...
+    </div>
+
+</div>
+
 
 <!-- =====================================
      LOGOUT
