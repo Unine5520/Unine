@@ -586,31 +586,43 @@ return;
 
 
 
+// hide guest buttons
+
+if(telegramButton)
+{
 telegramButton.classList.add(
 "hidden"
 );
+}
 
 
-
+if(homeAuth)
+{
 homeAuth.classList.add(
 "hidden"
 );
+}
 
 
 
+// show user
+
+if(userHeader)
+{
 userHeader.classList.remove(
 "hidden"
 );
+}
 
 
-
+if(headerUsername)
+{
 headerUsername.innerText =
 user.username;
-
+}
 
 
 }
-
 
 window.updateHeader =
 updateHeader;
