@@ -1,64 +1,217 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0"
+<!DOCTYPE html>
+<html lang="en">
 
-<meta name="description" content="U9"
+<head>
 
-<header id="home-header">
-    <div class="home-brand">
-        Unine
+<meta charset="UTF-8">
+
+<meta 
+    name="viewport" 
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta 
+    name="description" 
+    content="U9"
+>
+
+<title>
+    U9
+</title>
+
+
+<!-- ======== GLOBAL CSS ======== -->
+<!-- ======== GLOBAL CSS ======== -->
+<!-- ======== GLOBAL CSS ======== -->
+
+<link rel="stylesheet" href="index.css">
+
+<link rel="stylesheet" href="home/home/home.css">
+
+<link rel="stylesheet" href="shop/shop/shop.css">
+
+<link rel="stylesheet" href="order/order/order.css">
+
+<link rel="stylesheet" href="inbox/inbox/inbox.css">
+
+<link rel="stylesheet" href="me/me/me.css">
+
+<link rel="stylesheet" href="me/setting/setting.css">
+
+
+</head>
+
+
+<body>
+
+
+<!-- ======== APPLICATION ======== -->
+<!-- ======== APPLICATION ======== -->
+<!-- ======== APPLICATION ======== -->
+
+<main id="app">
+
+
+<!-- ======== HOME ======== -->
+
+<section
+    id="homePage"
+    class="page-section"
+>
+
+    <header id="home-header">
+        <div class="home-brand">
+            Unine
+        </div>
+
+        <div class="home-auth">
+            <button id="loginButton">Login</button>
+            <button id="registerButton">Register</button>
+        </div>
+    </header>
+    
+
+    <!-- ======== test ======== -->
+
+    <div class="home-test-content">
+
+        <h1>Home Test</h1>
+
+        <p>Scroll down to test the fixed header.</p>
+
+        <div class="test-box">Test Content 01</div>
+        <div class="test-box">Test Content 02</div>
+        <div class="test-box">Test Content 03</div>
+        <div class="test-box">Test Content 04</div>
+        <div class="test-box">Test Content 05</div>
+        <div class="test-box">Test Content 06</div>
+        <div class="test-box">Test Content 07</div>
+        <div class="test-box">Test Content 08</div>
+
     </div>
 
-    <div class="home-actions">
-        <a
-            href="https://t.me/U9support"
-            target="_blank"
-            class="telegram-button"
-        >
-            <img
-                src="icon/Telegram.svg"
-                alt="Telegram"
-            >
-        </a>
-
-    <div class="home-auth">
-        <button id="loginButton">Login</button>
-        <button id="registerButton">Register</button>
-    </div>
-</header>
+    <!-- ======== test ======== -->
 
 
-<!-- ======== test ======== -->
+</section>
 
-<div class="home-test-content">
 
-    <h1>Home Test</h1>
+<!-- ======== SHOP ======== -->
 
-    <p>Scroll down to test the fixed header.</p>
-
-    <div class="test-box">Test Content 01</div>
-    <div class="test-box">Test Content 02</div>
-    <div class="test-box">Test Content 03</div>
-    <div class="test-box">Test Content 04</div>
-    <div class="test-box">Test Content 05</div>
-    <div class="test-box">Test Content 06</div>
-    <div class="test-box">Test Content 07</div>
-    <div class="test-box">Test Content 08</div>
-
-</div>
-
-<!-- ======== test ======== -->
-<h1>
-    Shop
-</h1>
-<h1>
-    Order
-</h1>
-<h1>
-    Inbox
-</h1>
-<div class="me-container">
+<section
+    id="shopPage"
+    class="page-section hidden"
+>
 
     <h1>
-        Me
+        Shop
     </h1>
 
-</div>
+</section>
+
+
+<!-- ======== ORDER ======== -->
+
+<section
+    id="orderPage"
+    class="page-section hidden"
+>
+
+    <h1>
+        Order
+    </h1>
+
+</section>
+
+
+<!-- ======== INBOX ======== -->
+
+<section
+    id="inboxPage"
+    class="page-section hidden"
+>
+
+    <h1>
+        Inbox
+    </h1>
+
+</section>
+
+
+<!-- ======== ME ======== -->
+
+<section
+    id="mePage"
+    class="page-section hidden"
+>
+
+    <div class="me-container">
+
+        <h1>
+            Me
+        </h1>
+
+    </div>
+
+</section>
+
+
+</main>
+
+<!-- ======== Menu-button ======== -->
+<!-- ======== 底部菜单 ======== -->
+<!-- ======== Menu-button ======== -->
+
+<nav id="Menu-button">
+    <!-- HOME -->
+    <button id="homeButton" class="nav-button active" data-page="homePage"><img src="assets/icons/home-active.svg" data-default="assets/icons/home.svg" data-active="assets/icons/home-active.svg" alt="Home"><span>Home</span></button>
+    <!-- SHOP -->
+    <button id="shopButton" class="nav-button" data-page="shopPage"><img src="assets/icons/shop.svg" data-default="assets/icons/shop.svg" data-active="assets/icons/shop-active.svg" alt="Shop"><span>Shop</span></button>
+    <!-- ORDER -->
+    <button id="orderButton" class="nav-button" data-page="orderPage"><img src="assets/icons/order.svg" alt="Order"><span>Order</span></button>
+    <!-- INBOX -->
+    <button id="inboxButton" class="nav-button" data-page="inboxPage"><img src="assets/icons/inbox.svg" data-default="assets/icons/inbox.svg" data-active="assets/icons/inbox-active.svg" alt="Inbox"><span>Inbox</span></button>
+    <!-- ME -->
+    <button id="meButton" class="nav-button" data-page="mePage"><img src="assets/icons/me.svg" data-default="assets/icons/me.svg" data-active="assets/icons/me-active.svg" alt="Me"><span>Me</span></button>
+</nav>
+
+
+<!-- ======== SUPABASE ======== -->
+<!-- ======== SUPABASE ======== -->
+<!-- ======== SUPABASE ======== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+>
+</script>
+
+
+<!-- ======== GLOBAL JS ======== -->
+<!-- ======== GLOBAL JS ======== -->
+<!-- ======== GLOBAL JS ======== -->
+
+<script
+    src="index.js"
+>
+</script>
+
+
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
+
+<script src="home/home/home.js"></script>
+  
+<script src="shop/shop/shop.js"></script>
+  
+<script src="order/order/order.js"></script>
+  
+<script src="inbox/inbox/inbox.js"></script>
+  
+<script src="me/me/me.js"></script>
+  
+<script src="me/setting/setting.js"></script>
+
+</body>
+
+</html>
