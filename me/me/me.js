@@ -42,6 +42,31 @@ document.getElementById(
 
 
 // =================
+// CHECK ELEMENT
+// =================
+
+
+if(
+!logoutButton ||
+!logoutModal ||
+!logoutConfirm ||
+!logoutCancel
+)
+{
+
+console.log(
+"Logout elements missing"
+);
+
+return;
+
+}
+
+
+
+
+
+// =================
 // LOAD USER
 // =================
 
@@ -84,13 +109,22 @@ meUsername.innerText =
 data.user.username;
 
 }
+else
+{
+
+meUsername.innerText =
+"";
+
+}
 
 
 }
 catch(err)
 {
 
-console.log(err);
+console.log(
+err
+);
 
 }
 
@@ -121,8 +155,10 @@ logoutModal.classList.remove(
 
 
 
+
+
 // =================
-// CANCEL
+// CANCEL LOGOUT
 // =================
 
 
@@ -142,8 +178,9 @@ logoutModal.classList.add(
 
 
 
+
 // =================
-// LOGOUT API
+// CONFIRM LOGOUT
 // =================
 
 
@@ -174,6 +211,7 @@ await res.json();
 
 
 console.log(
+"LOGOUT:",
 data
 );
 
@@ -189,9 +227,18 @@ alert(
 
 
 
-// refresh page
-
 location.reload();
+
+
+}
+else
+{
+
+
+alert(
+data.message ||
+"Logout failed"
+);
 
 
 }
@@ -202,7 +249,10 @@ location.reload();
 catch(err)
 {
 
-console.error(err);
+console.error(
+err
+);
+
 
 alert(
 "Logout error"
@@ -218,6 +268,11 @@ alert(
 
 
 
+
+
+// =================
+// START
+// =================
 
 
 loadUser();
