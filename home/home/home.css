@@ -200,3 +200,43 @@
     font-size: 18px;
 
 }
+
+
+/* ======== HOME ACTIONS ======== */
+
+.home-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+/* ======== TELEGRAM ICON ======== */
+
+.telegram-button {
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+
+}
+
+
+.telegram-button img {
+
+    width: 24px;
+    height: 24px;
+
+    display: block;
+
+}
