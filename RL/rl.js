@@ -404,20 +404,20 @@ alert(
 );
 
 
-// 更新顶部状态
-updateHeader(
-    data.user
-);
+if(data.user)
+{
+    updateHeader(
+        data.user
+    );
+}
 
 
-// 清空注册输入
 registerUsername.value="";
 registerEmail.value="";
 registerPassword.value="";
 registerConfirm.value="";
 
 
-// 关闭窗口
 closeRL();
 
 
