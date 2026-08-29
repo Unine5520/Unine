@@ -10,7 +10,7 @@ RL MODAL
     inset:0;
 
     background:
-    rgba(0,0,0,.35);
+    rgba(0,0,0,0.35);
 
     display:flex;
 
@@ -18,22 +18,24 @@ RL MODAL
 
     align-items:center;
 
-    z-index:2000;
+    z-index:9999;
 
 }
 
 
 
-.rl-box{
 
+.rl-box{
 
     width:360px;
 
-    background:white;
+    max-width:90%;
+
+    background:#ffffff;
 
     border-radius:24px;
 
-    padding:20px;
+    padding:24px;
 
     box-sizing:border-box;
 
@@ -41,11 +43,13 @@ RL MODAL
 
 
 
-/* HEADER */
+
+/* =========================
+HEADER
+========================= */
 
 
 .rl-header{
-
 
     display:grid;
 
@@ -74,34 +78,42 @@ RL MODAL
 
 .rl-header h2{
 
+    margin:0;
 
     text-align:center;
 
-    margin:0;
-
     font-size:22px;
+
+    font-weight:700;
 
 }
 
 
 
-/* TAB */
+
+
+/* =========================
+TAB
+========================= */
 
 
 .rl-tabs{
 
 
-    margin-top:20px;
+    margin-top:24px;
 
     height:82px;
 
     background:#f1f3f8;
 
-    border-radius:20px;
+    border-radius:22px;
 
     padding:12px;
 
     display:flex;
+
+    gap:8px;
+
 
 }
 
@@ -114,7 +126,7 @@ RL MODAL
 
     border:none;
 
-    background:none;
+    background:transparent;
 
     border-radius:16px;
 
@@ -124,19 +136,26 @@ RL MODAL
 
     color:#555;
 
+    cursor:pointer;
+
+
 }
 
 
 
-.rl-tabs .active{
+
+.rl-tabs button.active{
 
 
     background:white;
 
     color:#111;
 
+
     box-shadow:
-    0 8px 20px rgba(0,0,0,.08);
+
+    0 8px 20px rgba(0,0,0,0.08);
+
 
 }
 
@@ -144,39 +163,75 @@ RL MODAL
 
 
 
-/* FORM */
+/* =========================
+FORM
+========================= */
 
 
 .rl-form{
 
 
-    margin-top:25px;
+    margin-top:26px;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:14px;
+    gap:16px;
+
 
 }
+
+
 
 
 
 .rl-form input{
 
 
-    height:46px;
+    height:48px;
 
-    border-radius:12px;
+    width:100%;
 
-    border:1px solid #ddd;
+    box-sizing:border-box;
 
-    padding:0 15px;
+    border:
+
+    1px solid #ddd;
+
+
+    border-radius:14px;
+
+
+    padding:
+
+    0 15px;
+
 
     font-size:15px;
 
+    outline:none;
+
+
 }
 
+
+
+.rl-form input:focus{
+
+
+    border-color:#2762ea;
+
+
+}
+
+
+
+
+
+/* =========================
+PASSWORD
+========================= */
 
 
 .password-box{
@@ -190,11 +245,12 @@ RL MODAL
 
 .password-box input{
 
-    width:100%;
 
-    box-sizing:border-box;
+    padding-right:45px;
+
 
 }
+
 
 
 
@@ -203,21 +259,37 @@ RL MODAL
 
     position:absolute;
 
-    right:12px;
+
+    right:14px;
+
 
     top:50%;
 
+
     transform:translateY(-50%);
+
 
     border:none;
 
+
     background:none;
 
+
     cursor:pointer;
+
+
+    font-size:18px;
+
 
 }
 
 
+
+
+
+/* =========================
+BUTTON
+========================= */
 
 
 .rl-submit{
@@ -225,29 +297,69 @@ RL MODAL
 
     height:48px;
 
+
     border:none;
+
 
     border-radius:14px;
 
-    background:
-    linear-gradient(
-        180deg,
-        #4da8ff,
-        #2762ea
-    );
+
+    background:#2762ea;
+
 
     color:white;
 
+
     font-size:16px;
 
+
     font-weight:700;
+
+
+    cursor:pointer;
+
 
 }
 
 
 
-.hidden{
+.rl-submit:active{
 
-    display:none!important;
+
+    transform:scale(.98);
+
+
+}
+
+
+
+
+
+/* =========================
+MOBILE
+========================= */
+
+
+@media(max-width:480px){
+
+
+.rl-box{
+
+
+    width:calc(100% - 40px);
+
+
+}
+
+
+
+.rl-tabs button{
+
+
+    font-size:18px;
+
+
+}
+
 
 }
