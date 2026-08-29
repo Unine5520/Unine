@@ -533,12 +533,19 @@ if(data.user)
 }
 
 
+// 清空 Login 输入
+loginEmail.value="";
+loginPassword.value="";
+
+
 
 closeRL();
 
 
 
 }
+
+
 else
 {
 
