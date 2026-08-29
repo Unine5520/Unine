@@ -1,1 +1,344 @@
+/* =========================
+RL MODAL
+========================= */
 
+
+.rl-modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.35);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+
+
+
+/* =========================
+HIDDEN
+========================= */
+
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+
+
+/* =========================
+BOX
+========================= */
+
+
+.rl-box{
+
+    width:360px;
+
+    max-width:90%;
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:24px;
+
+    box-sizing:border-box;
+
+}
+
+
+
+
+/* =========================
+HEADER
+========================= */
+
+
+.rl-header{
+
+    display:grid;
+
+    grid-template-columns:40px 1fr 40px;
+
+    align-items:center;
+
+}
+
+
+
+.rl-header button{
+
+    border:none;
+
+    background:none;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+}
+
+
+
+.rl-header h2{
+
+    margin:0;
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+
+
+
+
+/* =========================
+TAB
+========================= */
+
+
+.rl-tabs{
+
+    margin-top:24px;
+
+    height:70px;
+
+    background:#f1f3f8;
+
+    border-radius:20px;
+
+    padding:10px;
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+
+
+.rl-tabs button{
+
+    flex:1;
+
+    border:none;
+
+    background:transparent;
+
+    border-radius:14px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#666;
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.rl-tabs button.active{
+
+
+    background:white;
+
+    color:#111;
+
+
+    box-shadow:
+
+    0 8px 20px rgba(0,0,0,0.08);
+
+
+}
+
+
+
+
+
+/* =========================
+FORM
+========================= */
+
+
+.rl-form{
+
+    margin-top:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+}
+
+
+
+
+
+.rl-form input{
+
+    width:100%;
+
+    height:48px;
+
+    box-sizing:border-box;
+
+    border:1px solid #ddd;
+
+    border-radius:14px;
+
+    padding:0 15px;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+
+
+
+
+.rl-form input:focus{
+
+    border-color:#2762ea;
+
+}
+
+
+
+
+
+/* =========================
+PASSWORD
+========================= */
+
+
+.password-box{
+
+    position:relative;
+
+}
+
+
+
+
+.password-box input{
+
+    padding-right:45px;
+
+}
+
+
+
+
+
+.toggle-password{
+
+    position:absolute;
+
+    right:14px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+}
+
+
+
+
+
+/* =========================
+SUBMIT
+========================= */
+
+
+.rl-submit{
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#2762ea;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+
+
+.rl-submit:active{
+
+    transform:scale(.98);
+
+}
+
+
+
+
+
+/* =========================
+MOBILE
+========================= */
+
+
+@media(max-width:480px){
+
+
+    .rl-box{
+
+        width:calc(100% - 40px);
+
+    }
+
+
+    .rl-tabs button{
+
+        font-size:16px;
+
+    }
+
+
+}
