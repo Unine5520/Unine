@@ -604,7 +604,8 @@ user.username;
 }
 
 
-
+window.updateHeader =
+updateHeader;
 
 
 
