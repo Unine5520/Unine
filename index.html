@@ -45,7 +45,166 @@
 
 <body>
 
+<!-- ======== RL MODAL ======== -->
+<!-- ======== RL MODAL ======== -->
+<!-- ======== RL MODAL ======== -->
 
+<div id="rlModal" class="rl-modal hidden">
+
+    <div class="rl-box">
+
+        <div class="rl-header">
+
+            <button id="rlClose">
+                ←
+            </button>
+
+            <h2 id="rlTitle">
+                Login
+            </h2>
+
+            <div></div>
+
+        </div>
+
+
+        <div class="rl-tabs">
+
+            <button 
+                id="loginTab"
+                class="active"
+            >
+                Login
+            </button>
+
+            <button id="registerTab">
+                Register
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginForm" class="rl-form">
+
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+
+            <div class="password-box">
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password"
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="loginPassword"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+            <button
+                id="loginSubmit"
+                class="rl-submit"
+            >
+                Login
+            </button>
+
+
+        </div>
+
+
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerForm"
+            class="rl-form hidden"
+        >
+
+
+            <input
+                id="registerUsername"
+                type="text"
+                placeholder="Username"
+            >
+
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+
+
+            <div class="password-box">
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Password"
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="registerPassword"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+
+            <div class="password-box">
+
+                <input
+                    id="registerConfirm"
+                    type="password"
+                    placeholder="Confirm Password"
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="registerConfirm"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+
+            <button
+                id="registerSubmit"
+                class="rl-submit"
+            >
+                Register
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+    
 <!-- ======== APPLICATION ======== -->
 <!-- ======== APPLICATION ======== -->
 <!-- ======== APPLICATION ======== -->
