@@ -404,12 +404,20 @@ alert(
 );
 
 
-// 注册成功自动登录
+// 更新顶部状态
 updateHeader(
     data.user
 );
 
 
+// 清空注册输入
+registerUsername.value="";
+registerEmail.value="";
+registerPassword.value="";
+registerConfirm.value="";
+
+
+// 关闭窗口
 closeRL();
 
 
