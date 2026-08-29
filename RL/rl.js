@@ -645,6 +645,19 @@ headerUsername.innerText =
 user.username;
 }
 
+// Me page
+
+const meUsername =
+document.getElementById(
+    "meUsername"
+);
+
+
+if(meUsername)
+{
+    meUsername.innerText =
+    user.username;
+}
 
 }
 
