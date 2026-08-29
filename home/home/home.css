@@ -203,40 +203,67 @@
 
 
 /* ======== HOME ACTIONS ======== */
+/* ======== HOME ACTIONS ======== */
+/* ======== HOME ACTIONS ======== */
 
-.home-actions {
+#home-header .home-actions {
 
     display: flex;
 
     align-items: center;
 
-    gap: 12px;
+    gap: 10px;
 
 }
 
 
-/* ======== TELEGRAM ICON ======== */
+/* ======== TELEGRAM BUTTON ======== */
+/* ======== TELEGRAM BUTTON ======== */
+/* ======== TELEGRAM BUTTON ======== */
 
-.telegram-button {
+#home-header .telegram-button {
 
     width: 36px;
-    height: 36px;
+    height: 30px;
 
     display: flex;
 
     justify-content: center;
     align-items: center;
 
-    text-decoration: none;
+    box-sizing: border-box;
+
+    border: 1px solid #2762ea;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
 
 }
 
 
-.telegram-button img {
+/* ======== TELEGRAM ICON ======== */
 
-    width: 24px;
-    height: 24px;
+#home-header .telegram-button img {
+
+    width: 20px;
+    height: 20px;
 
     display: block;
+
+}
+
+
+/* ======== TELEGRAM ACTIVE ======== */
+
+#home-header .telegram-button:active {
+
+    transform: scale(0.95);
 
 }
