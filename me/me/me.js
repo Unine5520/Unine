@@ -1,38 +1,227 @@
-<div
-    id="logoutModal"
-    class="logout-modal hidden"
->
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-<div class="logout-box">
+const API =
+"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
 
-<h3>
-    Confirm Logout?
-</h3>
+
+const logoutButton =
+document.getElementById(
+"logoutButton"
+);
 
 
-<div class="logout-actions">
+const logoutModal =
+document.getElementById(
+"logoutModal"
+);
 
 
-<button
-    id="logoutConfirm"
->
-    Confirm
-</button>
+const logoutConfirm =
+document.getElementById(
+"logoutConfirm"
+);
 
 
-<button
-    id="logoutCancel"
->
-    Cancel
-</button>
+const logoutCancel =
+document.getElementById(
+"logoutCancel"
+);
 
 
-</div>
+
+const meUsername =
+document.getElementById(
+"meUsername"
+);
 
 
-</div>
 
 
-</div>
+// =================
+// LOAD USER
+// =================
+
+
+async function loadUser()
+{
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/me`,
+{
+credentials:"include"
+}
+);
+
+
+const data =
+await res.json();
+
+
+
+console.log(
+"ME PAGE:",
+data
+);
+
+
+
+if(
+data.success &&
+data.logged_in
+)
+{
+
+meUsername.innerText =
+data.user.username;
+
+}
+
+
+}
+catch(err)
+{
+
+console.log(err);
+
+}
+
+
+}
+
+
+
+
+
+// =================
+// OPEN LOGOUT
+// =================
+
+
+logoutButton.onclick =
+()=>{
+
+
+logoutModal.classList.remove(
+"hidden"
+);
+
+
+};
+
+
+
+
+
+// =================
+// CANCEL
+// =================
+
+
+logoutCancel.onclick =
+()=>{
+
+
+logoutModal.classList.add(
+"hidden"
+);
+
+
+};
+
+
+
+
+
+
+// =================
+// LOGOUT API
+// =================
+
+
+logoutConfirm.onclick =
+async()=>{
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/logout`,
+{
+
+method:"POST",
+
+credentials:"include"
+
+}
+);
+
+
+
+const data =
+await res.json();
+
+
+
+console.log(
+data
+);
+
+
+
+if(data.success)
+{
+
+
+alert(
+"Logout successful"
+);
+
+
+
+// refresh page
+
+location.reload();
+
+
+}
+
+
+
+}
+catch(err)
+{
+
+console.error(err);
+
+alert(
+"Logout error"
+);
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+loadUser();
+
+
+
+});
