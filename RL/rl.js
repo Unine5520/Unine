@@ -676,9 +676,12 @@ data.logged_in
 )
 {
 
-updateHeader(
-data.user
-);
+if(data.user)
+{
+    updateHeader(
+        data.user
+    );
+}
 
 
 }
