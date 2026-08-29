@@ -614,17 +614,17 @@ return;
 
 if(telegramButton)
 {
-telegramButton.classList.add(
-"hidden"
-);
+    telegramButton.classList.add(
+        "hidden"
+    );
 }
 
 
 if(homeAuth)
 {
-homeAuth.classList.add(
-"hidden"
-);
+    homeAuth.classList.add(
+        "hidden"
+    );
 }
 
 
@@ -633,25 +633,24 @@ homeAuth.classList.add(
 
 if(userHeader)
 {
-userHeader.classList.remove(
-"hidden"
-);
+    userHeader.classList.remove(
+        "hidden"
+    );
 }
 
+
+
+// update home username
 
 if(headerUsername)
 {
-headerUsername.innerText =
-user.username;
+    headerUsername.innerText =
+    user.username;
 }
 
-// Me page
 
-const meUsername =
-document.getElementById(
-    "meUsername"
-);
 
+// update me page username
 
 if(meUsername)
 {
@@ -659,11 +658,12 @@ if(meUsername)
     user.username;
 }
 
+
 }
+
 
 window.updateHeader =
 updateHeader;
-
 
 
 
