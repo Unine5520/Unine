@@ -4,78 +4,125 @@ document.addEventListener(
 
 
 // =========================
+// API
+// =========================
+
+
+const API =
+"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+
+
+
+
+// =========================
 // ELEMENT
 // =========================
 
 
 const rlModal =
-document.getElementById(
-    "rlModal"
-);
+document.getElementById("rlModal");
 
 
 const loginButton =
-document.getElementById(
-    "loginButton"
-);
+document.getElementById("loginButton");
 
 
 const registerButton =
-document.getElementById(
-    "registerButton"
-);
+document.getElementById("registerButton");
 
 
 const rlClose =
-document.getElementById(
-    "rlClose"
-);
-
+document.getElementById("rlClose");
 
 
 const loginTab =
-document.getElementById(
-    "loginTab"
-);
+document.getElementById("loginTab");
 
 
 const registerTab =
-document.getElementById(
-    "registerTab"
-);
-
+document.getElementById("registerTab");
 
 
 const loginForm =
-document.getElementById(
-    "loginForm"
-);
+document.getElementById("loginForm");
 
 
 const registerForm =
-document.getElementById(
-    "registerForm"
-);
-
+document.getElementById("registerForm");
 
 
 const rlTitle =
-document.getElementById(
-    "rlTitle"
-);
+document.getElementById("rlTitle");
+
+
+
+// input
+
+const loginEmail =
+document.getElementById("loginEmail");
+
+
+const loginPassword =
+document.getElementById("loginPassword");
+
+
+const registerUsername =
+document.getElementById("registerUsername");
+
+
+const registerEmail =
+document.getElementById("registerEmail");
+
+
+const registerPassword =
+document.getElementById("registerPassword");
+
+
+const registerConfirm =
+document.getElementById("registerConfirm");
+
+
+
+// button
+
+const loginSubmit =
+document.getElementById("loginSubmit");
+
+
+const registerSubmit =
+document.getElementById("registerSubmit");
+
+
+
+// header
+
+const telegramButton =
+document.getElementById("telegramButton");
+
+
+const homeAuth =
+document.getElementById("homeAuth");
+
+
+const userHeader =
+document.getElementById("userHeader");
+
+
+const headerUsername =
+document.getElementById("headerUsername");
+
 
 
 
 
 
 // =========================
-// OPEN MODAL
+// OPEN
 // =========================
 
 
 function openRL(type)
 {
-
 
     rlModal.classList.remove(
         "hidden"
@@ -84,26 +131,20 @@ function openRL(type)
 
     if(type==="register")
     {
-
         showRegister();
-
     }
     else
     {
-
         showLogin();
-
     }
-
 
 }
 
 
 
 
-
 // =========================
-// CLOSE MODAL
+// CLOSE
 // =========================
 
 
@@ -121,16 +162,14 @@ function closeRL()
 
 
 // =========================
-// SHOW LOGIN
+// TAB LOGIN
 // =========================
 
 
 function showLogin()
 {
 
-
-    rlTitle.innerText =
-    "Login";
+    rlTitle.innerText="Login";
 
 
     loginTab.classList.add(
@@ -143,7 +182,6 @@ function showLogin()
     );
 
 
-
     loginForm.classList.remove(
         "hidden"
     );
@@ -153,24 +191,20 @@ function showLogin()
         "hidden"
     );
 
-
 }
 
 
 
 
-
 // =========================
-// SHOW REGISTER
+// TAB REGISTER
 // =========================
 
 
 function showRegister()
 {
 
-
-    rlTitle.innerText =
-    "Register";
+    rlTitle.innerText="Register";
 
 
     registerTab.classList.add(
@@ -183,7 +217,6 @@ function showRegister()
     );
 
 
-
     registerForm.classList.remove(
         "hidden"
     );
@@ -193,82 +226,31 @@ function showRegister()
         "hidden"
     );
 
-
 }
 
 
 
 
 
+
 // =========================
-// HEADER BUTTON
+// BUTTON OPEN
 // =========================
 
-
-if(loginButton)
-{
 
 loginButton.onclick =
-()=>{
-
-    openRL(
-        "login"
-    );
-
-};
+()=>openRL("login");
 
 
-}
-
-
-
-
-if(registerButton)
-{
 
 registerButton.onclick =
-()=>{
-
-    openRL(
-        "register"
-    );
-
-};
+()=>openRL("register");
 
 
-}
-
-
-
-
-
-
-// =========================
-// CLOSE BUTTON
-// =========================
-
-
-if(rlClose)
-{
 
 rlClose.onclick =
-()=>{
+closeRL;
 
-    closeRL();
-
-};
-
-
-}
-
-
-
-
-
-
-// =========================
-// TAB
-// =========================
 
 
 loginTab.onclick =
@@ -284,16 +266,13 @@ showRegister;
 
 
 
-
 // =========================
-// PASSWORD SHOW/HIDE
+// PASSWORD SHOW
 // =========================
 
 
 document
-.querySelectorAll(
-".toggle-password"
-)
+.querySelectorAll(".toggle-password")
 .forEach(
 (button)=>{
 
@@ -302,43 +281,32 @@ button.onclick =
 ()=>{
 
 
-    const input =
-    document.getElementById(
-        button.dataset.target
-    );
+const input =
+document.getElementById(
+    button.dataset.target
+);
 
 
-    if(
-        input.type === "password"
-    )
-    {
 
-        input.type =
-        "text";
+if(input.type==="password")
+{
 
+    input.type="text";
 
-        button.innerHTML =
-        "🙈";
+    button.innerHTML="🙈";
 
+}
+else
+{
 
-    }
-    else
-    {
+    input.type="password";
 
+    button.innerHTML="👁";
 
-        input.type =
-        "password";
-
-
-        button.innerHTML =
-        "👁";
-
-
-    }
+}
 
 
 };
-
 
 
 });
@@ -346,6 +314,359 @@ button.onclick =
 
 
 
+
+
+
+
+// =========================
+// REGISTER API
+// =========================
+
+
+registerSubmit.onclick =
+async()=>{
+
+
+const username =
+registerUsername.value.trim();
+
+
+const email =
+registerEmail.value.trim();
+
+
+const password =
+registerPassword.value;
+
+
+const confirm =
+registerConfirm.value;
+
+
+
+if(password!==confirm)
+{
+    alert(
+        "Passwords do not match"
+    );
+
+    return;
+}
+
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/register`,
+{
+
+method:"POST",
+
+headers:
+{
+"Content-Type":"application/json"
+},
+
+credentials:"include",
+
+
+body:JSON.stringify(
+{
+username,
+email,
+password
+}
+)
+
+});
+
+
+const data =
+await res.json();
+
+
+
+console.log(
+data
+);
+
+
+
+if(data.success)
+{
+
+alert(
+"Register successful"
+);
+
+
+closeRL();
+
+showLogin();
+
+
+}
+else
+{
+
+alert(
+data.message
+);
+
+}
+
+
+}
+catch(err)
+{
+
+console.error(err);
+
+alert(
+"Register error"
+);
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+
+// =========================
+// LOGIN API
+// =========================
+
+
+loginSubmit.onclick =
+async()=>{
+
+
+const email =
+loginEmail.value.trim();
+
+
+const password =
+loginPassword.value;
+
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/login`,
+{
+
+method:"POST",
+
+headers:
+{
+"Content-Type":"application/json"
+},
+
+credentials:"include",
+
+
+body:JSON.stringify(
+{
+email,
+password
+}
+)
+
+});
+
+
+
+const data =
+await res.json();
+
+
+
+console.log(
+data
+);
+
+
+
+if(data.success)
+{
+
+
+alert(
+"Login successful"
+);
+
+
+
+updateHeader(
+data.user
+);
+
+
+
+closeRL();
+
+
+
+}
+else
+{
+
+alert(
+data.message
+);
+
+}
+
+
+
+}
+catch(err)
+{
+
+console.error(err);
+
+alert(
+"Login error"
+);
+
+
+}
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// =========================
+// UPDATE HEADER
+// =========================
+
+
+function updateHeader(user)
+{
+
+
+if(!user)
+return;
+
+
+
+telegramButton.classList.add(
+"hidden"
+);
+
+
+
+homeAuth.classList.add(
+"hidden"
+);
+
+
+
+userHeader.classList.remove(
+"hidden"
+);
+
+
+
+headerUsername.innerText =
+user.username;
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// CHECK SESSION
+// =========================
+
+
+async function checkSession()
+{
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/me`,
+{
+
+method:"GET",
+
+credentials:"include"
+
+});
+
+
+const data =
+await res.json();
+
+
+
+console.log(
+"ME:",
+data
+);
+
+
+
+if(
+data.success &&
+data.logged_in
+)
+{
+
+updateHeader(
+data.user
+);
+
+
+}
+
+
+}
+catch(err)
+{
+
+console.log(
+"Not login"
+);
+
+
+}
+
+
+
+}
 
 
 
@@ -359,14 +680,12 @@ rlModal.onclick =
 (e)=>{
 
 
-    if(
-        e.target === rlModal
-    )
-    {
+if(e.target===rlModal)
+{
 
-        closeRL();
+closeRL();
 
-    }
+}
 
 
 };
@@ -377,7 +696,7 @@ rlModal.onclick =
 
 
 // =========================
-// ESC CLOSE
+// ESC
 // =========================
 
 
@@ -386,17 +705,25 @@ document.addEventListener(
 (e)=>{
 
 
-    if(
-        e.key === "Escape"
-    )
-    {
+if(e.key==="Escape")
+{
 
-        closeRL();
+closeRL();
 
-    }
+}
 
 
 });
+
+
+
+
+// =========================
+// START
+// =========================
+
+
+checkSession();
 
 
 
