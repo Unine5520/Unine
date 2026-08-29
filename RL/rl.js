@@ -480,7 +480,7 @@ credentials:"include",
 
 body:JSON.stringify(
 {
-email,
+username: email,
 password
 }
 )
