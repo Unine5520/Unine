@@ -671,24 +671,7 @@ console.log(
 
 
 
-// =========================
-// CLICK OUTSIDE
-// =========================
 
-
-rlModal.onclick =
-(e)=>{
-
-
-if(e.target===rlModal)
-{
-
-closeRL();
-
-}
-
-
-};
 
 
 
