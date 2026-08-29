@@ -525,9 +525,12 @@ alert(
 
 
 
-updateHeader(
-data.user
-);
+if(data.user)
+{
+    updateHeader(
+        data.user
+    );
+}
 
 
 
