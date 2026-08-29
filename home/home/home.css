@@ -233,11 +233,11 @@
 
     box-sizing: border-box;
 
-    border: 1px solid #000000
+    border: 1px solid #2762ea;
 
     border-radius: 10px;
 
-    background: #eaeaf882;
+    background: #ffffff;
 
     cursor: pointer;
 
@@ -252,8 +252,8 @@
 
 #home-header .telegram-button img {
 
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 
     display: block;
 
