@@ -3,159 +3,378 @@ document.addEventListener(
 ()=>{
 
 
+// =========================
+// ELEMENT
+// =========================
+
+
 const modal =
-document.getElementById("rlModal");
+document.getElementById(
+"rlModal"
+);
 
 
 const loginBtn =
-document.getElementById("loginButton");
+document.getElementById(
+"loginButton"
+);
 
 
 const registerBtn =
-document.getElementById("registerButton");
+document.getElementById(
+"registerButton"
+);
 
 
 const closeBtn =
-document.getElementById("rlClose");
+document.getElementById(
+"rlClose"
+);
+
+
+
+const rlTitle =
+document.getElementById(
+"rlTitle"
+);
+
 
 
 const loginTab =
-document.getElementById("loginTab");
+document.getElementById(
+"loginTab"
+);
+
 
 
 const registerTab =
-document.getElementById("registerTab");
+document.getElementById(
+"registerTab"
+);
+
 
 
 const loginForm =
-document.getElementById("loginForm");
+document.getElementById(
+"loginForm"
+);
+
 
 
 const registerForm =
-document.getElementById("registerForm");
+document.getElementById(
+"registerForm"
+);
 
 
 
 
-
-function openRL(type){
-
-
-modal.classList.remove("hidden");
+// =========================
+// OPEN MODAL
+// =========================
 
 
-if(type==="register"){
+function openRL(type="login"){
 
-showRegister();
 
-}else{
+    modal.classList.remove(
+        "hidden"
+    );
 
-showLogin();
+
+    if(type==="register"){
+
+        showRegister();
+
+    }
+    else{
+
+        showLogin();
+
+    }
 
 }
 
-}
 
 
 
+// =========================
+// LOGIN TAB
+// =========================
 
 
 function showLogin(){
 
 
-loginTab.classList.add("active");
+    rlTitle.innerText =
+    "Login";
 
-registerTab.classList.remove("active");
+
+    loginTab.classList.add(
+        "active"
+    );
 
 
-loginForm.classList.remove("hidden");
+    registerTab.classList.remove(
+        "active"
+    );
 
-registerForm.classList.add("hidden");
+
+
+    loginForm.classList.remove(
+        "hidden"
+    );
+
+
+    registerForm.classList.add(
+        "hidden"
+    );
 
 
 }
 
+
+
+
+// =========================
+// REGISTER TAB
+// =========================
 
 
 function showRegister(){
 
 
-registerTab.classList.add("active");
+    rlTitle.innerText =
+    "Register";
 
-loginTab.classList.remove("active");
 
 
-registerForm.classList.remove("hidden");
+    registerTab.classList.add(
+        "active"
+    );
 
-loginForm.classList.add("hidden");
+
+    loginTab.classList.remove(
+        "active"
+    );
+
+
+
+    registerForm.classList.remove(
+        "hidden"
+    );
+
+
+    loginForm.classList.add(
+        "hidden"
+    );
 
 
 }
 
 
 
+
+
+// =========================
+// HEADER BUTTON
+// =========================
+
+
+if(loginBtn){
 
 
 loginBtn.onclick=()=>{
 
-openRL("login");
+
+    openRL(
+        "login"
+    );
+
+
+};
+
 
 }
 
+
+
+if(registerBtn){
 
 
 registerBtn.onclick=()=>{
 
-openRL("register");
+
+    openRL(
+        "register"
+    );
+
+
+};
+
 
 }
 
+
+
+
+
+// =========================
+// CLOSE BUTTON
+// =========================
+
+
+if(closeBtn){
 
 
 closeBtn.onclick=()=>{
 
-modal.classList.add("hidden");
+
+    modal.classList.add(
+        "hidden"
+    );
+
+
+};
+
 
 }
 
 
 
-loginTab.onclick=showLogin;
 
 
-registerTab.onclick=showRegister;
+// =========================
+// TAB CLICK
+// =========================
+
+
+loginTab.onclick =
+showLogin;
+
+
+registerTab.onclick =
+showRegister;
 
 
 
 
 
-/* PASSWORD TOGGLE */
+
+// =========================
+// PASSWORD TOGGLE
+// =========================
 
 
-document.querySelectorAll(
+document
+.querySelectorAll(
 ".toggle-password"
 )
-.forEach(btn=>{
+.forEach(
+(btn)=>{
 
 
 btn.onclick=()=>{
 
 
-const input =
-document.getElementById(
-btn.dataset.target
-);
+    const input =
+    document.getElementById(
+        btn.dataset.target
+    );
 
 
-input.type =
-input.type==="password"
-?
-"text"
-:
-"password";
+
+    if(!input)
+    return;
 
 
-}
+
+    if(
+        input.type==="password"
+    ){
+
+        input.type =
+        "text";
+
+
+        btn.innerHTML =
+        "🙈";
+
+
+    }
+    else{
+
+
+        input.type =
+        "password";
+
+
+        btn.innerHTML =
+        "👁";
+
+
+    }
+
+
+
+};
+
+
+
+});
+
+
+
+
+
+
+
+// =========================
+// CLICK OUTSIDE CLOSE
+// =========================
+
+
+modal.onclick =
+(e)=>{
+
+
+    if(
+        e.target === modal
+    ){
+
+        modal.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+};
+
+
+
+
+
+
+// =========================
+// ESC CLOSE
+// =========================
+
+
+document.addEventListener(
+"keydown",
+(e)=>{
+
+
+    if(
+        e.key==="Escape"
+    ){
+
+        modal.classList.add(
+            "hidden"
+        );
+
+    }
 
 
 });
