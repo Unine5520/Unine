@@ -538,9 +538,23 @@ loginEmail.value="";
 loginPassword.value="";
 
 
+// 重置密码显示状态
+loginPassword.type="password";
+
+const loginEye =
+document.querySelector(
+    '[data-target="loginPassword"]'
+);
+
+
+if(loginEye)
+{
+    loginEye.innerHTML="👁";
+}
+
+
 
 closeRL();
-
 
 
 }
