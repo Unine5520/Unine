@@ -398,17 +398,24 @@ data
 if(data.success)
 {
 
+
 alert(
 "Register successful"
 );
 
 
-closeRL();
+// 注册成功自动登录
+updateHeader(
+    data.user
+);
 
-showLogin();
+
+closeRL();
 
 
 }
+
+
 else
 {
 
