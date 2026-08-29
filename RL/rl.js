@@ -629,7 +629,7 @@ if(homeAuth)
 
 
 
-// show user
+// show user header
 
 if(userHeader)
 {
@@ -650,7 +650,7 @@ if(headerUsername)
 
 
 
-// update me page username
+// update me username
 
 if(meUsername)
 {
@@ -664,7 +664,6 @@ if(meUsername)
 
 window.updateHeader =
 updateHeader;
-
 
 
 
