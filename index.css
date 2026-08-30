@@ -17,9 +17,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== MENU BUTTON ======== */
-/* ======== MENU BUTTON ======== */
-/* ======== MENU BUTTON ======== */
+/* ================================================= */
+/* ======== MENU BUTTON ============================= */
+/* ================================================= */
 
 #Menu-button {
 
@@ -52,9 +52,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== MENU TOP LINE ======== */
-/* ======== MENU TOP LINE ======== */
-/* ======== MENU TOP LINE ======== */
+/* ================================================= */
+/* ======== MENU TOP LINE =========================== */
+/* ================================================= */
 
 #Menu-button::after {
 
@@ -75,48 +75,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== CENTER NOTCH ======== */
-/* ======== CENTER NOTCH ======== */
-/* ======== CENTER NOTCH ======== */
-
-/*
-    这个凹槽固定在 Menu 的正中央。
-    
-    注意：
-    不再使用 #Menu-button::before
-    来避免和 Order 按钮产生层级冲突。
-*/
-
-#Menu-button::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 19px;
-    left: 50%;
-
-    width: 82px;
-    height: 41px;
-
-    transform: translateX(-50%);
-
-    background: #ffffff;
-
-    border-bottom: 0.1px solid #3e8af6;
-
-    border-radius: 0 0 41px 41px;
-
-    z-index: 2;
-
-    pointer-events: none;
-
-}
-
-
-/* ======== NAV BUTTON ======== */
-/* ======== NAV BUTTON ======== */
-/* ======== NAV BUTTON ======== */
+/* ================================================= */
+/* ======== NAV BUTTON ============================== */
+/* ================================================= */
 
 #Menu-button .nav-button {
 
@@ -147,9 +108,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== NAV ICON ======== */
-/* ======== NAV ICON ======== */
-/* ======== NAV ICON ======== */
+/* ================================================= */
+/* ======== NAV ICON ================================ */
+/* ================================================= */
 
 #Menu-button .nav-button img {
 
@@ -161,9 +122,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== NAV TEXT ======== */
-/* ======== NAV TEXT ======== */
-/* ======== NAV TEXT ======== */
+/* ================================================= */
+/* ======== NAV TEXT ================================ */
+/* ================================================= */
 
 #Menu-button .nav-button span {
 
@@ -178,9 +139,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== ACTIVE NAV TEXT ======== */
-/* ======== ACTIVE NAV TEXT ======== */
-/* ======== ACTIVE NAV TEXT ======== */
+/* ================================================= */
+/* ======== ACTIVE NAV TEXT ========================= */
+/* ================================================= */
 
 #Menu-button .nav-button.active span {
 
@@ -189,9 +150,59 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== ORDER CENTER BUTTON ======== */
-/* ======== ORDER CENTER BUTTON ======== */
-/* ======== ORDER CENTER BUTTON ======== */
+/* ================================================= */
+/* ======== ORDER AREA ============================== */
+/* ================================================= */
+
+#Menu-button #orderArea {
+
+    position: relative;
+
+    width: 130px;
+    height: 72px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 4;
+
+}
+
+
+/* ================================================= */
+/* ======== ORDER NOTCH ============================= */
+/* ================================================= */
+
+#Menu-button #orderNotch {
+
+    position: absolute;
+
+    top: 19px;
+    left: 50%;
+
+    width: 82px;
+    height: 41px;
+
+    transform: translateX(-50%);
+
+    background: #ffffff;
+
+    border-bottom: 0.1px solid #3e8af6;
+
+    border-radius: 0 0 41px 41px;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+}
+
+
+/* ================================================= */
+/* ======== ORDER CENTER BUTTON ===================== */
+/* ================================================= */
 
 #Menu-button #orderButton {
 
@@ -227,9 +238,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== ORDER ICON ======== */
-/* ======== ORDER ICON ======== */
-/* ======== ORDER ICON ======== */
+/* ================================================= */
+/* ======== ORDER ICON ============================== */
+/* ================================================= */
 
 #Menu-button #orderButton img {
 
@@ -241,9 +252,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== ORDER TEXT ======== */
-/* ======== ORDER TEXT ======== */
-/* ======== ORDER TEXT ======== */
+/* ================================================= */
+/* ======== ORDER TEXT ============================== */
+/* ================================================= */
 
 #Menu-button #orderButton span {
 
@@ -256,9 +267,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== BUTTON FOCUS ======== */
-/* ======== BUTTON FOCUS ======== */
-/* ======== BUTTON FOCUS ======== */
+/* ================================================= */
+/* ======== BUTTON FOCUS ============================ */
+/* ================================================= */
 
 #Menu-button .nav-button:focus {
 
@@ -267,9 +278,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== MOBILE ======== */
-/* ======== MOBILE ======== */
-/* ======== MOBILE ======== */
+/* ================================================= */
+/* ======== MOBILE ================================ */
+/* ================================================= */
 
 @media (max-width: 480px) {
 
@@ -315,24 +326,34 @@ body::-webkit-scrollbar {
     }
 
 
+    /* ======== ORDER AREA ======== */
+
+    #Menu-button #orderArea {
+
+        width: 90px;
+        height: 72px;
+
+    }
+
+
+    /* ======== ORDER NOTCH ======== */
+
+    #Menu-button #orderNotch {
+
+        width: 76px;
+        height: 38px;
+
+        border-radius: 0 0 38px 38px;
+
+    }
+
+
     /* ======== ORDER BUTTON ======== */
 
     #Menu-button #orderButton {
 
         width: 60px;
         height: 60px;
-
-    }
-
-
-    /* ======== MOBILE NOTCH ======== */
-
-    #Menu-button::before {
-
-        width: 76px;
-        height: 38px;
-
-        border-radius: 0 0 38px 38px;
 
     }
 
@@ -360,9 +381,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== VERY SMALL MOBILE ======== */
-/* ======== VERY SMALL MOBILE ======== */
-/* ======== VERY SMALL MOBILE ======== */
+/* ================================================= */
+/* ======== VERY SMALL MOBILE ====================== */
+/* ================================================= */
 
 @media (max-width: 360px) {
 
@@ -408,24 +429,34 @@ body::-webkit-scrollbar {
     }
 
 
+    /* ======== ORDER AREA ======== */
+
+    #Menu-button #orderArea {
+
+        width: 82px;
+        height: 72px;
+
+    }
+
+
+    /* ======== ORDER NOTCH ======== */
+
+    #Menu-button #orderNotch {
+
+        width: 72px;
+        height: 36px;
+
+        border-radius: 0 0 36px 36px;
+
+    }
+
+
     /* ======== ORDER BUTTON ======== */
 
     #Menu-button #orderButton {
 
         width: 56px;
         height: 56px;
-
-    }
-
-
-    /* ======== VERY SMALL NOTCH ======== */
-
-    #Menu-button::before {
-
-        width: 72px;
-        height: 36px;
-
-        border-radius: 0 0 36px 36px;
 
     }
 
@@ -453,9 +484,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* ======== HIDDEN ======== */
-/* ======== HIDDEN ======== */
-/* ======== HIDDEN ======== */
+/* ================================================= */
+/* ======== HIDDEN ================================= */
+/* ================================================= */
 
 .hidden {
 
