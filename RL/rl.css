@@ -343,9 +343,9 @@ ERROR
 
 .rl-error{
 
-    min-height:18px;
+    min-height:20px;
 
-    margin-top:-8px;
+    margin-top:0px;
 
     margin-bottom:-5px;
 
