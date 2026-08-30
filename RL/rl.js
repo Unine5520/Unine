@@ -932,9 +932,18 @@ data.logged_in
 )
 {
 
+userLoggedIn = true;
+
+
 updateHeader(
 data.user
 );
+
+}
+else
+{
+
+userLoggedIn = false;
 
 }
 
