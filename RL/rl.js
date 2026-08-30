@@ -7,7 +7,6 @@ document.addEventListener(
 // API
 // =========================
 
-
 const API =
 "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
@@ -20,159 +19,87 @@ const API =
 
 
 const rlModal =
-document.getElementById(
-"rlModal"
-);
+document.getElementById("rlModal");
 
 
 const loginButton =
-document.getElementById(
-"loginButton"
-);
+document.getElementById("loginButton");
 
 
 const registerButton =
-document.getElementById(
-"registerButton"
-);
+document.getElementById("registerButton");
 
 
 const rlClose =
-document.getElementById(
-"rlClose"
-);
-
+document.getElementById("rlClose");
 
 
 const loginTab =
-document.getElementById(
-"loginTab"
-);
+document.getElementById("loginTab");
 
 
 const registerTab =
-document.getElementById(
-"registerTab"
-);
-
+document.getElementById("registerTab");
 
 
 const loginForm =
-document.getElementById(
-"loginForm"
-);
+document.getElementById("loginForm");
 
 
 const registerForm =
-document.getElementById(
-"registerForm"
-);
-
+document.getElementById("registerForm");
 
 
 const rlTitle =
-document.getElementById(
-"rlTitle"
-);
+document.getElementById("rlTitle");
 
 
 
-
-
-// =========================
-// INPUT
-// =========================
-
+// input
 
 const loginEmail =
-document.getElementById(
-"loginEmail"
-);
-
+document.getElementById("loginEmail");
 
 const loginPassword =
-document.getElementById(
-"loginPassword"
-);
-
+document.getElementById("loginPassword");
 
 
 const registerUsername =
-document.getElementById(
-"registerUsername"
-);
-
+document.getElementById("registerUsername");
 
 const registerEmail =
-document.getElementById(
-"registerEmail"
-);
-
+document.getElementById("registerEmail");
 
 const registerPassword =
-document.getElementById(
-"registerPassword"
-);
-
+document.getElementById("registerPassword");
 
 const registerConfirm =
-document.getElementById(
-"registerConfirm"
-);
+document.getElementById("registerConfirm");
 
 
 
-
-
-
-// =========================
-// BUTTON
-// =========================
-
+// button
 
 const loginSubmit =
-document.getElementById(
-"loginSubmit"
-);
-
+document.getElementById("loginSubmit");
 
 const registerSubmit =
-document.getElementById(
-"registerSubmit"
-);
+document.getElementById("registerSubmit");
 
 
 
-
-
-
-
-// =========================
-// ERROR
-// =========================
-
+// error
 
 const loginError =
-document.getElementById(
-"loginError"
-);
-
+document.getElementById("loginError");
 
 const registerError =
-document.getElementById(
-"registerError"
-);
-
+document.getElementById("registerError");
 
 
 
 let loginErrorTimer;
-
 let registerErrorTimer;
-
-
-
-
 
 
 
@@ -190,9 +117,48 @@ type=""
 )
 {
 
-
 if(!element)
 return;
+
+
+if(type==="login")
+{
+
+clearTimeout(loginErrorTimer);
+
+
+loginErrorTimer =
+setTimeout(
+()=>{
+
+element.innerText="";
+
+},
+3000
+);
+
+
+}
+
+
+if(type==="register")
+{
+
+clearTimeout(registerErrorTimer);
+
+
+registerErrorTimer =
+setTimeout(
+()=>{
+
+element.innerText="";
+
+},
+3000
+);
+
+
+}
 
 
 
@@ -200,71 +166,7 @@ element.innerText =
 message;
 
 
-
-if(type==="login")
-{
-
-
-clearTimeout(
-loginErrorTimer
-);
-
-
-
-loginErrorTimer =
-setTimeout(
-()=>{
-
-
-element.innerText =
-"";
-
-
-},
-3000
-);
-
-
-
 }
-
-
-
-
-if(type==="register")
-{
-
-
-clearTimeout(
-registerErrorTimer
-);
-
-
-
-registerErrorTimer =
-setTimeout(
-()=>{
-
-
-element.innerText =
-"";
-
-
-},
-3000
-);
-
-
-
-}
-
-
-
-}
-
-
-
-
 
 
 
@@ -272,34 +174,21 @@ element.innerText =
 function clearErrors()
 {
 
-
 if(loginError)
 {
-
-loginError.innerText="";
-
+    loginError.innerText="";
 }
-
 
 
 if(registerError)
 {
-
-registerError.innerText="";
-
+    registerError.innerText="";
 }
 
 
+clearTimeout(loginErrorTimer);
 
-clearTimeout(
-loginErrorTimer
-);
-
-
-clearTimeout(
-registerErrorTimer
-);
-
+clearTimeout(registerErrorTimer);
 
 
 }
@@ -320,82 +209,39 @@ registerErrorTimer
 function openRL(type)
 {
 
-
 rlModal.classList.remove(
 "hidden"
 );
 
 
-
 clearErrors();
-
-
 
 
 if(type==="register")
 {
-
 showRegister();
-
 }
 else
 {
-
 showLogin();
-
 }
 
 
-
 }
 
-
-
-window.openRL =
-openRL;
-
-
-
-
-
-// index.js 调用
-
-window.addEventListener(
-"openLogin",
-()=>{
-
-
-openRL(
-"login"
-);
-
-
-});
-
-
-
-
-
-
-
-
+window.openRL = openRL;
 
 function closeRL()
 {
-
 
 rlModal.classList.add(
 "hidden"
 );
 
 
-
 clearErrors();
 
-
-
 }
-
 
 
 
@@ -414,16 +260,13 @@ clearErrors();
 function showLogin()
 {
 
-
 rlTitle.innerText =
 "Login";
-
 
 
 loginTab.classList.add(
 "active"
 );
-
 
 
 registerTab.classList.remove(
@@ -432,11 +275,9 @@ registerTab.classList.remove(
 
 
 
-
 loginForm.classList.remove(
 "hidden"
 );
-
 
 
 registerForm.classList.add(
@@ -444,28 +285,20 @@ registerForm.classList.add(
 );
 
 
-
 }
-
-
-
-
 
 
 
 function showRegister()
 {
 
-
 rlTitle.innerText =
 "Register";
-
 
 
 registerTab.classList.add(
 "active"
 );
-
 
 
 loginTab.classList.remove(
@@ -474,11 +307,9 @@ loginTab.classList.remove(
 
 
 
-
 registerForm.classList.remove(
 "hidden"
 );
-
 
 
 loginForm.classList.add(
@@ -486,10 +317,367 @@ loginForm.classList.add(
 );
 
 
+}
+
+
+
+
+
+
+
+
+
+
+// =========================
+// BUTTON
+// =========================
+
+
+if(loginButton)
+{
+
+loginButton.onclick =
+()=>openRL("login");
 
 }
 
-    // =========================
+
+if(registerButton)
+{
+
+registerButton.onclick =
+()=>openRL("register");
+
+}
+
+
+
+if(rlClose)
+{
+
+rlClose.onclick =
+closeRL;
+
+}
+
+
+
+loginTab.onclick =
+showLogin;
+
+
+registerTab.onclick =
+showRegister;
+
+
+
+
+
+
+
+
+
+// =========================
+// PASSWORD EYE
+// =========================
+
+
+document
+.querySelectorAll(".toggle-password")
+.forEach(
+button=>{
+
+
+button.onclick =
+()=>{
+
+
+const input =
+document.getElementById(
+button.dataset.target
+);
+
+
+
+if(input.type==="password")
+{
+
+input.type="text";
+
+button.classList.add(
+"show"
+);
+
+
+}
+else
+{
+
+input.type="password";
+
+button.classList.remove(
+"show"
+);
+
+
+}
+
+
+};
+
+
+});
+
+
+
+
+
+
+
+
+
+// =========================
+// BUTTON ACTIVE
+// =========================
+
+
+function checkLoginButton()
+{
+
+const ok =
+loginEmail.value.trim()
+&&
+loginPassword.value;
+
+
+
+loginSubmit.disabled =
+!ok;
+
+
+loginSubmit.classList.toggle(
+"active",
+ok
+);
+
+
+}
+
+
+
+
+function checkRegisterButton()
+{
+
+const ok =
+registerUsername.value.trim()
+&&
+registerEmail.value.trim()
+&&
+registerPassword.value
+&&
+registerConfirm.value
+
+
+
+
+registerSubmit.disabled =
+!ok;
+
+
+registerSubmit.classList.toggle(
+"active",
+ok
+);
+
+
+}
+
+
+
+
+
+
+
+loginEmail.oninput =
+checkLoginButton;
+
+
+loginPassword.oninput =
+checkLoginButton;
+
+
+registerUsername.oninput =
+checkRegisterButton;
+
+
+registerEmail.oninput =
+checkRegisterButton;
+
+
+registerPassword.oninput =
+checkRegisterButton;
+
+
+registerConfirm.oninput =
+checkRegisterButton;
+
+
+
+
+
+
+
+
+
+// =========================
+// REGISTER
+// =========================
+
+
+registerSubmit.onclick =
+async()=>{
+
+
+clearErrors();
+
+
+
+if(
+registerPassword.value !==
+registerConfirm.value
+)
+{
+
+showError(
+registerError,
+"Passwords do not match",
+"register"
+);
+
+
+return;
+
+}
+
+
+
+try{
+
+
+const res =
+await fetch(
+`${API}/register`,
+{
+
+method:"POST",
+
+headers:
+{
+"Content-Type":"application/json"
+},
+
+credentials:"include",
+
+body:JSON.stringify(
+{
+
+username:
+registerUsername.value.trim(),
+
+email:
+registerEmail.value.trim(),
+
+password:
+registerPassword.value
+
+}
+
+)
+
+});
+
+
+
+const data =
+await res.json();
+
+
+
+console.log(data);
+
+
+
+if(data.success)
+{
+
+
+if(data.user)
+{
+
+updateHeader(
+data.user
+);
+
+}
+
+
+
+registerUsername.value="";
+registerEmail.value="";
+registerPassword.value="";
+registerConfirm.value="";
+
+
+closeRL();
+
+
+}
+else
+{
+
+showError(
+registerError,
+data.error ||
+data.message ||
+"Register failed",
+"register"
+);
+
+
+}
+
+
+
+}
+catch(err)
+{
+
+console.error(err);
+
+
+showError(
+registerError,
+"Network error, please try again",
+"register"
+);
+
+
+}
+
+
+};
+
+
+
+
+
+
+
+
+
+
+// =========================
 // LOGIN
 // =========================
 
@@ -498,112 +686,111 @@ loginSubmit.onclick =
 async()=>{
 
 
-    clearErrors();
+clearErrors();
 
 
 
-    try{
+try{
 
 
-        const res =
-        await fetch(
-            `${API}/login`,
-            {
+const res =
+await fetch(
+`${API}/login`,
+{
 
-                method:"POST",
+method:"POST",
 
-                headers:
-                {
-                    "Content-Type":"application/json"
-                },
+headers:
+{
+"Content-Type":"application/json"
+},
 
-                credentials:"include",
+credentials:"include",
 
-                body:JSON.stringify(
-                {
+body:JSON.stringify(
+{
 
-                    login:
-                    loginEmail.value.trim(),
+login:
+loginEmail.value.trim(),
 
-                    password:
-                    loginPassword.value
+password:
+loginPassword.value
 
-                })
+}
 
-            });
+)
 
-
-        const data =
-        await res.json();
-
-
-        console.log(data);
+});
 
 
 
-        if(data.success)
-        {
-
-
-            if(data.user)
-            {
-
-                updateHeader(
-                    data.user
-                );
-
-            }
+const data =
+await res.json();
 
 
 
-            loginEmail.value="";
-
-            loginPassword.value="";
-
-
-            loginPassword.type =
-            "password";
+console.log(data);
 
 
 
-            closeRL();
+if(data.success)
+{
 
 
-        }
-        else
-        {
+if(data.user)
+{
 
+updateHeader(
+data.user
+);
 
-            showError(
-                loginError,
-                data.error ||
-                data.message ||
-                "Login failed",
-                "login"
-            );
-
-
-        }
+}
 
 
 
-    }
-    catch(err)
-    {
+loginEmail.value="";
+
+loginPassword.value="";
 
 
-        console.error(err);
+loginPassword.type=
+"password";
 
 
-        showError(
-            loginError,
-            "Network error, please try again",
-            "login"
-        );
+closeRL();
 
 
-    }
+}
+else
+{
 
+showError(
+loginError,
+data.error ||
+data.message ||
+"Login failed",
+"login"
+);
+
+
+}
+
+
+}
+catch(err)
+{
+
+console.error(err);
+
+
+showError(
+loginError,
+"Network error, please try again",
+"login"
+);
+
+
+}
 
 
 };
@@ -624,107 +811,69 @@ async()=>{
 function updateHeader(user)
 {
 
-
-    if(!user)
-    return;
-
-
-
-    const telegramButton =
-    document.getElementById(
-        "telegramButton"
-    );
-
-
-    const homeAuth =
-    document.getElementById(
-        "homeAuth"
-    );
-
-
-    const userHeader =
-    document.getElementById(
-        "userHeader"
-    );
-
-
-    const headerUsername =
-    document.getElementById(
-        "headerUsername"
-    );
-
-
-    const meUsername =
-    document.getElementById(
-        "meUsername"
-    );
+if(!user)
+return;
 
 
 
-
-    if(telegramButton)
-    {
-
-        telegramButton.classList.add(
-            "hidden"
-        );
-
-    }
+const telegramButton =
+document.getElementById(
+"telegramButton"
+);
 
 
-
-    if(homeAuth)
-    {
-
-        homeAuth.classList.add(
-            "hidden"
-        );
-
-    }
+const homeAuth =
+document.getElementById(
+"homeAuth"
+);
 
 
+const userHeader =
+document.getElementById(
+"userHeader"
+);
 
-    if(userHeader)
-    {
 
-        userHeader.classList.remove(
-            "hidden"
-        );
+const headerUsername =
+document.getElementById(
+"headerUsername"
+);
 
-    }
+
+const meUsername =
+document.getElementById(
+"meUsername"
+);
 
 
 
-
-    if(headerUsername)
-    {
-
-        headerUsername.innerText =
-        user.username;
-
-    }
+if(telegramButton)
+telegramButton.classList.add("hidden");
 
 
+if(homeAuth)
+homeAuth.classList.add("hidden");
 
 
-    if(meUsername)
-    {
+if(userHeader)
+userHeader.classList.remove("hidden");
 
-        meUsername.innerText =
-        user.username;
 
-    }
 
+if(headerUsername)
+headerUsername.innerText =
+user.username;
+
+
+
+if(meUsername)
+meUsername.innerText =
+user.username;
 
 
 }
 
 
-
-
-
-
-// 提供给 index.js 使用
 
 window.updateHeader =
 updateHeader;
@@ -738,70 +887,64 @@ updateHeader;
 
 
 // =========================
-// SESSION CHECK
+// SESSION
 // =========================
 
 
 async function checkSession()
 {
 
-
-    try
-    {
+try{
 
 
-        const res =
-        await fetch(
-            `${API}/me`,
-            {
+const res =
+await fetch(
+`${API}/me`,
+{
 
-                method:"GET",
+method:"GET",
 
-                credentials:"include"
+credentials:"include"
 
-            });
+});
 
 
-        const data =
-        await res.json();
+const data =
+await res.json();
 
 
 
-        console.log(
-            "ME:",
-            data
-        );
+console.log(
+"ME:",
+data
+);
 
 
 
-        if(
-            data.success &&
-            data.logged_in
-        )
-        {
+if(
+data.success &&
+data.logged_in
+)
+{
 
+updateHeader(
+data.user
+);
 
-            updateHeader(
-                data.user
-            );
-
-
-        }
+}
 
 
 
-    }
-    catch(err)
-    {
+}
+catch(err)
+{
+
+console.log(
+"Not login"
+);
 
 
-        console.log(
-            "Not login"
-        );
-
-
-    }
-
+}
 
 
 }
@@ -815,7 +958,7 @@ async function checkSession()
 
 
 // =========================
-// ESC CLOSE
+// ESC
 // =========================
 
 
@@ -824,18 +967,15 @@ document.addEventListener(
 e=>{
 
 
-    if(e.key==="Escape")
-    {
+if(e.key==="Escape")
+{
 
+closeRL();
 
-        closeRL();
-
-
-    }
+}
 
 
 });
-
 
 
 
