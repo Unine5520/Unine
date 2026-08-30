@@ -229,7 +229,7 @@ showLogin();
 
 }
 
-
+window.openRL = openRL;
 
 function closeRL()
 {
