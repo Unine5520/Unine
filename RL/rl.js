@@ -734,47 +734,46 @@ console.log(data);
 
 
 
-if(data.user)
+if(data.success)
 {
 
-userLoggedIn = true;
+
+    if(data.user)
+    {
+
+        userLoggedIn = true;
 
 
-updateHeader(
-data.user
-);
+        updateHeader(
+            data.user
+        );
 
-}
-
-
-
-loginEmail.value="";
-
-loginPassword.value="";
+    }
 
 
-loginPassword.type=
-"password";
+
+    loginEmail.value="";
+
+    loginPassword.value="";
 
 
-closeRL();
+    loginPassword.type="password";
+
+
+    closeRL();
 
 
 }
 else
 {
 
-showError(
-loginError,
-data.error ||
-data.message ||
-"Login failed",
-"login"
-);
-
-
-}
-
+    showError(
+        loginError,
+        data.error ||
+        data.message ||
+        "Login failed",
+        "login"
+    );
 
 }
 catch(err)
