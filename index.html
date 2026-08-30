@@ -51,503 +51,508 @@
 <!-- ======== RL MODAL ======== -->
 <!-- ======== RL MODAL ======== -->
 
-<!-- ======== RL MODAL ======== -->
-
 <div id="rlModal" class="rl-modal hidden">
 
 
-    <div class="rl-box">
+<div class="rl-box">
 
 
-        <!-- HEADER -->
+<!-- HEADER -->
 
-        <div class="rl-header">
+<div class="rl-header">
 
 
-            <button 
-                id="rlClose"
-                class="rl-close"
-                type="button"
-            >
+<button 
+    id="rlClose"
+    class="rl-close"
+    type="button"
+>
 
-                <svg
-                    viewBox="0 0 72 72"
-                    width="32"
-                    height="32"
-                >
+<svg
+    viewBox="0 0 72 72"
+    width="32"
+    height="32"
+>
 
-                    <circle
-                        cx="36"
-                        cy="36"
-                        r="35"
-                        fill="#6D7693"
-                        stroke="#fff"
-                        stroke-width="2"
-                    />
+<circle
+    cx="36"
+    cy="36"
+    r="35"
+    fill="#6D7693"
+    stroke="#fff"
+    stroke-width="2"
+/>
 
-                    <path
-                        d="M27 27 L45 45 M45 27 L27 45"
-                        stroke="white"
-                        stroke-width="5"
-                        stroke-linecap="round"
-                    />
+<path
+    d="M27 27 L45 45 M45 27 L27 45"
+    stroke="white"
+    stroke-width="5"
+    stroke-linecap="round"
+/>
 
-                </svg>
+</svg>
 
 
-            </button>
+</button>
 
 
 
-            <h2 id="rlTitle">
-                Login
-            </h2>
+<h2 id="rlTitle">
+Login
+</h2>
 
 
-            <div></div>
-
-
-        </div>
-
-
-
-
-
-        <!-- TAB -->
-
-        <div class="rl-tabs">
-
-
-            <button 
-                id="loginTab"
-                class="active"
-            >
-                Login
-            </button>
-
-
-            <button 
-                id="registerTab"
-            >
-                Register
-            </button>
-
-
-        </div>
-
-
-
-
-
-
-        <!-- LOGIN -->
-
-        <div 
-            id="loginForm" 
-            class="rl-form"
-        >
-
-
-
-            <!-- ERROR -->
-
-            <div
-                id="loginError"
-                class="rl-error"
-            ></div>
-
-
-
-
-            <!-- EMAIL -->
-
-            <div class="input-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <path
-                    d="M3 5h18v14H3z"
-                    />
-
-                    <path
-                    d="M3 7l9 6 9-6"
-                    />
-
-                </svg>
-
-
-
-                <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="Email"
-                >
-
-
-            </div>
-
-
-
-
-
-            <!-- PASSWORD -->
-
-            <div class="password-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <rect
-                        x="5"
-                        y="10"
-                        width="14"
-                        height="10"
-                        rx="2"
-                    />
-
-                    <path
-                        d="M8 10V7a4 4 0 018 0v3"
-                    />
-
-
-                </svg>
-
-
-
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Password"
-                >
-
-
-
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="loginPassword"
-                >
-
-                    <svg
-                        class="eye-icon"
-                        viewBox="0 0 24 24"
-                    >
-
-                        <path
-                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
-                        />
-
-                        <circle
-                        cx="12"
-                        cy="12"
-                        r="3"
-                        />
-
-                    </svg>
-
-
-                </button>
-
-
-            </div>
-
-
-
-
-
-
-            <button
-                id="loginSubmit"
-                class="rl-submit"
-                disabled
-            >
-
-                Login
-
-            </button>
-
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-        <!-- REGISTER -->
-
-        <div
-            id="registerForm"
-            class="rl-form hidden"
-        >
-
-
-
-            <!-- ERROR -->
-
-            <div
-                id="registerError"
-                class="rl-error"
-            ></div>
-
-
-
-
-
-            <!-- USERNAME -->
-
-
-            <div class="input-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <circle
-                        cx="12"
-                        cy="8"
-                        r="4"
-                    />
-
-                    <path
-                        d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
-                    />
-
-
-                </svg>
-
-
-
-                <input
-                    id="registerUsername"
-                    type="text"
-                    placeholder="Username"
-                >
-
-
-            </div>
-
-
-
-
-
-
-
-
-            <!-- EMAIL -->
-
-
-            <div class="input-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <path
-                    d="M3 5h18v14H3z"
-                    />
-
-                    <path
-                    d="M3 7l9 6 9-6"
-                    />
-
-
-                </svg>
-
-
-                <input
-                    id="registerEmail"
-                    type="email"
-                    placeholder="Email"
-                >
-
-
-            </div>
-
-
-
-
-
-
-
-            <!-- PASSWORD -->
-
-
-            <div class="password-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <rect
-                        x="5"
-                        y="10"
-                        width="14"
-                        height="10"
-                        rx="2"
-                    />
-
-                    <path
-                        d="M8 10V7a4 4 0 018 0v3"
-                    />
-
-                </svg>
-
-
-
-
-                <input
-                    id="registerPassword"
-                    type="password"
-                    placeholder="Password"
-                >
-
-
-
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="registerPassword"
-                >
-
-                    <svg
-                        class="eye-icon"
-                        viewBox="0 0 24 24"
-                    >
-
-                        <path
-                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
-                        />
-
-                        <circle
-                        cx="12"
-                        cy="12"
-                        r="3"
-                        />
-
-                    </svg>
-
-
-                </button>
-
-
-            </div>
-
-
-
-
-
-
-            <!-- CONFIRM -->
-
-
-            <div class="password-box">
-
-
-                <svg
-                    class="input-icon"
-                    viewBox="0 0 24 24"
-                >
-
-                    <rect
-                        x="5"
-                        y="10"
-                        width="14"
-                        height="10"
-                        rx="2"
-                    />
-
-                    <path
-                        d="M8 10V7a4 4 0 018 0v3"
-                    />
-
-                </svg>
-
-
-
-                <input
-                    id="registerConfirm"
-                    type="password"
-                    placeholder="Confirm Password"
-                >
-
-
-
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="registerConfirm"
-                >
-
-                    <svg
-                        class="eye-icon"
-                        viewBox="0 0 24 24"
-                    >
-
-                        <path
-                        d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
-                        />
-
-                        <circle
-                        cx="12"
-                        cy="12"
-                        r="3"
-                        />
-
-                    </svg>
-
-
-                </button>
-
-
-            </div>
-
-
-
-
-
-
-
-            <button
-                id="registerSubmit"
-                class="rl-submit"
-                disabled
-            >
-
-                Register
-
-            </button>
-
-
-
-
-        </div>
-
-
-
-    </div>
+<div></div>
 
 
 </div>
-    
+
+
+
+
+
+<!-- TAB -->
+
+<div class="rl-tabs">
+
+
+<button 
+    id="loginTab"
+    class="active"
+    type="button"
+>
+Login
+</button>
+
+
+
+<button 
+    id="registerTab"
+    type="button"
+>
+Register
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- =========================
+LOGIN
+========================= -->
+
+
+<div 
+id="loginForm"
+class="rl-form"
+>
+
+
+
+<!-- EMAIL -->
+
+<div class="input-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<path d="M3 5h18v14H3z"/>
+
+<path d="M3 7l9 6 9-6"/>
+
+</svg>
+
+
+
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+>
+
+
+</div>
+
+
+
+
+
+<!-- PASSWORD -->
+
+<div class="password-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<rect
+x="5"
+y="10"
+width="14"
+height="10"
+rx="2"
+/>
+
+<path
+d="M8 10V7a4 4 0 018 0v3"
+/>
+
+
+</svg>
+
+
+
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
+
+
+
+<button
+type="button"
+class="toggle-password"
+data-target="loginPassword"
+>
+
+
+<svg
+class="eye-icon"
+viewBox="0 0 24 24"
+>
+
+<path
+d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
+/>
+
+<circle
+cx="12"
+cy="12"
+r="3"
+/>
+
+</svg>
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+<!-- ERROR -->
+
+<div
+id="loginError"
+class="rl-error"
+></div>
+
+
+
+
+
+<button
+id="loginSubmit"
+class="rl-submit"
+type="button"
+disabled
+>
+
+Login
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- =========================
+REGISTER
+========================= -->
+
+
+<div
+id="registerForm"
+class="rl-form hidden"
+>
+
+
+
+
+<!-- USERNAME -->
+
+<div class="input-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<circle
+cx="12"
+cy="8"
+r="4"
+/>
+
+<path
+d="M4 21c0-4 3.5-7 8-7s8 3 8 7"
+/>
+
+</svg>
+
+
+<input
+id="registerUsername"
+type="text"
+placeholder="Username"
+>
+
+
+</div>
+
+
+
+
+
+
+<!-- EMAIL -->
+
+<div class="input-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<path d="M3 5h18v14H3z"/>
+
+<path d="M3 7l9 6 9-6"/>
+
+</svg>
+
+
+<input
+id="registerEmail"
+type="email"
+placeholder="Email"
+>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- PASSWORD -->
+
+
+<div class="password-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<rect
+x="5"
+y="10"
+width="14"
+height="10"
+rx="2"
+/>
+
+<path
+d="M8 10V7a4 4 0 018 0v3"
+/>
+
+
+</svg>
+
+
+
+<input
+id="registerPassword"
+type="password"
+placeholder="Password"
+>
+
+
+
+<button
+type="button"
+class="toggle-password"
+data-target="registerPassword"
+>
+
+
+<svg
+class="eye-icon"
+viewBox="0 0 24 24"
+>
+
+<path
+d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
+/>
+
+<circle
+cx="12"
+cy="12"
+r="3"
+/>
+
+</svg>
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- CONFIRM -->
+
+
+<div class="password-box">
+
+
+<svg
+class="input-icon"
+viewBox="0 0 24 24"
+>
+
+<rect
+x="5"
+y="10"
+width="14"
+height="10"
+rx="2"
+/>
+
+<path
+d="M8 10V7a4 4 0 018 0v3"
+/>
+
+</svg>
+
+
+
+
+<input
+id="registerConfirm"
+type="password"
+placeholder="Confirm Password"
+>
+
+
+
+
+<button
+type="button"
+class="toggle-password"
+data-target="registerConfirm"
+>
+
+
+<svg
+class="eye-icon"
+viewBox="0 0 24 24"
+>
+
+<path
+d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
+/>
+
+<circle
+cx="12"
+cy="12"
+r="3"
+/>
+
+</svg>
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ERROR -->
+
+<div
+id="registerError"
+class="rl-error"
+></div>
+
+
+
+
+
+
+
+<button
+id="registerSubmit"
+class="rl-submit"
+type="button"
+disabled
+>
+
+Register
+
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
 <!-- ======== APPLICATION ======== -->
 <!-- ======== APPLICATION ======== -->
 <!-- ======== APPLICATION ======== -->
