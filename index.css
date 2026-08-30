@@ -112,12 +112,16 @@ body::-webkit-scrollbar {
 /* ======== NAV ICON ================================ */
 /* ================================================= */
 
-#Menu-button .nav-button img {
+#Menu-button .nav-button .nav-icon {
 
     width: 24px;
     height: 24px;
 
     display: block;
+
+    color: #888888;
+
+    flex-shrink: 0;
 
 }
 
@@ -140,9 +144,10 @@ body::-webkit-scrollbar {
 
 
 /* ================================================= */
-/* ======== ACTIVE NAV TEXT ========================= */
+/* ======== ACTIVE NAV ============================== */
 /* ================================================= */
 
+#Menu-button .nav-button.active .nav-icon,
 #Menu-button .nav-button.active span {
 
     color: #2762ea;
@@ -247,6 +252,8 @@ body::-webkit-scrollbar {
     width: 24px;
     height: 24px;
 
+    display: block;
+
     filter: brightness(0) invert(1);
 
 }
@@ -307,7 +314,7 @@ body::-webkit-scrollbar {
 
     /* ======== NAV ICON ======== */
 
-    #Menu-button .nav-button img {
+    #Menu-button .nav-button .nav-icon {
 
         width: 22px;
         height: 22px;
@@ -410,7 +417,7 @@ body::-webkit-scrollbar {
 
     /* ======== NAV ICON ======== */
 
-    #Menu-button .nav-button img {
+    #Menu-button .nav-button .nav-icon {
 
         width: 20px;
         height: 20px;
