@@ -1,546 +1,148 @@
-/* =========================
-RL MODAL
-========================= */
+// =========================
+// ERROR SYSTEM
+// =========================
+
+let loginErrorTimer = null;
+let registerErrorTimer = null;
 
 
-.rl-modal{
+function showError(
+    element,
+    message=""
+)
+{
 
-    position:fixed;
+    if(!element)
+    return;
 
-    inset:0;
 
-    background:rgba(0,0,0,0.35);
+    let timer;
 
-    display:flex;
 
-    justify-content:center;
+    if(element === loginError)
+    {
+        timer = loginErrorTimer;
+    }
+    else
+    {
+        timer = registerErrorTimer;
+    }
 
-    align-items:center;
 
-    z-index:9999;
+    clearTimeout(timer);
+
+
+
+    if(message)
+    {
+
+        element.innerText =
+        message;
+
+
+
+        // fade in
+        requestAnimationFrame(()=>{
+
+            element.classList.add(
+                "show"
+            );
+
+        });
+
+
+
+        timer =
+        setTimeout(()=>{
+
+
+            // fade out
+
+            element.classList.remove(
+                "show"
+            );
+
+
+
+            setTimeout(()=>{
+
+                element.innerText="";
+
+            },350);
+
+
+
+        },3000);
+
+
+    }
+    else
+    {
+
+
+        element.classList.remove(
+            "show"
+        );
+
+
+        setTimeout(()=>{
+
+            element.innerText="";
+
+        },350);
+
+
+    }
+
+
+
+    if(element === loginError)
+    {
+        loginErrorTimer = timer;
+    }
+    else
+    {
+        registerErrorTimer = timer;
+    }
+
 
 }
 
 
 
 
-/* =========================
-HIDDEN
-========================= */
+function clearErrors()
+{
 
+if(loginError)
+{
 
-.hidden{
+loginError.classList.remove(
+"show"
+);
 
-    display:none !important;
-
-}
-
-
-
-
-
-/* =========================
-BOX
-========================= */
-
-
-.rl-box{
-
-    width:380px;
-
-    max-width:90%;
-
-    background:#ffffff;
-
-    border-radius:18px;
-
-    padding:26px;
-
-    box-sizing:border-box;
-
-    box-shadow:
-    0 20px 50px rgba(0,0,0,.18);
+loginError.innerText="";
 
 }
 
 
 
+if(registerError)
+{
 
+registerError.classList.remove(
+"show"
+);
 
-/* =========================
-HEADER
-========================= */
-
-
-.rl-header{
-
-    display:grid;
-
-    grid-template-columns:40px 1fr 40px;
-
-    align-items:center;
+registerError.innerText="";
 
 }
 
 
 
-.rl-header h2{
+clearTimeout(loginErrorTimer);
 
-    margin:0;
-
-    text-align:center;
-
-    font-size:22px;
-
-    font-weight:700;
-
-    color:#111;
-
-}
-
-
-
-.rl-close{
-
-    width:32px;
-
-    height:32px;
-
-    padding:0;
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-}
-
-
-
-.rl-close svg{
-
-    display:block;
-
-}
-
-
-
-
-
-
-
-/* =========================
-TAB
-========================= */
-
-
-.rl-tabs{
-
-    margin-top:24px;
-
-    height:48px;
-
-    background:#f1f3f8;
-
-    border-radius:14px;
-
-    padding:5px;
-
-    display:flex;
-
-    gap:5px;
-
-}
-
-
-
-
-
-.rl-tabs button{
-
-    flex:1;
-
-    border:none;
-
-    background:transparent;
-
-    border-radius:12px;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    color:#777;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-
-
-
-
-.rl-tabs button.active{
-
-    background:#ffffff;
-
-    color:#2762ea;
-
-    box-shadow:
-
-    0 5px 15px rgba(0,0,0,.08);
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================
-FORM
-========================= */
-
-
-.rl-form{
-
-    margin-top:22px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-}
-
-
-
-
-
-
-
-/* =========================
-INPUT BOX
-========================= */
-
-
-.input-box,
-.password-box{
-
-    position:relative;
-
-    width:100%;
-
-}
-
-
-
-
-
-.input-icon{
-
-    position:absolute;
-
-    left:15px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:20px;
-
-    height:20px;
-
-    color:#6D7693;
-
-    fill:none;
-
-    stroke:currentColor;
-
-    stroke-width:2;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-
-    pointer-events:none;
-
-}
-
-
-
-
-
-
-.rl-form input{
-
-    width:100%;
-
-    height:50px;
-
-    box-sizing:border-box;
-
-    border:1px solid #ddd;
-
-    border-radius:14px;
-
-    padding-left:45px;
-
-    padding-right:45px;
-
-    font-size:15px;
-
-    outline:none;
-
-    transition:.2s;
-
-}
-
-
-
-
-
-.rl-form input::placeholder{
-
-    color:#999;
-
-}
-
-
-
-
-
-.rl-form input:focus{
-
-    border-color:#2762ea;
-
-    box-shadow:
-
-    0 0 0 3px rgba(39,98,234,.12);
-
-}
-
-
-
-
-
-
-
-
-
-
-/* =========================
-ERROR
-========================= */
-
-.rl-error{
-
-    min-height:20px;
-
-    font-size:14px;
-
-    font-weight:500;
-
-    color:#e53935;
-
-    text-align:left;
-
-    margin-top:-5px;
-
-    opacity:0;
-
-    transform:translateY(-5px);
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
-
-}
-
-
-
-/* SHOW */
-
-.rl-error.show{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-
-
-/* =========================
-PASSWORD EYE
-========================= */
-
-
-.toggle-password{
-
-    position:absolute;
-
-    right:14px;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:24px;
-
-    height:24px;
-
-    padding:0;
-
-    border:none;
-
-    background:none;
-
-    cursor:pointer;
-
-}
-
-
-
-.eye-icon{
-
-    width:22px;
-
-    height:22px;
-
-    fill:none;
-
-    stroke:#6D7693;
-
-    stroke-width:2;
-
-    stroke-linecap:round;
-
-    stroke-linejoin:round;
-
-}
-
-
-
-.toggle-password:hover .eye-icon{
-
-    stroke:#2762ea;
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================
-SUBMIT
-========================= */
-
-
-.rl-submit{
-
-    height:50px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#bababa;
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    cursor:not-allowed;
-
-    transition:.25s;
-
-}
-
-
-
-
-
-.rl-submit.active{
-
-    background:#4172e5;
-
-    cursor:pointer;
-
-}
-
-
-
-
-
-.rl-submit.active:active{
-
-    transform:scale(.98);
-
-}
-
-
-
-
-
-.rl-submit:disabled{
-
-    opacity:1;
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================
-MOBILE
-========================= */
-
-
-@media(max-width:480px){
-
-
-.rl-box{
-
-    width:calc(100% - 40px);
-
-    padding:22px;
-
-}
-
-
-
-.rl-tabs button{
-
-    font-size:15px;
-
-}
-
-
-
-.rl-header h2{
-
-    font-size:20px;
-
-}
+clearTimeout(registerErrorTimer);
 
 
 }
