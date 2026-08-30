@@ -140,6 +140,8 @@ document.getElementById("meUsername");
 // ERROR
 // =========================
 
+let errorTimer;
+
 
 function showError(
 element,
@@ -147,19 +149,34 @@ message=""
 )
 {
 
-if(element)
-{
+    if(!element)
+    return;
+
+
+    clearTimeout(errorTimer);
+
+
     element.innerText =
     message;
-}
+
+
+
+    if(message)
+    {
+
+        errorTimer =
+        setTimeout(
+        ()=>{
+
+            element.innerText="";
+
+        },
+        3000
+        );
+
+    }
 
 }
-
-
-
-
-
-
 
 
 // =========================
