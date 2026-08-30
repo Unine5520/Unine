@@ -609,47 +609,48 @@ console.log(data);
 
 
 
-if(data.user)
+if(data.success)
 {
 
-userLoggedIn = true;
+
+    if(data.user)
+    {
+
+        userLoggedIn = true;
 
 
-updateHeader(
-data.user
-);
+        updateHeader(
+            data.user
+        );
 
-}
-
-
-
-registerUsername.value="";
-registerEmail.value="";
-registerPassword.value="";
-registerConfirm.value="";
+    }
 
 
-closeRL();
+
+    registerUsername.value="";
+    registerEmail.value="";
+    registerPassword.value="";
+    registerConfirm.value="";
+
+
+    closeRL();
 
 
 }
 else
 {
 
-showError(
-registerError,
-data.error ||
-data.message ||
-"Register failed",
-"register"
-);
-
-
-}
-
-
+    showError(
+        registerError,
+        data.error ||
+        data.message ||
+        "Register failed",
+        "register"
+    );
 
 }
+
+
 catch(err)
 {
 
