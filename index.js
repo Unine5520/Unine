@@ -819,5 +819,102 @@ document.addEventListener(
 
             }
         );
-    }
-);
+
+        // =========================
+        // BUTTON ACTIVE
+        // =========================
+
+
+        function checkLoginButton()
+        {
+
+
+            const ok =
+            loginEmail.value.trim()
+            &&
+            loginPassword.value;
+
+
+
+            loginSubmit.disabled =
+            !ok;
+
+
+
+            loginSubmit.classList.toggle(
+                "active",
+                ok
+            );
+
+
+        }
+
+
+
+
+
+
+
+        function checkRegisterButton()
+        {
+
+
+            const ok =
+            registerUsername.value.trim()
+            &&
+            registerEmail.value.trim()
+            &&
+            registerPassword.value
+            &&
+            registerConfirm.value;
+
+
+
+            registerSubmit.disabled =
+            !ok;
+
+
+
+            registerSubmit.classList.toggle(
+                "active",
+                ok
+            );
+
+
+        }
+
+
+
+
+
+
+
+        loginEmail.oninput =
+        checkLoginButton;
+
+
+
+        loginPassword.oninput =
+        checkLoginButton;
+
+
+
+        registerUsername.oninput =
+        checkRegisterButton;
+
+
+
+        registerEmail.oninput =
+        checkRegisterButton;
+
+
+
+        registerPassword.oninput =
+        checkRegisterButton;
+
+
+
+        registerConfirm.oninput =
+        checkRegisterButton;
+
+
