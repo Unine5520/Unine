@@ -105,6 +105,8 @@ body::-webkit-scrollbar {
 
     z-index: 3;
 
+    color: #888888;
+
 }
 
 
@@ -119,7 +121,9 @@ body::-webkit-scrollbar {
 
     display: block;
 
-    color: #888888;
+    color: currentColor;
+
+    stroke: currentColor;
 
     flex-shrink: 0;
 
@@ -136,7 +140,7 @@ body::-webkit-scrollbar {
 
     line-height: 16px;
 
-    color: #888888;
+    color: currentColor;
 
     white-space: nowrap;
 
@@ -147,8 +151,7 @@ body::-webkit-scrollbar {
 /* ======== ACTIVE NAV ============================== */
 /* ================================================= */
 
-#Menu-button .nav-button.active .nav-icon,
-#Menu-button .nav-button.active span {
+#Menu-button .nav-button.active {
 
     color: #2762ea;
 
@@ -251,8 +254,6 @@ body::-webkit-scrollbar {
 
     width: 24px;
     height: 24px;
-
-    display: block;
 
     filter: brightness(0) invert(1);
 
