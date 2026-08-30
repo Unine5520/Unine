@@ -224,11 +224,6 @@
 
 #home-header .telegram-button {
 
-    position: absolute;
-
-    right: 10px;
-    bottom: 5px;
-
     width: 36px;
     height: 30px;
 
@@ -252,6 +247,7 @@
         background 0.15s ease;
 
 }
+
 
 /* ======== TELEGRAM ICON ======== */
 
