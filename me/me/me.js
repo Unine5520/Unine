@@ -316,9 +316,7 @@ if(data.success)
 
 
 
-    alert(
-        "Logout successful"
-    );
+    location.reload();
 
 
 }
