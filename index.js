@@ -819,3 +819,5 @@ document.addEventListener(
 
             }
         );
+    }
+);
