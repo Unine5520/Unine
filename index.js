@@ -46,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
             button.classList.remove("active");
 
 
-            const image = button.querySelector("img");
-
-
             /* ORDER */
 
             if (button.id === "orderButton") {
@@ -63,12 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (button.dataset.page === pageId) {
 
                 button.classList.add("active");
-
-                image.src = image.dataset.active;
-
-            } else {
-
-                image.src = image.dataset.default;
 
             }
 
