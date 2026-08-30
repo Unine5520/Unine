@@ -220,18 +220,109 @@ data
 if(data.success)
 {
 
-window.userLoggedIn = false;
+
+    // =================
+    // CLEAR LOGIN STATE
+    // =================
+
+    window.userLoggedIn = false;
 
 
-alert(
-"Logout successful"
-);
+
+    // =================
+    // RETURN HOME
+    // =================
+
+    const homePage =
+    document.getElementById(
+        "homePage"
+    );
 
 
-location.reload();
+    const pages =
+    document.querySelectorAll(
+        ".page-section"
+    );
+
+
+    pages.forEach(page=>{
+
+        page.classList.add(
+            "hidden"
+        );
+
+    });
+
+
+
+    if(homePage)
+    {
+
+        homePage.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+
+    // =================
+    // RESET HEADER
+    // =================
+
+    const homeAuth =
+    document.getElementById(
+        "homeAuth"
+    );
+
+
+    const userHeader =
+    document.getElementById(
+        "userHeader"
+    );
+
+
+    const telegramButton =
+    document.getElementById(
+        "telegramButton"
+    );
+
+
+
+    if(homeAuth)
+    {
+        homeAuth.classList.remove(
+            "hidden"
+        );
+    }
+
+
+
+    if(userHeader)
+    {
+        userHeader.classList.add(
+            "hidden"
+        );
+    }
+
+
+
+    if(telegramButton)
+    {
+        telegramButton.classList.remove(
+            "hidden"
+        );
+    }
+
+
+
+    alert(
+        "Logout successful"
+    );
 
 
 }
+
 else
 {
 
