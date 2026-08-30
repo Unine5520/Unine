@@ -617,6 +617,7 @@ if(data.success)
     {
 
         userLoggedIn = true;
+        window.userLoggedIn = true;
 
 
         updateHeader(
