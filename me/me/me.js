@@ -220,11 +220,12 @@ data
 if(data.success)
 {
 
+window.userLoggedIn = false;
+
 
 alert(
 "Logout successful"
 );
-
 
 
 location.reload();
