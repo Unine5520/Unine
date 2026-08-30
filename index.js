@@ -74,7 +74,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         button.addEventListener("click", () => {
 
-            const pageId = button.dataset.page;
+            const pageId =
+            button.dataset.page;
+
+            // =========================
+            // NEED LOGIN PAGE
+            // =========================
+
+            if(
+                pageId === "shopPage" ||
+                pageId === "orderPage" ||
+                pageId === "inboxPage" ||
+                pageId === "mePage"
+            )
+            {
+                if(
+                    !window.userLoggedIn
+                )
+                {
+                    if(window.openRL)
+                    {
+                        window.openRL("login");
+                    }
+                    
+                    return;
+
+                }
+            }
 
             showPage(pageId);
 
