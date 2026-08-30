@@ -55,7 +55,7 @@ document.getElementById("rlTitle");
 
 
 
-// input
+// INPUT
 
 const loginEmail =
 document.getElementById("loginEmail");
@@ -78,7 +78,7 @@ document.getElementById("registerConfirm");
 
 
 
-// button
+// BUTTON
 
 const loginSubmit =
 document.getElementById("loginSubmit");
@@ -88,10 +88,11 @@ document.getElementById("registerSubmit");
 
 
 
-// error
+// ERROR
 
 const loginError =
 document.getElementById("loginError");
+
 
 const registerError =
 document.getElementById("registerError");
@@ -99,7 +100,12 @@ document.getElementById("registerError");
 
 
 let loginErrorTimer;
+
 let registerErrorTimer;
+
+
+
+
 
 
 
@@ -116,98 +122,89 @@ message=""
 )
 {
 
-    if(!element)
-    return;
-
-
-    clearTimeout(errorTimer);
+if(!element)
+return;
 
 
 
-    if(message)
-    {
-
-        element.innerText =
-        message;
-
-
-        // 显示动画
-        requestAnimationFrame(()=>{
-            element.classList.add(
-                "show"
-            );
-        });
+let timer =
+element.id === "loginError"
+?
+loginErrorTimer
+:
+registerErrorTimer;
 
 
 
-        errorTimer =
-        setTimeout(
-        ()=>{
-
-
-            // 淡出
-            element.classList.remove(
-                "show"
-            );
+clearTimeout(timer);
 
 
 
-            // 等动画结束再清空文字
-            setTimeout(
-            ()=>{
-
-                element.innerText="";
-
-            },
-            350
-            );
-
-
-        },
-        3000
-        );
-
-
-    }
-    else
-    {
-
-
-        element.classList.remove(
-            "show"
-        );
-
-
-        setTimeout(
-        ()=>{
-
-            element.innerText="";
-
-        },
-        350
-        );
-
-
-    }
-
-
-}
-
-
-if(type==="register")
+if(message)
 {
 
-clearTimeout(registerErrorTimer);
+
+element.innerText =
+message;
 
 
-registerErrorTimer =
+
+requestAnimationFrame(
+()=>{
+
+element.classList.add(
+"show"
+);
+
+});
+
+
+
+timer =
+setTimeout(
+()=>{
+
+
+element.classList.remove(
+"show"
+);
+
+
+
 setTimeout(
 ()=>{
 
 element.innerText="";
 
 },
+350
+);
+
+
+},
 3000
+);
+
+
+
+}
+else
+{
+
+
+element.classList.remove(
+"show"
+);
+
+
+
+setTimeout(
+()=>{
+
+element.innerText="";
+
+},
+350
 );
 
 
@@ -215,8 +212,20 @@ element.innerText="";
 
 
 
-element.innerText =
-message;
+if(element.id==="loginError")
+{
+
+loginErrorTimer =
+timer;
+
+}
+else
+{
+
+registerErrorTimer =
+timer;
+
+}
 
 
 }
@@ -224,20 +233,40 @@ message;
 
 
 
+
 function clearErrors()
 {
 
-if(loginError)
-loginError.innerText="";
+clearTimeout(
+loginErrorTimer
+);
 
 
-if(registerError)
-registerError.innerText="";
+clearTimeout(
+registerErrorTimer
+);
 
 
-clearTimeout(loginErrorTimer);
 
-clearTimeout(registerErrorTimer);
+[
+loginError,
+registerError
+]
+.forEach(
+el=>{
+
+if(el)
+{
+
+el.classList.remove(
+"show"
+);
+
+el.innerText="";
+
+}
+
+});
 
 
 }
@@ -268,11 +297,15 @@ clearErrors();
 
 if(type==="register")
 {
+
 showRegister();
+
 }
 else
 {
+
 showLogin();
+
 }
 
 
@@ -291,7 +324,6 @@ rlModal.classList.add(
 clearErrors();
 
 }
-
 
 
 
@@ -338,6 +370,8 @@ registerForm.classList.add(
 
 
 
+
+
 function showRegister()
 {
 
@@ -376,9 +410,8 @@ loginForm.classList.add(
 
 
 
-
 // =========================
-// BUTTON
+// BUTTON OPEN
 // =========================
 
 
@@ -389,6 +422,7 @@ loginButton.onclick =
 ()=>openRL("login");
 
 }
+
 
 
 if(registerButton)
@@ -427,7 +461,7 @@ showRegister;
 
 
 // =========================
-// PASSWORD EYE
+// PASSWORD SHOW
 // =========================
 
 
@@ -515,6 +549,8 @@ ok
 
 
 
+
+
 function checkRegisterButton()
 {
 
@@ -525,9 +561,7 @@ registerEmail.value.trim()
 &&
 registerPassword.value
 &&
-registerConfirm.value
-&&
-registerPassword.value === registerConfirm.value;
+registerConfirm.value;
 
 
 
@@ -547,14 +581,13 @@ ok
 
 
 
-
-
 loginEmail.oninput =
 checkLoginButton;
 
 
 loginPassword.oninput =
 checkLoginButton;
+
 
 
 registerUsername.oninput =
@@ -601,8 +634,7 @@ registerConfirm.value
 
 showError(
 registerError,
-"Passwords do not match",
-"register"
+"Passwords do not match"
 );
 
 
@@ -628,6 +660,7 @@ headers:
 },
 
 credentials:"include",
+
 
 body:JSON.stringify(
 {
@@ -662,21 +695,20 @@ if(data.success)
 {
 
 
-if(data.user)
-{
-
 updateHeader(
 data.user
 );
 
-}
-
 
 
 registerUsername.value="";
+
 registerEmail.value="";
+
 registerPassword.value="";
+
 registerConfirm.value="";
+
 
 
 closeRL();
@@ -686,17 +718,15 @@ closeRL();
 else
 {
 
+
 showError(
 registerError,
 data.error ||
-data.message ||
-"Register failed",
-"register"
+"Register failed"
 );
 
 
 }
-
 
 
 }
@@ -708,16 +738,15 @@ console.error(err);
 
 showError(
 registerError,
-"Network error, please try again",
-"register"
+"Network error, please try again"
 );
 
 
 }
 
 
-};
 
+};
 
 
 
@@ -757,6 +786,7 @@ headers:
 
 credentials:"include",
 
+
 body:JSON.stringify(
 {
 
@@ -787,14 +817,9 @@ if(data.success)
 {
 
 
-if(data.user)
-{
-
 updateHeader(
 data.user
 );
-
-}
 
 
 
@@ -803,7 +828,7 @@ loginEmail.value="";
 loginPassword.value="";
 
 
-loginPassword.type=
+loginPassword.type =
 "password";
 
 
@@ -814,16 +839,16 @@ closeRL();
 else
 {
 
+
 showError(
 loginError,
 data.error ||
-data.message ||
-"Login failed",
-"login"
+"Login failed"
 );
 
 
 }
+
 
 
 }
@@ -835,8 +860,7 @@ console.error(err);
 
 showError(
 loginError,
-"Network error, please try again",
-"login"
+"Network error, please try again"
 );
 
 
@@ -854,7 +878,7 @@ loginError,
 
 
 // =========================
-// UPDATE HEADER
+// HEADER
 // =========================
 
 
@@ -898,15 +922,21 @@ document.getElementById(
 
 
 if(telegramButton)
-telegramButton.classList.add("hidden");
+telegramButton.classList.add(
+"hidden"
+);
 
 
 if(homeAuth)
-homeAuth.classList.add("hidden");
+homeAuth.classList.add(
+"hidden"
+);
 
 
 if(userHeader)
-userHeader.classList.remove("hidden");
+userHeader.classList.remove(
+"hidden"
+);
 
 
 
@@ -981,6 +1011,7 @@ updateHeader(
 data.user
 );
 
+
 }
 
 
@@ -993,7 +1024,6 @@ console.log(
 "Not login"
 );
 
-
 }
 
 
@@ -1008,14 +1038,13 @@ console.log(
 
 
 // =========================
-// ESC
+// ESC CLOSE
 // =========================
 
 
 document.addEventListener(
 "keydown",
 e=>{
-
 
 if(e.key==="Escape")
 {
@@ -1024,8 +1053,8 @@ closeRL();
 
 }
 
-
 });
+
 
 
 
