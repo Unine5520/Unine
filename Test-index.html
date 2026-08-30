@@ -1,466 +1,427 @@
-<!DOCTYPE html>
-<html lang="en">
+/* ======== HIDE SCROLLBAR ======== */
 
-<head>
+html,
+body {
 
-<meta charset="UTF-8">
+    scrollbar-width: none;
 
-<meta 
-    name="viewport" 
-    content="width=device-width, initial-scale=1.0"
->
+    -ms-overflow-style: none;
 
-<meta 
-    name="description" 
-    content="U9"
->
+}
 
-<title>
-    U9
-</title>
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
 
+    display: none;
 
-<!-- ======== GLOBAL CSS ======== -->
-<!-- ======== GLOBAL CSS ======== -->
-<!-- ======== GLOBAL CSS ======== -->
+}
 
-<link rel="stylesheet" href="index.css">
+/* ======== MENU BUTTON ======== */
+/* ======== MENU BUTTON ======== */
+/* ======== MENU BUTTON ======== */
 
-<link rel="stylesheet" href="home/home/home.css">
+#Menu-button {
 
-<link rel="stylesheet" href="shop/shop/shop.css">
+    position: fixed;
 
-<link rel="stylesheet" href="order/order/order.css">
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-<link rel="stylesheet" href="inbox/inbox/inbox.css">
+    width: 100%;
+    height: 72px;
 
-<link rel="stylesheet" href="me/me/me.css">
+    display: grid;
 
-<link rel="stylesheet" href="me/setting/setting.css">
+    grid-template-columns:
+        1fr
+        1fr
+        130px
+        1fr
+        1fr;
 
-<link rel="stylesheet" href="RL/rl.css">
+    align-items: center;
 
-</head>
+    justify-items: center;
 
+    background: #ffffff;
 
-<body>
+    z-index: 1100;
 
-<!-- ======== RL MODAL ======== -->
-<!-- ======== RL MODAL ======== -->
-<!-- ======== RL MODAL ======== -->
+}
 
-<div id="rlModal" class="rl-modal hidden">
 
-    <div class="rl-box">
+/* ======== MENU TOP LINE ======== */
+/* ======== MENU TOP LINE ======== */
+/* ======== MENU TOP LINE ======== */
 
-        <div class="rl-header">
+#Menu-button::after {
 
-            <button id="rlClose">
-                ←
-            </button>
+    content: "";
 
-            <h2 id="rlTitle">
-                Login
-            </h2>
+    position: absolute;
 
-            <div></div>
+    top: 0;
+    left: 0;
 
-        </div>
+    width: 100%;
+    height: 1px;
 
+    background: #dcdbdb54;
 
-        <div class="rl-tabs">
+    z-index: 1;
 
-            <button 
-                id="loginTab"
-                class="active"
-            >
-                Login
-            </button>
+}
 
-            <button id="registerTab">
-                Register
-            </button>
 
-        </div>
+/* ======== CENTER NOTCH ======== */
+/* ======== CENTER NOTCH ======== */
+/* ======== CENTER NOTCH ======== */
 
+#Menu-button::before {
 
-        <!-- LOGIN -->
+    content: "";
 
-        <div id="loginForm" class="rl-form">
+    position: absolute;
 
+    top: 19px;
+    left: 50%;
 
-            <input
-                id="loginEmail"
-                type="email"
-                placeholder="Email"
-            >
+    width: 82px;
+    height: 41px;
 
+    transform: translateX(-50%);
 
-            <div class="password-box">
+    background: #ffffff;
 
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Password"
-                >
+    border-left: 0px solid #3e8af6;
+    border-right: 0px solid #3e8af6;
+    border-bottom: 0.1px solid #3e8af6;
 
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="loginPassword"
-                >
-                    👁
-                </button>
+    border-radius: 0 0 41px 41px;
 
-            </div>
+    z-index: 2;
 
+}
 
-            <button
-                id="loginSubmit"
-                class="rl-submit"
-            >
-                Login
-            </button>
 
+/* ======== NAV BUTTON ======== */
+/* ======== NAV BUTTON ======== */
+/* ======== NAV BUTTON ======== */
 
-        </div>
+#Menu-button .nav-button {
 
+    position: relative;
 
+    width: 72px;
+    height: 72px;
 
-        <!-- REGISTER -->
+    padding: 0;
 
-        <div
-            id="registerForm"
-            class="rl-form hidden"
-        >
+    display: flex;
 
+    flex-direction: column;
 
-            <input
-                id="registerUsername"
-                type="text"
-                placeholder="Username"
-            >
+    justify-content: center;
+    align-items: center;
 
+    gap: 4px;
 
-            <input
-                id="registerEmail"
-                type="email"
-                placeholder="Email"
-            >
+    border: none;
 
+    background: transparent;
 
+    cursor: pointer;
 
-            <div class="password-box">
+    z-index: 3;
 
-                <input
-                    id="registerPassword"
-                    type="password"
-                    placeholder="Password"
-                >
+}
 
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="registerPassword"
-                >
-                    👁
-                </button>
 
-            </div>
+/* ======== NAV ICON ======== */
+/* ======== NAV ICON ======== */
+/* ======== NAV ICON ======== */
 
+#Menu-button .nav-button img {
 
+    width: 24px;
+    height: 24px;
 
-            <div class="password-box">
+    display: block;
 
-                <input
-                    id="registerConfirm"
-                    type="password"
-                    placeholder="Confirm Password"
-                >
+}
 
-                <button
-                    type="button"
-                    class="toggle-password"
-                    data-target="registerConfirm"
-                >
-                    👁
-                </button>
 
-            </div>
+/* ======== NAV TEXT ======== */
+/* ======== NAV TEXT ======== */
+/* ======== NAV TEXT ======== */
 
+#Menu-button .nav-button span {
 
+    font-size: 12px;
 
-            <button
-                id="registerSubmit"
-                class="rl-submit"
-            >
-                Register
-            </button>
+    line-height: 16px;
 
+    color: #888888;
 
-        </div>
+    white-space: nowrap;
 
+}
 
-    </div>
 
-</div>
-    
-<!-- ======== APPLICATION ======== -->
-<!-- ======== APPLICATION ======== -->
-<!-- ======== APPLICATION ======== -->
+/* ======== ACTIVE NAV TEXT ======== */
+/* ======== ACTIVE NAV TEXT ======== */
+/* ======== ACTIVE NAV TEXT ======== */
 
-<main id="app">
+#Menu-button .nav-button.active span {
 
+    color: #2762ea;
 
-<!-- ======== HOME ======== -->
-<section
-    id="homePage"
-    class="page-section"
->
+}
 
-    <header id="home-header">
-        <div class="home-brand">
-            Unine
-        </div>
 
-        <div class="home-actions">
+/* ======== ORDER CENTER BUTTON ======== */
+/* ======== ORDER CENTER BUTTON ======== */
+/* ======== ORDER CENTER BUTTON ======== */
 
-            <!-- Telegram -->
-            <a
-                href="https://t.me/U9support"
-                target="_blank"
-                class="telegram-button"
-                id="telegramButton"
-            >
-                <img
-                    src="icon/Telegram.svg"
-                    alt="Telegram"
-                >
-            </a>
+#Menu-button #orderButton {
 
-            <!-- Login Register -->
+    position: relative;
 
-        <div
-            class="home-auth"
-            id="homeAuth"
-        >
-            <button id="loginButton">
-                Login
-            </button>
+    z-index: 5;
 
-            <button id="registerButton">
-                Register
-            </button>
-        </div>
+    width: 64px;
+    height: 64px;
 
-        <!-- After Login -->
-        <div
-            id="userHeader"
-            class="hidden"
-        >
-            <span
-                id="headerUsername"
-            ></span>
+    margin-top: -32px;
 
-        </div>
+    flex-shrink: 0;
 
-    </div>
-         
-    </header>
-    
+    display: flex;
 
-    <!-- ======== test ======== -->
+    justify-content: center;
+    align-items: center;
 
-    <div class="home-test-content">
+    gap: 3px;
 
-        <h1>Home Test</h1>
+    border: none;
 
-        <p>Scroll down to test the fixed header.</p>
+    border-radius: 50%;
 
-        <div class="test-box">Test Content 01</div>
-        <div class="test-box">Test Content 02</div>
-        <div class="test-box">Test Content 03</div>
-        <div class="test-box">Test Content 04</div>
-        <div class="test-box">Test Content 05</div>
-        <div class="test-box">Test Content 06</div>
-        <div class="test-box">Test Content 07</div>
-        <div class="test-box">Test Content 08</div>
+    background:
+        linear-gradient(
+            180deg,
+            #4da8ff 0%,
+            #2762ea 100%
+        );
 
-    </div>
+}
 
-    <!-- ======== test ======== -->
 
+/* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
+/* ======== ORDER ICON ======== */
 
-</section>
+#Menu-button #orderButton img {
 
+    width: 24px;
+    height: 24px;
 
-<!-- ======== SHOP ======== -->
+    filter: brightness(0) invert(1);
 
-<section
-    id="shopPage"
-    class="page-section hidden"
->
+}
 
-    <h1>
-        Shop
-    </h1>
 
-</section>
+/* ======== ORDER TEXT ======== */
+/* ======== ORDER TEXT ======== */
+/* ======== ORDER TEXT ======== */
 
+#Menu-button #orderButton span {
 
-<!-- ======== ORDER ======== -->
+    color: #ffffff;
 
-<section
-    id="orderPage"
-    class="page-section hidden"
->
+    font-size: 12px;
 
-    <h1>
-        Order
-    </h1>
+    line-height: 14px;
 
-</section>
+}
 
 
-<!-- ======== INBOX ======== -->
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
+/* ======== BUTTON FOCUS ======== */
 
-<section
-    id="inboxPage"
-    class="page-section hidden"
->
+#Menu-button .nav-button:focus {
 
-    <h1>
-        Inbox
-    </h1>
+    outline: none;
 
-</section>
+}
 
 
-<!-- ======== ME ======== -->
+/* ======== MOBILE ======== */
+/* ======== MOBILE ======== */
+/* ======== MOBILE ======== */
 
-<section
-    id="mePage"
-    class="page-section hidden"
->
+@media (max-width: 480px) {
 
-    <div class="me-container">
+    #Menu-button {
 
-        <h1>
-            Me
-        </h1>
+        grid-template-columns:
+            1fr
+            1fr
+            90px
+            1fr
+            1fr;
 
-    </div>
+    }
 
-    <div class="me-user">
-         <span>
-             Username:
-         </span>
 
-         <span id="meUsername">
-         </span>
+    #Menu-button .nav-button {
 
-    </div>
+        width: 64px;
 
-    <button
-        id="logoutButton"
-        class="logout-button"
-    >
-        Logout
-    </button>
+    }
 
-    <!-- LOGOUT CONFIRM MODAL -->
 
-    <div
-        id="logoutModal"
-        class="logout-modal hidden"
-    >
-        <div class="logout-box">
-            
-            <h3>
-                Confirm Logout?
-            </h3>
+    #Menu-button .nav-button img {
 
-            <div class="logout-actions">
+        width: 22px;
+        height: 22px;
 
-                <button
-                    id="logoutConfirm"
-                >
-                    Confirm
-                </button>
+    }
 
-                <button
-                    id="logoutCancel"
-                >
-                    Cancel
-                </button>
-            </div>
-        </div>
-</div>
 
+    #Menu-button .nav-button span {
 
+        font-size: 11px;
 
+        line-height: 15px;
 
-</section>
+    }
 
 
-</main>
+    #Menu-button #orderButton {
 
-<!-- ======== Menu-button ======== -->
-<!-- ======== 底部菜单 ======== -->
-<!-- ======== Menu-button ======== -->
+        width: 60px;
+        height: 60px;
 
-<nav id="Menu-button">
-    <!-- HOME -->
-    <button id="homeButton" class="nav-button active" data-page="homePage"><img src="assets/icons/home-active.svg" data-default="assets/icons/home.svg" data-active="assets/icons/home-active.svg" alt="Home"><span>Home</span></button>
-    <!-- SHOP -->
-    <button id="shopButton" class="nav-button" data-page="shopPage"><img src="assets/icons/shop.svg" data-default="assets/icons/shop.svg" data-active="assets/icons/shop-active.svg" alt="Shop"><span>Shop</span></button>
-    <!-- ORDER -->
-    <button id="orderButton" class="nav-button" data-page="orderPage"><img src="assets/icons/order.svg" alt="Order"><span>Order</span></button>
-    <!-- INBOX -->
-    <button id="inboxButton" class="nav-button" data-page="inboxPage"><img src="assets/icons/inbox.svg" data-default="assets/icons/inbox.svg" data-active="assets/icons/inbox-active.svg" alt="Inbox"><span>Inbox</span></button>
-    <!-- ME -->
-    <button id="meButton" class="nav-button" data-page="mePage"><img src="assets/icons/me.svg" data-default="assets/icons/me.svg" data-active="assets/icons/me-active.svg" alt="Me"><span>Me</span></button>
-</nav>
+    }
 
 
-<!-- ======== SUPABASE ======== -->
-<!-- ======== SUPABASE ======== -->
-<!-- ======== SUPABASE ======== -->
+    #Menu-button #orderButton img {
 
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
->
-</script>
+        width: 22px;
+        height: 22px;
 
+    }
 
-<!-- ======== GLOBAL JS ======== -->
-<!-- ======== GLOBAL JS ======== -->
-<!-- ======== GLOBAL JS ======== -->
 
-<script
-    src="index.js"
->
-</script>
+    #Menu-button #orderButton span {
 
+        font-size: 11px;
 
-<!-- ======== PAGE JS ======== -->
-<!-- ======== PAGE JS ======== -->
-<!-- ======== PAGE JS ======== -->
+        line-height: 13px;
 
-<script src="home/home/home.js"></script>
-  
-<script src="shop/shop/shop.js"></script>
-  
-<script src="order/order/order.js"></script>
-  
-<script src="inbox/inbox/inbox.js"></script>
-  
-<script src="me/me/me.js"></script>
-  
-<script src="me/setting/setting.js"></script>
+    }
 
-<script src="RL/rl.js"></script>
 
-</body>
+    #Menu-button::before {
 
-</html>
+        width: 76px;
+        height: 38px;
+
+        border-radius: 0 0 38px 38px;
+
+    }
+
+}
+
+
+/* ======== VERY SMALL MOBILE ======== */
+/* ======== VERY SMALL MOBILE ======== */
+/* ======== VERY SMALL MOBILE ======== */
+
+@media (max-width: 360px) {
+
+    #Menu-button {
+
+        grid-template-columns:
+            1fr
+            1fr
+            82px
+            1fr
+            1fr;
+
+    }
+
+
+    #Menu-button .nav-button {
+
+        width: 58px;
+
+    }
+
+
+    #Menu-button .nav-button img {
+
+        width: 20px;
+        height: 20px;
+
+    }
+
+
+    #Menu-button .nav-button span {
+
+        font-size: 10px;
+
+        line-height: 14px;
+
+    }
+
+
+    #Menu-button #orderButton {
+
+        width: 56px;
+        height: 56px;
+
+    }
+
+
+    #Menu-button #orderButton img {
+
+        width: 20px;
+        height: 20px;
+
+    }
+
+
+    #Menu-button #orderButton span {
+
+        font-size: 10px;
+
+        line-height: 12px;
+
+    }
+
+
+    #Menu-button::before {
+
+        width: 72px;
+        height: 36px;
+
+        border-radius: 0 0 36px 36px;
+
+    }
+
+}
+
+
+/* ======== HIDDEN ======== */
+/* ======== HIDDEN ======== */
+/* ======== HIDDEN ======== */
+
+.hidden {
+
+    display: none !important;
+
+}
