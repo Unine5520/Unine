@@ -675,11 +675,6 @@ registerError,
 
 
 
-
-
-
-
-
 // =========================
 // LOGIN
 // =========================
@@ -745,6 +740,8 @@ if(data.success)
 
         userLoggedIn = true;
 
+        window.userLoggedIn = true;
+
 
         updateHeader(
             data.user
@@ -777,6 +774,10 @@ else
         "login"
     );
 
+
+}
+
+
 }
 catch(err)
 {
@@ -795,7 +796,6 @@ loginError,
 
 
 };
-
 
 
 
