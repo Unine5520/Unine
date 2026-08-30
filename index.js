@@ -72,20 +72,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
     navButtons.forEach(button => {
 
+
         button.addEventListener("click", () => {
 
-            const pageId = button.dataset.page;
+
+            const pageId =
+            button.dataset.page;
+
+
+
+            // =========================
+            // LOGIN REQUIRED
+            // =========================
+
+
+            const needLoginPages = [
+                "shopPage",
+                "orderPage",
+                "inboxPage",
+                "mePage"
+            ];
+
+
+
+            if(
+                needLoginPages.includes(pageId)
+            )
+            {
+
+
+                const userHeader =
+                document.getElementById(
+                    "userHeader"
+                );
+
+
+                // 没有登录
+
+                if(
+                    !userHeader ||
+                    userHeader.classList.contains("hidden")
+                )
+                {
+
+
+                    // 打开 Login
+
+                    if(window.openRL)
+                    {
+
+                        window.openRL("login");
+
+                    }
+
+
+                    return;
+
+
+                }
+
+
+            }
+
+
 
             showPage(pageId);
 
+
+
         });
 
+
     });
-
-
-    /* ======== DEFAULT PAGE ======== */
-
-    showPage("homePage");
-
-
-});
