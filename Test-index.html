@@ -1,878 +1,466 @@
 <!DOCTYPE html>
-
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
 
-<title>Unine Auth Test</title>
+<meta charset="UTF-8">
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+<meta 
+    name="viewport" 
+    content="width=device-width, initial-scale=1.0"
+>
 
-    body {
-        margin: 0;
-        padding: 30px;
-        font-family: Arial, sans-serif;
-        background: #f5f5f5;
-        color: #222;
-    }
+<meta 
+    name="description" 
+    content="U9"
+>
 
-    .container {
-        max-width: 900px;
-        margin: 0 auto;
-    }
+<title>
+    U9
+</title>
 
-    h1 {
-        margin-bottom: 10px;
-    }
 
-    .status {
-        padding: 15px;
-        margin-bottom: 20px;
-        background: #fff;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+<!-- ======== GLOBAL CSS ======== -->
+<!-- ======== GLOBAL CSS ======== -->
+<!-- ======== GLOBAL CSS ======== -->
 
-    .section {
-        background: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-    }
+<link rel="stylesheet" href="index.css">
 
-    h2 {
-        margin-top: 0;
-    }
+<link rel="stylesheet" href="home/home/home.css">
 
-    input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 15px;
-    }
+<link rel="stylesheet" href="shop/shop/shop.css">
 
-    button {
-        padding: 11px 18px;
-        margin: 4px 4px 4px 0;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+<link rel="stylesheet" href="order/order/order.css">
 
-    button:hover {
-        opacity: 0.85;
-    }
+<link rel="stylesheet" href="inbox/inbox/inbox.css">
 
-    .result {
-        margin-top: 15px;
-        padding: 15px;
-        background: #111;
-        color: #fff;
-        border-radius: 8px;
-        white-space: pre-wrap;
-        word-break: break-word;
-        font-family: monospace;
-        font-size: 13px;
-        min-height: 60px;
-    }
+<link rel="stylesheet" href="me/me/me.css">
 
-    .user-info {
-        display: none;
-        margin-top: 15px;
-        padding: 15px;
-        background: #f0f7ff;
-        border-radius: 8px;
-    }
+<link rel="stylesheet" href="me/setting/setting.css">
 
-    .user-info div {
-        margin: 6px 0;
-    }
-
-    .label {
-        font-weight: bold;
-    }
-</style>
-
+<link rel="stylesheet" href="RL/rl.css">
 
 </head>
 
+
 <body>
 
-<div class="container">
+<!-- ======== RL MODAL ======== -->
+<!-- ======== RL MODAL ======== -->
+<!-- ======== RL MODAL ======== -->
+
+<div id="rlModal" class="rl-modal hidden">
+
+    <div class="rl-box">
+
+        <div class="rl-header">
+
+            <button id="rlClose">
+                ←
+            </button>
+
+            <h2 id="rlTitle">
+                Login
+            </h2>
+
+            <div></div>
+
+        </div>
 
 
-<h1>Unine Auth Test</h1>
+        <div class="rl-tabs">
 
-<div class="status">
-    <strong>Auth Status:</strong>
-    <span id="authStatus">Checking...</span>
-</div>
+            <button 
+                id="loginTab"
+                class="active"
+            >
+                Login
+            </button>
+
+            <button id="registerTab">
+                Register
+            </button>
+
+        </div>
 
 
-<!-- =====================================
-     REGISTER
-====================================== -->
+        <!-- LOGIN -->
 
-<div class="section">
+        <div id="loginForm" class="rl-form">
 
-    <h2>Register</h2>
 
-    <input
-        id="registerUsername"
-        type="text"
-        placeholder="Username"
-        autocomplete="username"
-    >
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+            >
 
-    <input
-        id="registerEmail"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-    >
 
-    <input
-        id="registerPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="new-password"
-    >
+            <div class="password-box">
 
-    <button onclick="registerUser()">
-        Register
-    </button>
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password"
+                >
 
-    <div
-        id="registerResult"
-        class="result"
-    >
-        Waiting...
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="loginPassword"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+            <button
+                id="loginSubmit"
+                class="rl-submit"
+            >
+                Login
+            </button>
+
+
+        </div>
+
+
+
+        <!-- REGISTER -->
+
+        <div
+            id="registerForm"
+            class="rl-form hidden"
+        >
+
+
+            <input
+                id="registerUsername"
+                type="text"
+                placeholder="Username"
+            >
+
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+            >
+
+
+
+            <div class="password-box">
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Password"
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="registerPassword"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+
+            <div class="password-box">
+
+                <input
+                    id="registerConfirm"
+                    type="password"
+                    placeholder="Confirm Password"
+                >
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    data-target="registerConfirm"
+                >
+                    👁
+                </button>
+
+            </div>
+
+
+
+            <button
+                id="registerSubmit"
+                class="rl-submit"
+            >
+                Register
+            </button>
+
+
+        </div>
+
+
     </div>
 
 </div>
+    
+<!-- ======== APPLICATION ======== -->
+<!-- ======== APPLICATION ======== -->
+<!-- ======== APPLICATION ======== -->
+
+<main id="app">
 
 
-<!-- =====================================
-     LOGIN
-====================================== -->
+<!-- ======== HOME ======== -->
+<section
+    id="homePage"
+    class="page-section"
+>
 
-<div class="section">
-
-    <h2>Login</h2>
-
-    <input
-        id="login"
-        type="text"
-        placeholder="Username or Email"
-        autocomplete="username"
-    >
-
-    <input
-        id="loginPassword"
-        type="password"
-        placeholder="Password"
-        autocomplete="current-password"
-    >
-
-    <button onclick="loginUser()">
-        Login
-    </button>
-
-    <div
-        id="loginResult"
-        class="result"
-    >
-        Waiting...
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     ME
-====================================== -->
-
-<div class="section">
-
-    <h2>Current Session</h2>
-
-    <button onclick="getMe()">
-        Check Me
-    </button>
-
-    <div
-        id="userInfo"
-        class="user-info"
-    >
-
-        <div>
-            <span class="label">ID:</span>
-            <span id="userId"></span>
+    <header id="home-header">
+        <div class="home-brand">
+            Unine
         </div>
 
-        <div>
-            <span class="label">Username:</span>
-            <span id="userUsername"></span>
+        <div class="home-actions">
+
+            <!-- Telegram -->
+            <a
+                href="https://t.me/U9support"
+                target="_blank"
+                class="telegram-button"
+                id="telegramButton"
+            >
+                <img
+                    src="icon/Telegram.svg"
+                    alt="Telegram"
+                >
+            </a>
+
+            <!-- Login Register -->
+
+        <div
+            class="home-auth"
+            id="homeAuth"
+        >
+            <button id="loginButton">
+                Login
+            </button>
+
+            <button id="registerButton">
+                Register
+            </button>
         </div>
 
-        <div>
-            <span class="label">Email:</span>
-            <span id="userEmail"></span>
-        </div>
+        <!-- After Login -->
+        <div
+            id="userHeader"
+            class="hidden"
+        >
+            <span
+                id="headerUsername"
+            ></span>
 
-        <div>
-            <span class="label">Coins:</span>
-            <span id="userCoins"></span>
-        </div>
-
-        <div>
-            <span class="label">Balance:</span>
-            <span id="userBalance"></span>
-        </div>
-
-        <div>
-            <span class="label">Status:</span>
-            <span id="userStatus"></span>
-        </div>
-
-        <div>
-            <span class="label">Created:</span>
-            <span id="userCreated"></span>
         </div>
 
     </div>
+         
+    </header>
+    
 
-    <div
-        id="meResult"
-        class="result"
-    >
-        Waiting...
+    <!-- ======== test ======== -->
+
+    <div class="home-test-content">
+
+        <h1>Home Test</h1>
+
+        <p>Scroll down to test the fixed header.</p>
+
+        <div class="test-box">Test Content 01</div>
+        <div class="test-box">Test Content 02</div>
+        <div class="test-box">Test Content 03</div>
+        <div class="test-box">Test Content 04</div>
+        <div class="test-box">Test Content 05</div>
+        <div class="test-box">Test Content 06</div>
+        <div class="test-box">Test Content 07</div>
+        <div class="test-box">Test Content 08</div>
+
     </div>
 
-</div>
+    <!-- ======== test ======== -->
 
 
-<!-- =====================================
-     LOGOUT
-====================================== -->
+</section>
 
-<div class="section">
 
-    <h2>Logout</h2>
+<!-- ======== SHOP ======== -->
 
-    <button onclick="logoutUser()">
+<section
+    id="shopPage"
+    class="page-section hidden"
+>
+
+    <h1>
+        Shop
+    </h1>
+
+</section>
+
+
+<!-- ======== ORDER ======== -->
+
+<section
+    id="orderPage"
+    class="page-section hidden"
+>
+
+    <h1>
+        Order
+    </h1>
+
+</section>
+
+
+<!-- ======== INBOX ======== -->
+
+<section
+    id="inboxPage"
+    class="page-section hidden"
+>
+
+    <h1>
+        Inbox
+    </h1>
+
+</section>
+
+
+<!-- ======== ME ======== -->
+
+<section
+    id="mePage"
+    class="page-section hidden"
+>
+
+    <div class="me-container">
+
+        <h1>
+            Me
+        </h1>
+
+    </div>
+
+    <div class="me-user">
+         <span>
+             Username:
+         </span>
+
+         <span id="meUsername">
+         </span>
+
+    </div>
+
+    <button
+        id="logoutButton"
+        class="logout-button"
+    >
         Logout
     </button>
 
-    <div
-        id="logoutResult"
-        class="result"
-    >
-        Waiting...
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     RAW API RESPONSE
-====================================== -->
-
-<div class="section">
-
-    <h2>Last API Response</h2>
+    <!-- LOGOUT CONFIRM MODAL -->
 
     <div
-        id="rawResult"
-        class="result"
+        id="logoutModal"
+        class="logout-modal hidden"
     >
-        No request yet.
-    </div>
+        <div class="logout-box">
+            
+            <h3>
+                Confirm Logout?
+            </h3>
 
+            <div class="logout-actions">
+
+                <button
+                    id="logoutConfirm"
+                >
+                    Confirm
+                </button>
+
+                <button
+                    id="logoutCancel"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
 </div>
 
-</div>
 
-<script>
 
-/* =========================================
-   SUPABASE EDGE FUNCTION CONFIG
-========================================= */
 
-const API_BASE =
-    "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+</section>
 
 
-/* =========================================
-   API HELPER
-========================================= */
+</main>
 
-async function apiRequest(
-    endpoint,
-    options = {}
-) {
+<!-- ======== Menu-button ======== -->
+<!-- ======== 底部菜单 ======== -->
+<!-- ======== Menu-button ======== -->
 
-    const url =
-        API_BASE + endpoint;
+<nav id="Menu-button">
+    <!-- HOME -->
+    <button id="homeButton" class="nav-button active" data-page="homePage"><img src="assets/icons/home-active.svg" data-default="assets/icons/home.svg" data-active="assets/icons/home-active.svg" alt="Home"><span>Home</span></button>
+    <!-- SHOP -->
+    <button id="shopButton" class="nav-button" data-page="shopPage"><img src="assets/icons/shop.svg" data-default="assets/icons/shop.svg" data-active="assets/icons/shop-active.svg" alt="Shop"><span>Shop</span></button>
+    <!-- ORDER -->
+    <button id="orderButton" class="nav-button" data-page="orderPage"><img src="assets/icons/order.svg" alt="Order"><span>Order</span></button>
+    <!-- INBOX -->
+    <button id="inboxButton" class="nav-button" data-page="inboxPage"><img src="assets/icons/inbox.svg" data-default="assets/icons/inbox.svg" data-active="assets/icons/inbox-active.svg" alt="Inbox"><span>Inbox</span></button>
+    <!-- ME -->
+    <button id="meButton" class="nav-button" data-page="mePage"><img src="assets/icons/me.svg" data-default="assets/icons/me.svg" data-active="assets/icons/me-active.svg" alt="Me"><span>Me</span></button>
+</nav>
 
 
-    const defaultOptions = {
+<!-- ======== SUPABASE ======== -->
+<!-- ======== SUPABASE ======== -->
+<!-- ======== SUPABASE ======== -->
 
-        credentials: "include",
-
-        headers: {
-
-            "Content-Type":
-                "application/json"
-
-        }
-
-    };
-
-
-    const finalOptions = {
-
-        ...defaultOptions,
-
-        ...options,
-
-        headers: {
-
-            ...defaultOptions.headers,
-
-            ...(options.headers || {})
-
-        }
-
-    };
-
-
-    console.log(
-        "API Request:",
-        url,
-        finalOptions
-    );
-
-
-    const response =
-        await fetch(
-            url,
-            finalOptions
-        );
-
-
-    let data;
-
-
-    try {
-
-        data =
-            await response.json();
-
-    } catch {
-
-        data = {
-
-            success: false,
-
-            error:
-                "Server returned invalid JSON"
-
-        };
-
-    }
-
-
-    document.getElementById(
-        "rawResult"
-    ).textContent =
-        JSON.stringify(
-            {
-                http_status:
-                    response.status,
-
-                response:
-                    data
-            },
-            null,
-            2
-        );
-
-
-    return {
-
-        response,
-
-        data
-
-    };
-
-}
-
-
-/* =========================================
-   REGISTER
-========================================= */
-
-async function registerUser() {
-
-    const username =
-        document.getElementById(
-            "registerUsername"
-        ).value.trim();
-
-
-    const email =
-        document.getElementById(
-            "registerEmail"
-        ).value.trim();
-
-
-    const password =
-        document.getElementById(
-            "registerPassword"
-        ).value;
-
-
-    const resultElement =
-        document.getElementById(
-            "registerResult"
-        );
-
-
-    resultElement.textContent =
-        "Registering...";
-
-
-    if (
-        !username ||
-        !email ||
-        !password
-    ) {
-
-        resultElement.textContent =
-            "Please fill in all fields.";
-
-        return;
-
-    }
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/register",
-                {
-
-                    method: "POST",
-
-                    body:
-                        JSON.stringify({
-
-                            username,
-
-                            email,
-
-                            password
-
-                        })
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        if (
-            response.ok &&
-            data.success
-        ) {
-
-            await getMe();
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Register error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
-
-    }
-
-}
-
-
-/* =========================================
-   LOGIN
-========================================= */
-
-async function loginUser() {
-
-    const login =
-        document.getElementById(
-            "login"
-        ).value.trim();
-
-
-    const password =
-        document.getElementById(
-            "loginPassword"
-        ).value;
-
-
-    const resultElement =
-        document.getElementById(
-            "loginResult"
-        );
-
-
-    resultElement.textContent =
-        "Logging in...";
-
-
-    if (
-        !login ||
-        !password
-    ) {
-
-        resultElement.textContent =
-            "Please enter username/email and password.";
-
-        return;
-
-    }
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/login",
-                {
-
-                    method: "POST",
-
-                    body:
-                        JSON.stringify({
-
-                            login,
-
-                            password
-
-                        })
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        if (
-            response.ok &&
-            data.success
-        ) {
-
-            await getMe();
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Login error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
-
-    }
-
-}
-
-
-/* =========================================
-   ME
-========================================= */
-
-async function getMe() {
-
-    const resultElement =
-        document.getElementById(
-            "meResult"
-        );
-
-
-    resultElement.textContent =
-        "Checking session...";
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/me",
-                {
-
-                    method: "GET"
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        updateUserInterface(
-            data
-        );
-
-
-        return data;
-
-    } catch (error) {
-
-        console.error(
-            "Me error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
-
-
-        updateUserInterface({
-
-            success: false,
-
-            logged_in: false
-
-        });
-
-
-        return null;
-
-    }
-
-}
-
-
-/* =========================================
-   UPDATE USER UI
-========================================= */
-
-function updateUserInterface(
-    data
-) {
-
-    const statusElement =
-        document.getElementById(
-            "authStatus"
-        );
-
-
-    const userInfo =
-        document.getElementById(
-            "userInfo"
-        );
-
-
-    if (
-        data &&
-        data.success &&
-        data.logged_in &&
-        data.user
-    ) {
-
-        const user =
-            data.user;
-
-
-        statusElement.textContent =
-            "LOGGED IN";
-
-
-        userInfo.style.display =
-            "block";
-
-
-        document.getElementById(
-            "userId"
-        ).textContent =
-            user.id ?? "";
-
-
-        document.getElementById(
-            "userUsername"
-        ).textContent =
-            user.username ?? "";
-
-
-        document.getElementById(
-            "userEmail"
-        ).textContent =
-            user.email ?? "";
-
-
-        document.getElementById(
-            "userCoins"
-        ).textContent =
-            user.coins ?? "0.00";
-
-
-        document.getElementById(
-            "userBalance"
-        ).textContent =
-            user.balance ?? "0.00";
-
-
-        document.getElementById(
-            "userStatus"
-        ).textContent =
-            user.status ?? "";
-
-
-        document.getElementById(
-            "userCreated"
-        ).textContent =
-            user.created_at ?? "";
-
-    } else {
-
-        statusElement.textContent =
-            "NOT LOGGED IN";
-
-
-        userInfo.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-async function logoutUser() {
-
-    const resultElement =
-        document.getElementById(
-            "logoutResult"
-        );
-
-
-    resultElement.textContent =
-        "Logging out...";
-
-
-    try {
-
-        const {
-            response,
-            data
-        } =
-            await apiRequest(
-                "/logout",
-                {
-
-                    method: "POST"
-
-                }
-            );
-
-
-        resultElement.textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
-
-
-        await getMe();
-
-    } catch (error) {
-
-        console.error(
-            "Logout error:",
-            error
-        );
-
-
-        resultElement.textContent =
-            "Network error: " +
-            error.message;
-
-    }
-
-}
-
-
-/* =========================================
-   INITIAL SESSION CHECK
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        getMe();
-
-    }
-);
-
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+>
 </script>
 
+
+<!-- ======== GLOBAL JS ======== -->
+<!-- ======== GLOBAL JS ======== -->
+<!-- ======== GLOBAL JS ======== -->
+
+<script
+    src="index.js"
+>
+</script>
+
+
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
+<!-- ======== PAGE JS ======== -->
+
+<script src="home/home/home.js"></script>
+  
+<script src="shop/shop/shop.js"></script>
+  
+<script src="order/order/order.js"></script>
+  
+<script src="inbox/inbox/inbox.js"></script>
+  
+<script src="me/me/me.js"></script>
+  
+<script src="me/setting/setting.js"></script>
+
+<script src="RL/rl.js"></script>
+
 </body>
+
 </html>
