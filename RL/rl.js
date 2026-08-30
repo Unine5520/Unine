@@ -60,7 +60,6 @@ document.getElementById("rlTitle");
 const loginEmail =
 document.getElementById("loginEmail");
 
-
 const loginPassword =
 document.getElementById("loginPassword");
 
@@ -68,14 +67,11 @@ document.getElementById("loginPassword");
 const registerUsername =
 document.getElementById("registerUsername");
 
-
 const registerEmail =
 document.getElementById("registerEmail");
 
-
 const registerPassword =
 document.getElementById("registerPassword");
-
 
 const registerConfirm =
 document.getElementById("registerConfirm");
@@ -87,10 +83,8 @@ document.getElementById("registerConfirm");
 const loginSubmit =
 document.getElementById("loginSubmit");
 
-
 const registerSubmit =
 document.getElementById("registerSubmit");
-
 
 
 
@@ -99,84 +93,108 @@ document.getElementById("registerSubmit");
 const loginError =
 document.getElementById("loginError");
 
-
 const registerError =
 document.getElementById("registerError");
 
 
 
-
-
-// header
-
-const telegramButton =
-document.getElementById("telegramButton");
-
-
-const homeAuth =
-document.getElementById("homeAuth");
-
-
-const userHeader =
-document.getElementById("userHeader");
-
-
-const headerUsername =
-document.getElementById("headerUsername");
-
-
-const meUsername =
-document.getElementById("meUsername");
-
-
-
-
+let loginErrorTimer;
+let registerErrorTimer;
 
 
 
 
 
 // =========================
-// ERROR
+// ERROR SYSTEM
 // =========================
-
-let errorTimer;
 
 
 function showError(
 element,
-message=""
+message="",
+type=""
 )
 {
 
-    if(!element)
-    return;
+if(!element)
+return;
 
 
-    clearTimeout(errorTimer);
+if(type==="login")
+{
+
+clearTimeout(loginErrorTimer);
 
 
-    element.innerText =
-    message;
+loginErrorTimer =
+setTimeout(
+()=>{
 
+element.innerText="";
 
+},
+3000
+);
 
-    if(message)
-    {
-
-        errorTimer =
-        setTimeout(
-        ()=>{
-
-            element.innerText="";
-
-        },
-        3000
-        );
-
-    }
 
 }
+
+
+if(type==="register")
+{
+
+clearTimeout(registerErrorTimer);
+
+
+registerErrorTimer =
+setTimeout(
+()=>{
+
+element.innerText="";
+
+},
+3000
+);
+
+
+}
+
+
+
+element.innerText =
+message;
+
+
+}
+
+
+
+
+function clearErrors()
+{
+
+if(loginError)
+loginError.innerText="";
+
+
+if(registerError)
+registerError.innerText="";
+
+
+clearTimeout(loginErrorTimer);
+
+clearTimeout(registerErrorTimer);
+
+
+}
+
+
+
+
+
+
+
 
 
 // =========================
@@ -197,11 +215,11 @@ clearErrors();
 
 if(type==="register")
 {
-    showRegister();
+showRegister();
 }
 else
 {
-    showLogin();
+showLogin();
 }
 
 
@@ -221,22 +239,6 @@ clearErrors();
 
 }
 
-
-
-
-function clearErrors()
-{
-
-showError(
-loginError
-);
-
-
-showError(
-registerError
-);
-
-}
 
 
 
@@ -321,29 +323,43 @@ loginForm.classList.add(
 
 
 
+
 // =========================
-// OPEN BUTTON
+// BUTTON
 // =========================
 
+
+if(loginButton)
+{
 
 loginButton.onclick =
 ()=>openRL("login");
 
+}
 
+
+if(registerButton)
+{
 
 registerButton.onclick =
 ()=>openRL("register");
 
+}
 
+
+
+if(rlClose)
+{
 
 rlClose.onclick =
 closeRL;
+
+}
 
 
 
 loginTab.onclick =
 showLogin;
-
 
 
 registerTab.onclick =
@@ -358,7 +374,7 @@ showRegister;
 
 
 // =========================
-// PASSWORD EYE SVG
+// PASSWORD EYE
 // =========================
 
 
@@ -379,13 +395,10 @@ button.dataset.target
 
 
 
-if(
-input.type==="password"
-)
+if(input.type==="password")
 {
 
 input.type="text";
-
 
 button.classList.add(
 "show"
@@ -397,7 +410,6 @@ else
 {
 
 input.type="password";
-
 
 button.classList.remove(
 "show"
@@ -421,45 +433,31 @@ button.classList.remove(
 
 
 // =========================
-// BUTTON STATE
+// BUTTON ACTIVE
 // =========================
 
 
 function checkLoginButton()
 {
 
-if(
+const ok =
 loginEmail.value.trim()
 &&
-loginPassword.value
-)
-{
+loginPassword.value;
 
-loginSubmit.classList.add(
-"active"
+
+
+loginSubmit.disabled =
+!ok;
+
+
+loginSubmit.classList.toggle(
+"active",
+ok
 );
 
 
-loginSubmit.disabled=false;
-
-
 }
-else
-{
-
-loginSubmit.classList.remove(
-"active"
-);
-
-
-loginSubmit.disabled=true;
-
-
-}
-
-
-}
-
 
 
 
@@ -467,50 +465,31 @@ loginSubmit.disabled=true;
 function checkRegisterButton()
 {
 
-if(
-
+const ok =
 registerUsername.value.trim()
 &&
-
 registerEmail.value.trim()
 &&
-
 registerPassword.value
 &&
-
 registerConfirm.value
 &&
+registerPassword.value === registerConfirm.value;
 
-registerPassword.value ===
-registerConfirm.value
 
-)
-{
 
-registerSubmit.classList.add(
-"active"
+registerSubmit.disabled =
+!ok;
+
+
+registerSubmit.classList.toggle(
+"active",
+ok
 );
 
 
-registerSubmit.disabled=false;
-
-
-}
-else
-{
-
-registerSubmit.classList.remove(
-"active"
-);
-
-
-registerSubmit.disabled=true;
-
-
 }
 
-
-}
 
 
 
@@ -523,7 +502,6 @@ checkLoginButton;
 
 loginPassword.oninput =
 checkLoginButton;
-
 
 
 registerUsername.oninput =
@@ -539,37 +517,7 @@ checkRegisterButton;
 
 
 registerConfirm.oninput =
-()=>{
-
-
-if(
-registerPassword.value !==
-registerConfirm.value
-)
-{
-
-showError(
-registerError,
-"Passwords do not match"
-);
-
-
-}
-else
-{
-
-showError(
-registerError
-);
-
-
-}
-
-
-checkRegisterButton();
-
-
-};
+checkRegisterButton;
 
 
 
@@ -592,6 +540,25 @@ clearErrors();
 
 
 
+if(
+registerPassword.value !==
+registerConfirm.value
+)
+{
+
+showError(
+registerError,
+"Passwords do not match",
+"register"
+);
+
+
+return;
+
+}
+
+
+
 try{
 
 
@@ -609,7 +576,6 @@ headers:
 
 credentials:"include",
 
-
 body:JSON.stringify(
 {
 
@@ -621,7 +587,6 @@ registerEmail.value.trim(),
 
 password:
 registerPassword.value
-
 
 }
 
@@ -646,15 +611,22 @@ if(data.success)
 
 if(data.user)
 {
+
 updateHeader(
 data.user
 );
+
 }
 
 
 
-closeRL();
+registerUsername.value="";
+registerEmail.value="";
+registerPassword.value="";
+registerConfirm.value="";
 
+
+closeRL();
 
 
 }
@@ -663,11 +635,15 @@ else
 
 showError(
 registerError,
-data.message || "Register failed"
+data.error ||
+data.message ||
+"Register failed",
+"register"
 );
 
 
 }
+
 
 
 }
@@ -679,7 +655,8 @@ console.error(err);
 
 showError(
 registerError,
-"Register error"
+"Network error, please try again",
+"register"
 );
 
 
@@ -687,6 +664,7 @@ registerError,
 
 
 };
+
 
 
 
@@ -726,7 +704,6 @@ headers:
 
 credentials:"include",
 
-
 body:JSON.stringify(
 {
 
@@ -735,7 +712,6 @@ loginEmail.value.trim(),
 
 password:
 loginPassword.value
-
 
 }
 
@@ -760,9 +736,11 @@ if(data.success)
 
 if(data.user)
 {
+
 updateHeader(
 data.user
 );
+
 }
 
 
@@ -772,10 +750,8 @@ loginEmail.value="";
 loginPassword.value="";
 
 
-
 loginPassword.type=
 "password";
-
 
 
 closeRL();
@@ -787,7 +763,10 @@ else
 
 showError(
 loginError,
-data.message || "Login failed"
+data.error ||
+data.message ||
+"Login failed",
+"login"
 );
 
 
@@ -803,7 +782,8 @@ console.error(err);
 
 showError(
 loginError,
-"Login error"
+"Network error, please try again",
+"login"
 );
 
 
@@ -828,51 +808,64 @@ loginError,
 function updateHeader(user)
 {
 
-
 if(!user)
 return;
 
 
 
-if(telegramButton)
-{
-telegramButton.classList.add(
-"hidden"
+const telegramButton =
+document.getElementById(
+"telegramButton"
 );
-}
+
+
+const homeAuth =
+document.getElementById(
+"homeAuth"
+);
+
+
+const userHeader =
+document.getElementById(
+"userHeader"
+);
+
+
+const headerUsername =
+document.getElementById(
+"headerUsername"
+);
+
+
+const meUsername =
+document.getElementById(
+"meUsername"
+);
+
+
+
+if(telegramButton)
+telegramButton.classList.add("hidden");
 
 
 if(homeAuth)
-{
-homeAuth.classList.add(
-"hidden"
-);
-}
-
+homeAuth.classList.add("hidden");
 
 
 if(userHeader)
-{
-userHeader.classList.remove(
-"hidden"
-);
-}
+userHeader.classList.remove("hidden");
 
 
 
 if(headerUsername)
-{
 headerUsername.innerText =
 user.username;
-}
 
 
 
 if(meUsername)
-{
 meUsername.innerText =
 user.username;
-}
 
 
 }
@@ -897,7 +890,6 @@ updateHeader;
 
 async function checkSession()
 {
-
 
 try{
 
@@ -936,8 +928,8 @@ updateHeader(
 data.user
 );
 
-
 }
+
 
 
 }
@@ -947,6 +939,7 @@ catch(err)
 console.log(
 "Not login"
 );
+
 
 }
 
@@ -962,7 +955,7 @@ console.log(
 
 
 // =========================
-// ESC CLOSE
+// ESC
 // =========================
 
 
@@ -980,6 +973,7 @@ closeRL();
 
 
 });
+
 
 
 
