@@ -112,30 +112,83 @@ let registerErrorTimer;
 
 function showError(
 element,
-message="",
-type=""
+message=""
 )
 {
 
-if(!element)
-return;
+    if(!element)
+    return;
 
 
-if(type==="login")
-{
-
-clearTimeout(loginErrorTimer);
+    clearTimeout(errorTimer);
 
 
-loginErrorTimer =
-setTimeout(
-()=>{
 
-element.innerText="";
+    if(message)
+    {
 
-},
-3000
-);
+        element.innerText =
+        message;
+
+
+        // 显示动画
+        requestAnimationFrame(()=>{
+            element.classList.add(
+                "show"
+            );
+        });
+
+
+
+        errorTimer =
+        setTimeout(
+        ()=>{
+
+
+            // 淡出
+            element.classList.remove(
+                "show"
+            );
+
+
+
+            // 等动画结束再清空文字
+            setTimeout(
+            ()=>{
+
+                element.innerText="";
+
+            },
+            350
+            );
+
+
+        },
+        3000
+        );
+
+
+    }
+    else
+    {
+
+
+        element.classList.remove(
+            "show"
+        );
+
+
+        setTimeout(
+        ()=>{
+
+            element.innerText="";
+
+        },
+        350
+        );
+
+
+    }
 
 
 }
