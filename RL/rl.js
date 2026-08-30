@@ -477,8 +477,7 @@ registerEmail.value.trim()
 registerPassword.value
 &&
 registerConfirm.value
-&&
-registerPassword.value === registerConfirm.value;
+
 
 
 
