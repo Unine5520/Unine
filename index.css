@@ -1,3 +1,4 @@
+```css
 /* ======== HIDE SCROLLBAR ======== */
 
 html,
@@ -15,6 +16,7 @@ body::-webkit-scrollbar {
     display: none;
 
 }
+
 
 /* ======== MENU BUTTON ======== */
 /* ======== MENU BUTTON ======== */
@@ -70,37 +72,6 @@ body::-webkit-scrollbar {
     background: #dcdbdb54;
 
     z-index: 1;
-
-}
-
-
-/* ======== CENTER NOTCH ======== */
-/* ======== CENTER NOTCH ======== */
-/* ======== CENTER NOTCH ======== */
-
-#Menu-button::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: 19px;
-    left: 50%;
-
-    width: 82px;
-    height: 41px;
-
-    transform: translateX(-50%);
-
-    background: #ffffff;
-
-    border-left: 0px solid #3e8af6;
-    border-right: 0px solid #3e8af6;
-    border-bottom: 0.1px solid #3e8af6;
-
-    border-radius: 0 0 41px 41px;
-
-    z-index: 2;
 
 }
 
@@ -218,6 +189,35 @@ body::-webkit-scrollbar {
 }
 
 
+/* ======== ORDER NOTCH ======== */
+/* ======== ORDER NOTCH ======== */
+/* ======== ORDER NOTCH ======== */
+
+#Menu-button #orderButton::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -13px;
+    left: 50%;
+
+    width: 82px;
+    height: 41px;
+
+    transform: translateX(-50%);
+
+    background: #ffffff;
+
+    border-bottom: 0.1px solid #3e8af6;
+
+    border-radius: 0 0 41px 41px;
+
+    z-index: -1;
+
+}
+
+
 /* ======== ORDER ICON ======== */
 /* ======== ORDER ICON ======== */
 /* ======== ORDER ICON ======== */
@@ -308,6 +308,18 @@ body::-webkit-scrollbar {
     }
 
 
+    /* ======== MOBILE ORDER NOTCH ======== */
+
+    #Menu-button #orderButton::before {
+
+        width: 76px;
+        height: 38px;
+
+        border-radius: 0 0 38px 38px;
+
+    }
+
+
     #Menu-button #orderButton img {
 
         width: 22px;
@@ -321,16 +333,6 @@ body::-webkit-scrollbar {
         font-size: 11px;
 
         line-height: 13px;
-
-    }
-
-
-    #Menu-button::before {
-
-        width: 76px;
-        height: 38px;
-
-        border-radius: 0 0 38px 38px;
 
     }
 
@@ -387,6 +389,18 @@ body::-webkit-scrollbar {
     }
 
 
+    /* ======== VERY SMALL ORDER NOTCH ======== */
+
+    #Menu-button #orderButton::before {
+
+        width: 72px;
+        height: 36px;
+
+        border-radius: 0 0 36px 36px;
+
+    }
+
+
     #Menu-button #orderButton img {
 
         width: 20px;
@@ -403,16 +417,6 @@ body::-webkit-scrollbar {
 
     }
 
-
-    #Menu-button::before {
-
-        width: 72px;
-        height: 36px;
-
-        border-radius: 0 0 36px 36px;
-
-    }
-
 }
 
 
@@ -425,3 +429,4 @@ body::-webkit-scrollbar {
     display: none !important;
 
 }
+```
