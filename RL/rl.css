@@ -340,16 +340,9 @@ INPUT BOX
 ERROR
 ========================= */
 
-
 .rl-error{
 
     min-height:20px;
-
-    margin-top:0px;
-
-    margin-bottom:-5px;
-
-    text-align:left;
 
     font-size:14px;
 
@@ -357,15 +350,31 @@ ERROR
 
     color:#e53935;
 
+    text-align:left;
+
+    margin-top:-5px;
+
+    opacity:0;
+
+    transform:translateY(-5px);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+
 }
 
 
 
+/* SHOW */
 
+.rl-error.show{
 
+    opacity:1;
 
+    transform:translateY(0);
 
-
+}
 
 
 
