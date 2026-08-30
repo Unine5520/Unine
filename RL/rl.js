@@ -175,11 +175,15 @@ function clearErrors()
 {
 
 if(loginError)
-loginError.innerText="";
+{
+    loginError.innerText="";
+}
 
 
 if(registerError)
-registerError.innerText="";
+{
+    registerError.innerText="";
+}
 
 
 clearTimeout(loginErrorTimer);
