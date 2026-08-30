@@ -507,3 +507,17 @@ MOBILE
 
 
 }
+
+.rl-error{
+
+    min-height:18px;
+
+    font-size:14px;
+
+    color:#e53935;
+
+    text-align:center;
+
+    margin-top:-5px;
+
+}
