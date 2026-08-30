@@ -7,7 +7,6 @@ document.addEventListener(
 // API
 // =========================
 
-
 const API =
 "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
@@ -94,6 +93,20 @@ document.getElementById("registerSubmit");
 
 
 
+
+// error
+
+const loginError =
+document.getElementById("loginError");
+
+
+const registerError =
+document.getElementById("registerError");
+
+
+
+
+
 // header
 
 const telegramButton =
@@ -117,44 +130,94 @@ document.getElementById("meUsername");
 
 
 
+
+
+
+
+
+
 // =========================
-// OPEN
+// ERROR
+// =========================
+
+
+function showError(
+element,
+message=""
+)
+{
+
+if(element)
+{
+    element.innerText =
+    message;
+}
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// OPEN CLOSE
 // =========================
 
 
 function openRL(type)
 {
 
-    rlModal.classList.remove(
-        "hidden"
-    );
+rlModal.classList.remove(
+"hidden"
+);
 
 
-    if(type==="register")
-    {
-        showRegister();
-    }
-    else
-    {
-        showLogin();
-    }
+clearErrors();
 
+
+if(type==="register")
+{
+    showRegister();
+}
+else
+{
+    showLogin();
 }
 
 
+}
 
-
-// =========================
-// CLOSE
-// =========================
 
 
 function closeRL()
 {
 
-    rlModal.classList.add(
-        "hidden"
-    );
+rlModal.classList.add(
+"hidden"
+);
+
+
+clearErrors();
+
+}
+
+
+
+
+function clearErrors()
+{
+
+showError(
+loginError
+);
+
+
+showError(
+registerError
+);
 
 }
 
@@ -162,70 +225,74 @@ function closeRL()
 
 
 
+
+
+
+
 // =========================
-// TAB LOGIN
+// TAB
 // =========================
 
 
 function showLogin()
 {
 
-    rlTitle.innerText="Login";
+rlTitle.innerText =
+"Login";
 
 
-    loginTab.classList.add(
-        "active"
-    );
+loginTab.classList.add(
+"active"
+);
 
 
-    registerTab.classList.remove(
-        "active"
-    );
+registerTab.classList.remove(
+"active"
+);
 
 
-    loginForm.classList.remove(
-        "hidden"
-    );
+
+loginForm.classList.remove(
+"hidden"
+);
 
 
-    registerForm.classList.add(
-        "hidden"
-    );
+registerForm.classList.add(
+"hidden"
+);
+
 
 }
 
-
-
-
-// =========================
-// TAB REGISTER
-// =========================
 
 
 function showRegister()
 {
 
-    rlTitle.innerText="Register";
+rlTitle.innerText =
+"Register";
 
 
-    registerTab.classList.add(
-        "active"
-    );
+registerTab.classList.add(
+"active"
+);
 
 
-    loginTab.classList.remove(
-        "active"
-    );
+loginTab.classList.remove(
+"active"
+);
 
 
-    registerForm.classList.remove(
-        "hidden"
-    );
+
+registerForm.classList.remove(
+"hidden"
+);
 
 
-    loginForm.classList.add(
-        "hidden"
-    );
+loginForm.classList.add(
+"hidden"
+);
+
 
 }
 
@@ -234,8 +301,11 @@ function showRegister()
 
 
 
+
+
+
 // =========================
-// BUTTON OPEN
+// OPEN BUTTON
 // =========================
 
 
@@ -267,15 +337,18 @@ showRegister;
 
 
 
+
+
+
 // =========================
-// PASSWORD SHOW
+// PASSWORD EYE SVG
 // =========================
 
 
 document
 .querySelectorAll(".toggle-password")
 .forEach(
-(button)=>{
+button=>{
 
 
 button.onclick =
@@ -284,25 +357,35 @@ button.onclick =
 
 const input =
 document.getElementById(
-    button.dataset.target
+button.dataset.target
 );
 
 
 
-if(input.type==="password")
+if(
+input.type==="password"
+)
 {
 
-    input.type="text";
+input.type="text";
 
-    button.innerHTML="🙈";
+
+button.classList.add(
+"show"
+);
+
 
 }
 else
 {
 
-    input.type="password";
+input.type="password";
 
-    button.innerHTML="👁";
+
+button.classList.remove(
+"show"
+);
+
 
 }
 
@@ -319,8 +402,168 @@ else
 
 
 
+
 // =========================
-// REGISTER API
+// BUTTON STATE
+// =========================
+
+
+function checkLoginButton()
+{
+
+if(
+loginEmail.value.trim()
+&&
+loginPassword.value
+)
+{
+
+loginSubmit.classList.add(
+"active"
+);
+
+
+loginSubmit.disabled=false;
+
+
+}
+else
+{
+
+loginSubmit.classList.remove(
+"active"
+);
+
+
+loginSubmit.disabled=true;
+
+
+}
+
+
+}
+
+
+
+
+
+function checkRegisterButton()
+{
+
+if(
+
+registerUsername.value.trim()
+&&
+
+registerEmail.value.trim()
+&&
+
+registerPassword.value
+&&
+
+registerConfirm.value
+&&
+
+registerPassword.value ===
+registerConfirm.value
+
+)
+{
+
+registerSubmit.classList.add(
+"active"
+);
+
+
+registerSubmit.disabled=false;
+
+
+}
+else
+{
+
+registerSubmit.classList.remove(
+"active"
+);
+
+
+registerSubmit.disabled=true;
+
+
+}
+
+
+}
+
+
+
+
+
+
+loginEmail.oninput =
+checkLoginButton;
+
+
+loginPassword.oninput =
+checkLoginButton;
+
+
+
+registerUsername.oninput =
+checkRegisterButton;
+
+
+registerEmail.oninput =
+checkRegisterButton;
+
+
+registerPassword.oninput =
+checkRegisterButton;
+
+
+registerConfirm.oninput =
+()=>{
+
+
+if(
+registerPassword.value !==
+registerConfirm.value
+)
+{
+
+showError(
+registerError,
+"Passwords do not match"
+);
+
+
+}
+else
+{
+
+showError(
+registerError
+);
+
+
+}
+
+
+checkRegisterButton();
+
+
+};
+
+
+
+
+
+
+
+
+
+// =========================
+// REGISTER
 // =========================
 
 
@@ -328,31 +571,7 @@ registerSubmit.onclick =
 async()=>{
 
 
-const username =
-registerUsername.value.trim();
-
-
-const email =
-registerEmail.value.trim();
-
-
-const password =
-registerPassword.value;
-
-
-const confirm =
-registerConfirm.value;
-
-
-
-if(password!==confirm)
-{
-    alert(
-        "Passwords do not match"
-    );
-
-    return;
-}
+clearErrors();
 
 
 
@@ -376,13 +595,23 @@ credentials:"include",
 
 body:JSON.stringify(
 {
-username,
-email,
-password
+
+username:
+registerUsername.value.trim(),
+
+email:
+registerEmail.value.trim(),
+
+password:
+registerPassword.value
+
+
 }
+
 )
 
 });
+
 
 
 const data =
@@ -390,9 +619,7 @@ await res.json();
 
 
 
-console.log(
-data
-);
+console.log(data);
 
 
 
@@ -400,37 +627,28 @@ if(data.success)
 {
 
 
-alert(
-"Register successful"
-);
-
-
 if(data.user)
 {
-    updateHeader(
-        data.user
-    );
+updateHeader(
+data.user
+);
 }
 
-
-registerUsername.value="";
-registerEmail.value="";
-registerPassword.value="";
-registerConfirm.value="";
 
 
 closeRL();
 
 
+
 }
-
-
 else
 {
 
-alert(
-data.message
+showError(
+registerError,
+data.message || "Register failed"
 );
+
 
 }
 
@@ -441,12 +659,14 @@ catch(err)
 
 console.error(err);
 
-alert(
+
+showError(
+registerError,
 "Register error"
 );
 
-}
 
+}
 
 
 };
@@ -458,8 +678,9 @@ alert(
 
 
 
+
 // =========================
-// LOGIN API
+// LOGIN
 // =========================
 
 
@@ -467,12 +688,7 @@ loginSubmit.onclick =
 async()=>{
 
 
-const email =
-loginEmail.value.trim();
-
-
-const password =
-loginPassword.value;
+clearErrors();
 
 
 
@@ -496,9 +712,16 @@ credentials:"include",
 
 body:JSON.stringify(
 {
-login: email,
-password
+
+login:
+loginEmail.value.trim(),
+
+password:
+loginPassword.value
+
+
 }
+
 )
 
 });
@@ -510,9 +733,7 @@ await res.json();
 
 
 
-console.log(
-data
-);
+console.log(data);
 
 
 
@@ -520,38 +741,23 @@ if(data.success)
 {
 
 
-alert(
-"Login successful"
-);
-
-
-
 if(data.user)
 {
-    updateHeader(
-        data.user
-    );
+updateHeader(
+data.user
+);
 }
 
 
-// 清空 Login 输入
+
 loginEmail.value="";
+
 loginPassword.value="";
 
 
-// 重置密码显示状态
-loginPassword.type="password";
 
-const loginEye =
-document.querySelector(
-    '[data-target="loginPassword"]'
-);
-
-
-if(loginEye)
-{
-    loginEye.innerHTML="👁";
-}
+loginPassword.type=
+"password";
 
 
 
@@ -559,17 +765,16 @@ closeRL();
 
 
 }
-
-
 else
 {
 
-alert(
-data.message
+showError(
+loginError,
+data.message || "Login failed"
 );
 
-}
 
+}
 
 
 }
@@ -578,13 +783,14 @@ catch(err)
 
 console.error(err);
 
-alert(
+
+showError(
+loginError,
 "Login error"
 );
 
 
 }
-
 
 
 };
@@ -611,56 +817,49 @@ return;
 
 
 
-// hide guest buttons
-
 if(telegramButton)
 {
-    telegramButton.classList.add(
-        "hidden"
-    );
+telegramButton.classList.add(
+"hidden"
+);
 }
 
 
 if(homeAuth)
 {
-    homeAuth.classList.add(
-        "hidden"
-    );
+homeAuth.classList.add(
+"hidden"
+);
 }
 
 
-
-// show user header
 
 if(userHeader)
 {
-    userHeader.classList.remove(
-        "hidden"
-    );
+userHeader.classList.remove(
+"hidden"
+);
 }
 
 
-
-// update home username
 
 if(headerUsername)
 {
-    headerUsername.innerText =
-    user.username;
+headerUsername.innerText =
+user.username;
 }
 
 
-
-// update me username
 
 if(meUsername)
 {
-    meUsername.innerText =
-    user.username;
+meUsername.innerText =
+user.username;
 }
 
 
 }
+
 
 
 window.updateHeader =
@@ -668,8 +867,14 @@ updateHeader;
 
 
 
+
+
+
+
+
+
 // =========================
-// CHECK SESSION
+// SESSION
 // =========================
 
 
@@ -710,12 +915,9 @@ data.logged_in
 )
 {
 
-if(data.user)
-{
-    updateHeader(
-        data.user
-    );
-}
+updateHeader(
+data.user
+);
 
 
 }
@@ -729,14 +931,10 @@ console.log(
 "Not login"
 );
 
-
 }
 
 
-
 }
-
-
 
 
 
@@ -747,13 +945,13 @@ console.log(
 
 
 // =========================
-// ESC
+// ESC CLOSE
 // =========================
 
 
 document.addEventListener(
 "keydown",
-(e)=>{
+e=>{
 
 
 if(e.key==="Escape")
@@ -765,6 +963,9 @@ closeRL();
 
 
 });
+
+
+
 
 
 
