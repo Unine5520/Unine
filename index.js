@@ -27,6 +27,8 @@ document.addEventListener(
 
 
 
+
+
         // =========================
         // PAGE NAVIGATION
         // =========================
@@ -43,6 +45,7 @@ document.addEventListener(
         document.querySelectorAll(
             "#Menu-button .nav-button"
         );
+
 
 
 
@@ -92,11 +95,6 @@ document.addEventListener(
                     );
 
 
-
-                    /*
-                        ORDER
-                        保持你的原逻辑
-                    */
 
                     if(
                         button.id ===
@@ -155,11 +153,6 @@ document.addEventListener(
                         button.dataset.page;
 
 
-
-
-                        // =========================
-                        // LOGIN REQUIRED
-                        // =========================
 
 
                         const needLoginPages =
@@ -231,8 +224,6 @@ document.addEventListener(
         showPage(
             "homePage"
         );
-
-
 
 
 
@@ -321,6 +312,7 @@ document.addEventListener(
         );
 
 
+
         const loginPassword =
         document.getElementById(
             "loginPassword"
@@ -401,17 +393,10 @@ document.addEventListener(
         let loginErrorTimer;
 
         let registerErrorTimer;
-
-
-
-
-
-
-
-
+        
 
         // =========================
-        // OPEN CLOSE
+        // OPEN CLOSE RL
         // =========================
 
 
@@ -458,6 +443,8 @@ document.addEventListener(
 
         window.openRL =
         openRL;
+
+
 
 
 
@@ -535,6 +522,7 @@ document.addEventListener(
 
 
 
+
         function showRegister()
         {
 
@@ -568,6 +556,12 @@ document.addEventListener(
 
 
         }
+
+
+
+
+
+
 
         // =========================
         // BUTTON OPEN
@@ -714,6 +708,7 @@ document.addEventListener(
 
 
 
+
         function clearErrors()
         {
 
@@ -820,6 +815,13 @@ document.addEventListener(
             }
         );
 
+
+
+
+
+
+
+
         // =========================
         // BUTTON ACTIVE
         // =========================
@@ -916,8 +918,9 @@ document.addEventListener(
 
         registerConfirm.oninput =
         checkRegisterButton;
+        
 
-                // =========================
+        // =========================
         // REGISTER
         // =========================
 
@@ -1051,3 +1054,236 @@ document.addEventListener(
         };
 
 
+
+
+
+        // =========================
+        // LOGIN
+        // =========================
+
+
+        loginSubmit.onclick =
+        async () =>
+        {
+
+
+            clearErrors();
+
+
+
+            try
+            {
+
+
+                const res =
+                await fetch(
+                    `${API}/login`,
+                    {
+
+                        method:"POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                            "application/json"
+                        },
+
+                        credentials:
+                        "include",
+
+                        body:
+                        JSON.stringify(
+                        {
+
+                            email:
+                            loginEmail.value.trim(),
+
+                            password:
+                            loginPassword.value
+
+                        })
+
+                    }
+                );
+
+
+
+                const data =
+                await res.json();
+
+
+
+                console.log(data);
+
+
+
+                if(data.success)
+                {
+
+
+                    currentUser =
+                    data.user;
+
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+
+
+                    closeRL();
+
+
+                }
+                else
+                {
+
+                    showError(
+                        loginError,
+                        data.error ||
+                        data.message ||
+                        "Login failed",
+                        "login"
+                    );
+
+                }
+
+
+            }
+            catch(err)
+            {
+
+                console.error(err);
+
+
+                showError(
+                    loginError,
+                    "Network error",
+                    "login"
+                );
+
+            }
+
+
+        };
+
+
+
+
+
+
+        // =========================
+        // SESSION CHECK
+        // =========================
+
+
+        async function checkSession()
+        {
+
+
+            try
+            {
+
+
+                const res =
+                await fetch(
+                    `${API}/me`,
+                    {
+
+                        method:"GET",
+
+                        credentials:
+                        "include"
+
+                    }
+                );
+
+
+
+                const data =
+                await res.json();
+
+
+
+                if(data.success)
+                {
+
+                    currentUser =
+                    data.user;
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+                }
+
+
+            }
+            catch(err)
+            {
+
+                console.log(
+                    "No session"
+                );
+
+            }
+
+
+        }
+
+
+
+
+
+
+        // =========================
+        // HEADER UPDATE
+        // =========================
+
+
+        function updateHeader(
+            user
+        )
+        {
+
+
+            const loginArea =
+            document.getElementById(
+                "loginArea"
+            );
+
+
+            if(!loginArea)
+            return;
+
+
+
+            loginArea.innerHTML =
+
+            `
+            <span>
+                ${user.username}
+            </span>
+            `;
+
+
+        }
+
+
+
+
+
+
+        // =========================
+        // START
+        // =========================
+
+
+        checkSession();
+
+
+
+    }
+);
