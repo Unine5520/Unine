@@ -609,12 +609,11 @@ console.log(data);
 
 
 
-if(data.success)
-{
-
-
 if(data.user)
 {
+
+userLoggedIn = true;
+
 
 updateHeader(
 data.user
@@ -734,12 +733,11 @@ console.log(data);
 
 
 
-if(data.success)
-{
-
-
 if(data.user)
 {
+
+userLoggedIn = true;
+
 
 updateHeader(
 data.user
