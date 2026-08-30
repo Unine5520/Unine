@@ -568,3 +568,647 @@ document.addEventListener(
 
 
         }
+
+        
+        // =========================
+        // BUTTON OPEN
+        // =========================
+
+
+        if(loginButton)
+        {
+
+            loginButton.onclick =
+            () =>
+            {
+
+                openRL(
+                    "login"
+                );
+
+            };
+
+        }
+
+
+
+        if(registerButton)
+        {
+
+            registerButton.onclick =
+            () =>
+            {
+
+                openRL(
+                    "register"
+                );
+
+            };
+
+        }
+
+
+
+
+        if(rlClose)
+        {
+
+            rlClose.onclick =
+            closeRL;
+
+        }
+
+
+
+
+        loginTab.onclick =
+        showLogin;
+
+
+
+        registerTab.onclick =
+        showRegister;
+
+
+
+
+
+
+
+
+
+        // =========================
+        // ERROR SYSTEM
+        // =========================
+
+
+        function showError(
+            element,
+            message="",
+            type=""
+        )
+        {
+
+
+            if(!element)
+            return;
+
+
+
+            if(type === "login")
+            {
+
+                clearTimeout(
+                    loginErrorTimer
+                );
+
+
+                loginErrorTimer =
+                setTimeout(
+                    () =>
+                    {
+
+                        element.innerText =
+                        "";
+
+                    },
+                    3000
+                );
+
+            }
+
+
+
+            if(type === "register")
+            {
+
+                clearTimeout(
+                    registerErrorTimer
+                );
+
+
+                registerErrorTimer =
+                setTimeout(
+                    () =>
+                    {
+
+                        element.innerText =
+                        "";
+
+                    },
+                    3000
+                );
+
+            }
+
+
+
+            element.innerText =
+            message;
+
+
+        }
+
+
+
+
+
+
+
+        function clearErrors()
+        {
+
+
+            if(loginError)
+            {
+
+                loginError.innerText =
+                "";
+
+            }
+
+
+
+            if(registerError)
+            {
+
+                registerError.innerText =
+                "";
+
+            }
+
+
+
+            clearTimeout(
+                loginErrorTimer
+            );
+
+
+            clearTimeout(
+                registerErrorTimer
+            );
+
+
+        }
+
+
+
+
+
+
+
+
+
+        // =========================
+        // PASSWORD EYE
+        // =========================
+
+
+        document
+        .querySelectorAll(
+            ".toggle-password"
+        )
+        .forEach(
+            button =>
+            {
+
+
+                button.onclick =
+                () =>
+                {
+
+
+                    const input =
+                    document.getElementById(
+                        button.dataset.target
+                    );
+
+
+
+                    if(
+                        input.type ===
+                        "password"
+                    )
+                    {
+
+                        input.type =
+                        "text";
+
+
+                        button.classList.add(
+                            "show"
+                        );
+
+
+                    }
+                    else
+                    {
+
+                        input.type =
+                        "password";
+
+
+                        button.classList.remove(
+                            "show"
+                        );
+
+                    }
+
+
+                };
+
+
+            }
+        );
+
+
+
+
+
+
+
+
+
+        // =========================
+        // BUTTON ACTIVE
+        // =========================
+
+
+        function checkLoginButton()
+        {
+
+
+            const ok =
+            loginEmail.value.trim()
+            &&
+            loginPassword.value;
+
+
+
+            loginSubmit.disabled =
+            !ok;
+
+
+
+            loginSubmit.classList.toggle(
+                "active",
+                ok
+            );
+
+
+        }
+
+
+
+
+
+
+
+        function checkRegisterButton()
+        {
+
+
+            const ok =
+            registerUsername.value.trim()
+            &&
+            registerEmail.value.trim()
+            &&
+            registerPassword.value
+            &&
+            registerConfirm.value;
+
+
+
+            registerSubmit.disabled =
+            !ok;
+
+
+
+            registerSubmit.classList.toggle(
+                "active",
+                ok
+            );
+
+
+        }
+
+
+
+
+
+
+        loginEmail.oninput =
+        checkLoginButton;
+
+
+        loginPassword.oninput =
+        checkLoginButton;
+
+
+        registerUsername.oninput =
+        checkRegisterButton;
+
+
+        registerEmail.oninput =
+        checkRegisterButton;
+
+
+        registerPassword.oninput =
+        checkRegisterButton;
+
+
+        registerConfirm.oninput =
+        checkRegisterButton;
+
+
+
+
+
+
+
+
+
+        // =========================
+        // REGISTER
+        // =========================
+
+
+        registerSubmit.onclick =
+        async () =>
+        {
+
+
+            clearErrors();
+
+
+
+            if(
+                registerPassword.value !==
+                registerConfirm.value
+            )
+            {
+
+                showError(
+                    registerError,
+                    "Passwords do not match",
+                    "register"
+                );
+
+
+                return;
+
+            }
+
+
+
+            try
+            {
+
+
+                const res =
+                await fetch(
+                    `${API}/register`,
+                    {
+
+                        method:"POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                            "application/json"
+                        },
+
+                        credentials:
+                        "include",
+
+                        body:
+                        JSON.stringify(
+                        {
+
+                            username:
+                            registerUsername.value.trim(),
+
+                            email:
+                            registerEmail.value.trim(),
+
+                            password:
+                            registerPassword.value
+
+                        })
+
+                    }
+                );
+
+
+
+                const data =
+                await res.json();
+
+
+
+                console.log(data);
+
+
+
+                if(data.success)
+                {
+
+
+                    currentUser =
+                    data.user;
+
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+
+
+                    registerUsername.value =
+                    "";
+
+                    registerEmail.value =
+                    "";
+
+                    registerPassword.value =
+                    "";
+
+                    registerConfirm.value =
+                    "";
+
+
+
+                    closeRL();
+
+
+                }
+                else
+                {
+
+                    showError(
+                        registerError,
+                        data.error ||
+                        data.message ||
+                        "Register failed",
+                        "register"
+                    );
+
+                }
+
+
+            }
+            catch(err)
+            {
+
+                console.error(err);
+
+
+                showError(
+                    registerError,
+                    "Network error, please try again",
+                    "register"
+                );
+
+            }
+
+
+        };
+
+
+
+
+
+
+
+
+
+        // =========================
+        // LOGIN
+        // =========================
+
+
+        loginSubmit.onclick =
+        async () =>
+        {
+
+
+            clearErrors();
+
+
+
+            try
+            {
+
+
+                const res =
+                await fetch(
+                    `${API}/login`,
+                    {
+
+                        method:"POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                            "application/json"
+                        },
+
+
+                        credentials:
+                        "include",
+
+
+                        body:
+                        JSON.stringify(
+                        {
+
+                            login:
+                            loginEmail.value.trim(),
+
+
+                            password:
+                            loginPassword.value
+
+
+                        })
+
+                    }
+                );
+
+
+
+                const data =
+                await res.json();
+
+
+
+                console.log(data);
+
+
+
+
+                if(data.success)
+                {
+
+
+                    currentUser =
+                    data.user;
+
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+
+
+                    loginEmail.value =
+                    "";
+
+
+                    loginPassword.value =
+                    "";
+
+
+                    loginPassword.type =
+                    "password";
+
+
+
+                    closeRL();
+
+
+                }
+                else
+                {
+
+                    showError(
+                        loginError,
+                        data.error ||
+                        data.message ||
+                        "Login failed",
+                        "login"
+                    );
+
+                }
+
+
+            }
+            catch(err)
+            {
+
+                console.error(err);
+
+
+
+                showError(
+                    loginError,
+                    "Network error, please try again",
+                    "login"
+                );
+
+            }
+
+
+        };
