@@ -101,7 +101,7 @@ document.getElementById("registerError");
 let loginErrorTimer;
 let registerErrorTimer;
 let userLoggedIn = false;
-
+window.userLoggedIn = false;
 
 
 
