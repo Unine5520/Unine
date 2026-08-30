@@ -917,4 +917,137 @@ document.addEventListener(
         registerConfirm.oninput =
         checkRegisterButton;
 
+                // =========================
+        // REGISTER
+        // =========================
+
+
+        registerSubmit.onclick =
+        async () =>
+        {
+
+
+            clearErrors();
+
+
+
+            if(
+                registerPassword.value !==
+                registerConfirm.value
+            )
+            {
+
+                showError(
+                    registerError,
+                    "Passwords do not match",
+                    "register"
+                );
+
+
+                return;
+
+            }
+
+
+
+            try
+            {
+
+
+                const res =
+                await fetch(
+                    `${API}/register`,
+                    {
+
+                        method:"POST",
+
+                        headers:
+                        {
+                            "Content-Type":
+                            "application/json"
+                        },
+
+                        credentials:
+                        "include",
+
+                        body:
+                        JSON.stringify(
+                        {
+
+                            username:
+                            registerUsername.value.trim(),
+
+                            email:
+                            registerEmail.value.trim(),
+
+                            password:
+                            registerPassword.value
+
+                        })
+
+                    }
+                );
+
+
+
+                const data =
+                await res.json();
+
+
+
+                console.log(data);
+
+
+
+                if(data.success)
+                {
+
+
+                    currentUser =
+                    data.user;
+
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+
+
+                    closeRL();
+
+
+                }
+                else
+                {
+
+                    showError(
+                        registerError,
+                        data.error ||
+                        data.message ||
+                        "Register failed",
+                        "register"
+                    );
+
+                }
+
+
+            }
+            catch(err)
+            {
+
+                console.error(err);
+
+
+                showError(
+                    registerError,
+                    "Network error",
+                    "register"
+                );
+
+            }
+
+
+        };
+
 
