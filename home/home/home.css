@@ -164,6 +164,8 @@
 
 
 /* ======== TEST CONTENT ======== */
+/* ======== TEST CONTENT ======== */
+/* ======== TEST CONTENT ======== */
 
 .home-test-content {
 
@@ -171,17 +173,20 @@
 
 }
 
+
 .home-test-content h1 {
 
     margin: 0 0 20px;
 
 }
 
+
 .home-test-content p {
 
     margin-bottom: 30px;
 
 }
+
 
 .test-box {
 
@@ -191,6 +196,7 @@
     margin-bottom: 20px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -222,7 +228,24 @@
 /* ======== TELEGRAM BUTTON ======== */
 /* ======== TELEGRAM BUTTON ======== */
 
-#home-header .telegram-button {
+/*
+    Telegram 已经移到 home-header 外面。
+    所以这里不能再使用：
+
+    #home-header .telegram-button
+
+    改为直接使用：
+
+    .telegram-button
+*/
+
+.telegram-button {
+
+    position: fixed;
+
+    right: 10px;
+
+    top: 77px;
 
     width: 36px;
     height: 30px;
@@ -246,12 +269,16 @@
         transform 0.15s ease,
         background 0.15s ease;
 
+    z-index: 1040;
+
 }
 
 
 /* ======== TELEGRAM ICON ======== */
+/* ======== TELEGRAM ICON ======== */
+/* ======== TELEGRAM ICON ======== */
 
-#home-header .telegram-button img {
+.telegram-button img {
 
     width: 24px;
     height: 24px;
@@ -262,8 +289,10 @@
 
 
 /* ======== TELEGRAM ACTIVE ======== */
+/* ======== TELEGRAM ACTIVE ======== */
+/* ======== TELEGRAM ACTIVE ======== */
 
-#home-header .telegram-button:active {
+.telegram-button:active {
 
     transform: scale(0.95);
 
