@@ -228,17 +228,6 @@
 /* ======== TELEGRAM BUTTON ======== */
 /* ======== TELEGRAM BUTTON ======== */
 
-/*
-    Telegram 已经移到 home-header 外面。
-    所以这里不能再使用：
-
-    #home-header .telegram-button
-
-    改为直接使用：
-
-    .telegram-button
-*/
-
 .telegram-button {
 
     position: fixed;
@@ -265,11 +254,11 @@
 
     cursor: pointer;
 
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-
     z-index: 1040;
+
+    transform-origin: center center;
+
+    animation: telegramHeartbeat 2.4s ease-in-out infinite;
 
 }
 
@@ -288,11 +277,91 @@
 }
 
 
+/* ======== TELEGRAM HEARTBEAT ======== */
+/* ======== TELEGRAM HEARTBEAT ======== */
+/* ======== TELEGRAM HEARTBEAT ======== */
+
+@keyframes telegramHeartbeat {
+
+    0%,
+    100% {
+
+        transform: scale(1);
+
+        filter: drop-shadow(
+            0 0 0 rgba(39, 98, 234, 0)
+        );
+
+    }
+
+
+    /* 第一次心跳 */
+
+    8% {
+
+        transform: scale(1.10);
+
+        filter: drop-shadow(
+            0 0 6px rgba(39, 98, 234, 0.30)
+        );
+
+    }
+
+
+    16% {
+
+        transform: scale(1);
+
+        filter: drop-shadow(
+            0 0 0 rgba(39, 98, 234, 0)
+        );
+
+    }
+
+
+    /* 第二次心跳 */
+
+    24% {
+
+        transform: scale(1.06);
+
+        filter: drop-shadow(
+            0 0 5px rgba(39, 98, 234, 0.24)
+        );
+
+    }
+
+
+    34% {
+
+        transform: scale(1);
+
+        filter: drop-shadow(
+            0 0 0 rgba(39, 98, 234, 0)
+        );
+
+    }
+
+
+    /* 停顿 */
+
+    35%,
+    100% {
+
+        transform: scale(1);
+
+    }
+
+}
+
+
 /* ======== TELEGRAM ACTIVE ======== */
 /* ======== TELEGRAM ACTIVE ======== */
 /* ======== TELEGRAM ACTIVE ======== */
 
 .telegram-button:active {
+
+    animation: none;
 
     transform: scale(0.95);
 
