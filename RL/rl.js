@@ -55,7 +55,7 @@ document.getElementById("rlTitle");
 
 
 
-// INPUT
+// input
 
 const loginEmail =
 document.getElementById("loginEmail");
@@ -78,7 +78,7 @@ document.getElementById("registerConfirm");
 
 
 
-// BUTTON
+// button
 
 const loginSubmit =
 document.getElementById("loginSubmit");
@@ -88,11 +88,10 @@ document.getElementById("registerSubmit");
 
 
 
-// ERROR
+// error
 
 const loginError =
 document.getElementById("loginError");
-
 
 const registerError =
 document.getElementById("registerError");
@@ -100,12 +99,7 @@ document.getElementById("registerError");
 
 
 let loginErrorTimer;
-
 let registerErrorTimer;
-
-
-
-
 
 
 
@@ -118,7 +112,8 @@ let registerErrorTimer;
 
 function showError(
 element,
-message=""
+message="",
+type=""
 )
 {
 
@@ -126,85 +121,40 @@ if(!element)
 return;
 
 
-
-let timer =
-element.id === "loginError"
-?
-loginErrorTimer
-:
-registerErrorTimer;
-
-
-
-clearTimeout(timer);
-
-
-
-if(message)
+if(type==="login")
 {
 
-
-element.innerText =
-message;
+clearTimeout(loginErrorTimer);
 
 
-
-requestAnimationFrame(
-()=>{
-
-element.classList.add(
-"show"
-);
-
-});
-
-
-
-timer =
-setTimeout(
-()=>{
-
-
-element.classList.remove(
-"show"
-);
-
-
-
+loginErrorTimer =
 setTimeout(
 ()=>{
 
 element.innerText="";
-
-},
-350
-);
-
 
 },
 3000
 );
 
 
-
 }
-else
+
+
+if(type==="register")
 {
 
-
-element.classList.remove(
-"show"
-);
+clearTimeout(registerErrorTimer);
 
 
-
+registerErrorTimer =
 setTimeout(
 ()=>{
 
 element.innerText="";
 
 },
-350
+3000
 );
 
 
@@ -212,24 +162,11 @@ element.innerText="";
 
 
 
-if(element.id==="loginError")
-{
-
-loginErrorTimer =
-timer;
-
-}
-else
-{
-
-registerErrorTimer =
-timer;
-
-}
+element.innerText =
+message;
 
 
 }
-
 
 
 
@@ -237,36 +174,17 @@ timer;
 function clearErrors()
 {
 
-clearTimeout(
-loginErrorTimer
-);
+if(loginError)
+loginError.innerText="";
 
 
-clearTimeout(
-registerErrorTimer
-);
+if(registerError)
+registerError.innerText="";
 
 
+clearTimeout(loginErrorTimer);
 
-[
-loginError,
-registerError
-]
-.forEach(
-el=>{
-
-if(el)
-{
-
-el.classList.remove(
-"show"
-);
-
-el.innerText="";
-
-}
-
-});
+clearTimeout(registerErrorTimer);
 
 
 }
@@ -297,15 +215,11 @@ clearErrors();
 
 if(type==="register")
 {
-
 showRegister();
-
 }
 else
 {
-
 showLogin();
-
 }
 
 
@@ -324,6 +238,7 @@ rlModal.classList.add(
 clearErrors();
 
 }
+
 
 
 
@@ -370,8 +285,6 @@ registerForm.classList.add(
 
 
 
-
-
 function showRegister()
 {
 
@@ -410,8 +323,9 @@ loginForm.classList.add(
 
 
 
+
 // =========================
-// BUTTON OPEN
+// BUTTON
 // =========================
 
 
@@ -422,7 +336,6 @@ loginButton.onclick =
 ()=>openRL("login");
 
 }
-
 
 
 if(registerButton)
@@ -461,7 +374,7 @@ showRegister;
 
 
 // =========================
-// PASSWORD SHOW
+// PASSWORD EYE
 // =========================
 
 
@@ -549,8 +462,6 @@ ok
 
 
 
-
-
 function checkRegisterButton()
 {
 
@@ -561,7 +472,9 @@ registerEmail.value.trim()
 &&
 registerPassword.value
 &&
-registerConfirm.value;
+registerConfirm.value
+&&
+registerPassword.value === registerConfirm.value;
 
 
 
@@ -581,13 +494,14 @@ ok
 
 
 
+
+
 loginEmail.oninput =
 checkLoginButton;
 
 
 loginPassword.oninput =
 checkLoginButton;
-
 
 
 registerUsername.oninput =
@@ -634,7 +548,8 @@ registerConfirm.value
 
 showError(
 registerError,
-"Passwords do not match"
+"Passwords do not match",
+"register"
 );
 
 
@@ -660,7 +575,6 @@ headers:
 },
 
 credentials:"include",
-
 
 body:JSON.stringify(
 {
@@ -695,20 +609,21 @@ if(data.success)
 {
 
 
+if(data.user)
+{
+
 updateHeader(
 data.user
 );
 
+}
+
 
 
 registerUsername.value="";
-
 registerEmail.value="";
-
 registerPassword.value="";
-
 registerConfirm.value="";
-
 
 
 closeRL();
@@ -718,15 +633,17 @@ closeRL();
 else
 {
 
-
 showError(
 registerError,
 data.error ||
-"Register failed"
+data.message ||
+"Register failed",
+"register"
 );
 
 
 }
+
 
 
 }
@@ -738,15 +655,16 @@ console.error(err);
 
 showError(
 registerError,
-"Network error, please try again"
+"Network error, please try again",
+"register"
 );
 
 
 }
 
 
-
 };
+
 
 
 
@@ -786,7 +704,6 @@ headers:
 
 credentials:"include",
 
-
 body:JSON.stringify(
 {
 
@@ -817,9 +734,14 @@ if(data.success)
 {
 
 
+if(data.user)
+{
+
 updateHeader(
 data.user
 );
+
+}
 
 
 
@@ -828,7 +750,7 @@ loginEmail.value="";
 loginPassword.value="";
 
 
-loginPassword.type =
+loginPassword.type=
 "password";
 
 
@@ -839,16 +761,16 @@ closeRL();
 else
 {
 
-
 showError(
 loginError,
 data.error ||
-"Login failed"
+data.message ||
+"Login failed",
+"login"
 );
 
 
 }
-
 
 
 }
@@ -860,7 +782,8 @@ console.error(err);
 
 showError(
 loginError,
-"Network error, please try again"
+"Network error, please try again",
+"login"
 );
 
 
@@ -878,7 +801,7 @@ loginError,
 
 
 // =========================
-// HEADER
+// UPDATE HEADER
 // =========================
 
 
@@ -922,21 +845,15 @@ document.getElementById(
 
 
 if(telegramButton)
-telegramButton.classList.add(
-"hidden"
-);
+telegramButton.classList.add("hidden");
 
 
 if(homeAuth)
-homeAuth.classList.add(
-"hidden"
-);
+homeAuth.classList.add("hidden");
 
 
 if(userHeader)
-userHeader.classList.remove(
-"hidden"
-);
+userHeader.classList.remove("hidden");
 
 
 
@@ -1011,7 +928,6 @@ updateHeader(
 data.user
 );
 
-
 }
 
 
@@ -1024,6 +940,7 @@ console.log(
 "Not login"
 );
 
+
 }
 
 
@@ -1038,13 +955,14 @@ console.log(
 
 
 // =========================
-// ESC CLOSE
+// ESC
 // =========================
 
 
 document.addEventListener(
 "keydown",
 e=>{
+
 
 if(e.key==="Escape")
 {
@@ -1053,8 +971,8 @@ closeRL();
 
 }
 
-});
 
+});
 
 
 
