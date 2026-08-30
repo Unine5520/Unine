@@ -932,21 +932,24 @@ data.logged_in
 )
 {
 
-userLoggedIn = true;
+    userLoggedIn = true;
+
+    window.userLoggedIn = true;
 
 
-updateHeader(
-data.user
-);
+    updateHeader(
+        data.user
+    );
 
 }
 else
 {
 
-userLoggedIn = false;
+    userLoggedIn = false;
+
+    window.userLoggedIn = false;
 
 }
-
 
 
 }
