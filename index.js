@@ -1243,36 +1243,60 @@ document.addEventListener(
         // =========================
 
 
-        function updateHeader(
-            user
-        )
+        function updateHeader(user)
         {
 
 
-            const loginArea =
+            const homeAuth =
             document.getElementById(
-                "loginArea"
+                "homeAuth"
             );
 
 
-            if(!loginArea)
+            const userHeader =
+            document.getElementById(
+                "userHeader"
+            );
+
+
+            const headerUsername =
+            document.getElementById(
+                "headerUsername"
+            );
+
+
+
+            if(!homeAuth || !userHeader)
             return;
 
 
 
-            loginArea.innerHTML =
+            // hide login register
 
-            `
-            <span>
-                ${user.username}
-            </span>
-            `;
+            homeAuth.classList.add(
+                "hidden"
+            );
+
+
+
+            // show user
+
+            userHeader.classList.remove(
+                "hidden"
+            );
+
+
+
+            if(headerUsername)
+            {
+
+                headerUsername.innerText =
+                user.username;
+
+            }
 
 
         }
-
-
-
 
 
 
