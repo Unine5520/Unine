@@ -232,9 +232,9 @@
 
     position: fixed;
 
-    left: 30px;
+    right: 30px;
 
-    top: 85px;
+    bottom: 80px;
 
     width: 36px;
     height: 30px;
