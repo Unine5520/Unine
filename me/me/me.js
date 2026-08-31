@@ -282,9 +282,9 @@ if(data.success)
     );
 
 
-    const telegramContainer =
+    const telegramButton =
     document.getElementById(
-        "telegramContainer"
+        "telegramButton"
     );
 
 
@@ -307,12 +307,57 @@ if(data.success)
 
 
 
-    if(telegramContainer)
+    if(telegramButton)
     {
-        telegramContainer.classList.remove(
+        telegramButton.classList.remove(
             "hidden"
         );
     }
+
+
+
+    location.reload();
+
+
+}
+
+else
+{
+
+
+alert(
+data.message ||
+"Logout failed"
+);
+
+
+}
+
+
+
+}
+catch(err)
+{
+
+console.error(
+err
+);
+
+
+alert(
+"Logout error"
+);
+
+
+}
+
+
+
+};
+
+
+
+
 
 
 // =================
