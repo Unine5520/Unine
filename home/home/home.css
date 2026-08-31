@@ -224,36 +224,17 @@
 }
 
 
-/* ======== TELEGRAM CONTAINER ======== */
-/* ======== TELEGRAM CONTAINER ======== */
-/* ======== TELEGRAM CONTAINER ======== */
-
-.telegram-container {
-
-    position: fixed;
-
-    right: 30px;
-
-    bottom: 78px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    box-sizing: border-box;
-
-    z-index: 1040;
-
-}
-
-
 /* ======== TELEGRAM BUTTON ======== */
 /* ======== TELEGRAM BUTTON ======== */
 /* ======== TELEGRAM BUTTON ======== */
 
 .telegram-button {
+
+    position: fixed;
+
+    left: 30px;
+
+    top: 85px;
 
     width: 36px;
     height: 30px;
@@ -273,6 +254,8 @@
 
     cursor: pointer;
 
+    z-index: 1040;
+
     transform-origin: center center;
 
     animation: telegramHeartbeat 2.4s ease-in-out infinite;
@@ -290,29 +273,6 @@
     height: 24px;
 
     display: block;
-
-}
-
-
-/* ======== TELEGRAM TEXT ======== */
-/* ======== TELEGRAM TEXT ======== */
-/* ======== TELEGRAM TEXT ======== */
-
-.telegram-text {
-
-    margin-top: 5px;
-
-    font-size: 11px;
-
-    line-height: 14px;
-
-    text-align: center;
-
-    color: #2762ea;
-
-    font-weight: 600;
-
-    white-space: nowrap;
 
 }
 
