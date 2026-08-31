@@ -849,8 +849,8 @@ document.getElementById(
 
 
 
-if(telegramButton)
-telegramButton.classList.add("hidden");
+if(telegramContainer)
+telegramContainer.classList.add("hidden");
 
 
 if(homeAuth)
