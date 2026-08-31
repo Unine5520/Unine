@@ -230,12 +230,6 @@
 
 .telegram-button {
 
-    position: fixed;
-
-    right: 30px;
-
-    bottom: 80px;
-
     width: 36px;
     height: 30px;
 
@@ -254,14 +248,11 @@
 
     cursor: pointer;
 
-    z-index: 1040;
-
     transform-origin: center center;
 
     animation: telegramHeartbeat 2.4s ease-in-out infinite;
 
 }
-
 
 /* ======== TELEGRAM ICON ======== */
 /* ======== TELEGRAM ICON ======== */
@@ -277,7 +268,24 @@
 }
 
 
-/* ======== TELEGRAM HEARTBEAT ======== */
+/* ======== TELEGRAM TEXT  ======== */
+
+.telegram-text {
+
+    margin-top: 5px;
+
+    font-size: 11px;
+
+    line-height: 14px;
+
+    text-align: center;
+
+    color: #2762ea;
+
+    font-weight: 600;
+
+}
+
 /* ======== TELEGRAM HEARTBEAT ======== */
 /* ======== TELEGRAM HEARTBEAT ======== */
 
