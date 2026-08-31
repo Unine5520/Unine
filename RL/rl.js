@@ -809,6 +809,7 @@ loginError,
 // UPDATE HEADER
 // =========================
 
+
 function updateHeader(user)
 {
 
@@ -817,9 +818,9 @@ return;
 
 
 
-const telegramContainer =
+const telegramButton =
 document.getElementById(
-"telegramContainer"
+"telegramButton"
 );
 
 
@@ -848,74 +849,45 @@ document.getElementById(
 
 
 
-// =========================
-// HIDE TELEGRAM
-// =========================
+if(telegramButton)
+telegramButton.classList.add("hidden");
 
-if(telegramContainer)
-{
-
-    telegramContainer.classList.add(
-        "hidden"
-    );
-
-}
-
-
-
-// =========================
-// HIDE LOGIN / REGISTER
-// =========================
 
 if(homeAuth)
-{
+homeAuth.classList.add("hidden");
 
-    homeAuth.classList.add(
-        "hidden"
-    );
-
-}
-
-
-
-// =========================
-// SHOW USER HEADER
-// =========================
 
 if(userHeader)
-{
-
-    userHeader.classList.remove(
-        "hidden"
-    );
-
-}
+userHeader.classList.remove("hidden");
 
 
-
-// =========================
-// USERNAME
-// =========================
 
 if(headerUsername)
-{
-
-    headerUsername.innerText =
-        user.username;
-
-}
+headerUsername.innerText =
+user.username;
 
 
 
 if(meUsername)
-{
+meUsername.innerText =
+user.username;
 
-    meUsername.innerText =
-        user.username;
-
-}
 
 }
+
+
+
+window.updateHeader =
+updateHeader;
+
+
+window.openRL =
+openRL;
+
+
+
+
+
 
 
 
