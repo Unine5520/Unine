@@ -307,9 +307,9 @@ if(data.success)
 
 
 
-    if(telegramButton)
+    if(telegramContainer)
     {
-        telegramButton.classList.remove(
+        telegramContainer.classList.remove(
             "hidden"
         );
     }
