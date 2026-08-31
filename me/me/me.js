@@ -282,9 +282,9 @@ if(data.success)
     );
 
 
-    const telegramButton =
+    const telegramContainer =
     document.getElementById(
-        "telegramButton"
+        "telegramContainer"
     );
 
 
