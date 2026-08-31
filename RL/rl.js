@@ -809,7 +809,6 @@ loginError,
 // UPDATE HEADER
 // =========================
 
-
 function updateHeader(user)
 {
 
@@ -849,45 +848,74 @@ document.getElementById(
 
 
 
+// =========================
+// HIDE TELEGRAM
+// =========================
+
 if(telegramContainer)
-telegramContainer.classList.add("hidden");
+{
 
-
-if(homeAuth)
-homeAuth.classList.add("hidden");
-
-
-if(userHeader)
-userHeader.classList.remove("hidden");
-
-
-
-if(headerUsername)
-headerUsername.innerText =
-user.username;
-
-
-
-if(meUsername)
-meUsername.innerText =
-user.username;
-
+    telegramContainer.classList.add(
+        "hidden"
+    );
 
 }
 
 
 
-window.updateHeader =
-updateHeader;
+// =========================
+// HIDE LOGIN / REGISTER
+// =========================
+
+if(homeAuth)
+{
+
+    homeAuth.classList.add(
+        "hidden"
+    );
+
+}
 
 
-window.openRL =
-openRL;
+
+// =========================
+// SHOW USER HEADER
+// =========================
+
+if(userHeader)
+{
+
+    userHeader.classList.remove(
+        "hidden"
+    );
+
+}
 
 
 
+// =========================
+// USERNAME
+// =========================
+
+if(headerUsername)
+{
+
+    headerUsername.innerText =
+        user.username;
+
+}
 
 
+
+if(meUsername)
+{
+
+    meUsername.innerText =
+        user.username;
+
+}
+
+}
 
 
 
