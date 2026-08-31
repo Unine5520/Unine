@@ -315,51 +315,6 @@ if(data.success)
     }
 
 
-
-    location.reload();
-
-
-}
-
-else
-{
-
-
-alert(
-data.message ||
-"Logout failed"
-);
-
-
-}
-
-
-
-}
-catch(err)
-{
-
-console.error(
-err
-);
-
-
-alert(
-"Logout error"
-);
-
-
-}
-
-
-
-};
-
-
-
-
-
-
 // =================
 // START
 // =================
