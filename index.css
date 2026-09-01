@@ -737,7 +737,7 @@ body::-webkit-scrollbar {
 
     position: fixed;
 
-    left: 30px;
+    right: 30px;
 
     top: 85px;
 
