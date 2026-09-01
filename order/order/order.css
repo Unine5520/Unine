@@ -1,1 +1,488 @@
+/* =========================================================
+   ORDER PAGE
+========================================================= */
 
+#orderPage {
+
+    box-sizing: border-box;
+
+    padding: 90px 16px 100px 16px;
+
+    min-height: 100vh;
+
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+#order-container {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    margin: 0 auto;
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#order-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+
+#order-title {
+
+    font-size: 26px;
+
+    font-weight: 700;
+
+}
+
+
+#order-round {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 14px;
+
+}
+
+
+#order-round-label {
+
+    opacity: 0.55;
+
+}
+
+
+#order-round-value {
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+#order-status-box {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+#order-status {
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+}
+
+
+#order-status.idle {
+
+    opacity: 0.55;
+
+}
+
+
+#order-status.matching {
+
+    opacity: 0.8;
+
+}
+
+
+#order-status.pending {
+
+    font-weight: 700;
+
+}
+
+
+#order-status.completed {
+
+    font-weight: 700;
+
+}
+
+
+#order-message {
+
+    font-size: 14px;
+
+    opacity: 0.65;
+
+}
+
+
+/* =========================================================
+   MATCHING
+========================================================= */
+
+#order-matching {
+
+    text-align: center;
+
+    padding: 30px 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    border-radius: 18px;
+
+    margin-bottom: 18px;
+
+}
+
+
+#order-matching-title {
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 20px;
+
+}
+
+
+#order-matching-loader {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+}
+
+
+#order-matching-spinner {
+
+    width: 34px;
+
+    height: 34px;
+
+    border: 3px solid rgba(0, 0, 0, 0.12);
+
+    border-top-color: currentColor;
+
+    border-radius: 50%;
+
+    animation: orderSpin 0.8s linear infinite;
+
+}
+
+
+@keyframes orderSpin {
+
+    from {
+
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+#order-matching-countdown {
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+}
+
+
+#order-matching-text {
+
+    font-size: 14px;
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================================
+   PRODUCT
+========================================================= */
+
+#order-product {
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    margin-bottom: 18px;
+
+}
+
+
+#order-product-image {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+}
+
+
+#order-product-content {
+
+    padding: 16px;
+
+}
+
+
+#order-product-name {
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+}
+
+
+#order-product-description {
+
+    font-size: 14px;
+
+    opacity: 0.6;
+
+    line-height: 1.5;
+
+    margin-bottom: 18px;
+
+}
+
+
+#order-product-price-row,
+#order-product-profit-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 8px;
+
+    font-size: 15px;
+
+}
+
+
+#order-product-price-row span:last-child,
+#order-product-profit-row span:last-child {
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   COINS
+========================================================= */
+
+#order-coins-box {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.order-coins-item {
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+}
+
+
+.order-coins-item span {
+
+    display: block;
+
+    font-size: 13px;
+
+    opacity: 0.55;
+
+    margin-bottom: 5px;
+
+}
+
+
+.order-coins-item strong {
+
+    display: block;
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+#order-progress-box {
+
+    margin-bottom: 20px;
+
+}
+
+
+#order-progress-text {
+
+    text-align: center;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+
+#order-progress-track {
+
+    width: 100%;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: rgba(0, 0, 0, 0.08);
+
+}
+
+
+#order-progress-bar {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    transition: width 0.25s ease;
+
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+
+#order-action-button {
+
+    width: 100%;
+
+    min-height: 52px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    background: #278ce9;
+
+    color: white;
+
+}
+
+
+#order-action-button:disabled {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+#order-error {
+
+    min-height: 20px;
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+#orderPage .hidden {
+
+    display: none !important;
+
+}
