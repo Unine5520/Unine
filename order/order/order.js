@@ -875,11 +875,20 @@ document.addEventListener(
                 "ROUND_COOLDOWN"
             ) {
 
+                const remaining =
+                    Number(
+                        data.remaining_seconds || 0
+                    );
+
+
                 setError(
-                    "Your Round is currently in cooldown."
+                    `Your Round is currently in cooldown. Remaining time: ${formatCooldownTime(
+                        remaining
+                    )}`
                 );
 
-            }
+
+            }      
             else {
 
                 setError(
