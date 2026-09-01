@@ -69,8 +69,7 @@ document.getElementById("rlTitle");
 
 
 
-
-// INPUT
+// input
 
 
 const loginEmail =
@@ -79,7 +78,6 @@ document.getElementById("loginEmail");
 
 const loginPassword =
 document.getElementById("loginPassword");
-
 
 
 const registerUsername =
@@ -99,8 +97,7 @@ document.getElementById("registerConfirm");
 
 
 
-
-// BUTTON
+// button
 
 
 const loginSubmit =
@@ -112,8 +109,7 @@ document.getElementById("registerSubmit");
 
 
 
-
-// ERROR
+// error
 
 
 const loginError =
@@ -126,10 +122,21 @@ document.getElementById("registerError");
 
 
 
+// =========================
+// STATE
+// =========================
+
+
 let loginErrorTimer;
+
 
 let registerErrorTimer;
 
+
+let loginLoading = false;
+
+
+let registerLoading = false;
 
 
 let userLoggedIn = false;
@@ -143,10 +150,9 @@ window.userLoggedIn = false;
 
 
 
-
-// =====================================================
+// =========================
 // ERROR SYSTEM
-// =====================================================
+// =========================
 
 
 function showError(
@@ -162,10 +168,8 @@ return;
 
 
 
-
 element.innerText =
 message;
-
 
 
 
@@ -187,6 +191,15 @@ setTimeout(
 element.innerText="";
 
 
+// unlock login
+
+loginLoading=false;
+
+
+checkLoginButton();
+
+
+
 },
 3000
 );
@@ -194,8 +207,6 @@ element.innerText="";
 
 
 }
-
-
 
 
 
@@ -217,6 +228,15 @@ setTimeout(
 element.innerText="";
 
 
+// unlock register
+
+registerLoading=false;
+
+
+checkRegisterButton();
+
+
+
 },
 3000
 );
@@ -228,7 +248,6 @@ element.innerText="";
 
 
 }
-
 
 
 
@@ -262,9 +281,11 @@ loginErrorTimer
 );
 
 
+
 clearTimeout(
 registerErrorTimer
 );
+
 
 
 }
@@ -277,24 +298,23 @@ registerErrorTimer
 
 
 
-// =====================================================
+// =========================
 // OPEN CLOSE
-// =====================================================
-
+// =========================
 
 
 function openRL(type)
 {
 
 
-if(!rlModal)
-return;
-
-
+if(rlModal)
+{
 
 rlModal.classList.remove(
 "hidden"
 );
+
+}
 
 
 
@@ -302,21 +322,16 @@ clearErrors();
 
 
 
-
 if(type==="register")
 {
 
-
 showRegister();
-
 
 }
 else
 {
 
-
 showLogin();
-
 
 }
 
@@ -332,18 +347,19 @@ function closeRL()
 {
 
 
-if(!rlModal)
-return;
-
-
+if(rlModal)
+{
 
 rlModal.classList.add(
 "hidden"
 );
 
+}
+
 
 
 clearErrors();
+
 
 
 }
@@ -356,10 +372,9 @@ clearErrors();
 
 
 
-// =====================================================
+// =========================
 // TAB
-// =====================================================
-
+// =========================
 
 
 function showLogin()
@@ -367,40 +382,61 @@ function showLogin()
 
 
 if(rlTitle)
+{
+
 rlTitle.innerText =
 "Login";
+
+}
 
 
 
 if(loginTab)
+{
+
 loginTab.classList.add(
 "active"
 );
 
+}
+
 
 
 if(registerTab)
+{
+
 registerTab.classList.remove(
 "active"
 );
 
+}
+
 
 
 if(loginForm)
+{
+
 loginForm.classList.remove(
 "hidden"
 );
 
+}
+
 
 
 if(registerForm)
+{
+
 registerForm.classList.add(
 "hidden"
 );
 
+}
+
 
 
 }
+
 
 
 
@@ -413,36 +449,56 @@ function showRegister()
 
 
 if(rlTitle)
+{
+
 rlTitle.innerText =
 "Register";
+
+}
 
 
 
 if(registerTab)
+{
+
 registerTab.classList.add(
 "active"
 );
 
+}
+
 
 
 if(loginTab)
+{
+
 loginTab.classList.remove(
 "active"
 );
 
+}
+
 
 
 if(registerForm)
+{
+
 registerForm.classList.remove(
 "hidden"
 );
 
+}
+
 
 
 if(loginForm)
+{
+
 loginForm.classList.add(
 "hidden"
 );
+
+}
 
 
 
@@ -456,10 +512,9 @@ loginForm.classList.add(
 
 
 
-// =====================================================
+// =========================
 // OPEN BUTTON
-// =====================================================
-
+// =========================
 
 
 if(loginButton)
@@ -467,11 +522,7 @@ if(loginButton)
 
 
 loginButton.onclick =
-()=>openRL(
-"login"
-);
-
-
+()=>openRL("login");
 
 }
 
@@ -482,11 +533,7 @@ if(registerButton)
 
 
 registerButton.onclick =
-()=>openRL(
-"register"
-);
-
-
+()=>openRL("register");
 
 }
 
@@ -499,10 +546,7 @@ if(rlClose)
 rlClose.onclick =
 closeRL;
 
-
-
 }
-
 
 
 
@@ -512,8 +556,6 @@ if(loginTab)
 
 loginTab.onclick =
 showLogin;
-
-
 
 }
 
@@ -526,8 +568,6 @@ if(registerTab)
 registerTab.onclick =
 showRegister;
 
-
-
 }
 
 
@@ -538,10 +578,9 @@ showRegister;
 
 
 
-// =====================================================
+// =========================
 // PASSWORD EYE
-// =====================================================
-
+// =========================
 
 
 document
@@ -572,8 +611,7 @@ if(input.type==="password")
 {
 
 
-input.type =
-"text";
+input.type="text";
 
 
 button.classList.add(
@@ -587,8 +625,7 @@ else
 {
 
 
-input.type =
-"password";
+input.type="password";
 
 
 button.classList.remove(
@@ -615,10 +652,9 @@ button.classList.remove(
 
 
 
-// =====================================================
+// =========================
 // BUTTON ACTIVE CHECK
-// =====================================================
-
+// =========================
 
 
 function checkLoginButton()
@@ -638,13 +674,15 @@ loginPassword.value;
 
 
 loginSubmit.disabled =
-!ok;
+!ok ||
+loginLoading;
 
 
 
 loginSubmit.classList.toggle(
 "active",
-ok
+ok &&
+!loginLoading
 );
 
 
@@ -677,19 +715,20 @@ registerConfirm.value;
 
 
 registerSubmit.disabled =
-!ok;
+!ok ||
+registerLoading;
 
 
 
 registerSubmit.classList.toggle(
 "active",
-ok
+ok &&
+!registerLoading
 );
 
 
 
 }
-
 
 
 
@@ -698,95 +737,61 @@ ok
 
 
 if(loginEmail)
+{
+
 loginEmail.oninput =
 checkLoginButton;
 
+}
+
+
 
 if(loginPassword)
+{
+
 loginPassword.oninput =
 checkLoginButton;
 
+}
+
+
 
 if(registerUsername)
+{
+
 registerUsername.oninput =
 checkRegisterButton;
 
+}
+
+
 
 if(registerEmail)
+{
+
 registerEmail.oninput =
 checkRegisterButton;
 
+}
+
+
 
 if(registerPassword)
+{
+
 registerPassword.oninput =
 checkRegisterButton;
 
+}
+
+
 
 if(registerConfirm)
+{
+
 registerConfirm.oninput =
 checkRegisterButton;
 
-
-
-
-
-
-
-
-
-// =====================================================
-// SUBMIT BUTTON LOCK
-// =====================================================
-
-
-
-function disableButton(button)
-{
-
-
-if(!button)
-return;
-
-
-
-button.disabled =
-true;
-
-
-
-button.classList.add(
-"loading"
-);
-
-
-
-}
-
-
-
-
-
-
-function enableButton(button)
-{
-
-
-if(!button)
-return;
-
-
-
-button.disabled =
-false;
-
-
-
-button.classList.remove(
-"loading"
-);
-
-
-
 }
 
 
@@ -797,10 +802,9 @@ button.classList.remove(
 
 
 
-// =====================================================
+// =========================
 // REGISTER
-// =====================================================
-
+// =========================
 
 
 if(registerSubmit)
@@ -811,20 +815,12 @@ registerSubmit.onclick =
 async()=>{
 
 
-if(registerSubmit.disabled)
+if(registerLoading)
 return;
 
 
 
-disableButton(
-registerSubmit
-);
-
-
-
 clearErrors();
-
-
 
 
 
@@ -843,16 +839,26 @@ registerError,
 
 
 
-enableButton(
-registerSubmit
-);
-
-
-
 return;
 
 
+
 }
+
+
+
+// lock button
+
+registerLoading=true;
+
+
+registerSubmit.disabled=true;
+
+
+registerSubmit.classList.remove(
+"active"
+);
+
 
 
 
@@ -867,40 +873,30 @@ await fetch(
 `${API}/register`,
 {
 
-
-method:
-"POST",
-
+method:"POST",
 
 headers:
 {
 
-
 "Content-Type":
 "application/json"
-
 
 },
 
 
-credentials:
-"include",
+credentials:"include",
 
 
 
-body:
-JSON.stringify(
+body:JSON.stringify(
 {
-
 
 username:
 registerUsername.value.trim(),
 
 
-
 email:
 registerEmail.value.trim(),
-
 
 
 password:
@@ -912,11 +908,7 @@ registerPassword.value
 
 )
 
-
-
 });
-
-
 
 
 
@@ -930,7 +922,6 @@ console.log(data);
 
 
 
-
 if(data.success)
 {
 
@@ -939,12 +930,10 @@ if(data.user)
 {
 
 
-userLoggedIn =
-true;
+userLoggedIn=true;
 
 
-window.userLoggedIn =
-true;
+window.userLoggedIn=true;
 
 
 
@@ -958,30 +947,24 @@ data.user
 
 
 
-registerUsername.value =
-"";
+
+registerUsername.value="";
 
 
-registerEmail.value =
-"";
+registerEmail.value="";
 
 
-registerPassword.value =
-"";
+registerPassword.value="";
 
 
-registerConfirm.value =
-"";
+registerConfirm.value="";
 
+
+
+registerLoading=false;
 
 
 closeRL();
-
-
-
-enableButton(
-registerSubmit
-);
 
 
 
@@ -996,12 +979,6 @@ data.error ||
 data.message ||
 "Register failed",
 "register"
-);
-
-
-
-enableButton(
-registerSubmit
 );
 
 
@@ -1023,22 +1000,6 @@ showError(
 registerError,
 "Network error, please try again",
 "register"
-);
-
-
-
-setTimeout(
-()=>{
-
-
-enableButton(
-registerSubmit
-);
-
-
-
-},
-3000
 );
 
 
@@ -1061,8 +1022,11 @@ registerSubmit
 // =====================================================
 
 
+
 // =====================================================
+// =========================
 // LOGIN
+// =========================
 // =====================================================
 
 
@@ -1074,18 +1038,26 @@ loginSubmit.onclick =
 async()=>{
 
 
-if(loginSubmit.disabled)
+if(loginLoading)
 return;
 
 
 
-disableButton(
-loginSubmit
-);
-
-
-
 clearErrors();
+
+
+
+// lock login button
+
+loginLoading=true;
+
+
+loginSubmit.disabled=true;
+
+
+loginSubmit.classList.remove(
+"active"
+);
 
 
 
@@ -1100,51 +1072,38 @@ await fetch(
 `${API}/login`,
 {
 
-
-method:
-"POST",
+method:"POST",
 
 
 headers:
 {
 
-
 "Content-Type":
 "application/json"
-
 
 },
 
 
-credentials:
-"include",
+credentials:"include",
 
 
 
-body:
-JSON.stringify(
+body:JSON.stringify(
 {
-
 
 login:
 loginEmail.value.trim(),
-
 
 
 password:
 loginPassword.value
 
 
-
 }
 
 )
 
-
-
 });
-
-
 
 
 
@@ -1159,6 +1118,7 @@ console.log(data);
 
 
 
+
 if(data.success)
 {
 
@@ -1167,12 +1127,10 @@ if(data.user)
 {
 
 
-userLoggedIn =
-true;
+userLoggedIn=true;
 
 
-window.userLoggedIn =
-true;
+window.userLoggedIn=true;
 
 
 
@@ -1186,14 +1144,10 @@ data.user
 
 
 
+loginEmail.value="";
 
 
-loginEmail.value =
-"";
-
-
-loginPassword.value =
-"";
+loginPassword.value="";
 
 
 loginPassword.type =
@@ -1201,13 +1155,10 @@ loginPassword.type =
 
 
 
+loginLoading=false;
+
+
 closeRL();
-
-
-
-enableButton(
-loginSubmit
-);
 
 
 
@@ -1222,12 +1173,6 @@ data.error ||
 data.message ||
 "Login failed",
 "login"
-);
-
-
-
-enableButton(
-loginSubmit
 );
 
 
@@ -1253,22 +1198,6 @@ loginError,
 
 
 
-setTimeout(
-()=>{
-
-
-enableButton(
-loginSubmit
-);
-
-
-
-},
-3000
-);
-
-
-
 }
 
 
@@ -1286,12 +1215,9 @@ loginSubmit
 
 
 
-
-
-// =====================================================
+// =========================
 // UPDATE HEADER
-// =====================================================
-
+// =========================
 
 
 function updateHeader(user)
@@ -1340,15 +1266,13 @@ document.getElementById(
 
 
 
+
 if(telegramButton)
 {
-
 
 telegramButton.classList.add(
 "hidden"
 );
-
-
 
 }
 
@@ -1357,12 +1281,9 @@ telegramButton.classList.add(
 if(homeAuth)
 {
 
-
 homeAuth.classList.add(
 "hidden"
 );
-
-
 
 }
 
@@ -1371,12 +1292,9 @@ homeAuth.classList.add(
 if(userHeader)
 {
 
-
 userHeader.classList.remove(
 "hidden"
 );
-
-
 
 }
 
@@ -1385,11 +1303,8 @@ userHeader.classList.remove(
 if(headerUsername)
 {
 
-
 headerUsername.innerText =
 user.username;
-
-
 
 }
 
@@ -1398,17 +1313,16 @@ user.username;
 if(meUsername)
 {
 
-
 meUsername.innerText =
 user.username;
 
-
-
 }
 
 
 
 }
+
+
 
 
 
@@ -1430,10 +1344,9 @@ openRL;
 
 
 
-// =====================================================
-// SESSION CHECK
-// =====================================================
-
+// =========================
+// SESSION
+// =========================
 
 
 async function checkSession()
@@ -1449,19 +1362,13 @@ await fetch(
 `${API}/me`,
 {
 
+method:"GET",
 
-method:
-"GET",
+credentials:"include"
 
+}
 
-credentials:
-"include"
-
-
-
-});
-
-
+);
 
 
 
@@ -1486,13 +1393,10 @@ data.logged_in
 {
 
 
-userLoggedIn =
-true;
+userLoggedIn=true;
 
 
-
-window.userLoggedIn =
-true;
+window.userLoggedIn=true;
 
 
 
@@ -1507,13 +1411,10 @@ else
 {
 
 
-userLoggedIn =
-false;
+userLoggedIn=false;
 
 
-
-window.userLoggedIn =
-false;
+window.userLoggedIn=false;
 
 
 
@@ -1545,10 +1446,9 @@ console.log(
 
 
 
-// =====================================================
+// =========================
 // ESC CLOSE
-// =====================================================
-
+// =========================
 
 
 document.addEventListener(
@@ -1579,18 +1479,12 @@ closeRL();
 
 
 
-// =====================================================
+// =========================
 // START SESSION
-// =====================================================
-
+// =========================
 
 
 checkSession();
-
-
-
-
-
 
 
 
@@ -1610,11 +1504,18 @@ checkSession();
 
 
 // =====================================================
-// PAGE NAVIGATION
+// =========================
+// PAGE NAVIGATION START
+// =========================
 // =====================================================
 
 
 
+
+
+// =========================
+// PAGES
+// =========================
 
 
 const pages =
@@ -1625,6 +1526,10 @@ document.querySelectorAll(
 
 
 
+
+// =========================
+// NAV BUTTONS
+// =========================
 
 
 const navButtons =
@@ -1640,14 +1545,16 @@ document.querySelectorAll(
 
 
 
-// =====================================================
+// =========================
 // SHOW PAGE
-// =====================================================
-
+// =========================
 
 
 function showPage(pageId)
 {
+
+
+// PAGE HIDE
 
 
 pages.forEach(
@@ -1666,6 +1573,9 @@ page.classList.add(
 
 
 
+
+
+// SHOW TARGET
 
 
 const targetPage =
@@ -1693,6 +1603,8 @@ targetPage.classList.remove(
 
 
 
+// NAV ACTIVE
+
 
 navButtons.forEach(
 button=>
@@ -1706,11 +1618,10 @@ button.classList.remove(
 
 
 
-
 // ORDER BUTTON
+
 if(
-button.id ===
-"orderButton"
+button.id==="orderButton"
 )
 {
 
@@ -1722,10 +1633,8 @@ return;
 
 
 
-
 if(
-button.dataset.page ===
-pageId
+button.dataset.page===pageId
 )
 {
 
@@ -1754,12 +1663,9 @@ button.classList.add(
 
 
 
-
-
-// =====================================================
+// =========================
 // NAV CLICK
-// =====================================================
-
+// =========================
 
 
 navButtons.forEach(
@@ -1779,11 +1685,14 @@ button.dataset.page;
 
 
 
+// NEED LOGIN
+
+
 if(
-pageId === "shopPage" ||
-pageId === "orderPage" ||
-pageId === "inboxPage" ||
-pageId === "mePage"
+pageId==="shopPage" ||
+pageId==="orderPage" ||
+pageId==="inboxPage" ||
+pageId==="mePage"
 )
 {
 
@@ -1821,6 +1730,7 @@ return;
 
 
 
+
 showPage(
 pageId
 );
@@ -1845,13 +1755,9 @@ pageId
 
 
 
-
-
-
-// =====================================================
+// =========================
 // DEFAULT PAGE
-// =====================================================
-
+// =========================
 
 
 showPage(
@@ -1859,6 +1765,14 @@ showPage(
 );
 
 
+
+
+
+// =====================================================
+// =========================
+// PAGE NAVIGATION END
+// =========================
+// =====================================================
 
 
 
