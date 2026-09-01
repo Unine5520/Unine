@@ -118,6 +118,10 @@ document.addEventListener(
 
         let matchingTimer = null;
 
+        let cooldownTimer = null;
+
+        let cooldownUntil = null;
+
 
         // =====================================================
         // UTIL
@@ -172,7 +176,12 @@ document.addEventListener(
         ) {
 
             let time =
-                Number(seconds || 0);
+                Math.max(
+                    0,
+                    Math.floor(
+                        Number(seconds || 0)
+                    )
+                );
 
 
             if (time <= 0) {
@@ -200,14 +209,21 @@ document.addEventListener(
 
             if (hours > 0) {
 
-                return `${hours}h ${minutes}m ${secondsLeft}s`;
+                return (
+                    `${hours}h ` +
+                    `${minutes}m ` +
+                    `${secondsLeft}s`
+                );
 
             }
 
 
             if (minutes > 0) {
 
-                return `${minutes}m ${secondsLeft}s`;
+                return (
+                    `${minutes}m ` +
+                    `${secondsLeft}s`
+                );
 
             }
 
@@ -232,7 +248,25 @@ document.addEventListener(
 
         }
 
-        
+
+
+        function stopCooldownTimer() {
+
+            if (cooldownTimer) {
+
+                clearInterval(
+                    cooldownTimer
+                );
+
+                cooldownTimer = null;
+
+            }
+
+            cooldownUntil = null;
+
+        }
+
+
         // =====================================================
         // RESET UI
         // =====================================================
@@ -241,7 +275,11 @@ document.addEventListener(
 
             stopMatchingTimer();
 
+            stopCooldownTimer();
+
             currentOrder = null;
+
+            currentRound = null;
 
 
             if (orderStatus) {
@@ -327,6 +365,12 @@ document.addEventListener(
                     await response.json();
 
 
+                console.log(
+                    "ORDER SESSION:",
+                    data
+                );
+
+
                 if (
                     !data.success ||
                     !data.logged_in ||
@@ -335,6 +379,7 @@ document.addEventListener(
 
                     currentUser =
                         null;
+
 
                     if (orderActionButton) {
 
@@ -346,12 +391,14 @@ document.addEventListener(
 
                     }
 
+
                     if (orderMessage) {
 
                         orderMessage.innerText =
                             "Please login before starting an order.";
 
                     }
+
 
                     return;
 
@@ -366,6 +413,15 @@ document.addEventListener(
                     data.user
                 );
 
+
+                /*
+                 * Do not automatically clear the current
+                 * order state here.
+                 *
+                 * The current order is handled by the
+                 * page's order state.
+                 */
+
             }
             catch (error) {
 
@@ -374,8 +430,10 @@ document.addEventListener(
                     error
                 );
 
+
                 currentUser =
                     null;
+
 
                 if (orderActionButton) {
 
@@ -384,6 +442,14 @@ document.addEventListener(
 
                     orderActionButton.innerText =
                         "Login Required";
+
+                }
+
+
+                if (orderMessage) {
+
+                    orderMessage.innerText =
+                        "Unable to load your session.";
 
                 }
 
@@ -506,6 +572,190 @@ document.addEventListener(
 
 
         // =====================================================
+        // SHOW COOLDOWN
+        // =====================================================
+
+        function showCooldown(
+            seconds,
+            roundData = null
+        ) {
+
+            stopCooldownTimer();
+
+
+            let remaining =
+                Math.max(
+                    0,
+                    Math.floor(
+                        Number(seconds || 0)
+                    )
+                );
+
+
+            if (roundData) {
+
+                updateRound(
+                    roundData
+                );
+
+            }
+
+
+            if (orderMatching) {
+
+                orderMatching.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (orderProduct) {
+
+                orderProduct.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (orderStatus) {
+
+                orderStatus.innerText =
+                    "Cooldown";
+
+                orderStatus.className =
+                    "order-status idle";
+
+            }
+
+
+            if (orderActionButton) {
+
+                orderActionButton.disabled =
+                    true;
+
+                orderActionButton.innerText =
+                    "Round Cooldown";
+
+            }
+
+
+            function updateCooldownDisplay() {
+
+                const timeText =
+                    formatCooldownTime(
+                        remaining
+                    );
+
+
+                if (orderMessage) {
+
+                    orderMessage.innerText =
+                        "Your Round is currently in cooldown.";
+
+                }
+
+
+                if (orderError) {
+
+                    orderError.innerText =
+                        `Remaining time: ${timeText}`;
+
+                }
+
+            }
+
+
+            updateCooldownDisplay();
+
+
+            if (remaining <= 0) {
+
+                finishCooldown();
+
+                return;
+
+            }
+
+
+            cooldownTimer =
+                setInterval(
+                    () => {
+
+                        remaining -= 1;
+
+
+                        if (
+                            remaining <= 0
+                        ) {
+
+                            finishCooldown();
+
+                            return;
+
+                        }
+
+
+                        updateCooldownDisplay();
+
+                    },
+                    1000
+                );
+
+        }
+
+
+        // =====================================================
+        // FINISH COOLDOWN
+        // =====================================================
+
+        function finishCooldown() {
+
+            stopCooldownTimer();
+
+
+            if (orderStatus) {
+
+                orderStatus.innerText =
+                    "Ready";
+
+                orderStatus.className =
+                    "order-status idle";
+
+            }
+
+
+            if (orderMessage) {
+
+                orderMessage.innerText =
+                    "Cooldown finished. You can start a new Round.";
+
+            }
+
+
+            if (orderError) {
+
+                orderError.innerText =
+                    "";
+
+            }
+
+
+            if (orderActionButton) {
+
+                orderActionButton.disabled =
+                    false;
+
+                orderActionButton.innerText =
+                    "Start Order";
+
+            }
+
+        }
+
+
+        // =====================================================
         // SHOW MATCHING
         // =====================================================
 
@@ -515,9 +765,16 @@ document.addEventListener(
 
             stopMatchingTimer();
 
+            stopCooldownTimer();
+
 
             let remaining =
-                Number(seconds || 0);
+                Math.max(
+                    0,
+                    Math.floor(
+                        Number(seconds || 0)
+                    )
+                );
 
 
             if (orderMatching) {
@@ -553,6 +810,14 @@ document.addEventListener(
 
                 orderMessage.innerText =
                     "Finding your order...";
+
+            }
+
+
+            if (orderError) {
+
+                orderError.innerText =
+                    "";
 
             }
 
@@ -614,10 +879,13 @@ document.addEventListener(
 
 
         // =====================================================
-        // SHOW PENDING
+        // SHOW PENDING ORDER
         // =====================================================
 
         function showPendingOrder() {
+
+            stopCooldownTimer();
+
 
             if (orderMatching) {
 
@@ -643,6 +911,14 @@ document.addEventListener(
 
                 orderMessage.innerText =
                     "Your order is ready. Complete it to continue.";
+
+            }
+
+
+            if (orderError) {
+
+                orderError.innerText =
+                    "";
 
             }
 
@@ -730,12 +1006,16 @@ document.addEventListener(
                     );
 
 
+                const price =
+                    Number(
+                        product.price || 0
+                    );
+
+
                 orderProductProfit.innerText =
-                    `${formatNumber(
-                        Number(
-                            product.price || 0
-                        ) * profit
-                    )}`;
+                    formatNumber(
+                        price * profit
+                    );
 
             }
 
@@ -749,6 +1029,9 @@ document.addEventListener(
         async function startOrder() {
 
             setError("");
+
+
+            stopCooldownTimer();
 
 
             if (!currentUser) {
@@ -862,7 +1145,6 @@ document.addEventListener(
                     currentOrder.matching_delay_seconds
                 );
 
-
             }
             catch (error) {
 
@@ -870,6 +1152,7 @@ document.addEventListener(
                     "Order start error:",
                     error
                 );
+
 
                 setError(
                     "Network error. Please try again."
@@ -903,6 +1186,10 @@ document.addEventListener(
                 data.code || "";
 
 
+            // -------------------------------------------------
+            // INSUFFICIENT START COINS
+            // -------------------------------------------------
+
             if (
                 code ===
                 "INSUFFICIENT_START_COINS"
@@ -914,7 +1201,24 @@ document.addEventListener(
                     )} Coins to start an order.`
                 );
 
+
+                if (orderStatus) {
+
+                    orderStatus.innerText =
+                        "Ready";
+
+                    orderStatus.className =
+                        "order-status idle";
+
+                }
+
             }
+
+
+            // -------------------------------------------------
+            // PENDING ORDER
+            // -------------------------------------------------
+
             else if (
                 code ===
                 "PENDING_ORDER"
@@ -924,26 +1228,110 @@ document.addEventListener(
                     "Please complete your current order first."
                 );
 
+
+                if (orderStatus) {
+
+                    orderStatus.innerText =
+                        "Order Pending";
+
+                    orderStatus.className =
+                        "order-status pending";
+
+                }
+
             }
+
+
+            // -------------------------------------------------
+            // ROUND COOLDOWN
+            // -------------------------------------------------
+
             else if (
                 code ===
                 "ROUND_COOLDOWN"
             ) {
 
-                const remaining =
-                    Number(
-                        data.remaining_seconds || 0
-                    );
+                showCooldown(
+                    data.remaining_seconds,
+                    {
+                        id:
+                            data.round_id,
 
+                        round_number:
+                            data.round_number,
 
-                setError(
-                    `Your Round is currently in cooldown. Remaining time: ${formatCooldownTime(
-                        remaining
-                    )}`
+                        target_orders:
+                            data.target_orders,
+
+                        completed_orders:
+                            data.completed_orders,
+
+                        status:
+                            "cooldown",
+
+                        cooldown_until:
+                            data.cooldown_until
+                    }
                 );
 
 
-            }      
+                return;
+
+            }
+
+
+            // -------------------------------------------------
+            // ROUND COMPLETED
+            // -------------------------------------------------
+
+            else if (
+                code ===
+                "ROUND_COMPLETED"
+            ) {
+
+                updateRound(
+                    {
+                        round_number:
+                            data.round_number,
+
+                        target_orders:
+                            data.target_orders,
+
+                        completed_orders:
+                            data.completed_orders
+                    }
+                );
+
+
+                setError(
+                    data.error ||
+                    "This Round has already been completed."
+                );
+
+            }
+
+
+            // -------------------------------------------------
+            // NO PRODUCTS
+            // -------------------------------------------------
+
+            else if (
+                code ===
+                "NO_AVAILABLE_PRODUCTS"
+            ) {
+
+                setError(
+                    data.error ||
+                    "No available order products."
+                );
+
+            }
+
+
+            // -------------------------------------------------
+            // DEFAULT
+            // -------------------------------------------------
+
             else {
 
                 setError(
@@ -953,6 +1341,10 @@ document.addEventListener(
 
             }
 
+
+            // =================================================
+            // RESTORE BUTTON
+            // =================================================
 
             if (orderActionButton) {
 
@@ -974,6 +1366,11 @@ document.addEventListener(
         async function completeOrder() {
 
             setError("");
+
+
+            stopMatchingTimer();
+
+            stopCooldownTimer();
 
 
             if (
@@ -1048,9 +1445,6 @@ document.addEventListener(
                 }
 
 
-                stopMatchingTimer();
-
-
                 currentOrder =
                     data.order;
 
@@ -1059,18 +1453,39 @@ document.addEventListener(
                     data.round;
 
 
-                currentUser.coins =
-                    data.coins.after_complete;
+                if (currentUser) {
 
+                    currentUser.coins =
+                        data.coins.after_complete;
 
-                updateUserData(
-                    currentUser
-                );
+                    updateUserData(
+                        currentUser
+                    );
+
+                }
 
 
                 updateRound(
                     data.round
                 );
+
+
+                if (orderProduct) {
+
+                    orderProduct.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+
+                if (orderMatching) {
+
+                    orderMatching.classList.add(
+                        "hidden"
+                    );
+
+                }
 
 
                 if (orderStatus) {
@@ -1084,35 +1499,74 @@ document.addEventListener(
                 }
 
 
-                if (orderMessage) {
+                if (orderError) {
 
-                    orderMessage.innerText =
-                        data.message ||
-                        "Order completed successfully.";
+                    orderError.innerText =
+                        "";
 
                 }
 
 
-                if (orderActionButton) {
+                if (data.round?.status === "cooldown") {
 
-                    orderActionButton.disabled =
-                        false;
+                    showCooldown(
+                        0,
+                        data.round
+                    );
 
+
+                    /*
+                     * order-complete already returns
+                     * cooldown_until.
+                     *
+                     * Calculate real remaining time.
+                     */
 
                     if (
-                        data.round &&
-                        data.round.status ===
-                            "cooldown"
+                        data.round.cooldown_until
                     ) {
 
-                        orderActionButton.innerText =
-                            "Round Cooldown";
+                        const until =
+                            new Date(
+                                data.round.cooldown_until
+                            ).getTime();
 
-                        orderActionButton.disabled =
-                            true;
+
+                        const remaining =
+                            Math.max(
+                                0,
+                                Math.ceil(
+                                    (
+                                        until -
+                                        Date.now()
+                                    ) / 1000
+                                )
+                            );
+
+
+                        showCooldown(
+                            remaining,
+                            data.round
+                        );
 
                     }
-                    else {
+
+                }
+                else {
+
+                    if (orderMessage) {
+
+                        orderMessage.innerText =
+                            data.message ||
+                            "Order completed successfully.";
+
+                    }
+
+
+                    if (orderActionButton) {
+
+                        orderActionButton.disabled =
+                            false;
 
                         orderActionButton.innerText =
                             "Start Next Order";
@@ -1121,7 +1575,6 @@ document.addEventListener(
 
                 }
 
-
             }
             catch (error) {
 
@@ -1129,6 +1582,7 @@ document.addEventListener(
                     "Order complete error:",
                     error
                 );
+
 
                 setError(
                     "Network error. Please try again."
@@ -1158,14 +1612,40 @@ document.addEventListener(
             data
         ) {
 
+            const code =
+                data.code || "";
+
+
             if (
-                data.code ===
+                code ===
                 "INSUFFICIENT_COINS"
             ) {
 
                 setError(
                     data.error ||
-                    "Please recharge your Coins before completing this order."
+                    "Insufficient Coins. Please recharge before completing this order."
+                );
+
+            }
+            else if (
+                code ===
+                "ORDER_ALREADY_COMPLETED"
+            ) {
+
+                setError(
+                    data.error ||
+                    "This order has already been completed."
+                );
+
+            }
+            else if (
+                code ===
+                "ORDER_NOT_PENDING"
+            ) {
+
+                setError(
+                    data.error ||
+                    "This order cannot be completed."
                 );
 
             }
@@ -1201,6 +1681,14 @@ document.addEventListener(
             orderActionButton.addEventListener(
                 "click",
                 () => {
+
+
+                    if (cooldownTimer) {
+
+                        return;
+
+                    }
+
 
                     if (
                         currentOrder &&
