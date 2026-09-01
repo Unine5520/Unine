@@ -107,7 +107,20 @@ document.getElementById("loginSubmit");
 const registerSubmit =
 document.getElementById("registerSubmit");
 
+const logoutButton =
+document.getElementById("logoutButton");
 
+
+const logoutModal =
+document.getElementById("logoutModal");
+
+
+const logoutConfirm =
+document.getElementById("logoutConfirm");
+
+
+const logoutCancel =
+document.getElementById("logoutCancel");
 
 // error
 
