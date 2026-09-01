@@ -20,6 +20,7 @@ document.addEventListener(
 // API
 // =========================
 
+
 const API =
 "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
@@ -68,7 +69,8 @@ document.getElementById("rlTitle");
 
 
 
-// input
+
+// INPUT
 
 
 const loginEmail =
@@ -77,6 +79,7 @@ document.getElementById("loginEmail");
 
 const loginPassword =
 document.getElementById("loginPassword");
+
 
 
 const registerUsername =
@@ -96,7 +99,8 @@ document.getElementById("registerConfirm");
 
 
 
-// button
+
+// BUTTON
 
 
 const loginSubmit =
@@ -108,7 +112,8 @@ document.getElementById("registerSubmit");
 
 
 
-// error
+
+// ERROR
 
 
 const loginError =
@@ -120,9 +125,11 @@ document.getElementById("registerError");
 
 
 
+
 let loginErrorTimer;
 
 let registerErrorTimer;
+
 
 
 let userLoggedIn = false;
@@ -135,9 +142,11 @@ window.userLoggedIn = false;
 
 
 
-// =========================
+
+
+// =====================================================
 // ERROR SYSTEM
-// =========================
+// =====================================================
 
 
 function showError(
@@ -147,48 +156,10 @@ type=""
 )
 {
 
+
 if(!element)
 return;
 
-
-
-if(type==="login")
-{
-
-clearTimeout(loginErrorTimer);
-
-
-loginErrorTimer =
-setTimeout(
-()=>{
-
-element.innerText="";
-
-},
-3000
-);
-
-}
-
-
-
-if(type==="register")
-{
-
-clearTimeout(registerErrorTimer);
-
-
-registerErrorTimer =
-setTimeout(
-()=>{
-
-element.innerText="";
-
-},
-3000
-);
-
-}
 
 
 
@@ -196,7 +167,69 @@ element.innerText =
 message;
 
 
+
+
+if(type==="login")
+{
+
+
+clearTimeout(
+loginErrorTimer
+);
+
+
+
+loginErrorTimer =
+setTimeout(
+()=>{
+
+
+element.innerText="";
+
+
+},
+3000
+);
+
+
+
 }
+
+
+
+
+
+if(type==="register")
+{
+
+
+clearTimeout(
+registerErrorTimer
+);
+
+
+
+registerErrorTimer =
+setTimeout(
+()=>{
+
+
+element.innerText="";
+
+
+},
+3000
+);
+
+
+
+}
+
+
+
+}
+
+
 
 
 
@@ -204,6 +237,7 @@ message;
 
 function clearErrors()
 {
+
 
 if(loginError)
 {
@@ -223,10 +257,14 @@ registerError.innerText="";
 
 
 
-clearTimeout(loginErrorTimer);
+clearTimeout(
+loginErrorTimer
+);
 
 
-clearTimeout(registerErrorTimer);
+clearTimeout(
+registerErrorTimer
+);
 
 
 }
@@ -239,23 +277,24 @@ clearTimeout(registerErrorTimer);
 
 
 
-// =========================
+// =====================================================
 // OPEN CLOSE
-// =========================
+// =====================================================
+
 
 
 function openRL(type)
 {
 
 
-if(rlModal)
-{
+if(!rlModal)
+return;
+
+
 
 rlModal.classList.remove(
 "hidden"
 );
-
-}
 
 
 
@@ -263,18 +302,24 @@ clearErrors();
 
 
 
+
 if(type==="register")
 {
 
+
 showRegister();
+
 
 }
 else
 {
 
+
 showLogin();
 
+
 }
+
 
 
 }
@@ -287,14 +332,14 @@ function closeRL()
 {
 
 
-if(rlModal)
-{
+if(!rlModal)
+return;
+
+
 
 rlModal.classList.add(
 "hidden"
 );
-
-}
 
 
 
@@ -311,10 +356,10 @@ clearErrors();
 
 
 
-
-// =========================
+// =====================================================
 // TAB
-// =========================
+// =====================================================
+
 
 
 function showLogin()
@@ -322,56 +367,36 @@ function showLogin()
 
 
 if(rlTitle)
-{
-
 rlTitle.innerText =
 "Login";
-
-}
 
 
 
 if(loginTab)
-{
-
 loginTab.classList.add(
 "active"
 );
 
-}
-
 
 
 if(registerTab)
-{
-
 registerTab.classList.remove(
 "active"
 );
 
-}
-
 
 
 if(loginForm)
-{
-
 loginForm.classList.remove(
 "hidden"
 );
 
-}
-
 
 
 if(registerForm)
-{
-
 registerForm.classList.add(
 "hidden"
 );
-
-}
 
 
 
@@ -388,79 +413,65 @@ function showRegister()
 
 
 if(rlTitle)
-{
-
 rlTitle.innerText =
 "Register";
-
-}
 
 
 
 if(registerTab)
-{
-
 registerTab.classList.add(
 "active"
 );
 
-}
-
 
 
 if(loginTab)
-{
-
 loginTab.classList.remove(
 "active"
 );
 
-}
-
 
 
 if(registerForm)
-{
-
 registerForm.classList.remove(
 "hidden"
 );
 
-}
-
 
 
 if(loginForm)
-{
-
 loginForm.classList.add(
 "hidden"
 );
 
+
+
 }
 
 
 
-}
 
 
 
 
 
 
+// =====================================================
+// OPEN BUTTON
+// =====================================================
 
-
-
-// =========================
-// BUTTON OPEN
-// =========================
 
 
 if(loginButton)
 {
 
+
 loginButton.onclick =
-()=>openRL("login");
+()=>openRL(
+"login"
+);
+
+
 
 }
 
@@ -469,8 +480,13 @@ loginButton.onclick =
 if(registerButton)
 {
 
+
 registerButton.onclick =
-()=>openRL("register");
+()=>openRL(
+"register"
+);
+
+
 
 }
 
@@ -479,18 +495,25 @@ registerButton.onclick =
 if(rlClose)
 {
 
+
 rlClose.onclick =
 closeRL;
 
+
+
 }
+
 
 
 
 if(loginTab)
 {
 
+
 loginTab.onclick =
 showLogin;
+
+
 
 }
 
@@ -499,8 +522,11 @@ showLogin;
 if(registerTab)
 {
 
+
 registerTab.onclick =
 showRegister;
+
+
 
 }
 
@@ -512,13 +538,16 @@ showRegister;
 
 
 
-// =========================
+// =====================================================
 // PASSWORD EYE
-// =========================
+// =====================================================
+
 
 
 document
-.querySelectorAll(".toggle-password")
+.querySelectorAll(
+".toggle-password"
+)
 .forEach(
 button=>{
 
@@ -542,7 +571,9 @@ return;
 if(input.type==="password")
 {
 
-input.type="text";
+
+input.type =
+"text";
 
 
 button.classList.add(
@@ -550,16 +581,20 @@ button.classList.add(
 );
 
 
+
 }
 else
 {
 
-input.type="password";
+
+input.type =
+"password";
 
 
 button.classList.remove(
 "show"
 );
+
 
 
 }
@@ -580,9 +615,10 @@ button.classList.remove(
 
 
 
-// =========================
-// BUTTON ACTIVE
-// =========================
+// =====================================================
+// BUTTON ACTIVE CHECK
+// =====================================================
+
 
 
 function checkLoginButton()
@@ -612,7 +648,9 @@ ok
 );
 
 
+
 }
+
 
 
 
@@ -649,7 +687,10 @@ ok
 );
 
 
+
 }
+
+
 
 
 
@@ -657,77 +698,60 @@ ok
 
 
 if(loginEmail)
-{
-
 loginEmail.oninput =
 checkLoginButton;
 
-}
-
-
 
 if(loginPassword)
-{
-
 loginPassword.oninput =
 checkLoginButton;
 
-}
-
-
 
 if(registerUsername)
-{
-
 registerUsername.oninput =
 checkRegisterButton;
 
-}
-
-
 
 if(registerEmail)
-{
-
 registerEmail.oninput =
 checkRegisterButton;
 
-}
-
-
 
 if(registerPassword)
-{
-
 registerPassword.oninput =
 checkRegisterButton;
 
-}
-
-
 
 if(registerConfirm)
-{
-
 registerConfirm.oninput =
 checkRegisterButton;
 
-}
 
 
-// =========================
-// SUBMIT LOADING
-// =========================
+
+
+
+
+
+
+// =====================================================
+// SUBMIT BUTTON LOCK
+// =====================================================
+
 
 
 function disableButton(button)
 {
 
+
 if(!button)
 return;
 
 
-button.disabled = true;
+
+button.disabled =
+true;
+
 
 
 button.classList.add(
@@ -735,7 +759,10 @@ button.classList.add(
 );
 
 
+
 }
+
+
 
 
 
@@ -743,11 +770,15 @@ button.classList.add(
 function enableButton(button)
 {
 
+
 if(!button)
 return;
 
 
-button.disabled = false;
+
+button.disabled =
+false;
+
 
 
 button.classList.remove(
@@ -755,13 +786,21 @@ button.classList.remove(
 );
 
 
+
 }
 
 
 
-// =========================
+
+
+
+
+
+
+// =====================================================
 // REGISTER
-// =========================
+// =====================================================
+
 
 
 if(registerSubmit)
@@ -772,15 +811,20 @@ registerSubmit.onclick =
 async()=>{
 
 
+if(registerSubmit.disabled)
+return;
+
+
+
 disableButton(
 registerSubmit
 );
 
 
+
 clearErrors();
 
 
-clearErrors();
 
 
 
@@ -790,6 +834,7 @@ registerConfirm.value
 )
 {
 
+
 showError(
 registerError,
 "Passwords do not match",
@@ -797,7 +842,15 @@ registerError,
 );
 
 
+
+enableButton(
+registerSubmit
+);
+
+
+
 return;
+
 
 }
 
@@ -805,7 +858,8 @@ return;
 
 
 
-try{
+try
+{
 
 
 const res =
@@ -813,38 +867,56 @@ await fetch(
 `${API}/register`,
 {
 
-method:"POST",
+
+method:
+"POST",
+
 
 headers:
 {
 
+
 "Content-Type":
 "application/json"
 
+
 },
 
-credentials:"include",
+
+credentials:
+"include",
 
 
-body:JSON.stringify(
+
+body:
+JSON.stringify(
 {
+
 
 username:
 registerUsername.value.trim(),
+
 
 
 email:
 registerEmail.value.trim(),
 
 
+
 password:
 registerPassword.value
+
+
 
 }
 
 )
 
+
+
 });
+
+
 
 
 
@@ -857,6 +929,8 @@ console.log(data);
 
 
 
+
+
 if(data.success)
 {
 
@@ -865,10 +939,12 @@ if(data.user)
 {
 
 
-userLoggedIn = true;
+userLoggedIn =
+true;
 
 
-window.userLoggedIn = true;
+window.userLoggedIn =
+true;
 
 
 
@@ -877,25 +953,36 @@ data.user
 );
 
 
+
 }
 
 
 
-
-registerUsername.value="";
-
-
-registerEmail.value="";
+registerUsername.value =
+"";
 
 
-registerPassword.value="";
+registerEmail.value =
+"";
 
 
-registerConfirm.value="";
+registerPassword.value =
+"";
+
+
+registerConfirm.value =
+"";
 
 
 
 closeRL();
+
+
+
+enableButton(
+registerSubmit
+);
+
 
 
 }
@@ -911,11 +998,14 @@ data.message ||
 "register"
 );
 
+
+
 enableButton(
 registerSubmit
-); 
+);
 
-   
+
+
 }
 
 
@@ -936,6 +1026,23 @@ registerError,
 );
 
 
+
+setTimeout(
+()=>{
+
+
+enableButton(
+registerSubmit
+);
+
+
+
+},
+3000
+);
+
+
+
 }
 
 
@@ -950,14 +1057,12 @@ registerError,
 
 
 // =====================================================
-// Part 2 continues...
+// PART 2 CONTINUES
 // =====================================================
 
 
 // =====================================================
-// =========================
 // LOGIN
-// =========================
 // =====================================================
 
 
@@ -969,11 +1074,25 @@ loginSubmit.onclick =
 async()=>{
 
 
+if(loginSubmit.disabled)
+return;
+
+
+
+disableButton(
+loginSubmit
+);
+
+
+
 clearErrors();
 
 
 
-try{
+
+
+try
+{
 
 
 const res =
@@ -981,35 +1100,51 @@ await fetch(
 `${API}/login`,
 {
 
-method:"POST",
+
+method:
+"POST",
+
 
 headers:
 {
 
+
 "Content-Type":
 "application/json"
 
+
 },
 
-credentials:"include",
+
+credentials:
+"include",
 
 
-body:JSON.stringify(
+
+body:
+JSON.stringify(
 {
+
 
 login:
 loginEmail.value.trim(),
+
 
 
 password:
 loginPassword.value
 
 
+
 }
 
 )
 
+
+
 });
+
+
 
 
 
@@ -1022,6 +1157,8 @@ console.log(data);
 
 
 
+
+
 if(data.success)
 {
 
@@ -1030,10 +1167,12 @@ if(data.user)
 {
 
 
-userLoggedIn = true;
+userLoggedIn =
+true;
 
 
-window.userLoggedIn = true;
+window.userLoggedIn =
+true;
 
 
 
@@ -1042,14 +1181,19 @@ data.user
 );
 
 
+
 }
 
 
 
-loginEmail.value="";
 
 
-loginPassword.value="";
+loginEmail.value =
+"";
+
+
+loginPassword.value =
+"";
 
 
 loginPassword.type =
@@ -1058,6 +1202,13 @@ loginPassword.type =
 
 
 closeRL();
+
+
+
+enableButton(
+loginSubmit
+);
+
 
 
 }
@@ -1075,6 +1226,12 @@ data.message ||
 
 
 
+enableButton(
+loginSubmit
+);
+
+
+
 }
 
 
@@ -1096,6 +1253,22 @@ loginError,
 
 
 
+setTimeout(
+()=>{
+
+
+enableButton(
+loginSubmit
+);
+
+
+
+},
+3000
+);
+
+
+
 }
 
 
@@ -1113,9 +1286,12 @@ loginError,
 
 
 
-// =========================
+
+
+// =====================================================
 // UPDATE HEADER
-// =========================
+// =====================================================
+
 
 
 function updateHeader(user)
@@ -1167,9 +1343,12 @@ document.getElementById(
 if(telegramButton)
 {
 
+
 telegramButton.classList.add(
 "hidden"
 );
+
+
 
 }
 
@@ -1178,9 +1357,12 @@ telegramButton.classList.add(
 if(homeAuth)
 {
 
+
 homeAuth.classList.add(
 "hidden"
 );
+
+
 
 }
 
@@ -1189,9 +1371,12 @@ homeAuth.classList.add(
 if(userHeader)
 {
 
+
 userHeader.classList.remove(
 "hidden"
 );
+
+
 
 }
 
@@ -1200,8 +1385,11 @@ userHeader.classList.remove(
 if(headerUsername)
 {
 
+
 headerUsername.innerText =
 user.username;
+
+
 
 }
 
@@ -1210,8 +1398,11 @@ user.username;
 if(meUsername)
 {
 
+
 meUsername.innerText =
 user.username;
+
+
 
 }
 
@@ -1239,16 +1430,18 @@ openRL;
 
 
 
-// =========================
-// SESSION
-// =========================
+// =====================================================
+// SESSION CHECK
+// =====================================================
+
 
 
 async function checkSession()
 {
 
 
-try{
+try
+{
 
 
 const res =
@@ -1256,13 +1449,19 @@ await fetch(
 `${API}/me`,
 {
 
-method:"GET",
 
-credentials:"include"
+method:
+"GET",
 
-}
 
-);
+credentials:
+"include"
+
+
+
+});
+
+
 
 
 
@@ -1287,10 +1486,13 @@ data.logged_in
 {
 
 
-userLoggedIn = true;
+userLoggedIn =
+true;
 
 
-window.userLoggedIn = true;
+
+window.userLoggedIn =
+true;
 
 
 
@@ -1305,10 +1507,13 @@ else
 {
 
 
-userLoggedIn = false;
+userLoggedIn =
+false;
 
 
-window.userLoggedIn = false;
+
+window.userLoggedIn =
+false;
 
 
 
@@ -1340,15 +1545,16 @@ console.log(
 
 
 
-
-// =========================
+// =====================================================
 // ESC CLOSE
-// =========================
+// =====================================================
+
 
 
 document.addEventListener(
 "keydown",
-e=>{
+e=>
+{
 
 
 if(e.key==="Escape")
@@ -1356,6 +1562,7 @@ if(e.key==="Escape")
 
 
 closeRL();
+
 
 
 }
@@ -1372,12 +1579,18 @@ closeRL();
 
 
 
-// =========================
+// =====================================================
 // START SESSION
-// =========================
+// =====================================================
+
 
 
 checkSession();
+
+
+
+
+
 
 
 
@@ -1396,18 +1609,12 @@ checkSession();
 
 
 
-
 // =====================================================
-// =========================
-// PAGE NAVIGATION START
-// =========================
+// PAGE NAVIGATION
 // =====================================================
 
 
 
-
-
-/* ======== PAGES ======== */
 
 
 const pages =
@@ -1418,8 +1625,6 @@ document.querySelectorAll(
 
 
 
-
-/* ======== NAV BUTTONS ======== */
 
 
 const navButtons =
@@ -1432,20 +1637,22 @@ document.querySelectorAll(
 
 
 
-// =========================
+
+
+
+// =====================================================
 // SHOW PAGE
-// =========================
+// =====================================================
+
 
 
 function showPage(pageId)
 {
 
 
-/* ----- PAGE ----- */
-
-
 pages.forEach(
-page=>{
+page=>
+{
 
 
 page.classList.add(
@@ -1453,7 +1660,9 @@ page.classList.add(
 );
 
 
+
 });
+
 
 
 
@@ -1483,11 +1692,11 @@ targetPage.classList.remove(
 
 
 
-/* ----- NAV ----- */
 
 
 navButtons.forEach(
-button=>{
+button=>
+{
 
 
 button.classList.remove(
@@ -1497,9 +1706,8 @@ button.classList.remove(
 
 
 
-/* ORDER */
 
-
+// ORDER BUTTON
 if(
 button.id ===
 "orderButton"
@@ -1513,8 +1721,6 @@ return;
 
 
 
-
-/* OTHER BUTTONS */
 
 
 if(
@@ -1548,13 +1754,17 @@ button.classList.add(
 
 
 
-// =========================
-// BUTTON CLICK
-// =========================
+
+
+// =====================================================
+// NAV CLICK
+// =====================================================
+
 
 
 navButtons.forEach(
-button=>{
+button=>
+{
 
 
 button.addEventListener(
@@ -1567,11 +1777,6 @@ button.dataset.page;
 
 
 
-
-
-// =========================
-// NEED LOGIN PAGE
-// =========================
 
 
 if(
@@ -1598,6 +1803,7 @@ window.openRL(
 );
 
 
+
 }
 
 
@@ -1611,8 +1817,6 @@ return;
 
 
 }
-
-
 
 
 
@@ -1641,9 +1845,13 @@ pageId
 
 
 
-// =========================
+
+
+
+// =====================================================
 // DEFAULT PAGE
-// =========================
+// =====================================================
+
 
 
 showPage(
@@ -1651,15 +1859,6 @@ showPage(
 );
 
 
-
-
-
-
-// =====================================================
-// =========================
-// PAGE NAVIGATION END
-// =========================
-// =====================================================
 
 
 
