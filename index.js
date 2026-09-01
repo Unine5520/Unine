@@ -911,7 +911,11 @@ data.message ||
 "register"
 );
 
+enableButton(
+registerSubmit
+); 
 
+   
 }
 
 
