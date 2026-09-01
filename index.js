@@ -715,7 +715,47 @@ checkRegisterButton;
 }
 
 
+// =========================
+// SUBMIT LOADING
+// =========================
 
+
+function disableButton(button)
+{
+
+if(!button)
+return;
+
+
+button.disabled = true;
+
+
+button.classList.add(
+"loading"
+);
+
+
+}
+
+
+
+
+function enableButton(button)
+{
+
+if(!button)
+return;
+
+
+button.disabled = false;
+
+
+button.classList.remove(
+"loading"
+);
+
+
+}
 
 
 
