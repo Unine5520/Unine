@@ -8,7 +8,7 @@ document.addEventListener(
         // =====================================================
 
         const API =
-            "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+            "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v3";
 
 
 
