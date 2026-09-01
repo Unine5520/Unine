@@ -772,6 +772,14 @@ registerSubmit.onclick =
 async()=>{
 
 
+disableButton(
+registerSubmit
+);
+
+
+clearErrors();
+
+
 clearErrors();
 
 
