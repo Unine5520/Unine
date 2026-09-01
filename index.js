@@ -317,8 +317,22 @@ loginForm.classList.add(
 
 
 // =================================
-// REGISTER BUTTON
+// LOGIN / REGISTER BUTTON
 // =================================
+
+
+if(loginButton)
+{
+
+loginButton.onclick =
+()=>{
+
+openRL("login");
+
+};
+
+}
+
 
 
 if(registerButton)
@@ -342,30 +356,6 @@ rlClose.onclick =
 closeRL;
 
 }
-
-
-
-if(registerTab)
-{
-
-registerTab.onclick =
-showRegister;
-
-}
-
-
-
-if(loginTab)
-{
-
-loginTab.onclick =
-showLogin;
-
-}
-
-
-
-
 
 
 
