@@ -1,554 +1,466 @@
 document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+"DOMContentLoaded",
+()=>{
 
 
-        // =====================================================
-        // API
-        // =====================================================
+// =====================================================
+// API
+// =====================================================
 
-        const API =
-            "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v3";
+const API =
+"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
 
 
-        // =====================================================
-        // ELEMENTS
-        // =====================================================
+// =====================================================
+// ELEMENTS
+// =====================================================
 
 
-        const orderPage =
-            document.getElementById(
-                "orderPage"
-            );
+const orderPage =
+document.getElementById("orderPage");
 
 
-        const orderRoundValue =
-            document.getElementById(
-                "order-round-value"
-            );
+const orderRoundValue =
+document.getElementById("order-round-value");
 
 
-        const orderStatus =
-            document.getElementById(
-                "order-status"
-            );
+const orderStatus =
+document.getElementById("order-status");
 
 
-        const orderMessage =
-            document.getElementById(
-                "order-message"
-            );
+const orderMessage =
+document.getElementById("order-message");
 
 
-        const orderMatching =
-            document.getElementById(
-                "order-matching"
-            );
+const orderMatching =
+document.getElementById("order-matching");
 
 
-        const orderMatchingCountdown =
-            document.getElementById(
-                "order-matching-countdown"
-            );
+const orderMatchingCountdown =
+document.getElementById("order-matching-countdown");
 
 
-        const orderProduct =
-            document.getElementById(
-                "order-product"
-            );
+const orderProduct =
+document.getElementById("order-product");
 
 
-        const orderProductImage =
-            document.getElementById(
-                "order-product-image"
-            );
+const orderProductImage =
+document.getElementById("order-product-image");
 
 
-        const orderProductName =
-            document.getElementById(
-                "order-product-name"
-            );
+const orderProductName =
+document.getElementById("order-product-name");
 
 
-        const orderProductDescription =
-            document.getElementById(
-                "order-product-description"
-            );
+const orderProductDescription =
+document.getElementById("order-product-description");
 
 
-        const orderProductPrice =
-            document.getElementById(
-                "order-product-price"
-            );
+const orderProductPrice =
+document.getElementById("order-product-price");
 
 
-        const orderProductProfit =
-            document.getElementById(
-                "order-product-profit"
-            );
+const orderProductProfit =
+document.getElementById("order-product-profit");
 
 
-        const orderCoins =
-            document.getElementById(
-                "order-coins"
-            );
+const orderCoins =
+document.getElementById("order-coins");
 
 
-        const orderBalance =
-            document.getElementById(
-                "order-balance"
-            );
+const orderBalance =
+document.getElementById("order-balance");
 
 
-        const orderProgressText =
-            document.getElementById(
-                "order-progress-text"
-            );
+const orderProgressText =
+document.getElementById("order-progress-text");
 
 
-        const orderProgressBar =
-            document.getElementById(
-                "order-progress-bar"
-            );
+const orderProgressBar =
+document.getElementById("order-progress-bar");
 
 
-        const orderActionButton =
-            document.getElementById(
-                "order-action-button"
-            );
+const orderActionButton =
+document.getElementById("order-action-button");
 
 
-        const orderError =
-            document.getElementById(
-                "order-error"
-            );
+const orderError =
+document.getElementById("order-error");
 
 
 
 
-        // =====================================================
-        // STATE
-        // =====================================================
+// =====================================================
+// STATE
+// =====================================================
 
 
-        let currentUser =
-            null;
+let currentUser =
+null;
 
 
-        let currentOrder =
-            null;
+let currentOrder =
+null;
 
 
-        let currentRound =
-            null;
+let currentRound =
+null;
 
 
-        let matchingTimer =
-            null;
+let matchingTimer =
+null;
 
 
-        let cooldownTimer =
-            null;
+let cooldownTimer =
+null;
 
 
-        let orderStatusLoading =
-            false;
+let orderStatusLoading =
+false;
 
 
-        let isProcessing =
-            false;
+let isProcessing =
+false;
 
 
 
-        // =====================================================
-        // UTIL
-        // =====================================================
 
 
+// =====================================================
+// UTIL
+// =====================================================
 
-        function setError(
-            message = ""
-        ){
 
-            if(!orderError){
+function setError(
+message=""
+){
 
-                return;
+if(orderError){
 
-            }
+orderError.innerText =
+message;
 
+}
 
-            orderError.innerText =
-                message;
+}
 
-        }
 
 
 
+function formatNumber(
+value
+){
 
-        function formatNumber(
-            value
-        ){
+const number =
+Number(value ?? 0);
 
-            const number =
-                Number(
-                    value ?? 0
-                );
 
+if(!Number.isFinite(number)){
 
-            if(
-                !Number.isFinite(
-                    number
-                )
-            ){
+return "0.00";
 
-                return "0.00";
+}
 
-            }
 
+return number.toLocaleString(
+undefined,
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
 
-            return number.toLocaleString(
-                undefined,
-                {
-                    minimumFractionDigits:2,
-                    maximumFractionDigits:2
-                }
-            );
+}
 
-        }
 
 
 
+function formatTime(
+seconds
+){
 
+let time =
+Math.max(
+0,
+Number(seconds || 0)
+);
 
-        function formatTime(
-            seconds
-        ){
 
-            let time =
-                Math.max(
-                    0,
-                    Number(seconds || 0)
-                );
+time =
+Math.floor(time);
 
 
-            time =
-                Math.floor(
-                    time
-                );
+const h =
+Math.floor(time / 3600);
 
 
+const m =
+Math.floor(
+(time % 3600) / 60
+);
 
-            const h =
-                Math.floor(
-                    time / 3600
-                );
 
+const s =
+time % 60;
 
-            const m =
-                Math.floor(
-                    (time % 3600) / 60
-                );
 
 
-            const s =
-                time % 60;
+if(h > 0){
 
+return `${h}h ${m}m ${s}s`;
 
+}
 
-            if(h > 0){
 
-                return (
-                    `${h}h ${m}m ${s}s`
-                );
+if(m > 0){
 
-            }
+return `${m}m ${s}s`;
 
+}
 
 
-            if(m > 0){
+return `${s}s`;
 
-                return (
-                    `${m}m ${s}s`
-                );
+}
 
-            }
 
 
 
-            return `${s}s`;
 
-        }
+function stopMatchingTimer(){
 
+if(matchingTimer){
 
+clearInterval(
+matchingTimer
+);
 
 
+matchingTimer =
+null;
 
-        function stopMatchingTimer(){
+}
 
-            if(
-                matchingTimer
-            ){
+}
 
-                clearInterval(
-                    matchingTimer
-                );
 
 
-                matchingTimer =
-                    null;
 
-            }
+function stopCooldownTimer(){
 
-        }
+if(cooldownTimer){
 
+clearInterval(
+cooldownTimer
+);
 
 
+cooldownTimer =
+null;
 
+}
 
-        function stopCooldownTimer(){
+}
 
-            if(
-                cooldownTimer
-            ){
 
-                clearInterval(
-                    cooldownTimer
-                );
 
 
-                cooldownTimer =
-                    null;
+function stopAllTimer(){
 
-            }
+stopMatchingTimer();
 
-        }
+stopCooldownTimer();
 
+}
 
 
 
 
-        function stopAllTimer(){
 
-            stopMatchingTimer();
+// =====================================================
+// API REQUEST
+// =====================================================
 
-            stopCooldownTimer();
 
-        }
+async function apiRequest(
+url,
+options={}
+){
 
+const response =
+await fetch(
+`${API}${url}`,
+{
 
+credentials:
+"include",
 
 
+...options,
 
 
-        // =====================================================
-        // API HELPER
-        // =====================================================
+headers:
+{
 
+"Content-Type":
+"application/json",
 
 
-        async function apiRequest(
-            url,
-            options = {}
-        ){
+...(options.headers || {})
 
-            const response =
-                await fetch(
-                    `${API}${url}`,
-                    {
-                        credentials:
-                            "include",
+}
 
-                        ...options,
+}
+);
 
-                        headers:{
-                            "Content-Type":
-                                "application/json",
 
-                            ...(options.headers || {})
-                        }
 
-                    }
-                );
+return await response.json();
 
+}
 
 
-            return await response.json();
 
-        }
 
 
+// =====================================================
+// USER DATA
+// =====================================================
 
 
+function updateUserData(
+user
+){
 
-        // =====================================================
-        // UPDATE USER DATA
-        // =====================================================
+if(!user){
 
+return;
 
+}
 
-        function updateUserData(
-            user
-        ){
 
-            if(!user){
 
-                return;
+if(orderCoins){
 
-            }
+orderCoins.innerText =
+formatNumber(
+user.coins
+);
 
+}
 
 
-            if(orderCoins){
 
-                orderCoins.innerText =
-                    formatNumber(
-                        user.coins
-                    );
+if(orderBalance){
 
-            }
+orderBalance.innerText =
+formatNumber(
+user.balance
+);
 
+}
 
 
-            if(orderBalance){
+}
 
-                orderBalance.innerText =
-                    formatNumber(
-                        user.balance
-                    );
 
-            }
 
 
-        }
 
 
 
+// =====================================================
+// SESSION
+// =====================================================
 
 
-        // =====================================================
-        // LOAD SESSION
-        // =====================================================
+async function loadSession(){
 
 
+try{
 
-        async function loadSession(){
 
+const data =
+await apiRequest(
+"/me",
+{
+method:"GET"
+}
+);
 
-            try{
 
 
-                const data =
-                    await apiRequest(
-                        "/me",
-                        {
-                            method:"GET"
-                        }
-                    );
+if(
+!data.success ||
+!data.logged_in ||
+!data.user
+){
 
 
+currentUser =
+null;
 
-                console.log(
-                    "ORDER SESSION:",
-                    data
-                );
 
+if(orderActionButton){
 
+orderActionButton.disabled =
+true;
 
 
-                if(
-                    !data.success ||
-                    !data.logged_in ||
-                    !data.user
-                ){
+orderActionButton.innerText =
+"Login Required";
 
+}
 
-                    currentUser =
-                        null;
 
+return false;
 
 
-                    if(orderActionButton){
+}
 
-                        orderActionButton.disabled =
-                            true;
 
 
-                        orderActionButton.innerText =
-                            "Login Required";
+currentUser =
+data.user;
 
-                    }
 
 
+updateUserData(
+currentUser
+);
 
-                    if(orderMessage){
 
-                        orderMessage.innerText =
-                            "Please login before starting an order.";
 
-                    }
+return true;
 
 
 
-                    return false;
+}
+catch(error){
 
 
-                }
+console.error(
+"Session error",
+error
+);
 
 
 
+currentUser =
+null;
 
-                currentUser =
-                    data.user;
 
+return false;
 
 
-                updateUserData(
-                    currentUser
-                );
+}
 
 
+}
 
-                return true;
 
 
-
-            }
-            catch(error){
-
-
-                console.error(
-                    "Session error:",
-                    error
-                );
-
-
-
-                currentUser =
-                    null;
-
-
-
-                if(orderActionButton){
-
-                    orderActionButton.disabled =
-                        true;
-
-
-                    orderActionButton.innerText =
-                        "Login Required";
-
-                }
-
-
-
-                return false;
-
-
-            }
-
-
-        }
 
 
 
@@ -560,207 +472,200 @@ document.addEventListener(
 function resetOrderUI(){
 
 
-    stopAllTimer();
+stopAllTimer();
 
 
 
-    currentOrder =
-        null;
+currentOrder =
+null;
 
 
-    currentRound =
-        null;
-
-
-
-    if(orderStatus){
-
-        orderStatus.innerText =
-            "Ready";
-
-
-        orderStatus.className =
-            "order-status idle";
-
-    }
+currentRound =
+null;
 
 
 
-    if(orderMessage){
 
-        orderMessage.innerText =
-            "Start an order to begin.";
+if(orderStatus){
 
-    }
-
+orderStatus.innerText =
+"Ready";
 
 
-    if(orderMatching){
+orderStatus.className =
+"order-status idle";
 
-        orderMatching.classList.add(
-            "hidden"
-        );
-
-    }
+}
 
 
 
-    if(orderProduct){
+if(orderMessage){
 
-        orderProduct.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-
-    if(orderMatchingCountdown){
-
-        orderMatchingCountdown.innerText =
-            "-";
-
-    }
-
-
-
-    if(orderRoundValue){
-
-        orderRoundValue.innerText =
-            "0/0";
-
-    }
-
-
-
-    if(orderProgressText){
-
-        orderProgressText.innerText =
-            "0 / 0";
-
-    }
-
-
-
-    if(orderProgressBar){
-
-        orderProgressBar.style.width =
-            "0%";
-
-    }
-
-
-
-    if(orderActionButton){
-
-        orderActionButton.disabled =
-            false;
-
-
-        orderActionButton.innerText =
-            "Start Order";
-
-    }
-
-
-
-    setError("");
+orderMessage.innerText =
+"Start an order to begin.";
 
 }
 
 
 
 
+if(orderMatching){
+
+orderMatching.classList.add(
+"hidden"
+);
+
+}
+
+
+
+if(orderProduct){
+
+orderProduct.classList.add(
+"hidden"
+);
+
+}
+
+
+
+if(orderMatchingCountdown){
+
+orderMatchingCountdown.innerText =
+"-";
+
+}
+
+
+
+if(orderRoundValue){
+
+orderRoundValue.innerText =
+"0/0";
+
+}
+
+
+
+if(orderProgressText){
+
+orderProgressText.innerText =
+"0 / 0";
+
+}
+
+
+
+if(orderProgressBar){
+
+orderProgressBar.style.width =
+"0%";
+
+}
+
+
+
+if(orderActionButton){
+
+orderActionButton.disabled =
+false;
+
+
+orderActionButton.innerText =
+"Start Order";
+
+}
+
+
+
+setError("");
+
+}
+
+
+
+
+
+
 // =====================================================
-// UPDATE ROUND
+// ROUND
 // =====================================================
 
 
 function updateRound(
-    round
+round
 ){
 
 
-    if(!round){
+if(!round){
 
-        return;
-
-    }
-
-
-
-    currentRound =
-        round;
-
-
-
-    const completed =
-        Number(
-            round.completed_orders || 0
-        );
-
-
-
-    const target =
-        Number(
-            round.target_orders || 0
-        );
-
-
-
-    if(orderRoundValue){
-
-        orderRoundValue.innerText =
-            `${completed}/${target}`;
-
-    }
-
-
-
-    if(orderProgressText){
-
-        orderProgressText.innerText =
-            `${completed} / ${target}`;
-
-    }
-
-
-
-    if(orderProgressBar){
-
-
-        let percent =
-            0;
-
-
-
-        if(target > 0){
-
-            percent =
-                (
-                    completed /
-                    target
-                )
-                *
-                100;
-
-        }
-
-
-
-        orderProgressBar.style.width =
-            `${Math.min(
-                percent,
-                100
-            )}%`;
-
-    }
-
+return;
 
 }
 
 
 
+currentRound =
+round;
+
+
+
+const completed =
+Number(
+round.completed_orders || 0
+);
+
+
+
+const target =
+Number(
+round.target_orders || 0
+);
+
+
+
+
+if(orderRoundValue){
+
+orderRoundValue.innerText =
+`${completed}/${target}`;
+
+}
+
+
+
+if(orderProgressText){
+
+orderProgressText.innerText =
+`${completed} / ${target}`;
+
+}
+
+
+
+if(orderProgressBar){
+
+let percent = 0;
+
+
+if(target > 0){
+
+percent =
+completed /
+target *
+100;
+
+}
+
+
+
+orderProgressBar.style.width =
+`${Math.min(percent,100)}%`;
+
+}
+
+
+}
 
 // =====================================================
 // DISPLAY PRODUCT
@@ -768,91 +673,88 @@ function updateRound(
 
 
 function displayProduct(
-    product
+product
 ){
 
+if(!product){
 
-    if(!product){
+return;
 
-        return;
-
-    }
-
-
-
-    if(orderProductImage){
-
-        orderProductImage.src =
-            product.image_url ||
-            "https://placehold.co/600x600?text=No+Order";
-
-
-        orderProductImage.alt =
-            product.name ||
-            "Product";
-
-    }
+}
 
 
 
-    if(orderProductName){
+if(orderProductImage){
 
-        orderProductName.innerText =
-            product.name ||
-            "Order Product";
-
-    }
+orderProductImage.src =
+product.image_url ||
+"https://placehold.co/600x600?text=No+Order";
 
 
+orderProductImage.alt =
+product.name ||
+"Product";
 
-    if(orderProductDescription){
-
-        orderProductDescription.innerText =
-            product.description ||
-            "";
-
-    }
+}
 
 
 
-    if(orderProductPrice){
+if(orderProductName){
 
-        orderProductPrice.innerText =
-            formatNumber(
-                product.price
-            );
+orderProductName.innerText =
+product.name ||
+"Order Product";
 
-    }
-
-
-
-    if(orderProductProfit){
-
-
-        const price =
-            Number(
-                product.price || 0
-            );
+}
 
 
 
-        const ratio =
-            Number(
-                product.profit || 0
-            );
+if(orderProductDescription){
+
+orderProductDescription.innerText =
+product.description ||
+"";
+
+}
 
 
 
-        orderProductProfit.innerText =
-            formatNumber(
-                price * ratio
-            );
+if(orderProductPrice){
+
+orderProductPrice.innerText =
+formatNumber(
+product.price
+);
+
+}
 
 
-    }
+
+if(orderProductProfit){
+
+const price =
+Number(
+product.price || 0
+);
+
+
+const ratio =
+Number(
+product.profit || 0
+);
+
+
+
+orderProductProfit.innerText =
+formatNumber(
+price * ratio
+);
+
+}
 
 
 }
+
 
 
 
@@ -863,138 +765,285 @@ function displayProduct(
 
 
 function showMatching(
-    seconds
+seconds
 ){
 
 
-    stopMatchingTimer();
+stopMatchingTimer();
 
-    stopCooldownTimer();
 
 
+let remaining =
+Math.max(
+0,
+Math.floor(
+Number(seconds || 0)
+)
+);
 
-    let remaining =
-        Math.max(
-            0,
-            Math.floor(
-                Number(seconds || 0)
-            )
-        );
 
 
+if(orderMatching){
 
-    if(orderMatching){
+orderMatching.classList.remove(
+"hidden"
+);
 
-        orderMatching.classList.remove(
-            "hidden"
-        );
+}
 
-    }
 
 
+if(orderProduct){
 
-    if(orderProduct){
+orderProduct.classList.add(
+"hidden"
+);
 
-        orderProduct.classList.add(
-            "hidden"
-        );
+}
 
-    }
 
 
+if(orderStatus){
 
-    if(orderStatus){
+orderStatus.innerText =
+"Matching";
 
-        orderStatus.innerText =
-            "Matching";
 
+orderStatus.className =
+"order-status matching";
 
-        orderStatus.className =
-            "order-status matching";
+}
 
-    }
 
 
+if(orderMessage){
 
-    if(orderMessage){
+orderMessage.innerText =
+"Finding your order...";
 
-        orderMessage.innerText =
-            "Finding your order...";
+}
 
-    }
 
 
+if(orderActionButton){
 
-    if(orderActionButton){
+orderActionButton.disabled =
+true;
 
-        orderActionButton.disabled =
-            true;
 
+orderActionButton.innerText =
+"Matching...";
 
-        orderActionButton.innerText =
-            "Matching...";
+}
 
-    }
 
 
+if(orderMatchingCountdown){
 
-    if(orderMatchingCountdown){
+orderMatchingCountdown.innerText =
+`${remaining}s`;
 
-        orderMatchingCountdown.innerText =
-            `${remaining}s`;
+}
 
-    }
 
 
 
-    if(remaining <= 0){
+if(remaining <= 0){
 
-        showPendingOrder();
+completeMatching();
 
-        return;
+return;
 
-    }
+}
 
 
 
 
-    matchingTimer =
-        setInterval(
-            ()=>{
+matchingTimer =
+setInterval(
+()=>{
 
 
-                remaining--;
+remaining--;
 
 
 
-                if(orderMatchingCountdown){
+if(orderMatchingCountdown){
 
-                    orderMatchingCountdown.innerText =
-                        `${Math.max(
-                            remaining,
-                            0
-                        )}s`;
+orderMatchingCountdown.innerText =
+`${Math.max(
+remaining,
+0
+)}s`;
 
-                }
+}
 
 
 
-                if(remaining <= 0){
 
-                    stopMatchingTimer();
+if(remaining <= 0){
 
+stopMatchingTimer();
 
-                    showPendingOrder();
 
-                }
+completeMatching();
 
+}
 
-            },
-            1000
-        );
+
+
+},
+1000
+);
 
 
 }
+
+
+
+
+
+// =====================================================
+// MATCH COMPLETE v3
+// matching finished -> create pending order
+// =====================================================
+
+
+async function completeMatching(){
+
+
+if(
+!currentUser ||
+!currentOrder
+){
+
+return;
+
+}
+
+
+
+try{
+
+
+if(orderStatus){
+
+orderStatus.innerText =
+"Creating Order...";
+
+}
+
+
+
+const data =
+await apiRequest(
+"/order-match-complete-v3",
+{
+
+method:"POST",
+
+
+body:
+JSON.stringify({
+
+user_id:
+currentUser.id,
+
+
+order_id:
+currentOrder.id
+
+})
+
+}
+);
+
+
+
+
+console.log(
+"ORDER MATCH COMPLETE:",
+data
+);
+
+
+
+
+if(!data.success){
+
+setError(
+data.error ||
+"Matching failed."
+);
+
+
+return;
+
+}
+
+
+
+
+
+currentOrder =
+data.order;
+
+
+
+if(data.user){
+
+currentUser =
+data.user;
+
+
+updateUserData(
+currentUser
+);
+
+}
+
+
+
+
+if(
+currentOrder.product
+){
+
+displayProduct(
+currentOrder.product
+);
+
+}
+
+
+
+showPendingOrder();
+
+
+
+}
+catch(error){
+
+
+console.error(
+"Match complete error:",
+error
+);
+
+
+
+setError(
+"Matching error."
+);
+
+
+}
+
+
+}
+
+
+
 
 
 
@@ -1007,66 +1056,64 @@ function showMatching(
 function showPendingOrder(){
 
 
-    stopMatchingTimer();
+if(orderMatching){
+
+orderMatching.classList.add(
+"hidden"
+);
+
+}
 
 
 
-    if(orderMatching){
+if(orderProduct){
 
-        orderMatching.classList.add(
-            "hidden"
-        );
+orderProduct.classList.remove(
+"hidden"
+);
 
-    }
-
-
-
-    if(orderStatus){
-
-        orderStatus.innerText =
-            "Order Ready";
-
-
-        orderStatus.className =
-            "order-status pending";
-
-    }
+}
 
 
 
-    if(orderMessage){
+if(orderStatus){
 
-        orderMessage.innerText =
-            "Your order is ready. Complete it to continue.";
-
-    }
+orderStatus.innerText =
+"Order Ready";
 
 
+orderStatus.className =
+"order-status pending";
 
-    if(orderProduct){
-
-        orderProduct.classList.remove(
-            "hidden"
-        );
-
-    }
+}
 
 
 
-    if(orderActionButton){
+if(orderMessage){
 
-        orderActionButton.disabled =
-            false;
+orderMessage.innerText =
+"Your order is ready. Complete it.";
+
+}
 
 
-        orderActionButton.innerText =
-            "Complete Order";
 
-    }
+if(orderActionButton){
 
+orderActionButton.disabled =
+false;
+
+
+orderActionButton.innerText =
+"Complete Order";
+
+}
 
 
 }
+
+
+
 
 
 
@@ -1077,200 +1124,166 @@ function showPendingOrder(){
 
 
 function showCooldown(
-    seconds,
-    roundData = null
+seconds,
+roundData=null
 ){
 
 
-    stopCooldownTimer();
+stopCooldownTimer();
 
 
 
-    let remaining =
-        Math.max(
-            0,
-            Math.floor(
-                Number(seconds || 0)
-            )
-        );
+let remaining =
+Math.max(
+0,
+Math.floor(
+Number(seconds || 0)
+)
+);
 
 
 
-    if(roundData){
+if(roundData){
 
-        updateRound(
-            roundData
-        );
+updateRound(
+roundData
+);
 
-    }
+}
 
 
 
-    if(orderMatching){
+if(orderProduct){
 
-        orderMatching.classList.add(
-            "hidden"
-        );
+orderProduct.classList.add(
+"hidden"
+);
 
-    }
+}
 
 
 
-    if(orderProduct){
+if(orderMatching){
 
-        orderProduct.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-
-    if(orderStatus){
-
-        orderStatus.innerText =
-            "Cooldown";
-
-
-        orderStatus.className =
-            "order-status idle";
-
-    }
-
-
-
-    if(orderActionButton){
-
-        orderActionButton.disabled =
-            true;
-
-
-        orderActionButton.innerText =
-            "Round Cooldown";
-
-    }
-
-
-
-
-    function update(){
-
-        if(orderMessage){
-
-            orderMessage.innerText =
-                "Round cooldown.";
-
-        }
-
-
-
-        setError(
-            `Remaining time: ${formatTime(
-                remaining
-            )}`
-        );
-
-    }
-
-
-
-    update();
-
-
-
-
-    if(remaining <= 0){
-
-        finishCooldown();
-
-        return;
-
-    }
-
-
-
-    cooldownTimer =
-        setInterval(
-            ()=>{
-
-
-                remaining--;
-
-
-
-                if(remaining <= 0){
-
-                    finishCooldown();
-
-                    return;
-
-                }
-
-
-
-                update();
-
-
-
-            },
-            1000
-        );
-
+orderMatching.classList.add(
+"hidden"
+);
 
 }
 
 
 
 
+if(orderStatus){
 
-// =====================================================
-// FINISH COOLDOWN
-// =====================================================
+orderStatus.innerText =
+"Cooldown";
+
+
+orderStatus.className =
+"order-status idle";
+
+}
+
+
+
+if(orderActionButton){
+
+orderActionButton.disabled =
+true;
+
+
+orderActionButton.innerText =
+"Round Cooldown";
+
+}
+
+
+
+cooldownTimer =
+setInterval(
+()=>{
+
+
+remaining--;
+
+
+
+setError(
+`Remaining time: ${formatTime(
+remaining
+)}`
+);
+
+
+
+if(remaining <= 0){
+
+clearInterval(
+cooldownTimer
+);
+
+
+cooldownTimer =
+null;
+
+
+finishCooldown();
+
+}
+
+
+
+},
+1000
+);
+
+
+}
+
+
+
 
 
 function finishCooldown(){
 
 
-    stopCooldownTimer();
+setError("");
 
 
 
-    if(orderStatus){
+if(orderStatus){
 
-        orderStatus.innerText =
-            "Ready";
-
-
-        orderStatus.className =
-            "order-status idle";
-
-    }
+orderStatus.innerText =
+"Ready";
 
 
+orderStatus.className =
+"order-status idle";
 
-    if(orderMessage){
-
-        orderMessage.innerText =
-            "Cooldown finished. Start a new order.";
-
-    }
+}
 
 
 
-    setError("");
+if(orderMessage){
+
+orderMessage.innerText =
+"Cooldown finished.";
+
+}
 
 
 
-    if(orderActionButton){
+if(orderActionButton){
 
-        orderActionButton.disabled =
-            false;
+orderActionButton.disabled =
+false;
 
 
-        orderActionButton.innerText =
-            "Start Order";
+orderActionButton.innerText =
+"Start Order";
 
-    }
+}
 
 
 }
@@ -1278,583 +1291,408 @@ function finishCooldown(){
 
 
 
+
 // =====================================================
-// LOAD ORDER STATE
+// LOAD ORDER STATUS
 // =====================================================
 
 
 async function loadOrderState(){
 
 
-    if(!currentUser){
+if(
+!currentUser ||
+orderStatusLoading
+){
 
-        return;
+return;
 
-    }
+}
 
 
 
-    if(orderStatusLoading){
+orderStatusLoading =
+true;
 
-        return;
 
-    }
 
+try{
 
 
-    orderStatusLoading =
-        true;
+const data =
+await apiRequest(
+"/order-status",
+{
+method:"GET"
+}
+);
 
 
 
-    try{
+console.log(
+"ORDER STATUS:",
+data
+);
 
 
-        const data =
-            await apiRequest(
-                "/order-status",
-                {
-                    method:"GET"
-                }
-            );
 
 
+if(!data.success){
 
-        console.log(
-            "ORDER STATUS:",
-            data
-        );
+return;
 
+}
 
 
-        if(!data.success){
 
-            return;
 
-        }
+if(data.user){
 
+currentUser =
+data.user;
 
 
+updateUserData(
+currentUser
+);
 
-        if(data.user){
+}
 
-            currentUser =
-                data.user;
 
 
-            updateUserData(
-                currentUser
-            );
 
-        }
+if(data.round){
 
+updateRound(
+data.round
+);
 
+}
 
 
-        if(data.round){
 
-            updateRound(
-                data.round
-            );
 
-        }
 
+if(!data.has_order){
 
+resetOrderUI();
 
+return;
 
-        if(!data.has_order){
+}
 
 
-            currentOrder =
-                null;
 
 
-            resetOrderUI();
+currentOrder =
+data.order;
 
 
-            return;
 
-        }
+if(currentOrder.product){
 
+displayProduct(
+currentOrder.product
+);
 
+}
 
 
 
-        currentOrder =
-            data.order;
 
 
+// MATCHING STATE
 
-        if(
-            currentOrder.product
-        ){
+if(
+currentOrder.status ===
+"matching"
+){
 
-            displayProduct(
-                currentOrder.product
-            );
+showMatching(
+currentOrder.remaining_seconds ||
+currentOrder.matching?.remaining_seconds
+);
 
-        }
 
+return;
 
+}
 
 
 
-        if(
-            currentOrder.status ===
-            "pending"
-        ){
 
 
-            const seconds =
-                Number(
-                    currentOrder.matching?.remaining_seconds || 0
-                );
+// PENDING STATE
 
+if(
+currentOrder.status ===
+"pending"
+){
 
+showPendingOrder();
 
-            if(seconds > 0){
+return;
 
-                showMatching(
-                    seconds
-                );
+}
 
-            }
-            else{
 
-                showPendingOrder();
 
-            }
 
 
+// COMPLETED
 
-            return;
+if(
+currentOrder.status ===
+"completed"
+){
 
-        }
 
 
+if(
+data.round &&
+data.round.status ===
+"cooldown"
+){
 
+const end =
+new Date(
+data.round.cooldown_until
+)
+.getTime();
 
 
-        if(
-            currentOrder.status ===
-            "completed"
-        ){
 
+showCooldown(
+Math.ceil(
+(end - Date.now()) / 1000
+),
+data.round
+);
 
 
-            if(
-                data.round &&
-                data.round.status ===
-                "cooldown"
-            ){
 
+return;
 
-                const end =
-                    new Date(
-                        data.round.cooldown_until
-                    )
-                    .getTime();
+}
 
 
 
-                showCooldown(
-                    Math.ceil(
-                        (
-                            end -
-                            Date.now()
-                        )
-                        /
-                        1000
-                    ),
-                    data.round
-                );
 
 
-                return;
+if(orderStatus){
 
+orderStatus.innerText =
+"Completed";
 
-            }
 
+orderStatus.className =
+"order-status completed";
 
+}
 
 
-            if(orderStatus){
 
-                orderStatus.innerText =
-                    "Completed";
 
+if(orderActionButton){
 
-                orderStatus.className =
-                    "order-status completed";
+orderActionButton.disabled =
+false;
 
-            }
 
+orderActionButton.innerText =
+"Start Next Order";
 
+}
 
-            if(orderActionButton){
-
-                orderActionButton.disabled =
-                    false;
-
-
-                orderActionButton.innerText =
-                    "Start Next Order";
-
-            }
-
-
-
-            if(orderMessage){
-
-                orderMessage.innerText =
-                    "Order completed successfully.";
-
-            }
-
-
-
-        }
-
-
-
-    }
-    catch(error){
-
-
-        console.error(
-            "Order state error:",
-            error
-        );
-
-
-    }
-    finally{
-
-
-        orderStatusLoading =
-            false;
-
-
-    }
 
 
 }
 
+
+
+}
+catch(error){
+
+console.error(
+"Status error:",
+error
+);
+
+
+}
+finally{
+
+orderStatusLoading =
+false;
+
+}
+
+
+}
+
+
+
+
+
+
+
 // =====================================================
-// START ORDER
+// START ORDER v3
 // =====================================================
 
 
 async function startOrder(){
 
 
-    if(isProcessing){
+if(isProcessing){
 
-        return;
+return;
 
-    }
+}
 
 
 
-    setError("");
+if(!currentUser){
 
+const logged =
+await loadSession();
 
 
-    if(!currentUser){
+if(!logged){
 
+return;
 
-        const logged =
-            await loadSession();
-
-
-
-        if(!logged){
-
-            return;
-
-        }
-
-    }
-
-
-
-
-    isProcessing =
-        true;
-
-
-
-
-    if(orderActionButton){
-
-        orderActionButton.disabled =
-            true;
-
-
-        orderActionButton.innerText =
-            "Starting...";
-
-    }
-
-
-
-
-
-    try{
-
-
-        const data =
-            await apiRequest(
-                "/order-start",
-                {
-                    method:"POST",
-
-                    body:
-                        JSON.stringify(
-                            {
-                                user_id:
-                                    currentUser.id
-                            }
-                        )
-
-                }
-            );
-
-
-
-        console.log(
-            "ORDER START:",
-            data
-        );
-
-
-
-        if(!data.success){
-
-            handleStartError(
-                data
-            );
-
-            return;
-
-        }
-
-
-
-
-
-        currentOrder =
-            data.order;
-
-
-
-        currentRound =
-            data.round;
-
-
-
-
-        updateRound(
-            data.round
-        );
-
-
-
-
-
-        if(
-            currentOrder.product
-        ){
-
-            displayProduct(
-                currentOrder.product
-            );
-
-        }
-
-
-
-
-
-
-        if(currentUser){
-
-            currentUser.coins =
-                currentOrder.coins_after_order;
-
-
-
-            updateUserData(
-                currentUser
-            );
-
-        }
-
-
-
-
-
-
-        showMatching(
-            currentOrder.matching_delay_seconds
-        );
-
-
-
-
-    }
-    catch(error){
-
-
-        console.error(
-            "Start order error:",
-            error
-        );
-
-
-
-        setError(
-            "Network error. Please try again."
-        );
-
-
-
-    }
-    finally{
-
-
-        isProcessing =
-            false;
-
-
-    }
-
+}
 
 }
 
 
 
 
-// =====================================================
-// START ERROR
-// =====================================================
-
-
-function handleStartError(
-    data
-){
-
-
-    const code =
-        data.code || "";
+isProcessing =
+true;
 
 
 
-
-    if(
-        code ===
-        "INSUFFICIENT_START_COINS"
-    ){
+try{
 
 
-        setError(
-            `Need ${formatNumber(
-                data.required_coins
-            )} Coins to start order.`
-        );
-
-    }
+orderActionButton.disabled =
+true;
 
 
-
-    else if(
-        code ===
-        "PENDING_ORDER"
-    ){
-
-
-        setError(
-            "Please complete current order first."
-        );
-
-
-        showPendingOrder();
-
-
-    }
-
-
-
-    else if(
-        code ===
-        "ROUND_COOLDOWN"
-    ){
-
-
-        showCooldown(
-            data.remaining_seconds,
-            data.round
-        );
-
-
-        return;
-
-    }
+orderActionButton.innerText =
+"Starting...";
 
 
 
 
-    else if(
-        code ===
-        "ROUND_COMPLETED"
-    ){
+const data =
+await apiRequest(
+"/order-start-v3",
+{
+
+method:"POST",
 
 
-        updateRound(
-            {
-                target_orders:
-                    data.target_orders,
+body:
+JSON.stringify({
 
-                completed_orders:
-                    data.completed_orders
-            }
-        );
+user_id:
+currentUser.id
 
+})
 
-        setError(
-            data.error ||
-            "Round completed."
-        );
-
-
-    }
-
-
-
-    else{
-
-
-        setError(
-            data.error ||
-            "Unable to start order."
-        );
-
-
-    }
+}
+);
 
 
 
 
-    if(orderActionButton){
+console.log(
+"ORDER START V3:",
+data
+);
 
-        orderActionButton.disabled =
-            false;
 
 
-        orderActionButton.innerText =
-            "Start Order";
 
-    }
+if(!data.success){
+
+setError(
+data.error ||
+"Cannot start order."
+);
+
+
+return;
+
+}
+
+
+
+
+currentOrder =
+data.order;
+
+
+currentRound =
+data.round;
+
+
+
+
+updateRound(
+data.round
+);
+
+
+
+
+if(currentOrder.product){
+
+displayProduct(
+currentOrder.product
+);
+
+}
+
+
+
+
+// 注意：这里不更新 coins
+// start 不扣 coins
+
+
+
+showMatching(
+currentOrder.matching_delay_seconds
+);
+
+
+
+}
+catch(error){
+
+console.error(
+error
+);
+
+
+setError(
+"Network error."
+);
+
+
+}
+finally{
+
+
+isProcessing =
+false;
+
+
+}
 
 
 
@@ -1863,311 +1701,210 @@ function handleStartError(
 
 
 
+
+
+
 // =====================================================
-// COMPLETE ORDER
+// COMPLETE ORDER v3
 // =====================================================
 
 
 async function completeOrder(){
 
 
-
-    if(isProcessing){
-
-        return;
-
-    }
-
-
-
-    if(
-        !currentUser ||
-        !currentOrder
-    ){
-
-        return;
-
-    }
-
-
-
-    isProcessing =
-        true;
-
-
-
-    setError("");
-
-
-
-    if(orderActionButton){
-
-        orderActionButton.disabled =
-            true;
-
-
-        orderActionButton.innerText =
-            "Completing...";
-
-    }
-
-
-
-
-
-    try{
-
-
-        const data =
-            await apiRequest(
-                "/order-complete",
-                {
-                    method:"POST",
-
-                    body:
-                        JSON.stringify(
-                            {
-
-                                user_id:
-                                    currentUser.id,
-
-
-                                order_id:
-                                    currentOrder.id
-
-                            }
-                        )
-
-                }
-            );
-
-
-
-        console.log(
-            "ORDER COMPLETE:",
-            data
-        );
-
-
-
-
-        if(!data.success){
-
-
-            handleCompleteError(
-                data
-            );
-
-
-            return;
-
-
-        }
-
-
-
-
-
-
-        currentOrder =
-            data.order;
-
-
-
-        currentRound =
-            data.round;
-
-
-
-
-
-
-        if(
-            data.coins &&
-            currentUser
-        ){
-
-
-            currentUser.coins =
-                data.coins.after_complete;
-
-
-
-            updateUserData(
-                currentUser
-            );
-
-
-        }
-
-
-
-
-
-
-        updateRound(
-            data.round
-        );
-
-
-
-
-
-
-        if(
-            data.round &&
-            data.round.status ===
-            "cooldown"
-        ){
-
-
-
-            const end =
-                new Date(
-                    data.round.cooldown_until
-                )
-                .getTime();
-
-
-
-            showCooldown(
-                Math.ceil(
-                    (
-                        end -
-                        Date.now()
-                    )
-                    /
-                    1000
-                ),
-                data.round
-            );
-
-
-
-            return;
-
-        }
-
-
-
-
-
-
-        if(orderStatus){
-
-
-            orderStatus.innerText =
-                "Completed";
-
-
-            orderStatus.className =
-                "order-status completed";
-
-
-        }
-
-
-
-
-
-        if(orderMessage){
-
-
-            orderMessage.innerText =
-                data.message ||
-                "Order completed successfully.";
-
-
-        }
-
-
-
-
-        if(orderActionButton){
-
-
-            orderActionButton.disabled =
-                false;
-
-
-
-            orderActionButton.innerText =
-                "Start Next Order";
-
-
-        }
-
-
-
-
-
-    }
-    catch(error){
-
-
-
-        console.error(
-            "Complete error:",
-            error
-        );
-
-
-
-        setError(
-            "Network error. Please try again."
-        );
-
-
-
-    }
-    finally{
-
-
-        isProcessing =
-            false;
-
-
-    }
-
-
-
-}
-
-
-
-
-
-
-// =====================================================
-// COMPLETE ERROR
-// =====================================================
-
-
-function handleCompleteError(
-    data
+if(
+!currentOrder ||
+!currentUser ||
+isProcessing
 ){
 
+return;
 
-    setError(
-        data.error ||
-        "Unable to complete order."
-    );
+}
 
 
 
-    if(orderActionButton){
-
-
-        orderActionButton.disabled =
-            false;
+isProcessing =
+true;
 
 
 
-        orderActionButton.innerText =
-            "Complete Order";
+try{
 
 
-    }
+orderActionButton.disabled =
+true;
+
+
+orderActionButton.innerText =
+"Completing...";
+
+
+
+
+const data =
+await apiRequest(
+"/order-complete-v3",
+{
+
+method:"POST",
+
+
+body:
+JSON.stringify({
+
+user_id:
+currentUser.id,
+
+
+order_id:
+currentOrder.id
+
+})
+
+}
+);
+
+
+
+
+console.log(
+"ORDER COMPLETE V3:",
+data
+);
+
+
+
+
+if(!data.success){
+
+setError(
+data.error ||
+"Complete failed."
+);
+
+
+return;
+
+}
+
+
+
+
+currentOrder =
+data.order;
+
+
+
+if(data.user){
+
+currentUser =
+data.user;
+
+
+updateUserData(
+currentUser
+);
+
+}
+
+
+
+
+updateRound(
+data.round
+);
+
+
+
+
+
+if(
+data.round &&
+data.round.status ===
+"cooldown"
+){
+
+const end =
+new Date(
+data.round.cooldown_until
+)
+.getTime();
+
+
+
+showCooldown(
+Math.ceil(
+(end - Date.now()) / 1000
+),
+data.round
+);
+
+
+
+return;
+
+}
+
+
+
+
+if(orderStatus){
+
+orderStatus.innerText =
+"Completed";
+
+
+orderStatus.className =
+"order-status completed";
+
+}
+
+
+
+
+if(orderMessage){
+
+orderMessage.innerText =
+"Order completed successfully.";
+
+}
+
+
+
+if(orderActionButton){
+
+orderActionButton.disabled =
+false;
+
+
+orderActionButton.innerText =
+"Start Next Order";
+
+}
+
+
+
+}
+catch(error){
+
+console.error(
+error
+);
+
+
+setError(
+"Network error."
+);
+
+
+}
+finally{
+
+isProcessing =
+false;
+
+}
 
 
 }
@@ -2176,51 +1913,38 @@ function handleCompleteError(
 
 
 
+
 // =====================================================
-// ACTION BUTTON
+// BUTTON
 // =====================================================
 
 
 if(orderActionButton){
 
 
-    orderActionButton.addEventListener(
-        "click",
-        ()=>{
+orderActionButton.addEventListener(
+"click",
+()=>{
 
 
-            if(isProcessing){
+if(
+currentOrder &&
+currentOrder.status ===
+"pending"
+){
 
-                return;
+completeOrder();
 
-            }
+}
+else{
 
+startOrder();
 
-
-            if(
-                currentOrder &&
-                currentOrder.status ===
-                "pending"
-            ){
-
-
-                completeOrder();
+}
 
 
-            }
-            else{
-
-
-                startOrder();
-
-
-            }
-
-
-
-        }
-    );
-
+}
+);
 
 }
 
@@ -2231,71 +1955,58 @@ if(orderActionButton){
 
 
 // =====================================================
-// PAGE VISIBILITY
+// PAGE OBSERVER
 // =====================================================
 
 
 if(orderPage){
 
 
-
-    const observer =
-        new MutationObserver(
-            ()=>{
-
+const observer =
+new MutationObserver(
+()=>{
 
 
-                const visible =
-                    !orderPage.classList.contains(
-                        "hidden"
-                    );
+if(
+!orderPage.classList.contains(
+"hidden"
+)
+){
 
 
+loadSession()
+.then(
+logged=>{
 
 
-                if(visible){
+if(logged){
+
+loadOrderState();
+
+}
 
 
-
-                    loadSession()
-                    .then(
-                        logged=>{
+}
+);
 
 
-                            if(logged){
+}
 
 
-                                loadOrderState();
-
-
-                            }
-
-
-                        }
-                    );
-
-
-                }
+}
+);
 
 
 
-            }
-        );
-
-
-
-
-
-    observer.observe(
-        orderPage,
-        {
-            attributes:true,
-
-            attributeFilter:[
-                "class"
-            ]
-        }
-    );
+observer.observe(
+orderPage,
+{
+attributes:true,
+attributeFilter:[
+"class"
+]
+}
+);
 
 
 }
@@ -2311,29 +2022,26 @@ if(orderPage){
 
 
 window.addEventListener(
-    "user-login",
-    async ()=>{
+"user-login",
+async()=>{
 
 
-        resetOrderUI();
+resetOrderUI();
+
+
+const logged =
+await loadSession();
 
 
 
-        const logged =
-            await loadSession();
+if(logged){
+
+loadOrderState();
+
+}
 
 
-
-        if(logged){
-
-
-            await loadOrderState();
-
-
-        }
-
-
-    }
+}
 );
 
 
@@ -2341,34 +2049,29 @@ window.addEventListener(
 
 
 
-
 // =====================================================
-// INITIAL LOAD
+// INIT
 // =====================================================
 
 
 resetOrderUI();
 
 
-
 loadSession()
 .then(
-    logged=>{
+logged=>{
 
 
-        if(logged){
+if(logged){
+
+loadOrderState();
+
+}
 
 
-            loadOrderState();
-
-
-        }
-
-
-    }
+}
 );
 
 
 
-    }
-);
+});
