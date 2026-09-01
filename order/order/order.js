@@ -120,7 +120,7 @@ document.addEventListener(
 
         let cooldownTimer = null;
 
-        let cooldownUntil = null;
+        let orderStatusLoading = false;
 
 
         // =====================================================
@@ -175,20 +175,13 @@ document.addEventListener(
             seconds
         ) {
 
-            let time =
+            const time =
                 Math.max(
                     0,
                     Math.floor(
                         Number(seconds || 0)
                     )
                 );
-
-
-            if (time <= 0) {
-
-                return "0s";
-
-            }
 
 
             const hours =
@@ -262,9 +255,8 @@ document.addEventListener(
 
             }
 
-            cooldownUntil = null;
-
         }
+
 
 
         // =====================================================
@@ -277,9 +269,12 @@ document.addEventListener(
 
             stopCooldownTimer();
 
-            currentOrder = null;
 
-            currentRound = null;
+            currentOrder =
+                null;
+
+            currentRound =
+                null;
 
 
             if (orderStatus) {
@@ -323,6 +318,30 @@ document.addEventListener(
 
                 orderMatchingCountdown.innerText =
                     "-";
+
+            }
+
+
+            if (orderRoundValue) {
+
+                orderRoundValue.innerText =
+                    "0/0";
+
+            }
+
+
+            if (orderProgressText) {
+
+                orderProgressText.innerText =
+                    "0 / 0";
+
+            }
+
+
+            if (orderProgressBar) {
+
+                orderProgressBar.style.width =
+                    "0%";
 
             }
 
@@ -381,6 +400,11 @@ document.addEventListener(
                         null;
 
 
+                    stopMatchingTimer();
+
+                    stopCooldownTimer();
+
+
                     if (orderActionButton) {
 
                         orderActionButton.disabled =
@@ -400,7 +424,7 @@ document.addEventListener(
                     }
 
 
-                    return;
+                    return false;
 
                 }
 
@@ -414,13 +438,7 @@ document.addEventListener(
                 );
 
 
-                /*
-                 * Do not automatically clear the current
-                 * order state here.
-                 *
-                 * The current order is handled by the
-                 * page's order state.
-                 */
+                return true;
 
             }
             catch (error) {
@@ -452,6 +470,338 @@ document.addEventListener(
                         "Unable to load your session.";
 
                 }
+
+
+                return false;
+
+            }
+
+        }
+
+
+        // =====================================================
+        // LOAD ORDER STATE
+        // =====================================================
+
+        async function loadOrderState() {
+
+            if (!currentUser) {
+
+                return;
+
+            }
+
+
+            if (orderStatusLoading) {
+
+                return;
+
+            }
+
+
+            orderStatusLoading =
+                true;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API}/order-status`,
+                        {
+                            method: "GET",
+                            credentials: "include"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "ORDER STATUS:",
+                    data
+                );
+
+
+                if (!data.success) {
+
+                    return;
+
+                }
+
+
+                // =================================================
+                // USER
+                // =================================================
+
+                if (data.user) {
+
+                    currentUser =
+                        data.user;
+
+                    updateUserData(
+                        data.user
+                    );
+
+                }
+
+
+                // =================================================
+                // ROUND
+                // =================================================
+
+                if (data.round) {
+
+                    updateRound(
+                        data.round
+                    );
+
+                }
+                else {
+
+                    if (orderRoundValue) {
+
+                        orderRoundValue.innerText =
+                            "0/0";
+
+                    }
+
+
+                    if (orderProgressText) {
+
+                        orderProgressText.innerText =
+                            "0 / 0";
+
+                    }
+
+
+                    if (orderProgressBar) {
+
+                        orderProgressBar.style.width =
+                            "0%";
+
+                    }
+
+                }
+
+
+                // =================================================
+                // NO ORDER
+                // =================================================
+
+                if (!data.has_order) {
+
+                    currentOrder =
+                        null;
+
+
+                    stopMatchingTimer();
+
+                    stopCooldownTimer();
+
+
+                    if (orderStatus) {
+
+                        orderStatus.innerText =
+                            "Ready";
+
+                        orderStatus.className =
+                            "order-status idle";
+
+                    }
+
+
+                    if (orderMessage) {
+
+                        orderMessage.innerText =
+                            "Start an order to begin.";
+
+                    }
+
+
+                    if (orderProduct) {
+
+                        orderProduct.classList.add(
+                            "hidden"
+                        );
+
+                    }
+
+
+                    if (orderActionButton) {
+
+                        orderActionButton.disabled =
+                            false;
+
+                        orderActionButton.innerText =
+                            "Start Order";
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                // =================================================
+                // LATEST ORDER
+                // =================================================
+
+                currentOrder =
+                    data.order;
+
+
+                if (
+                    data.order &&
+                    data.order.product
+                ) {
+
+                    displayProduct(
+                        data.order.product
+                    );
+
+                }
+
+
+                // =================================================
+                // PENDING ORDER
+                // =================================================
+
+                if (
+                    data.order.status ===
+                    "pending"
+                ) {
+
+                    const remaining =
+                        Number(
+                            data.order.matching?.remaining_seconds || 0
+                        );
+
+
+                    if (remaining > 0) {
+
+                        showMatching(
+                            remaining
+                        );
+
+                    }
+                    else {
+
+                        showPendingOrder();
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                // =================================================
+                // COMPLETED ORDER
+                // =================================================
+
+                if (
+                    data.order.status ===
+                    "completed"
+                ) {
+
+                    stopMatchingTimer();
+
+
+                    if (orderStatus) {
+
+                        orderStatus.innerText =
+                            "Completed";
+
+                        orderStatus.className =
+                            "order-status completed";
+
+                    }
+
+
+                    if (orderProduct) {
+
+                        orderProduct.classList.remove(
+                            "hidden"
+                        );
+
+                    }
+
+
+                    if (
+                        data.round &&
+                        data.round.status ===
+                            "cooldown"
+                    ) {
+
+                        const cooldownUntil =
+                            data.round.cooldown_until
+                                ? new Date(
+                                    data.round.cooldown_until
+                                ).getTime()
+                                : 0;
+
+
+                        const remaining =
+                            Math.max(
+                                0,
+                                Math.ceil(
+                                    (
+                                        cooldownUntil -
+                                        Date.now()
+                                    ) / 1000
+                                )
+                            );
+
+
+                        showCooldown(
+                            remaining,
+                            data.round
+                        );
+
+
+                        return;
+
+                    }
+
+
+                    if (orderMessage) {
+
+                        orderMessage.innerText =
+                            "Order completed successfully.";
+
+                    }
+
+
+                    if (orderActionButton) {
+
+                        orderActionButton.disabled =
+                            false;
+
+                        orderActionButton.innerText =
+                            "Start Next Order";
+
+                    }
+
+                }
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Order status error:",
+                    error
+                );
+
+            }
+            finally {
+
+                orderStatusLoading =
+                    false;
 
             }
 
@@ -643,12 +993,6 @@ document.addEventListener(
 
             function updateCooldownDisplay() {
 
-                const timeText =
-                    formatCooldownTime(
-                        remaining
-                    );
-
-
                 if (orderMessage) {
 
                     orderMessage.innerText =
@@ -660,7 +1004,9 @@ document.addEventListener(
                 if (orderError) {
 
                     orderError.innerText =
-                        `Remaining time: ${timeText}`;
+                        `Remaining time: ${formatCooldownTime(
+                            remaining
+                        )}`;
 
                 }
 
@@ -841,6 +1187,15 @@ document.addEventListener(
             }
 
 
+            if (remaining <= 0) {
+
+                showPendingOrder();
+
+                return;
+
+            }
+
+
             matchingTimer =
                 setInterval(
                     () => {
@@ -963,7 +1318,8 @@ document.addEventListener(
             if (orderProductImage) {
 
                 orderProductImage.src =
-                    product.image_url || "";
+                    product.image_url ||
+                    "https://placehold.co/600x600?text=No+Order";
 
                 orderProductImage.alt =
                     product.name ||
@@ -975,7 +1331,8 @@ document.addEventListener(
             if (orderProductName) {
 
                 orderProductName.innerText =
-                    product.name || "";
+                    product.name ||
+                    "Order Product";
 
             }
 
@@ -983,7 +1340,8 @@ document.addEventListener(
             if (orderProductDescription) {
 
                 orderProductDescription.innerText =
-                    product.description || "";
+                    product.description ||
+                    "";
 
             }
 
@@ -1000,21 +1358,22 @@ document.addEventListener(
 
             if (orderProductProfit) {
 
-                const profit =
-                    Number(
-                        product.profit || 0
-                    );
-
-
                 const price =
                     Number(
                         product.price || 0
                     );
 
 
+                const profitRatio =
+                    Number(
+                        product.profit || 0
+                    );
+
+
                 orderProductProfit.innerText =
                     formatNumber(
-                        price * profit
+                        price *
+                        profitRatio
                     );
 
             }
@@ -1036,14 +1395,15 @@ document.addEventListener(
 
             if (!currentUser) {
 
-                await loadSession();
+                const loggedIn =
+                    await loadSession();
 
-            }
 
+                if (!loggedIn) {
 
-            if (!currentUser) {
+                    return;
 
-                return;
+                }
 
             }
 
@@ -1120,7 +1480,10 @@ document.addEventListener(
                 );
 
 
-                if (currentOrder) {
+                if (
+                    currentOrder &&
+                    currentOrder.product
+                ) {
 
                     displayProduct(
                         currentOrder.product
@@ -1186,10 +1549,6 @@ document.addEventListener(
                 data.code || "";
 
 
-            // -------------------------------------------------
-            // INSUFFICIENT START COINS
-            // -------------------------------------------------
-
             if (
                 code ===
                 "INSUFFICIENT_START_COINS"
@@ -1215,10 +1574,6 @@ document.addEventListener(
             }
 
 
-            // -------------------------------------------------
-            // PENDING ORDER
-            // -------------------------------------------------
-
             else if (
                 code ===
                 "PENDING_ORDER"
@@ -1241,10 +1596,6 @@ document.addEventListener(
 
             }
 
-
-            // -------------------------------------------------
-            // ROUND COOLDOWN
-            // -------------------------------------------------
 
             else if (
                 code ===
@@ -1280,10 +1631,6 @@ document.addEventListener(
             }
 
 
-            // -------------------------------------------------
-            // ROUND COMPLETED
-            // -------------------------------------------------
-
             else if (
                 code ===
                 "ROUND_COMPLETED"
@@ -1311,10 +1658,6 @@ document.addEventListener(
             }
 
 
-            // -------------------------------------------------
-            // NO PRODUCTS
-            // -------------------------------------------------
-
             else if (
                 code ===
                 "NO_AVAILABLE_PRODUCTS"
@@ -1328,10 +1671,6 @@ document.addEventListener(
             }
 
 
-            // -------------------------------------------------
-            // DEFAULT
-            // -------------------------------------------------
-
             else {
 
                 setError(
@@ -1341,10 +1680,6 @@ document.addEventListener(
 
             }
 
-
-            // =================================================
-            // RESTORE BUTTON
-            // =================================================
 
             if (orderActionButton) {
 
@@ -1470,18 +1805,55 @@ document.addEventListener(
                 );
 
 
-                if (orderProduct) {
+                if (orderMatching) {
 
-                    orderProduct.classList.add(
+                    orderMatching.classList.add(
                         "hidden"
                     );
 
                 }
 
 
-                if (orderMatching) {
+                if (
+                    data.round &&
+                    data.round.status ===
+                        "cooldown"
+                ) {
 
-                    orderMatching.classList.add(
+                    const cooldownUntil =
+                        data.round.cooldown_until
+                            ? new Date(
+                                data.round.cooldown_until
+                            ).getTime()
+                            : 0;
+
+
+                    const remaining =
+                        Math.max(
+                            0,
+                            Math.ceil(
+                                (
+                                    cooldownUntil -
+                                    Date.now()
+                                ) / 1000
+                            )
+                        );
+
+
+                    showCooldown(
+                        remaining,
+                        data.round
+                    );
+
+
+                    return;
+
+                }
+
+
+                if (orderProduct) {
+
+                    orderProduct.classList.remove(
                         "hidden"
                     );
 
@@ -1499,6 +1871,15 @@ document.addEventListener(
                 }
 
 
+                if (orderMessage) {
+
+                    orderMessage.innerText =
+                        data.message ||
+                        "Order completed successfully.";
+
+                }
+
+
                 if (orderError) {
 
                     orderError.innerText =
@@ -1507,71 +1888,13 @@ document.addEventListener(
                 }
 
 
-                if (data.round?.status === "cooldown") {
+                if (orderActionButton) {
 
-                    showCooldown(
-                        0,
-                        data.round
-                    );
+                    orderActionButton.disabled =
+                        false;
 
-
-                    /*
-                     * order-complete already returns
-                     * cooldown_until.
-                     *
-                     * Calculate real remaining time.
-                     */
-
-                    if (
-                        data.round.cooldown_until
-                    ) {
-
-                        const until =
-                            new Date(
-                                data.round.cooldown_until
-                            ).getTime();
-
-
-                        const remaining =
-                            Math.max(
-                                0,
-                                Math.ceil(
-                                    (
-                                        until -
-                                        Date.now()
-                                    ) / 1000
-                                )
-                            );
-
-
-                        showCooldown(
-                            remaining,
-                            data.round
-                        );
-
-                    }
-
-                }
-                else {
-
-                    if (orderMessage) {
-
-                        orderMessage.innerText =
-                            data.message ||
-                            "Order completed successfully.";
-
-                    }
-
-
-                    if (orderActionButton) {
-
-                        orderActionButton.disabled =
-                            false;
-
-                        orderActionButton.innerText =
-                            "Start Next Order";
-
-                    }
+                    orderActionButton.innerText =
+                        "Start Next Order";
 
                 }
 
@@ -1627,6 +1950,8 @@ document.addEventListener(
                 );
 
             }
+
+
             else if (
                 code ===
                 "ORDER_ALREADY_COMPLETED"
@@ -1638,6 +1963,8 @@ document.addEventListener(
                 );
 
             }
+
+
             else if (
                 code ===
                 "ORDER_NOT_PENDING"
@@ -1649,6 +1976,8 @@ document.addEventListener(
                 );
 
             }
+
+
             else {
 
                 setError(
@@ -1682,7 +2011,6 @@ document.addEventListener(
                 "click",
                 () => {
 
-
                     if (cooldownTimer) {
 
                         return;
@@ -1712,7 +2040,7 @@ document.addEventListener(
 
 
         // =====================================================
-        // PAGE VISIBILITY
+        // ORDER PAGE VISIBILITY
         // =====================================================
 
         if (orderPage) {
@@ -1727,7 +2055,17 @@ document.addEventListener(
                             )
                         ) {
 
-                            loadSession();
+                            loadSession().then(
+                                (loggedIn) => {
+
+                                    if (loggedIn) {
+
+                                        loadOrderState();
+
+                                    }
+
+                                }
+                            );
 
                         }
 
@@ -1739,9 +2077,11 @@ document.addEventListener(
                 orderPage,
                 {
                     attributes: true,
+
                     attributeFilter: [
                         "class"
                     ]
+
                 }
             );
 
@@ -1749,12 +2089,48 @@ document.addEventListener(
 
 
         // =====================================================
-        // START
+        // LOGIN / REGISTER EVENT
+        // =====================================================
+
+        window.addEventListener(
+            "user-login",
+            async () => {
+
+                resetOrderUI();
+
+
+                const loggedIn =
+                    await loadSession();
+
+
+                if (loggedIn) {
+
+                    await loadOrderState();
+
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // INITIAL LOAD
         // =====================================================
 
         resetOrderUI();
 
-        loadSession();
+
+        loadSession().then(
+            (loggedIn) => {
+
+                if (loggedIn) {
+
+                    loadOrderState();
+
+                }
+
+            }
+        );
 
 
     }
