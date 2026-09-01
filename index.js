@@ -68,7 +68,8 @@ document.getElementById("registerForm");
 const rlTitle =
 document.getElementById("rlTitle");
 
-
+const globalLoading =
+document.getElementById("globalLoading");
 
 
 // =========================
@@ -167,7 +168,44 @@ let registerLoading=false;
 window.userLoggedIn=false;
 
 
+// =====================================================
+// GLOBAL LOADING
+// =====================================================
 
+
+function showGlobalLoading()
+{
+
+
+if(globalLoading)
+{
+
+globalLoading.classList.remove(
+"hidden"
+);
+
+}
+
+
+}
+
+
+
+function hideGlobalLoading()
+{
+
+
+if(globalLoading)
+{
+
+globalLoading.classList.add(
+"hidden"
+);
+
+}
+
+
+}
 
 
 
