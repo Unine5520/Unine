@@ -139,68 +139,21 @@ document.addEventListener(
         }
 
 
+
         function formatNumber(
             value
         ) {
 
-            function formatCooldownTime(
-                seconds
-            ) {
-
-                let time =
-                    Number(seconds || 0);
-
-
-                if (time <= 0) {
-
-                    return "0s";
-
-                }
-
-
-                const hours =
-                    Math.floor(
-                        time / 3600
-                    );
-
-
-                const minutes =
-                    Math.floor(
-                        (time % 3600) / 60
-                    );
-
-
-                const secondsLeft =
-                    time % 60;
-
-
-                if (hours > 0) {
-
-                    return `${hours}h ${minutes}m ${secondsLeft}s`;
-
-                }
-
-
-                if (minutes > 0) {
-
-                    return `${minutes}m ${secondsLeft}s`;
-
-                }
-
-
-                return `${secondsLeft}s`;
-
-            }
-
-
             const number =
                 Number(value ?? 0);
+
 
             if (!Number.isFinite(number)) {
 
                 return "0";
 
             }
+
 
             return number.toLocaleString(
                 undefined,
@@ -211,6 +164,58 @@ document.addEventListener(
             );
 
         }
+
+
+
+        function formatCooldownTime(
+            seconds
+        ) {
+
+            let time =
+                Number(seconds || 0);
+
+
+            if (time <= 0) {
+
+                return "0s";
+
+            }
+
+
+            const hours =
+                Math.floor(
+                    time / 3600
+                );
+
+
+            const minutes =
+                Math.floor(
+                    (time % 3600) / 60
+                );
+
+
+            const secondsLeft =
+                time % 60;
+
+
+            if (hours > 0) {
+
+                return `${hours}h ${minutes}m ${secondsLeft}s`;
+
+            }
+
+
+            if (minutes > 0) {
+
+                return `${minutes}m ${secondsLeft}s`;
+
+            }
+
+
+            return `${secondsLeft}s`;
+
+        }
+
 
 
         function stopMatchingTimer() {
@@ -226,7 +231,6 @@ document.addEventListener(
             }
 
         }
-
 
         // =====================================================
         // RESET UI
