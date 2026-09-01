@@ -1,1014 +1,1184 @@
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    () => {
 
 
-// =========================
-// API
-// =========================
+        // =====================================================
+        // API
+        // =====================================================
 
-const API =
-"https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+        const API =
+            "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
 
+        // =====================================================
+        // ELEMENTS
+        // =====================================================
 
+        const rlModal =
+            document.getElementById(
+                "rlModal"
+            );
 
-// =========================
-// ELEMENT
-// =========================
 
+        const loginButton =
+            document.getElementById(
+                "loginButton"
+            );
 
-const rlModal =
-document.getElementById("rlModal");
 
+        const registerButton =
+            document.getElementById(
+                "registerButton"
+            );
 
-const loginButton =
-document.getElementById("loginButton");
 
+        const rlClose =
+            document.getElementById(
+                "rlClose"
+            );
 
-const registerButton =
-document.getElementById("registerButton");
 
+        const loginTab =
+            document.getElementById(
+                "loginTab"
+            );
 
-const rlClose =
-document.getElementById("rlClose");
 
+        const registerTab =
+            document.getElementById(
+                "registerTab"
+            );
 
-const loginTab =
-document.getElementById("loginTab");
 
+        const loginForm =
+            document.getElementById(
+                "loginForm"
+            );
 
-const registerTab =
-document.getElementById("registerTab");
 
+        const registerForm =
+            document.getElementById(
+                "registerForm"
+            );
 
-const loginForm =
-document.getElementById("loginForm");
 
+        const rlTitle =
+            document.getElementById(
+                "rlTitle"
+            );
 
-const registerForm =
-document.getElementById("registerForm");
 
+        // =====================================================
+        // INPUT
+        // =====================================================
 
-const rlTitle =
-document.getElementById("rlTitle");
+        const loginEmail =
+            document.getElementById(
+                "loginEmail"
+            );
 
 
+        const loginPassword =
+            document.getElementById(
+                "loginPassword"
+            );
 
-// input
 
-const loginEmail =
-document.getElementById("loginEmail");
+        const registerUsername =
+            document.getElementById(
+                "registerUsername"
+            );
 
-const loginPassword =
-document.getElementById("loginPassword");
 
+        const registerEmail =
+            document.getElementById(
+                "registerEmail"
+            );
 
-const registerUsername =
-document.getElementById("registerUsername");
 
-const registerEmail =
-document.getElementById("registerEmail");
+        const registerPassword =
+            document.getElementById(
+                "registerPassword"
+            );
 
-const registerPassword =
-document.getElementById("registerPassword");
 
-const registerConfirm =
-document.getElementById("registerConfirm");
+        const registerConfirm =
+            document.getElementById(
+                "registerConfirm"
+            );
 
 
+        // =====================================================
+        // BUTTON
+        // =====================================================
 
-// button
+        const loginSubmit =
+            document.getElementById(
+                "loginSubmit"
+            );
 
-const loginSubmit =
-document.getElementById("loginSubmit");
 
-const registerSubmit =
-document.getElementById("registerSubmit");
+        const registerSubmit =
+            document.getElementById(
+                "registerSubmit"
+            );
 
 
+        // =====================================================
+        // ERROR
+        // =====================================================
 
-// error
+        const loginError =
+            document.getElementById(
+                "loginError"
+            );
 
-const loginError =
-document.getElementById("loginError");
 
-const registerError =
-document.getElementById("registerError");
+        const registerError =
+            document.getElementById(
+                "registerError"
+            );
 
 
+        // =====================================================
+        // STATE
+        // =====================================================
 
-let loginErrorTimer;
-let registerErrorTimer;
-let userLoggedIn = false;
-window.userLoggedIn = false;
+        let loginErrorTimer;
 
+        let registerErrorTimer;
 
+        let userLoggedIn =
+            false;
 
 
-// =========================
-// ERROR SYSTEM
-// =========================
+        window.userLoggedIn =
+            false;
 
 
-function showError(
-element,
-message="",
-type=""
-)
-{
+        // =====================================================
+        // ERROR SYSTEM
+        // =====================================================
 
-if(!element)
-return;
+        function showError(
+            element,
+            message = "",
+            type = ""
+        ) {
 
+            if (!element) {
 
-if(type==="login")
-{
+                return;
 
-clearTimeout(loginErrorTimer);
+            }
 
 
-loginErrorTimer =
-setTimeout(
-()=>{
+            if (
+                type ===
+                "login"
+            ) {
 
-element.innerText="";
+                clearTimeout(
+                    loginErrorTimer
+                );
 
-},
-3000
-);
 
+                loginErrorTimer =
+                    setTimeout(
+                        () => {
 
-}
+                            element.innerText =
+                                "";
 
+                        },
+                        3000
+                    );
 
-if(type==="register")
-{
+            }
 
-clearTimeout(registerErrorTimer);
 
+            if (
+                type ===
+                "register"
+            ) {
 
-registerErrorTimer =
-setTimeout(
-()=>{
+                clearTimeout(
+                    registerErrorTimer
+                );
 
-element.innerText="";
 
-},
-3000
-);
+                registerErrorTimer =
+                    setTimeout(
+                        () => {
 
+                            element.innerText =
+                                "";
 
-}
+                        },
+                        3000
+                    );
 
+            }
 
 
-element.innerText =
-message;
+            element.innerText =
+                message;
 
+        }
 
-}
 
+        function clearErrors() {
 
+            if (loginError) {
 
+                loginError.innerText =
+                    "";
 
-function clearErrors()
-{
+            }
 
-if(loginError)
-{
-    loginError.innerText="";
-}
 
+            if (registerError) {
 
-if(registerError)
-{
-    registerError.innerText="";
-}
+                registerError.innerText =
+                    "";
 
+            }
 
-clearTimeout(loginErrorTimer);
 
-clearTimeout(registerErrorTimer);
+            clearTimeout(
+                loginErrorTimer
+            );
 
 
-}
+            clearTimeout(
+                registerErrorTimer
+            );
 
+        }
 
 
+        // =====================================================
+        // OPEN / CLOSE
+        // =====================================================
 
+        function openRL(
+            type
+        ) {
 
+            if (!rlModal) {
 
+                return;
 
+            }
 
 
-// =========================
-// OPEN CLOSE
-// =========================
+            rlModal.classList.remove(
+                "hidden"
+            );
 
 
-function openRL(type)
-{
+            clearErrors();
 
-rlModal.classList.remove(
-"hidden"
-);
 
+            if (
+                type ===
+                "register"
+            ) {
 
-clearErrors();
+                showRegister();
 
+            }
+            else {
 
-if(type==="register")
-{
-showRegister();
-}
-else
-{
-showLogin();
-}
+                showLogin();
 
+            }
 
-}
+        }
 
 
+        function closeRL() {
 
-function closeRL()
-{
+            if (!rlModal) {
 
-rlModal.classList.add(
-"hidden"
-);
+                return;
 
+            }
 
-clearErrors();
 
-}
+            rlModal.classList.add(
+                "hidden"
+            );
 
 
+            clearErrors();
 
+        }
 
 
+        // =====================================================
+        // TAB
+        // =====================================================
 
+        function showLogin() {
 
+            if (rlTitle) {
 
+                rlTitle.innerText =
+                    "Login";
 
+            }
 
-// =========================
-// TAB
-// =========================
 
+            if (loginTab) {
 
-function showLogin()
-{
+                loginTab.classList.add(
+                    "active"
+                );
 
-rlTitle.innerText =
-"Login";
+            }
 
 
-loginTab.classList.add(
-"active"
-);
+            if (registerTab) {
 
+                registerTab.classList.remove(
+                    "active"
+                );
 
-registerTab.classList.remove(
-"active"
-);
+            }
 
 
+            if (loginForm) {
 
-loginForm.classList.remove(
-"hidden"
-);
+                loginForm.classList.remove(
+                    "hidden"
+                );
 
+            }
 
-registerForm.classList.add(
-"hidden"
-);
 
+            if (registerForm) {
 
-}
+                registerForm.classList.add(
+                    "hidden"
+                );
 
+            }
 
+        }
 
-function showRegister()
-{
 
-rlTitle.innerText =
-"Register";
+        function showRegister() {
 
+            if (rlTitle) {
 
-registerTab.classList.add(
-"active"
-);
+                rlTitle.innerText =
+                    "Register";
 
+            }
 
-loginTab.classList.remove(
-"active"
-);
 
+            if (registerTab) {
 
+                registerTab.classList.add(
+                    "active"
+                );
 
-registerForm.classList.remove(
-"hidden"
-);
+            }
 
 
-loginForm.classList.add(
-"hidden"
-);
+            if (loginTab) {
 
+                loginTab.classList.remove(
+                    "active"
+                );
 
-}
+            }
 
 
+            if (registerForm) {
 
+                registerForm.classList.remove(
+                    "hidden"
+                );
 
+            }
 
 
+            if (loginForm) {
 
+                loginForm.classList.add(
+                    "hidden"
+                );
 
+            }
 
+        }
 
-// =========================
-// BUTTON
-// =========================
 
+        // =====================================================
+        // OPEN BUTTONS
+        // =====================================================
 
-if(loginButton)
-{
+        if (loginButton) {
 
-loginButton.onclick =
-()=>openRL("login");
+            loginButton.onclick =
+                () => {
 
-}
+                    openRL(
+                        "login"
+                    );
 
+                };
 
-if(registerButton)
-{
+        }
 
-registerButton.onclick =
-()=>openRL("register");
 
-}
+        if (registerButton) {
 
+            registerButton.onclick =
+                () => {
 
+                    openRL(
+                        "register"
+                    );
 
-if(rlClose)
-{
+                };
 
-rlClose.onclick =
-closeRL;
+        }
 
-}
 
+        if (rlClose) {
 
+            rlClose.onclick =
+                closeRL;
 
-loginTab.onclick =
-showLogin;
+        }
 
 
-registerTab.onclick =
-showRegister;
+        if (loginTab) {
 
+            loginTab.onclick =
+                showLogin;
 
+        }
 
 
+        if (registerTab) {
 
+            registerTab.onclick =
+                showRegister;
 
+        }
 
 
+        // =====================================================
+        // PASSWORD EYE
+        // =====================================================
 
-// =========================
-// PASSWORD EYE
-// =========================
+        document
+            .querySelectorAll(
+                ".toggle-password"
+            )
+            .forEach(
+                button => {
 
+                    button.onclick =
+                        () => {
 
-document
-.querySelectorAll(".toggle-password")
-.forEach(
-button=>{
+                            const input =
+                                document.getElementById(
+                                    button.dataset.target
+                                );
 
 
-button.onclick =
-()=>{
+                            if (!input) {
 
+                                return;
 
-const input =
-document.getElementById(
-button.dataset.target
-);
+                            }
 
 
+                            if (
+                                input.type ===
+                                "password"
+                            ) {
 
-if(input.type==="password")
-{
+                                input.type =
+                                    "text";
 
-input.type="text";
 
-button.classList.add(
-"show"
-);
+                                button.classList.add(
+                                    "show"
+                                );
 
+                            }
+                            else {
 
-}
-else
-{
+                                input.type =
+                                    "password";
 
-input.type="password";
 
-button.classList.remove(
-"show"
-);
+                                button.classList.remove(
+                                    "show"
+                                );
 
+                            }
 
-}
+                        };
 
+                }
+            );
 
-};
 
+        // =====================================================
+        // BUTTON ACTIVE STATE
+        // =====================================================
 
-});
+        function checkLoginButton() {
 
+            const ok =
+                loginEmail &&
+                loginPassword &&
+                loginEmail.value.trim() &&
+                loginPassword.value;
 
 
+            if (loginSubmit) {
 
+                loginSubmit.disabled =
+                    !ok;
 
 
+                loginSubmit.classList.toggle(
+                    "active",
+                    !!ok
+                );
 
+            }
 
+        }
 
-// =========================
-// BUTTON ACTIVE
-// =========================
 
+        function checkRegisterButton() {
 
-function checkLoginButton()
-{
+            const ok =
+                registerUsername &&
+                registerEmail &&
+                registerPassword &&
+                registerConfirm &&
+                registerUsername.value.trim() &&
+                registerEmail.value.trim() &&
+                registerPassword.value &&
+                registerConfirm.value;
 
-const ok =
-loginEmail.value.trim()
-&&
-loginPassword.value;
 
+            if (registerSubmit) {
 
+                registerSubmit.disabled =
+                    !ok;
 
-loginSubmit.disabled =
-!ok;
 
+                registerSubmit.classList.toggle(
+                    "active",
+                    !!ok
+                );
 
-loginSubmit.classList.toggle(
-"active",
-ok
-);
+            }
 
+        }
 
-}
 
+        if (loginEmail) {
 
+            loginEmail.oninput =
+                checkLoginButton;
 
+        }
 
-function checkRegisterButton()
-{
 
-const ok =
-registerUsername.value.trim()
-&&
-registerEmail.value.trim()
-&&
-registerPassword.value
-&&
-registerConfirm.value
+        if (loginPassword) {
 
+            loginPassword.oninput =
+                checkLoginButton;
 
+        }
 
 
-registerSubmit.disabled =
-!ok;
+        if (registerUsername) {
 
+            registerUsername.oninput =
+                checkRegisterButton;
 
-registerSubmit.classList.toggle(
-"active",
-ok
-);
+        }
 
 
-}
+        if (registerEmail) {
 
+            registerEmail.oninput =
+                checkRegisterButton;
 
+        }
 
 
+        if (registerPassword) {
 
+            registerPassword.oninput =
+                checkRegisterButton;
 
+        }
 
-loginEmail.oninput =
-checkLoginButton;
 
+        if (registerConfirm) {
 
-loginPassword.oninput =
-checkLoginButton;
+            registerConfirm.oninput =
+                checkRegisterButton;
 
+        }
 
-registerUsername.oninput =
-checkRegisterButton;
 
+        // =====================================================
+        // USER LOGIN EVENT
+        // =====================================================
 
-registerEmail.oninput =
-checkRegisterButton;
+        function notifyUserLogin(
+            user
+        ) {
 
+            if (!user) {
 
-registerPassword.oninput =
-checkRegisterButton;
+                return;
 
+            }
 
-registerConfirm.oninput =
-checkRegisterButton;
 
+            window.dispatchEvent(
+                new CustomEvent(
+                    "user-login",
+                    {
+                        detail: {
+                            user
+                        }
+                    }
+                )
+            );
 
+        }
 
 
+        // =====================================================
+        // REGISTER
+        // =====================================================
 
+        if (registerSubmit) {
 
+            registerSubmit.onclick =
+                async () => {
 
+                    clearErrors();
 
 
-// =========================
-// REGISTER
-// =========================
+                    if (
+                        registerPassword.value !==
+                        registerConfirm.value
+                    ) {
 
+                        showError(
+                            registerError,
+                            "Passwords do not match",
+                            "register"
+                        );
 
-registerSubmit.onclick =
-async()=>{
 
+                        return;
 
-clearErrors();
+                    }
 
 
+                    registerSubmit.disabled =
+                        true;
 
-if(
-registerPassword.value !==
-registerConfirm.value
-)
-{
 
-showError(
-registerError,
-"Passwords do not match",
-"register"
-);
+                    try {
 
+                        const res =
+                            await fetch(
+                                `${API}/register`,
+                                {
+                                    method: "POST",
 
-return;
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
 
-}
+                                    credentials:
+                                        "include",
 
+                                    body:
+                                        JSON.stringify(
+                                            {
+                                                username:
+                                                    registerUsername.value.trim(),
 
+                                                email:
+                                                    registerEmail.value.trim(),
 
-try{
+                                                password:
+                                                    registerPassword.value
+                                            }
+                                        )
+                                }
+                            );
 
 
-const res =
-await fetch(
-`${API}/register`,
-{
+                        const data =
+                            await res.json();
 
-method:"POST",
 
-headers:
-{
-"Content-Type":"application/json"
-},
+                        console.log(
+                            "REGISTER:",
+                            data
+                        );
 
-credentials:"include",
 
-body:JSON.stringify(
-{
+                        if (data.success) {
 
-username:
-registerUsername.value.trim(),
 
-email:
-registerEmail.value.trim(),
+                            if (data.user) {
 
-password:
-registerPassword.value
+                                userLoggedIn =
+                                    true;
 
-}
 
-)
+                                window.userLoggedIn =
+                                    true;
 
-});
 
+                                updateHeader(
+                                    data.user
+                                );
 
 
-const data =
-await res.json();
+                                /*
+                                 * Notify Order page
+                                 *
+                                 * order.js will immediately
+                                 * load /me and /order-status.
+                                 */
 
+                                notifyUserLogin(
+                                    data.user
+                                );
 
+                            }
 
-console.log(data);
 
+                            registerUsername.value =
+                                "";
 
+                            registerEmail.value =
+                                "";
 
-if(data.success)
-{
+                            registerPassword.value =
+                                "";
 
+                            registerConfirm.value =
+                                "";
 
-    if(data.user)
-    {
 
-        userLoggedIn = true;
-        window.userLoggedIn = true;
+                            closeRL();
 
+                        }
+                        else {
 
-        updateHeader(
-            data.user
+                            showError(
+                                registerError,
+                                data.error ||
+                                data.message ||
+                                "Register failed",
+                                "register"
+                            );
+
+                        }
+
+                    }
+                    catch (err) {
+
+                        console.error(
+                            "Register error:",
+                            err
+                        );
+
+
+                        showError(
+                            registerError,
+                            "Network error, please try again",
+                            "register"
+                        );
+
+                    }
+                    finally {
+
+                        checkRegisterButton();
+
+                    }
+
+                };
+
+        }
+
+
+        // =====================================================
+        // LOGIN
+        // =====================================================
+
+        if (loginSubmit) {
+
+            loginSubmit.onclick =
+                async () => {
+
+                    clearErrors();
+
+
+                    loginSubmit.disabled =
+                        true;
+
+
+                    try {
+
+                        const res =
+                            await fetch(
+                                `${API}/login`,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    credentials:
+                                        "include",
+
+                                    body:
+                                        JSON.stringify(
+                                            {
+                                                login:
+                                                    loginEmail.value.trim(),
+
+                                                password:
+                                                    loginPassword.value
+                                            }
+                                        )
+                                }
+                            );
+
+
+                        const data =
+                            await res.json();
+
+
+                        console.log(
+                            "LOGIN:",
+                            data
+                        );
+
+
+                        if (data.success) {
+
+
+                            if (data.user) {
+
+                                userLoggedIn =
+                                    true;
+
+
+                                window.userLoggedIn =
+                                    true;
+
+
+                                updateHeader(
+                                    data.user
+                                );
+
+
+                                /*
+                                 * Notify Order page
+                                 *
+                                 * order.js will immediately
+                                 * load /me and /order-status.
+                                 */
+
+                                notifyUserLogin(
+                                    data.user
+                                );
+
+                            }
+
+
+                            loginEmail.value =
+                                "";
+
+                            loginPassword.value =
+                                "";
+
+
+                            loginPassword.type =
+                                "password";
+
+
+                            closeRL();
+
+                        }
+                        else {
+
+                            showError(
+                                loginError,
+                                data.error ||
+                                data.message ||
+                                "Login failed",
+                                "login"
+                            );
+
+                        }
+
+                    }
+                    catch (err) {
+
+                        console.error(
+                            "Login error:",
+                            err
+                        );
+
+
+                        showError(
+                            loginError,
+                            "Network error, please try again",
+                            "login"
+                        );
+
+                    }
+                    finally {
+
+                        checkLoginButton();
+
+                    }
+
+                };
+
+        }
+
+
+        // =====================================================
+        // UPDATE HEADER
+        // =====================================================
+
+        function updateHeader(
+            user
+        ) {
+
+            if (!user) {
+
+                return;
+
+            }
+
+
+            const telegramButton =
+                document.getElementById(
+                    "telegramButton"
+                );
+
+
+            const homeAuth =
+                document.getElementById(
+                    "homeAuth"
+                );
+
+
+            const userHeader =
+                document.getElementById(
+                    "userHeader"
+                );
+
+
+            const headerUsername =
+                document.getElementById(
+                    "headerUsername"
+                );
+
+
+            const meUsername =
+                document.getElementById(
+                    "meUsername"
+                );
+
+
+            if (telegramButton) {
+
+                telegramButton.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (homeAuth) {
+
+                homeAuth.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (userHeader) {
+
+                userHeader.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+            if (headerUsername) {
+
+                headerUsername.innerText =
+                    user.username;
+
+            }
+
+
+            if (meUsername) {
+
+                meUsername.innerText =
+                    user.username;
+
+            }
+
+        }
+
+
+        window.updateHeader =
+            updateHeader;
+
+
+        window.openRL =
+            openRL;
+
+
+        // =====================================================
+        // SESSION
+        // =====================================================
+
+        async function checkSession() {
+
+            try {
+
+                const res =
+                    await fetch(
+                        `${API}/me`,
+                        {
+                            method: "GET",
+                            credentials: "include"
+                        }
+                    );
+
+
+                const data =
+                    await res.json();
+
+
+                console.log(
+                    "ME:",
+                    data
+                );
+
+
+                if (
+                    data.success &&
+                    data.logged_in &&
+                    data.user
+                ) {
+
+                    userLoggedIn =
+                        true;
+
+
+                    window.userLoggedIn =
+                        true;
+
+
+                    updateHeader(
+                        data.user
+                    );
+
+
+                    /*
+                     * Important:
+                     *
+                     * This also tells order.js
+                     * to immediately restore the
+                     * current Order state.
+                     */
+
+                    notifyUserLogin(
+                        data.user
+                    );
+
+                }
+                else {
+
+                    userLoggedIn =
+                        false;
+
+
+                    window.userLoggedIn =
+                        false;
+
+                }
+
+            }
+            catch (err) {
+
+                console.log(
+                    "Not login"
+                );
+
+            }
+
+        }
+
+
+        // =====================================================
+        // ESC
+        // =====================================================
+
+        document.addEventListener(
+            "keydown",
+            e => {
+
+                if (
+                    e.key ===
+                    "Escape"
+                ) {
+
+                    closeRL();
+
+                }
+
+            }
         );
 
-    }
 
+        // =====================================================
+        // START
+        // =====================================================
 
+        checkSession();
 
-    registerUsername.value="";
-    registerEmail.value="";
-    registerPassword.value="";
-    registerConfirm.value="";
-
-
-    closeRL();
-
-
-}
-else
-{
-
-    showError(
-        registerError,
-        data.error ||
-        data.message ||
-        "Register failed",
-        "register"
-    );
-
-}
-
-
-}
-catch(err)
-{
-
-
-console.error(err);
-
-
-showError(
-registerError,
-"Network error, please try again",
-"register"
-);
-
-
-}
-
-
-};
-
-
-
-
-
-// =========================
-// LOGIN
-// =========================
-
-
-loginSubmit.onclick =
-async()=>{
-
-
-clearErrors();
-
-
-
-try{
-
-
-const res =
-await fetch(
-`${API}/login`,
-{
-
-method:"POST",
-
-headers:
-{
-"Content-Type":"application/json"
-},
-
-credentials:"include",
-
-body:JSON.stringify(
-{
-
-login:
-loginEmail.value.trim(),
-
-password:
-loginPassword.value
-
-}
-
-)
-
-});
-
-
-
-const data =
-await res.json();
-
-
-
-console.log(data);
-
-
-
-if(data.success)
-{
-
-
-    if(data.user)
-    {
-
-        userLoggedIn = true;
-
-        window.userLoggedIn = true;
-
-
-        updateHeader(
-            data.user
-        );
 
     }
-
-
-
-    loginEmail.value="";
-
-    loginPassword.value="";
-
-
-    loginPassword.type="password";
-
-
-    closeRL();
-
-
-}
-else
-{
-
-    showError(
-        loginError,
-        data.error ||
-        data.message ||
-        "Login failed",
-        "login"
-    );
-
-
-}
-
-
-}
-catch(err)
-{
-
-console.error(err);
-
-
-showError(
-loginError,
-"Network error, please try again",
-"login"
 );
-
-
-}
-
-
-};
-
-
-
-
-
-
-
-
-// =========================
-// UPDATE HEADER
-// =========================
-
-
-function updateHeader(user)
-{
-
-if(!user)
-return;
-
-
-
-const telegramButton =
-document.getElementById(
-"telegramButton"
-);
-
-
-const homeAuth =
-document.getElementById(
-"homeAuth"
-);
-
-
-const userHeader =
-document.getElementById(
-"userHeader"
-);
-
-
-const headerUsername =
-document.getElementById(
-"headerUsername"
-);
-
-
-const meUsername =
-document.getElementById(
-"meUsername"
-);
-
-
-
-if(telegramButton)
-telegramButton.classList.add("hidden");
-
-
-if(homeAuth)
-homeAuth.classList.add("hidden");
-
-
-if(userHeader)
-userHeader.classList.remove("hidden");
-
-
-
-if(headerUsername)
-headerUsername.innerText =
-user.username;
-
-
-
-if(meUsername)
-meUsername.innerText =
-user.username;
-
-
-}
-
-
-
-window.updateHeader =
-updateHeader;
-
-
-window.openRL =
-openRL;
-
-
-
-
-
-
-
-
-
-// =========================
-// SESSION
-// =========================
-
-
-async function checkSession()
-{
-
-try{
-
-
-const res =
-await fetch(
-`${API}/me`,
-{
-
-method:"GET",
-
-credentials:"include"
-
-});
-
-
-const data =
-await res.json();
-
-
-
-console.log(
-"ME:",
-data
-);
-
-
-
-if(
-data.success &&
-data.logged_in
-)
-{
-
-    userLoggedIn = true;
-
-    window.userLoggedIn = true;
-
-
-    updateHeader(
-        data.user
-    );
-
-}
-else
-{
-
-    userLoggedIn = false;
-
-    window.userLoggedIn = false;
-
-}
-
-
-}
-catch(err)
-{
-
-console.log(
-"Not login"
-);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-// =========================
-// ESC
-// =========================
-
-
-document.addEventListener(
-"keydown",
-e=>{
-
-
-if(e.key==="Escape")
-{
-
-closeRL();
-
-}
-
-
-});
-
-
-
-
-
-
-
-
-// =========================
-// START
-// =========================
-
-
-checkSession();
-
-
-
-});
