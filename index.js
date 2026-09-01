@@ -1405,6 +1405,9 @@ async function checkSession()
 {
 
 
+showGlobalLoading();
+
+
 try
 {
 
@@ -1468,6 +1471,9 @@ window.userLoggedIn=false;
 
 
 
+hideGlobalLoading();
+
+
 }
 catch(err)
 {
@@ -1477,6 +1483,11 @@ console.log(
 "Session none"
 );
 
+
+window.userLoggedIn=false;
+
+
+hideGlobalLoading();
 
 
 }
