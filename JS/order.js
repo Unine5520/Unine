@@ -1,5 +1,6 @@
 /* =====================================================
-   U9 ORDER STATUS TEST
+   U9 ORDER STATUS
+   Cookie Session Version
 ===================================================== */
 
 
@@ -8,6 +9,11 @@ const SUPABASE_FUNCTION_URL =
 
 
 
+
+
+/* =====================================================
+   LOAD ORDER STATUS
+===================================================== */
 
 
 async function loadOrderStatus(){
@@ -26,8 +32,10 @@ async function loadOrderStatus(){
                 credentials:"include",
 
                 headers:{
+
                     "Content-Type":
                     "application/json"
+
                 }
 
             }
@@ -49,11 +57,14 @@ async function loadOrderStatus(){
 
         if(!data.success){
 
+
             console.log(
                 data.message
             );
 
+
             return;
+
 
         }
 
@@ -62,6 +73,7 @@ async function loadOrderStatus(){
         renderOrderStatus(
             data
         );
+
 
 
     }
@@ -86,12 +98,19 @@ async function loadOrderStatus(){
 
 
 
+/* =====================================================
+   RENDER
+===================================================== */
+
+
 function renderOrderStatus(data){
 
 
 
     /*
+        ======================
         Coins
+        ======================
     */
 
 
@@ -99,6 +118,7 @@ function renderOrderStatus(data){
     document.getElementById(
         "coinsDisplay"
     );
+
 
 
     if(
@@ -112,6 +132,7 @@ function renderOrderStatus(data){
         )
         .toFixed(2);
 
+
     }
 
 
@@ -119,12 +140,15 @@ function renderOrderStatus(data){
 
 
 
+
     /*
+        ======================
         Round
+        ======================
     */
 
 
-    const round =
+    const roundDisplay =
     document.getElementById(
         "roundDisplay"
     );
@@ -132,12 +156,15 @@ function renderOrderStatus(data){
 
 
     if(
-        round &&
+        roundDisplay &&
         data.round
     ){
 
-        round.innerText =
+
+        roundDisplay.innerText =
+
         `${data.round.completed_orders}/${data.round.orders_per_round}`;
+
 
     }
 
@@ -147,9 +174,20 @@ function renderOrderStatus(data){
 
 
 
+
     /*
-        Order Status
+        ======================
+        Order
+        ======================
     */
+
+
+    const order =
+    data.order ||
+    data.activeOrder;
+
+
+
 
 
     const status =
@@ -162,11 +200,11 @@ function renderOrderStatus(data){
     if(status){
 
 
-        if(data.order){
+        if(order){
 
 
             status.innerText =
-            data.order.status;
+            order.status;
 
 
         }
@@ -187,20 +225,40 @@ function renderOrderStatus(data){
 
 
 
-    /*
-        Product
 
+
+    /*
+        ======================
+        Product
+        ======================
     */
 
 
+    const productBox =
+    document.getElementById(
+        "productBox"
+    );
+
+
+
     if(
-        data.order &&
-        data.order.products
+        order &&
+        order.products
     ){
 
 
         const product =
-        data.order.products;
+        order.products;
+
+
+
+        if(productBox){
+
+            productBox.classList.remove(
+                "hidden"
+            );
+
+        }
 
 
 
@@ -219,6 +277,9 @@ function renderOrderStatus(data){
 
 
 
+
+
+
         const price =
         document.getElementById(
             "orderPrice"
@@ -228,9 +289,15 @@ function renderOrderStatus(data){
         if(price){
 
             price.innerText =
-            product.price;
+            Number(
+                product.price
+            )
+            .toFixed(2);
 
         }
+
+
+
 
 
 
@@ -243,13 +310,80 @@ function renderOrderStatus(data){
         if(profit){
 
             profit.innerText =
-            product.profit;
+            Number(
+                product.profit
+            )
+            .toFixed(2);
 
         }
 
 
 
     }
+    else{
+
+
+        if(productBox){
+
+            productBox.classList.add(
+                "hidden"
+            );
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+    /*
+        ======================
+        Buttons
+        ======================
+    */
+
+
+    const startButton =
+    document.getElementById(
+        "startOrderButton"
+    );
+
+
+
+    const completeButton =
+    document.getElementById(
+        "completeOrderButton"
+    );
+
+
+
+    if(startButton){
+
+
+        startButton.disabled =
+        !!order;
+
+
+
+    }
+
+
+
+    if(completeButton){
+
+
+        completeButton.disabled =
+        !order ||
+        order.status !== "pending";
+
+
+    }
+
 
 
 
@@ -258,6 +392,13 @@ function renderOrderStatus(data){
 
 
 
+
+
+
+
+/* =====================================================
+   INIT
+===================================================== */
 
 
 document.addEventListener(
