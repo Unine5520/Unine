@@ -860,4 +860,25 @@ document.addEventListener(
 
 
 
+
+    const completeButton =
+    document.getElementById(
+        "completeOrderButton"
+    );
+
+
+
+    if(completeButton){
+
+
+        completeButton.addEventListener(
+            "click",
+            completeOrder
+        );
+
+
+    }
+
+
+
 });
