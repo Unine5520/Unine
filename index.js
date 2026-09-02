@@ -68,8 +68,7 @@ document.getElementById("registerForm");
 const rlTitle =
 document.getElementById("rlTitle");
 
-const globalLoading =
-document.getElementById("globalLoading");
+
 
 
 // =========================
@@ -168,77 +167,7 @@ let registerLoading=false;
 window.userLoggedIn=false;
 
 
-// =====================================================
-// GLOBAL LOADING
-// =====================================================
 
-let globalLoadingCount = 0;
-
-
-
-function showGlobalLoading()
-{
-
-
-globalLoadingCount++;
-
-
-
-if(globalLoading)
-{
-
-globalLoading.classList.remove(
-"hidden"
-);
-
-}
-
-
-}
-
-
-
-
-
-function hideGlobalLoading()
-{
-
-
-globalLoadingCount--;
-
-
-
-if(globalLoadingCount < 0)
-{
-
-globalLoadingCount = 0;
-
-}
-
-
-
-
-if(
-globalLoadingCount === 0
-)
-{
-
-
-if(globalLoading)
-{
-
-globalLoading.classList.add(
-"hidden"
-);
-
-}
-
-
-}
-
-
-
-}
 
 
 
@@ -1438,9 +1367,6 @@ async function checkSession()
 {
 
 
-showGlobalLoading();
-
-
 try
 {
 
@@ -1504,7 +1430,6 @@ window.userLoggedIn=false;
 
 
 
-
 }
 catch(err)
 {
@@ -1516,26 +1441,21 @@ console.log(
 
 
 
-window.userLoggedIn=false;
-
-
-
 }
-finally
-{
-
-
-hideGlobalLoading();
 
 
 
 }
 
-
-}
 
 
 checkSession();
+
+
+
+
+
+
 
 
 
