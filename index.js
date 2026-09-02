@@ -1510,8 +1510,6 @@ window.userLoggedIn=false;
 
 
 
-hideGlobalLoading();
-
 
 }
 catch(err)
@@ -1523,24 +1521,21 @@ console.log(
 );
 
 
+
 window.userLoggedIn=false;
+
+
+
+}
+finally
+{
 
 
 hideGlobalLoading();
 
 
-}
-
-
 
 }
-
-
-
-checkSession();
-
-
-
 
 
 
