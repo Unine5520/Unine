@@ -21,7 +21,8 @@ const ORDER_MATCH_URL =
 `${SUPABASE_FUNCTION_URL}/order-match`;
 
 
-
+const ORDER_COMPLETE_URL =
+`${SUPABASE_FUNCTION_URL}/order-complete`;
 
 
 let matchingTimer = null;
