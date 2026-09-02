@@ -17,6 +17,17 @@ const ORDER_START_URL =
 `${SUPABASE_FUNCTION_URL}/order-start`;
 
 
+const ORDER_MATCH_URL =
+`${SUPABASE_FUNCTION_URL}/order-match`;
+
+
+
+
+
+let matchingTimer = null;
+
+
+
 
 
 
@@ -87,6 +98,31 @@ async function loadOrderStatus(){
 
 
 
+        /*
+            如果当前订单还在 matching
+            自动恢复倒计时
+        */
+
+
+        const order =
+        data.order ||
+        data.activeOrder;
+
+
+
+        if(
+            order &&
+            order.status==="matching"
+        ){
+
+            startMatchingTimer(
+                order
+            );
+
+        }
+
+
+
     }
     catch(error){
 
@@ -101,6 +137,7 @@ async function loadOrderStatus(){
 
 
 }
+
 
 
 
@@ -168,10 +205,18 @@ async function startOrder(){
 
 
 
-        /*
-            创建成功
-            重新读取订单状态
-        */
+
+
+        if(data.order){
+
+
+            startMatchingTimer(
+                data.order
+            );
+
+
+        }
+
 
 
         await loadOrderStatus();
@@ -201,6 +246,210 @@ async function startOrder(){
 
 
 
+/* =====================================================
+   MATCH ORDER
+===================================================== */
+
+
+async function matchOrder(orderId){
+
+
+    try{
+
+
+        const res =
+        await fetch(
+            ORDER_MATCH_URL,
+            {
+
+                method:"POST",
+
+                credentials:"include",
+
+                headers:{
+
+                    "Content-Type":
+                    "application/json"
+
+                },
+
+
+                body:
+
+                JSON.stringify({
+
+                    order_id:
+                    orderId
+
+                })
+
+            }
+        );
+
+
+
+        const data =
+        await res.json();
+
+
+
+        console.log(
+            "ORDER MATCH:",
+            data
+        );
+
+
+
+        if(!data.success){
+
+
+            console.log(
+                data.message
+            );
+
+
+            return;
+
+
+        }
+
+
+
+        await loadOrderStatus();
+
+
+
+    }
+    catch(error){
+
+
+        console.log(
+            "ORDER MATCH ERROR:",
+            error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   MATCH TIMER
+===================================================== */
+
+
+function startMatchingTimer(order){
+
+
+    if(
+        !order ||
+        !order.matching_end_at
+    ){
+
+        return;
+
+    }
+
+
+
+    if(
+        matchingTimer
+    ){
+
+        clearInterval(
+            matchingTimer
+        );
+
+    }
+
+
+
+
+    matchingTimer =
+    setInterval(()=>{
+
+
+        const now =
+        new Date();
+
+
+
+        const end =
+        new Date(
+            order.matching_end_at
+        );
+
+
+
+        const diff =
+        end - now;
+
+
+
+
+        console.log(
+
+            "MATCH COUNTDOWN:",
+
+            Math.max(
+                0,
+                Math.ceil(
+                    diff/1000
+                )
+            )
+
+        );
+
+
+
+
+
+        if(diff <=0){
+
+
+
+            clearInterval(
+                matchingTimer
+            );
+
+
+
+            matchingTimer =
+            null;
+
+
+
+            matchOrder(
+                order.id
+            );
+
+
+
+        }
+
+
+
+    },1000);
+
+
+}
+
+
+
+
+
+
+
+
 
 /* =====================================================
    RENDER ORDER STATUS
@@ -212,9 +461,7 @@ function renderOrderStatus(data){
 
 
     /*
-        ======================
         Coins
-        ======================
     */
 
 
@@ -248,9 +495,7 @@ function renderOrderStatus(data){
 
 
     /*
-        ======================
         Round
-        ======================
     */
 
 
@@ -282,9 +527,7 @@ function renderOrderStatus(data){
 
 
     /*
-        ======================
-        Current Order
-        ======================
+        Order
     */
 
 
@@ -333,10 +576,9 @@ function renderOrderStatus(data){
 
 
 
+
     /*
-        ======================
         Product
-        ======================
     */
 
 
@@ -374,6 +616,7 @@ function renderOrderStatus(data){
         );
 
 
+
         if(name){
 
             name.innerText =
@@ -384,10 +627,12 @@ function renderOrderStatus(data){
 
 
 
+
         const price =
         document.getElementById(
             "orderPrice"
         );
+
 
 
         if(price){
@@ -403,10 +648,13 @@ function renderOrderStatus(data){
 
 
 
+
+
         const profit =
         document.getElementById(
             "orderProfit"
         );
+
 
 
         if(profit){
@@ -445,9 +693,7 @@ function renderOrderStatus(data){
 
 
     /*
-        ======================
         Buttons
-        ======================
     */
 
 
@@ -466,6 +712,7 @@ function renderOrderStatus(data){
 
 
 
+
     if(startButton){
 
 
@@ -474,6 +721,8 @@ function renderOrderStatus(data){
 
 
     }
+
+
 
 
 
@@ -489,9 +738,7 @@ function renderOrderStatus(data){
 
 
 
-
 }
-
 
 
 
@@ -513,11 +760,6 @@ document.addEventListener(
 
     loadOrderStatus();
 
-
-
-    /*
-        Start Order Button
-    */
 
 
     const startButton =
