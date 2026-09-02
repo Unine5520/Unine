@@ -338,7 +338,84 @@ async function matchOrder(orderId){
 
 
 
+/* =====================================================
+   COMPLETE ORDER
+===================================================== */
 
+
+async function completeOrder(){
+
+
+    try{
+
+
+        const res =
+        await fetch(
+            ORDER_COMPLETE_URL,
+            {
+
+                method:"POST",
+
+                credentials:"include",
+
+                headers:{
+
+                    "Content-Type":
+                    "application/json"
+
+                }
+
+            }
+        );
+
+
+
+        const data =
+        await res.json();
+
+
+
+        console.log(
+            "ORDER COMPLETE:",
+            data
+        );
+
+
+
+        if(!data.success){
+
+
+            alert(
+                data.message
+            );
+
+
+            return;
+
+
+        }
+
+
+
+
+        await loadOrderStatus();
+
+
+
+    }
+    catch(error){
+
+
+        console.log(
+            "ORDER COMPLETE ERROR:",
+            error
+        );
+
+
+    }
+
+
+}
 
 
 
