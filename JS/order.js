@@ -1,49 +1,42 @@
-window.currentUserId = localStorage.getItem("currentUserId");
-window.currentUserUUID = localStorage.getItem("currentUserUUID");
+/* =====================================================
+   U9 ORDER PAGE
+===================================================== */
 
-const ORDER_API =
+
+const SUPABASE_FUNCTION_URL =
 "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
 
-
-let ordering = false;
-let completing = false;
-let matchingTimer = null;
 
 
 let currentOrder = null;
 
 
 
-/*
-========================
- API
-========================
-*/
+function getToken(){
+
+    return localStorage.getItem("token");
+
+}
 
 
-async function callFunction(name, body = {}){
+
+async function api(functionName, body={}){
 
 
-    const token =
-    localStorage.getItem("access_token");
+    const token = getToken();
 
 
     const res = await fetch(
-        `${ORDER_API}/${name}`,
+        `${SUPABASE_FUNCTION_URL}/${functionName}`,
         {
-
             method:"POST",
 
             headers:{
                 "Content-Type":"application/json",
-
-                "Authorization":
-                `Bearer ${token}`
+                "Authorization":`Bearer ${token}`
             },
 
-            body:
-            JSON.stringify(body)
-
+            body:JSON.stringify(body)
         }
     );
 
@@ -55,400 +48,73 @@ async function callFunction(name, body = {}){
 
 
 
-/*
-========================
- INIT
-========================
-*/
+
+/* =====================================================
+   ORDER UI INIT
+===================================================== */
 
 
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
 
-    bindOrderEvents();
 
-    refreshOrder();
+    loadOrderStatus();
+
+
+    const startBtn =
+    document.getElementById(
+        "startOrderButton"
+    );
+
+
+    if(startBtn){
+
+        startBtn.onclick =
+        startOrder;
+
+    }
+
+
+
+    const completeBtn =
+    document.getElementById(
+        "completeOrderButton"
+    );
+
+
+    if(completeBtn){
+
+        completeBtn.onclick =
+        completeOrder;
+
+    }
+
 
 });
 
 
 
 
-function bindOrderEvents(){
 
+/* =====================================================
+   GET ORDER STATUS
+===================================================== */
 
-    document
-    .getElementById("autoOrderBtn")
-    ?.addEventListener(
-        "click",
-        startOrder
-    );
 
-
-    document
-    .getElementById("completeOrderBtn")
-    ?.addEventListener(
-        "click",
-        completeOrder
-    );
-
-
-    document
-    .getElementById("confirmExchange")
-    ?.addEventListener(
-        "click",
-        exchange
-    );
-
-
-}
-
-
-
-
-
-
-/*
-========================
- LOAD STATUS
-========================
-*/
-
-
-async function refreshOrder(){
-
-
-    if(!window.currentUserId)
-    return;
-
-
-
-    const result =
-    await callFunction(
-        "order-status"
-    );
-
-
-    if(!result.success){
-
-        console.log(result.message);
-        return;
-
-    }
-
-
-
-    renderUser(
-        result.user
-    );
-
-
-    renderRound(
-        result.round
-    );
-
-
-    renderOrder(
-        result.activeOrder
-    );
-
-
-}
-
-
-
-
-
-
-/*
-========================
- USER UI
-========================
-*/
-
-
-function renderUser(user){
-
-
-    const coins =
-    document.getElementById(
-        "ordercoins"
-    );
-
-
-    if(coins)
-    coins.textContent =
-    Number(user.coins)
-    .toFixed(2);
-
-
-
-    const balance =
-    document.getElementById(
-        "balance"
-    );
-
-
-    if(balance)
-    balance.textContent =
-    Number(user.balance)
-    .toFixed(2);
-
-
-
-}
-
-
-
-
-
-function renderRound(round){
-
-
-    const el =
-    document.getElementById(
-        "roundProgress"
-    );
-
-
-    if(!el || !round)
-    return;
-
-
-
-    el.textContent =
-    `Round: ${round.completed_orders}/${round.orders_per_round}`;
-
-
-
-}
-
-
-
-
-
-/*
-========================
- ORDER DISPLAY
-========================
-*/
-
-
-function renderOrder(order){
-
-
-    currentOrder = order;
-
-
-
-    const box =
-    document.getElementById(
-        "orderResult"
-    );
-
-
-    if(!box)
-    return;
-
-
-
-    if(!order){
-
-        box.innerHTML="";
-
-        return;
-
-    }
-
-
-
-
-
-    if(order.status==="matching"){
-
-
-        box.innerHTML=
-        `
-
-        <div class="matching-box">
-
-        <h3>
-        Matching order...
-        </h3>
-
-
-        <div id="matchingTimer">
-        Loading...
-        </div>
-
-
-        </div>
-
-        `;
-
-
-
-        startMatchingTimer(
-            order.matching_end_at
-        );
-
-
-        disableStart(true);
-
-
-
-        return;
-
-    }
-
-
-
-
-
-    if(order.status==="pending"){
-
-
-        const p =
-        order.products;
-
-
-
-        let canComplete =
-        Number(order.coins_after)>=0;
-
-
-
-        box.innerHTML=
-        `
-
-        <div class="order-card">
-
-
-        ${
-        p?.url
-        ?
-        `<img src="${p.url}">`
-        :
-        ""
-        }
-
-
-        <h3>
-        ${p?.name || ""}
-        </h3>
-
-
-        <p>
-        Price:
-        $${Number(order.total_price).toFixed(2)}
-        </p>
-
-
-        <p>
-        Profit:
-        ${order.profit_rate}%
-        </p>
-
-
-        <p>
-        Income:
-        +$${Number(order.profit).toFixed(2)}
-        </p>
-
-
-        <button
-        id="completeOrderBtn"
-        ${canComplete?"":"disabled"}
-        >
-
-        Complete Order
-
-        </button>
-
-
-        ${
-        canComplete
-        ?
-        ""
-        :
-        `
-        <p style="color:red">
-        Coins insufficient,
-        please recharge
-        </p>
-        `
-        }
-
-
-        </div>
-
-
-        `;
-
-
-        document
-        .getElementById(
-            "completeOrderBtn"
-        )
-        ?.addEventListener(
-            "click",
-            completeOrder
-        );
-
-
-        disableStart(true);
-
-
-        return;
-
-    }
-
-
-
-
-}
-
-
-
-
-
-/*
-========================
- START ORDER
-========================
-*/
-
-
-async function startOrder(){
-
-
-    if(ordering)
-    return;
-
-
-    ordering=true;
-
-
-    disableStart(true);
-
+async function loadOrderStatus(){
 
 
     try{
 
 
         const result =
-        await callFunction(
-            "order-start"
+        await api(
+            "order-status"
         );
 
 
-
         if(!result.success){
-
-            alert(result.message);
-
-            disableStart(false);
 
             return;
 
@@ -457,7 +123,7 @@ async function startOrder(){
 
 
         renderOrder(
-            result.order
+            result
         );
 
 
@@ -465,12 +131,7 @@ async function startOrder(){
     }
     catch(e){
 
-        alert(e.message);
-
-    }
-    finally{
-
-        ordering=false;
+        console.log(e);
 
     }
 
@@ -482,77 +143,156 @@ async function startOrder(){
 
 
 
-/*
-========================
- MATCH TIMER
-========================
-*/
+/* =====================================================
+   START ORDER
+===================================================== */
 
 
-function startMatchingTimer(endTime){
+async function startOrder(){
 
 
-    if(matchingTimer)
-    clearInterval(matchingTimer);
-
-
-
-    const el =
+    const btn =
     document.getElementById(
-        "matchingTimer"
+        "startOrderButton"
+    );
+
+
+    if(btn){
+
+        btn.disabled=true;
+
+        btn.innerText =
+        "Matching...";
+
+    }
+
+
+
+    const result =
+    await api(
+        "order-start"
     );
 
 
 
-    function tick(){
+    if(!result.success){
 
 
-        const remain =
-        Math.ceil(
-        (
-        new Date(endTime)
-        -
-        new Date()
-        )
-        /1000
+        alert(
+            result.message
         );
 
 
+        if(btn){
 
-        if(remain<=0){
+            btn.disabled=false;
 
-
-            clearInterval(
-                matchingTimer
-            );
-
-
-            matchOrder();
-
-
-            return;
+            btn.innerText =
+            "Start Order";
 
         }
 
 
-
-        if(el)
-        el.textContent =
-        `${remain}s`;
-
-
+        return;
 
     }
 
 
 
-    tick();
+    currentOrder =
+    result.order;
 
 
-    matchingTimer =
+
+    renderOrder({
+
+        order:
+        currentOrder
+
+    });
+
+
+
+    /*
+        后端控制时间
+
+        这里轮询 order-status
+
+        不在前端计算
+    */
+
+
+    startMatchPolling();
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =====================================================
+   MATCHING CHECK
+===================================================== */
+
+
+let matchTimer=null;
+
+
+
+function startMatchPolling(){
+
+
+    if(matchTimer){
+
+        clearInterval(
+            matchTimer
+        );
+
+    }
+
+
+
+    matchTimer =
     setInterval(
-        tick,
-        1000
+        async()=>{
+
+
+            const result =
+            await api(
+                "order-status"
+            );
+
+
+
+            if(result.success){
+
+                renderOrder(
+                    result
+                );
+
+
+                if(
+                    result.order &&
+                    result.order.status !== "matching"
+                ){
+
+                    clearInterval(
+                        matchTimer
+                    );
+
+                }
+
+            }
+
+
+
+        },
+        3000
     );
 
 
@@ -562,85 +302,79 @@ function startMatchingTimer(endTime){
 
 
 
-async function matchOrder(){
-
-
-    const result =
-    await callFunction(
-        "order-match"
-    );
-
-
-    if(result.success){
-
-        refreshOrder();
-
-    }
-    else{
-
-        alert(result.message);
-
-    }
-
-
-}
 
 
 
-
-
-/*
-========================
- COMPLETE
-========================
-*/
+/* =====================================================
+   COMPLETE ORDER
+===================================================== */
 
 
 async function completeOrder(){
 
 
-    if(completing)
-    return;
+    if(!currentOrder){
+
+        return;
+
+    }
 
 
 
-    completing=true;
+    const btn =
+    document.getElementById(
+        "completeOrderButton"
+    );
 
 
 
-    try{
+    if(btn){
+
+        btn.disabled=true;
+
+    }
 
 
-        const result =
-        await callFunction(
-            "order-complete",
-            {
-                order_id:
-                currentOrder.id
-            }
+
+    const result =
+    await api(
+        "order-complete",
+        {
+            order_id:
+            currentOrder.id
+        }
+    );
+
+
+
+    if(!result.success){
+
+
+        alert(
+            result.message
         );
 
 
+        if(btn){
 
-        if(!result.success){
-
-            alert(result.message);
-            return;
+            btn.disabled=false;
 
         }
 
 
-
-        refreshOrder();
-
-
+        return;
 
     }
-    finally{
 
-        completing=false;
 
-    }
+
+    alert(
+        "Order completed"
+    );
+
+
+    loadOrderStatus();
+
 
 
 }
@@ -650,45 +384,151 @@ async function completeOrder(){
 
 
 
-/*
-========================
- EXCHANGE
-========================
-*/
 
 
-async function exchange(){
+/* =====================================================
+   RENDER
+===================================================== */
 
 
-    const amount =
-    Number(
+function renderOrder(data){
+
+
+
+    const order =
+    data.order;
+
+
+
+    if(!order){
+
+        return;
+
+    }
+
+
+
+    currentOrder =
+    order;
+
+
+
+
+    const status =
     document.getElementById(
-        "addCoinsInput"
-    )?.value
+        "orderStatus"
+    );
+
+
+    if(status){
+
+        status.innerText =
+        order.status;
+
+    }
+
+
+
+    const price =
+    document.getElementById(
+        "orderPrice"
+    );
+
+
+    if(price){
+
+        price.innerText =
+        order.total_price;
+
+    }
+
+
+
+    const profit =
+    document.getElementById(
+        "orderProfit"
+    );
+
+
+    if(profit){
+
+        profit.innerText =
+        order.profit;
+
+    }
+
+
+
+    const completeBtn =
+    document.getElementById(
+        "completeOrderButton"
     );
 
 
 
-    const direction =
-    window.exchangeDirection
-    ||
-    "toCoins";
+    if(completeBtn){
 
 
 
-    let api =
-    direction==="toCoins"
-    ?
-    "exchange-balance-coins"
-    :
-    "exchange-coins-balance";
+        /*
+            pending 才可以完成
+
+            但是负 coins
+            后端验证
+
+        */
 
 
+        completeBtn.disabled =
+        order.status !== "pending";
+
+
+    }
+
+
+
+
+    const startBtn =
+    document.getElementById(
+        "startOrderButton"
+    );
+
+
+    if(startBtn){
+
+
+        startBtn.disabled =
+        (
+            order.status==="matching" ||
+            order.status==="pending"
+        );
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   EXCHANGE BALANCE -> COINS
+===================================================== */
+
+
+async function exchangeBalanceCoins(amount){
 
 
     const result =
-    await callFunction(
-        api,
+    await api(
+        "exchange-balance-coins",
         {
             amount
         }
@@ -698,7 +538,9 @@ async function exchange(){
 
     if(!result.success){
 
-        alert(result.message);
+        alert(
+            result.message
+        );
 
         return;
 
@@ -706,7 +548,7 @@ async function exchange(){
 
 
 
-    refreshOrder();
+    loadOrderStatus();
 
 
 }
@@ -716,21 +558,38 @@ async function exchange(){
 
 
 
-function disableStart(disabled){
+
+/* =====================================================
+   EXCHANGE COINS -> BALANCE
+===================================================== */
 
 
-    const btn =
-    document.getElementById(
-        "autoOrderBtn"
+async function exchangeCoinsBalance(amount){
+
+
+    const result =
+    await api(
+        "exchange-coins-balance",
+        {
+            amount
+        }
     );
 
 
-    if(btn){
 
-        btn.disabled =
-        disabled;
+    if(!result.success){
+
+        alert(
+            result.message
+        );
+
+        return;
 
     }
+
+
+
+    loadOrderStatus();
 
 
 }
