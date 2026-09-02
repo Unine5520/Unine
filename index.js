@@ -173,8 +173,21 @@ window.userLoggedIn=false;
 // =====================================================
 
 
+// =====================================================
+// GLOBAL LOADING
+// =====================================================
+
+
+let globalLoadingCount = 0;
+
+
+
 function showGlobalLoading()
 {
+
+
+globalLoadingCount++;
+
 
 
 if(globalLoading)
@@ -191,7 +204,29 @@ globalLoading.classList.remove(
 
 
 
+
+
 function hideGlobalLoading()
+{
+
+
+globalLoadingCount--;
+
+
+
+if(globalLoadingCount < 0)
+{
+
+globalLoadingCount = 0;
+
+}
+
+
+
+
+if(
+globalLoadingCount === 0
+)
 {
 
 
@@ -203,6 +238,10 @@ globalLoading.classList.add(
 );
 
 }
+
+
+}
+
 
 
 }
