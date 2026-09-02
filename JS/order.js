@@ -394,13 +394,99 @@ async function completeOrder(){
 function renderOrder(data){
 
 
-
     const order =
     data.order;
 
 
 
+    const user =
+    data.user;
+
+
+
+    const round =
+    data.round;
+
+
+
+
+    /*
+        Coins
+    */
+
+    const coins =
+    document.getElementById(
+        "coinsDisplay"
+    );
+
+
+    if(coins && user){
+
+        coins.innerText =
+        Number(user.coins).toFixed(2);
+
+    }
+
+
+
+
+    /*
+        Round
+
+        completed_orders/orders_per_round
+
+        例如:
+
+        0/5
+
+    */
+
+
+    const roundDisplay =
+    document.getElementById(
+        "roundDisplay"
+    );
+
+
+    if(roundDisplay && round){
+
+        roundDisplay.innerText =
+        `${round.completed_orders}/${round.orders_per_round}`;
+
+    }
+
+
+
+
+
+
+    /*
+        没有订单
+
+        显示 Ready
+
+    */
+
+
     if(!order){
+
+
+        currentOrder=null;
+
+
+        const status =
+        document.getElementById(
+            "orderStatus"
+        );
+
+
+        if(status){
+
+            status.innerText =
+            "Ready";
+
+        }
+
 
         return;
 
@@ -408,10 +494,19 @@ function renderOrder(data){
 
 
 
+
+
+
     currentOrder =
     order;
 
 
+
+
+
+    /*
+        Status
+    */
 
 
     const status =
@@ -429,6 +524,15 @@ function renderOrder(data){
 
 
 
+
+
+
+    /*
+        Product price
+
+    */
+
+
     const price =
     document.getElementById(
         "orderPrice"
@@ -442,6 +546,14 @@ function renderOrder(data){
 
     }
 
+
+
+
+
+    /*
+        Profit
+
+    */
 
 
     const profit =
@@ -459,6 +571,15 @@ function renderOrder(data){
 
 
 
+
+
+
+    /*
+        Complete
+
+    */
+
+
     const completeBtn =
     document.getElementById(
         "completeOrderButton"
@@ -469,16 +590,6 @@ function renderOrder(data){
     if(completeBtn){
 
 
-
-        /*
-            pending 才可以完成
-
-            但是负 coins
-            后端验证
-
-        */
-
-
         completeBtn.disabled =
         order.status !== "pending";
 
@@ -486,6 +597,14 @@ function renderOrder(data){
     }
 
 
+
+
+
+
+    /*
+        Start
+
+    */
 
 
     const startBtn =
@@ -504,18 +623,24 @@ function renderOrder(data){
         );
 
 
+        if(order.status==="matching"){
+
+            startBtn.innerText =
+            "Matching...";
+
+        }
+        else{
+
+            startBtn.innerText =
+            "Start Order";
+
+        }
+
     }
 
 
 
 }
-
-
-
-
-
-
-
 
 
 /* =====================================================
