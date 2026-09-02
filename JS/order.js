@@ -1,11 +1,22 @@
 /* =====================================================
-   U9 ORDER STATUS
+   U9 ORDER
    Cookie Session Version
 ===================================================== */
 
 
 const SUPABASE_FUNCTION_URL =
 "https://layzcgktgtrqvsgxwwyc.supabase.co/functions/v1";
+
+
+
+const ORDER_STATUS_URL =
+`${SUPABASE_FUNCTION_URL}/order-status`;
+
+
+const ORDER_START_URL =
+`${SUPABASE_FUNCTION_URL}/order-start`;
+
+
 
 
 
@@ -24,7 +35,7 @@ async function loadOrderStatus(){
 
         const res =
         await fetch(
-            `${SUPABASE_FUNCTION_URL}/order-status`,
+            ORDER_STATUS_URL,
             {
 
                 method:"POST",
@@ -99,7 +110,100 @@ async function loadOrderStatus(){
 
 
 /* =====================================================
-   RENDER
+   START ORDER
+===================================================== */
+
+
+async function startOrder(){
+
+
+    try{
+
+
+        const res =
+        await fetch(
+            ORDER_START_URL,
+            {
+
+                method:"POST",
+
+                credentials:"include",
+
+                headers:{
+
+                    "Content-Type":
+                    "application/json"
+
+                }
+
+            }
+        );
+
+
+
+        const data =
+        await res.json();
+
+
+
+        console.log(
+            "ORDER START:",
+            data
+        );
+
+
+
+        if(!data.success){
+
+
+            alert(
+                data.message
+            );
+
+
+            return;
+
+
+        }
+
+
+
+        /*
+            创建成功
+            重新读取订单状态
+        */
+
+
+        await loadOrderStatus();
+
+
+
+    }
+    catch(error){
+
+
+        console.log(
+            "ORDER START ERROR:",
+            error
+        );
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* =====================================================
+   RENDER ORDER STATUS
 ===================================================== */
 
 
@@ -126,6 +230,7 @@ function renderOrderStatus(data){
         data.user
     ){
 
+
         coins.innerText =
         Number(
             data.user.coins
@@ -134,6 +239,7 @@ function renderOrderStatus(data){
 
 
     }
+
 
 
 
@@ -177,7 +283,7 @@ function renderOrderStatus(data){
 
     /*
         ======================
-        Order
+        Current Order
         ======================
     */
 
@@ -278,8 +384,6 @@ function renderOrderStatus(data){
 
 
 
-
-
         const price =
         document.getElementById(
             "orderPrice"
@@ -295,8 +399,6 @@ function renderOrderStatus(data){
             .toFixed(2);
 
         }
-
-
 
 
 
@@ -341,6 +443,7 @@ function renderOrderStatus(data){
 
 
 
+
     /*
         ======================
         Buttons
@@ -362,12 +465,12 @@ function renderOrderStatus(data){
 
 
 
+
     if(startButton){
 
 
         startButton.disabled =
         !!order;
-
 
 
     }
@@ -396,6 +499,8 @@ function renderOrderStatus(data){
 
 
 
+
+
 /* =====================================================
    INIT
 ===================================================== */
@@ -407,6 +512,32 @@ document.addEventListener(
 
 
     loadOrderStatus();
+
+
+
+    /*
+        Start Order Button
+    */
+
+
+    const startButton =
+    document.getElementById(
+        "startOrderButton"
+    );
+
+
+
+    if(startButton){
+
+
+        startButton.addEventListener(
+            "click",
+            startOrder
+        );
+
+
+    }
+
 
 
 });
