@@ -1538,7 +1538,10 @@ hideGlobalLoading();
 }
 
 
+}
 
+
+checkSession();
 
 
 
