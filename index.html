@@ -624,64 +624,116 @@ Register
 <div class="order-container">
 
 
-    <!-- Coins -->
 
-    <div class="order-coins">
-
-        <span>
-            Coins
-        </span>
-
-        <strong id="coinsDisplay">
-            0
-        </strong>
+    <!-- =====================
+         USER ASSET
+    ====================== -->
 
 
-        <button
-            id="exchangeButton"
-            type="button"
-        >
-            +
-        </button>
+    <div class="order-top">
+
+
+        <!-- Coins -->
+
+
+        <div class="coins-box">
+
+
+            <div class="coins-title">
+                Coins
+            </div>
+
+
+            <div
+                id="coinsDisplay"
+                class="coins-value"
+            >
+                0
+            </div>
+
+
+
+            <button
+                id="exchangeButton"
+                type="button"
+                class="exchange-button"
+            >
+
+                +
+
+            </button>
+
+
+        </div>
+
+
+
+
+
+        <!-- Round -->
+
+
+        <div class="round-box">
+
+
+            <div class="round-title">
+                Round
+            </div>
+
+
+            <div
+                id="roundDisplay"
+                class="round-value"
+            >
+                0/5
+            </div>
+
+
+        </div>
+
+
 
     </div>
 
 
 
 
-    <!-- Round -->
-
-    <div class="order-round">
-
-        Round:
-
-        <span id="roundDisplay">
-            0/5
-        </span>
-
-    </div>
 
 
 
+    <!-- =====================
+         ORDER STATUS
+    ====================== -->
 
-
-    <!-- Status -->
 
     <div
         id="orderStatus"
+        class="order-status"
     >
+
         Ready
+
     </div>
 
 
 
 
 
-    <!-- Matching -->
+
+
+    <!-- =====================
+         MATCHING
+    ====================== -->
+
 
     <div
         id="matchingBox"
+        class="matching-box hidden"
     >
+
+
+        Matching Product...
+
 
     </div>
 
@@ -689,19 +741,26 @@ Register
 
 
 
-    <!-- Product -->
+
+
+    <!-- =====================
+         PRODUCT
+    ====================== -->
+
 
     <div
         id="productBox"
-        class="hidden"
+        class="product-box hidden"
     >
+
 
 
         <img
             id="productImage"
             src=""
-            alt=""
+            alt="Product"
         >
+
 
 
         <h3
@@ -710,21 +769,46 @@ Register
         </h3>
 
 
-        <p>
-            Price:
-            <span id="orderPrice">
-                0
-            </span>
-        </p>
+
+
+        <div class="product-info">
+
+
+            <p>
+
+                Price:
+
+                <span
+                    id="orderPrice"
+                >
+                    0
+                </span>
+
+                Coins
+
+            </p>
 
 
 
-        <p>
-            Profit:
-            <span id="orderProfit">
-                0
-            </span>
-        </p>
+
+            <p>
+
+                Profit:
+
+                <span
+                    id="orderProfit"
+                >
+                    0
+                </span>
+
+                Coins
+
+            </p>
+
+
+        </div>
+
+
 
 
     </div>
@@ -733,27 +817,44 @@ Register
 
 
 
-    <!-- Start -->
+
+
+    <!-- =====================
+         START ORDER
+    ====================== -->
+
 
     <button
         id="startOrderButton"
+        class="order-start-button"
         type="button"
     >
+
         Start Order
+
     </button>
 
 
 
 
 
-    <!-- Complete -->
+
+
+
+    <!-- =====================
+         COMPLETE ORDER
+    ====================== -->
+
 
     <button
         id="completeOrderButton"
+        class="order-complete-button"
         type="button"
         disabled
     >
+
         Complete Order
+
     </button>
 
 
