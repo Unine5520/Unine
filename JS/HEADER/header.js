@@ -1,3 +1,4 @@
+
 /* =========================
    HEADER ELEMENTS
 ========================= */
@@ -5,18 +6,6 @@
 const headerActions =
   document.getElementById(
     "U9-page-header-actions"
-  );
-
-
-const registerButton =
-  document.getElementById(
-    "U9-page-header-register"
-  );
-
-
-const loginButton =
-  document.getElementById(
-    "U9-page-header-login"
   );
 
 
@@ -61,11 +50,17 @@ async function getCurrentUser() {
 
     if (!response.ok) {
 
-      registerButton.style.display =
+      document.getElementById(
+        "U9-page-header-register"
+      ).style.display =
         "block";
 
-      loginButton.style.display =
+
+      document.getElementById(
+        "U9-page-header-login"
+      ).style.display =
         "block";
+
 
       userButton.style.display =
         "none";
@@ -101,10 +96,15 @@ async function getCurrentUser() {
 
       /* Hide Register / Login */
 
-      registerButton.style.display =
+      document.getElementById(
+        "U9-page-header-register"
+      ).style.display =
         "none";
 
-      loginButton.style.display =
+
+      document.getElementById(
+        "U9-page-header-login"
+      ).style.display =
         "none";
 
 
@@ -135,11 +135,17 @@ async function getCurrentUser() {
        UNKNOWN STATE
     ========================= */
 
-    registerButton.style.display =
+    document.getElementById(
+      "U9-page-header-register"
+    ).style.display =
       "block";
 
-    loginButton.style.display =
+
+    document.getElementById(
+      "U9-page-header-login"
+    ).style.display =
       "block";
+
 
     userButton.style.display =
       "none";
@@ -168,11 +174,17 @@ async function getCurrentUser() {
        SESSION CHECK FAILED
     ========================= */
 
-    registerButton.style.display =
+    document.getElementById(
+      "U9-page-header-register"
+    ).style.display =
       "block";
 
-    loginButton.style.display =
+
+    document.getElementById(
+      "U9-page-header-login"
+    ).style.display =
       "block";
+
 
     userButton.style.display =
       "none";
