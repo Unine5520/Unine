@@ -1,3 +1,4 @@
+
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -18,6 +19,29 @@ userButton.addEventListener(
 
     accountSetting.style.display =
       "block";
+
+  }
+);
+
+
+/* =========================
+   CLICK BACKGROUND
+   CLOSE ACCOUNT SETTING
+========================= */
+
+accountSetting.addEventListener(
+  "click",
+  (event) => {
+
+    if (
+      event.target ===
+      accountSetting
+    ) {
+
+      accountSetting.style.display =
+        "none";
+
+    }
 
   }
 );
