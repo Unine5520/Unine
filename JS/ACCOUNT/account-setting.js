@@ -8,12 +8,6 @@ const accountSetting =
   );
 
 
-const userButton =
-  document.getElementById(
-    "U9-page-header-user"
-  );
-
-
 /* =========================
    OPEN ACCOUNT SETTING
 ========================= */
