@@ -1,1 +1,92 @@
+/* =========== ACCOUNT SETTING =========== */
 
+#U9-account-setting {
+
+  display: none;
+
+  position: fixed;
+
+  top: 60px;
+
+  right: 20px;
+
+  z-index: 1500;
+
+}
+
+
+#U9-account-setting-content {
+
+  width: 180px;
+
+  padding: 10px;
+
+  background-color: white;
+
+  border-radius: 10px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+}
+
+
+/* =========== SETTING BUTTONS =========== */
+
+#U9-account-setting-content button {
+
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+
+  height: 42px;
+
+  padding: 0 12px;
+
+  border: none;
+
+  background: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== SVG =========== */
+
+#U9-account-setting-content button svg {
+
+  width: 20px;
+
+  height: 20px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+}
+
+
+/* =========== LOGOUT BUTTON =========== */
+
+#U9-account-setting-5 {
+
+  gap: 8px;
+
+}
+
+
+#U9-account-setting-5 span {
+
+  font-size: 14px;
+
+}
