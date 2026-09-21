@@ -196,11 +196,13 @@ registerForm.addEventListener("submit", async (event) => {
   ========================= */
 
   try {
-
+    
     const response = await fetch(
       "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/register",
       {
         method: "POST",
+
+        credentials: "include",
 
         headers: {
           "Content-Type": "application/json"
