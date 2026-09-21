@@ -394,6 +394,12 @@ registerForm.addEventListener(
 
 async function getCurrentUser() {
 
+  const headerActions =
+    document.getElementById(
+      "U9-page-header-actions"
+    );
+
+
   try {
 
     const response =
@@ -421,6 +427,11 @@ async function getCurrentUser() {
         "Not logged in."
       );
 
+
+      headerActions.style.display =
+        "flex";
+
+
       return null;
 
     }
@@ -441,9 +452,53 @@ async function getCurrentUser() {
       );
 
 
+      /* Hide Register / Login */
+
+      registerButton.style.display =
+        "none";
+
+      loginButton.style.display =
+        "none";
+
+
+      /* Create username */
+
+      const username =
+        document.createElement(
+          "span"
+        );
+
+      username.id =
+        "U9-page-header-username";
+
+      username.textContent =
+        result.user.username;
+
+
+      /* Add username */
+
+      headerActions.appendChild(
+        username
+      );
+
+
+      /* Show Header Actions */
+
+      headerActions.style.display =
+        "flex";
+
+
       return result.user;
 
     }
+
+
+    /* =========================
+       UNKNOWN STATE
+    ========================= */
+
+    headerActions.style.display =
+      "flex";
 
 
     return null;
@@ -455,6 +510,13 @@ async function getCurrentUser() {
       "Get current user error:",
       error
     );
+
+
+    /* If session check fails,
+       show normal logged-out buttons */
+
+    headerActions.style.display =
+      "flex";
 
 
     return null;
