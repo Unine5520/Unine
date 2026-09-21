@@ -30,7 +30,7 @@
 
 
 #U9-page-header-actions {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 10px;
 }
