@@ -1,3 +1,4 @@
+
 /* =========================
    HEADER BUTTONS
 ========================= */
@@ -7,6 +8,12 @@ const registerButton =
 
 const loginButton =
   document.getElementById("U9-page-header-login");
+
+const userButton =
+  document.getElementById("U9-page-header-user");
+
+const usernameText =
+  document.getElementById("U9-page-header-username");
 
 
 /* =========================
@@ -428,6 +435,16 @@ async function getCurrentUser() {
       );
 
 
+      registerButton.style.display =
+        "block";
+
+      loginButton.style.display =
+        "block";
+
+      userButton.style.display =
+        "none";
+
+
       headerActions.style.display =
         "flex";
 
@@ -461,25 +478,16 @@ async function getCurrentUser() {
         "none";
 
 
-      /* Create username */
+      /* Set username */
 
-      const username =
-        document.createElement(
-          "span"
-        );
-
-      username.id =
-        "U9-page-header-username";
-
-      username.textContent =
+      usernameText.textContent =
         result.user.username;
 
 
-      /* Add username */
+      /* Show User Button */
 
-      headerActions.appendChild(
-        username
-      );
+      userButton.style.display =
+        "flex";
 
 
       /* Show Header Actions */
@@ -496,6 +504,16 @@ async function getCurrentUser() {
     /* =========================
        UNKNOWN STATE
     ========================= */
+
+    registerButton.style.display =
+      "block";
+
+    loginButton.style.display =
+      "block";
+
+    userButton.style.display =
+      "none";
+
 
     headerActions.style.display =
       "flex";
@@ -514,6 +532,16 @@ async function getCurrentUser() {
 
     /* If session check fails,
        show normal logged-out buttons */
+
+    registerButton.style.display =
+      "block";
+
+    loginButton.style.display =
+      "block";
+
+    userButton.style.display =
+      "none";
+
 
     headerActions.style.display =
       "flex";
