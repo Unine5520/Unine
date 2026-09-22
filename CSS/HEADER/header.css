@@ -121,7 +121,7 @@
 
   font-size: 22px;
 
-  font-weight: 800;
+  font-weight: 900;
 
   /* 深蓝 → 蓝色 → 天蓝 → 白色高光 → 蓝色 → 深蓝 */
   background:
@@ -142,7 +142,6 @@
 
   -webkit-text-fill-color: transparent;
 
-  /* 柔和蓝色发光 */
   filter:
     drop-shadow(
       0 0 5px
@@ -150,19 +149,19 @@
     );
 
   animation:
-    U9-logo-shine 9s ease-in-out infinite;
+    U9-logo-shine 12s ease-in-out infinite;
 
 }
 
 
 /* =========================================================
+   LOGO SHINE
    LEFT BOTTOM → RIGHT TOP
-   SLOW LIGHT
 ========================================================= */
 
 @keyframes U9-logo-shine {
 
-  /* 左下角 */
+  /* 开始：左下 */
   0% {
 
     background-position:
@@ -175,6 +174,7 @@
       );
 
   }
+
 
   /* 中间 */
   50% {
@@ -190,7 +190,23 @@
 
   }
 
-  /* 右上角 */
+
+  /* 闪到完整右上 */
+  75% {
+
+    background-position:
+      100% 0%;
+
+    filter:
+      drop-shadow(
+        0 0 4px
+        rgba(59, 130, 246, 0.18)
+      );
+
+  }
+
+
+  /* 停留 3 秒 */
   100% {
 
     background-position:
