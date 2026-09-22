@@ -108,10 +108,36 @@ async function getCurrentUser() {
         "none";
 
 
-      /* Set Username */
+      /* =========================
+         SET USERNAME
+      ========================= */
+
+      const username =
+        result.user.username;
+
+
+      let displayUsername =
+        username;
+
+
+      if (
+        username.length >
+        8
+      ) {
+
+        displayUsername =
+          username.slice(
+            0,
+            7
+          ) +
+          "..." +
+          username.slice(-1);
+
+      }
+
 
       usernameText.textContent =
-        result.user.username;
+        displayUsername;
 
 
       /* Show User */
