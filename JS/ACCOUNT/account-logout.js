@@ -1,3 +1,4 @@
+
 /* =========================
    LOGOUT CONFIRM
 ========================= */
@@ -138,12 +139,11 @@ logoutNo.addEventListener(
 
 /* =========================
    YES
-   TEMPORARY
 ========================= */
 
 logoutYes.addEventListener(
   "click",
-  () => {
+  async () => {
 
     if (
       logoutYes.disabled
@@ -154,9 +154,89 @@ logoutYes.addEventListener(
     }
 
 
-    console.log(
-      "Logout confirmed."
-    );
+    /* =========================
+       LOGOUT REQUEST
+    ========================= */
+
+    try {
+
+      const response =
+        await fetch(
+          "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/logout",
+          {
+            method: "POST",
+
+            credentials: "include"
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      /* =========================
+         LOGOUT ERROR
+      ========================= */
+
+      if (!response.ok) {
+
+        alert(
+          result.error ||
+          "Logout failed."
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         LOGOUT SUCCESS
+      ========================= */
+
+      logoutModal.style.display =
+        "none";
+
+
+      if (logoutTimer) {
+
+        clearInterval(
+          logoutTimer
+        );
+
+        logoutTimer =
+          null;
+
+      }
+
+
+      /* =========================
+         UPDATE HEADER
+      ========================= */
+
+      await getCurrentUser();
+
+
+      console.log(
+        "Logout result:",
+        result
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "Logout error:",
+        error
+      );
+
+
+      alert(
+        "Unable to connect to the server."
+      );
+
+    }
 
   }
 );
