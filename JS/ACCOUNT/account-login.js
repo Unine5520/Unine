@@ -21,6 +21,12 @@ const loginClose =
   );
 
 
+const loginForm =
+  document.getElementById(
+    "U9-login-form"
+  );
+
+
 /* =========================
    OPEN LOGIN
 ========================= */
@@ -90,6 +96,137 @@ loginPasswordToggle.addEventListener(
 
       loginPasswordToggle.textContent =
         "Show";
+
+    }
+
+  }
+);
+
+
+/* =========================
+   LOGIN FORM
+========================= */
+
+loginForm.addEventListener(
+  "submit",
+  async (event) => {
+
+    event.preventDefault();
+
+
+    /* =========================
+       GET FORM DATA
+    ========================= */
+
+    const email =
+      document
+        .getElementById(
+          "U9-login-email"
+        )
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById(
+          "U9-login-password"
+        )
+        .value;
+
+
+    /* =========================
+       LOGIN REQUEST
+    ========================= */
+
+    try {
+
+      const response =
+        await fetch(
+          "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/login",
+          {
+            method: "POST",
+
+            credentials: "include",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+
+              email:
+                email,
+
+              password:
+                password
+
+            })
+
+          }
+        );
+
+
+      const result =
+        await response.json();
+
+
+      /* =========================
+         LOGIN ERROR
+      ========================= */
+
+      if (!response.ok) {
+
+        alert(
+          result.error ||
+          "Login failed."
+        );
+
+        return;
+
+      }
+
+
+      /* =========================
+         LOGIN SUCCESS
+      ========================= */
+
+      alert(
+        "Login successful."
+      );
+
+
+      loginForm.reset();
+
+
+      loginModal.style.display =
+        "none";
+
+
+      /* =========================
+         UPDATE HEADER
+      ========================= */
+
+      await getCurrentUser();
+
+
+      console.log(
+        "Login result:",
+        result
+      );
+
+    } catch (error) {
+
+      console.error(
+        "Login error:",
+        error
+      );
+
+
+      alert(
+        "Unable to connect to the server."
+      );
 
     }
 
