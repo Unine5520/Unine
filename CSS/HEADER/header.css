@@ -86,9 +86,9 @@
 
   border: 1px solid #ccc;
 
-  border-radius: 8px;
+  border-radius: 50px;
 
-  background: none;
+  background-color: white;
 
   cursor: pointer;
 
@@ -119,8 +119,9 @@
 
   border-radius: 50%;
 
-}
+  background-color: white;
 
+}
 
 /* =========== USERNAME =========== */
 
