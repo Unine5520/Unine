@@ -124,15 +124,14 @@ async function getCurrentUser() {
         username.length >
         8
       ) {
-
+      
         displayUsername =
           username.slice(
             0,
-            7
+            8
           ) +
-          "..." +
-          username.slice(-1);
-
+          "...";
+      
       }
 
 
