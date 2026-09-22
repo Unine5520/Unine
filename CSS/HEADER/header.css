@@ -111,84 +111,97 @@
 
 }
 
-/* =========== LOGO =========== */
+/* =========================================================
+   HEADER LOGO
+========================================================= */
 
 #U9-page-header-logo {
 
-  position: relative;
+  margin: 0;
 
   font-size: 22px;
 
-  font-weight: 700;
+  font-weight: 800;
 
-  background: linear-gradient(
-    135deg,
-    #2762ea,
-    #4da8ff
-  );
+  /* 深蓝 → 蓝色 → 天蓝 → 白色高光 → 蓝色 → 深蓝 */
+  background:
+    linear-gradient(
+      135deg,
+      #005eff 0%,
+      #1768f3 30%,
+      #72a6fa 48%,
+      #ffffff 52%,
+      #1768f3 70%,
+      #005eff 100%
+    );
 
-  background-clip: text;
+  background-size: 300% 300%;
 
   -webkit-background-clip: text;
+  background-clip: text;
 
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 
-}
+  /* 柔和蓝色发光 */
+  filter:
+    drop-shadow(
+      0 0 5px
+      rgba(59, 130, 246, 0.25)
+    );
 
-
-/* =========== LOGO SHINE =========== */
-
-#U9-page-header-logo::after {
-
-  content: "";
-
-  position: absolute;
-
-  top: -50%;
-
-  left: -120%;
-
-  width: 40%;
-
-  height: 200%;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.75),
-    transparent
-  );
-
-  transform: rotate(25deg);
-
-  pointer-events: none;
-
-  animation: U9-logo-shine 3.5s ease-in-out infinite;
+  animation:
+    U9-logo-shine 9s ease-in-out infinite;
 
 }
 
 
-/* =========== SHINE ANIMATION =========== */
+/* =========================================================
+   LEFT BOTTOM → RIGHT TOP
+   SLOW LIGHT
+========================================================= */
 
 @keyframes U9-logo-shine {
 
+  /* 左下角 */
   0% {
 
-    left: -120%;
+    background-position:
+      0% 100%;
+
+    filter:
+      drop-shadow(
+        0 0 4px
+        rgba(59, 130, 246, 0.18)
+      );
 
   }
 
-  35% {
+  /* 中间 */
+  50% {
 
-    left: 120%;
+    background-position:
+      50% 50%;
+
+    filter:
+      drop-shadow(
+        0 0 10px
+        rgba(59, 130, 246, 0.48)
+      );
 
   }
 
+  /* 右上角 */
   100% {
 
-    left: 120%;
+    background-position:
+      100% 0%;
+
+    filter:
+      drop-shadow(
+        0 0 4px
+        rgba(59, 130, 246, 0.18)
+      );
 
   }
 
 }
-
