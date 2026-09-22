@@ -119,11 +119,10 @@
 
   margin: 0;
 
-  font-size: 22px;
+  font-size: 24px;
 
-  font-weight: 900;
+  font-weight: 800;
 
-  /* 深蓝 → 蓝色 → 天蓝 → 白色高光 → 蓝色 → 深蓝 */
   background:
     linear-gradient(
       135deg,
@@ -138,6 +137,7 @@
   background-size: 300% 300%;
 
   -webkit-background-clip: text;
+
   background-clip: text;
 
   -webkit-text-fill-color: transparent;
@@ -154,14 +154,8 @@
 }
 
 
-/* =========================================================
-   LOGO SHINE
-   LEFT BOTTOM → RIGHT TOP
-========================================================= */
-
 @keyframes U9-logo-shine {
 
-  /* 开始：左下 */
   0% {
 
     background-position:
@@ -176,7 +170,6 @@
   }
 
 
-  /* 中间 */
   50% {
 
     background-position:
@@ -191,7 +184,6 @@
   }
 
 
-  /* 闪到完整右上 */
   75% {
 
     background-position:
@@ -206,7 +198,6 @@
   }
 
 
-  /* 停留 3 秒 */
   100% {
 
     background-position:
