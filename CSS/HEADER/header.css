@@ -20,37 +20,15 @@
 
   justify-content: space-between;
 
-  background-color: rgb(80 217 255 / 70%);
+  background: rgba(255, 255, 255, 0.65);
 
   backdrop-filter: blur(10px);
 
   -webkit-backdrop-filter: blur(10px);
 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
   z-index: 1000;
-
-}
-
-
-/* =========== LOGO =========== */
-
-#U9-page-header-logo {
-
-  font-size: 22px;
-
-  font-weight: 700;
-
-}
-
-
-/* =========== HEADER ACTIONS =========== */
-
-#U9-page-header-actions {
-
-  display: none;
-
-  align-items: center;
-
-  gap: 10px;
 
 }
 
