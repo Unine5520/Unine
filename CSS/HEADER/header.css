@@ -110,3 +110,85 @@
   font-weight: 500;
 
 }
+
+/* =========== LOGO =========== */
+
+#U9-page-header-logo {
+
+  position: relative;
+
+  font-size: 22px;
+
+  font-weight: 700;
+
+  background: linear-gradient(
+    135deg,
+    #2762ea,
+    #4da8ff
+  );
+
+  background-clip: text;
+
+  -webkit-background-clip: text;
+
+  color: transparent;
+
+}
+
+
+/* =========== LOGO SHINE =========== */
+
+#U9-page-header-logo::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+
+  left: -120%;
+
+  width: 40%;
+
+  height: 200%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.75),
+    transparent
+  );
+
+  transform: rotate(25deg);
+
+  pointer-events: none;
+
+  animation: U9-logo-shine 3.5s ease-in-out infinite;
+
+}
+
+
+/* =========== SHINE ANIMATION =========== */
+
+@keyframes U9-logo-shine {
+
+  0% {
+
+    left: -120%;
+
+  }
+
+  35% {
+
+    left: 120%;
+
+  }
+
+  100% {
+
+    left: 120%;
+
+  }
+
+}
+
