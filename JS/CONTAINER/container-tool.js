@@ -15,39 +15,6 @@ const menuButton =
 
 
 /* =========================
-   MENU
-========================= */
-
-menuButton.addEventListener(
-  "click",
-  function () {
-
-    showPage(
-      homePage
-    );
-
-
-    tool.classList.toggle(
-      "menu-open"
-    );
-
-
-    menuButton.classList.remove(
-      "menu-heartbeat"
-    );
-
-
-    void menuButton.offsetWidth;
-
-
-    menuButton.classList.add(
-      "menu-heartbeat"
-    );
-
-  }
-);
-
-/* =========================
    PAGE ELEMENTS
 ========================= */
 
@@ -81,27 +48,55 @@ const test2Page =
   );
 
 
-const messagePage =
+/* =========================
+   MODAL ELEMENTS
+========================= */
+
+const messageModal =
   document.getElementById(
-    "U9-page-message"
+    "U9-message-normal-modal"
   );
 
 
-const inboxPage =
+const messageModalClose =
   document.getElementById(
-    "U9-page-inbox"
+    "U9-message-normal-modal-close"
   );
 
 
-const giftPage =
+const inboxModal =
   document.getElementById(
-    "U9-page-gift"
+    "U9-inbox-normal-modal"
   );
 
 
-const historyPage =
+const inboxModalClose =
   document.getElementById(
-    "U9-page-history"
+    "U9-inbox-normal-modal-close"
+  );
+
+
+const giftModal =
+  document.getElementById(
+    "U9-gift-normal-modal"
+  );
+
+
+const giftModalClose =
+  document.getElementById(
+    "U9-gift-normal-modal-close"
+  );
+
+
+const historyModal =
+  document.getElementById(
+    "U9-history-normal-modal"
+  );
+
+
+const historyModalClose =
+  document.getElementById(
+    "U9-history-normal-modal-close"
   );
 
 
@@ -139,6 +134,10 @@ const test2Button =
   );
 
 
+/* =========================
+   NORMAL TOOL BUTTONS
+========================= */
+
 const messageButton =
   document.getElementById(
     "U9-page-container-tool-message"
@@ -174,29 +173,22 @@ function showPage(
   homePage.style.display =
     "none";
 
+
   shopPage.style.display =
     "none";
+
 
   auctionPage.style.display =
     "none";
 
+
   test1Page.style.display =
     "none";
+
 
   test2Page.style.display =
     "none";
 
-  messagePage.style.display =
-    "none";
-
-  inboxPage.style.display =
-    "none";
-
-  giftPage.style.display =
-    "none";
-
-  historyPage.style.display =
-    "none";
 
   page.style.display =
     "block";
@@ -210,6 +202,40 @@ function showPage(
 
 showPage(
   homePage
+);
+
+
+/* =========================
+   MENU
+========================= */
+
+menuButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      homePage
+    );
+
+
+    tool.classList.toggle(
+      "menu-open"
+    );
+
+
+    menuButton.classList.remove(
+      "menu-heartbeat"
+    );
+
+
+    void menuButton.offsetWidth;
+
+
+    menuButton.classList.add(
+      "menu-heartbeat"
+    );
+
+  }
 );
 
 
@@ -277,6 +303,10 @@ test2Button.addEventListener(
 );
 
 
+/* =========================
+   MESSAGE MODAL
+========================= */
+
 messageButton.addEventListener(
   "click",
   function () {
@@ -285,19 +315,36 @@ messageButton.addEventListener(
       "message-bounce"
     );
 
+
     void messageButton.offsetWidth;
+
 
     messageButton.classList.add(
       "message-bounce"
     );
 
-    showPage(
-      messagePage
-    );
+
+    messageModal.style.display =
+      "flex";
 
   }
 );
 
+
+messageModalClose.addEventListener(
+  "click",
+  function () {
+
+    messageModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   INBOX MODAL
+========================= */
 
 inboxButton.addEventListener(
   "click",
@@ -307,19 +354,36 @@ inboxButton.addEventListener(
       "inbox-shake"
     );
 
+
     void inboxButton.offsetWidth;
+
 
     inboxButton.classList.add(
       "inbox-shake"
     );
 
-    showPage(
-      inboxPage
-    );
+
+    inboxModal.style.display =
+      "flex";
 
   }
 );
 
+
+inboxModalClose.addEventListener(
+  "click",
+  function () {
+
+    inboxModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   GIFT MODAL
+========================= */
 
 giftButton.addEventListener(
   "click",
@@ -329,19 +393,36 @@ giftButton.addEventListener(
       "gift-bounce"
     );
 
+
     void giftButton.offsetWidth;
+
 
     giftButton.classList.add(
       "gift-bounce"
     );
 
-    showPage(
-      giftPage
-    );
+
+    giftModal.style.display =
+      "flex";
 
   }
 );
 
+
+giftModalClose.addEventListener(
+  "click",
+  function () {
+
+    giftModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   HISTORY MODAL
+========================= */
 
 historyButton.addEventListener(
   "click",
@@ -351,16 +432,28 @@ historyButton.addEventListener(
       "history-shake"
     );
 
+
     void historyButton.offsetWidth;
+
 
     historyButton.classList.add(
       "history-shake"
     );
 
-    showPage(
-      historyPage
-    );
+
+    historyModal.style.display =
+      "flex";
 
   }
 );
 
+
+historyModalClose.addEventListener(
+  "click",
+  function () {
+
+    historyModal.style.display =
+      "none";
+
+  }
+);
