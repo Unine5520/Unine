@@ -22,17 +22,9 @@ menuButton.addEventListener(
   "click",
   function () {
 
-    if (
-      !tool.classList.contains(
-        "menu-open"
-      )
-    ) {
-
-      showPage(
-        homePage
-      );
-
-    }
+    showPage(
+      homePage
+    );
 
 
     tool.classList.toggle(
