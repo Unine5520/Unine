@@ -69,6 +69,19 @@ searchButton.addEventListener(
     }
 
 
+    /* Animation */
+
+    searchButton.classList.remove(
+      "search-effect"
+    );
+
+    void searchButton.offsetWidth;
+
+    searchButton.classList.add(
+      "search-effect"
+    );
+
+
     /* Search */
 
     console.log(
