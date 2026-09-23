@@ -16,7 +16,11 @@
 
   align-items: center;
 
-  padding: 0;
+  justify-content: center;
+
+  gap: 10px;
+
+  padding: 0 20px;
 
   background-color: rgb(58 255 7);
 
@@ -33,19 +37,30 @@
 
 #U9-page-container button {
 
-  flex: 1;
-
-  height: 40px;
-
-  padding: 0;
+  height: 30px;
 
   border: none;
 
-  border-radius: 0;
-
   background-color: white;
 
+  border-radius: 6px;
+
   cursor: pointer;
+
+}
+
+
+/* =========== NUMBER BUTTON =========== */
+
+#U9-page-container-1,
+#U9-page-container-2,
+#U9-page-container-3,
+#U9-page-container-4,
+#U9-page-container-5 {
+
+  min-width: 30px;
+
+  padding: 0 10px;
 
 }
 
@@ -61,6 +76,10 @@
   justify-content: center;
 
   gap: 6px;
+
+  width: 220px;
+
+  padding: 0 10px;
 
 }
 
@@ -84,3 +103,4 @@
   stroke-linejoin: round;
 
 }
+
