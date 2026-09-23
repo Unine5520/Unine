@@ -55,6 +55,7 @@ menuButton.addEventListener(
   }
 );
 
+
 /* =========================
    PAGE ELEMENTS
 ========================= */
@@ -86,6 +87,30 @@ const test1Page =
 const test2Page =
   document.getElementById(
     "U9-page-test2"
+  );
+
+
+const messagePage =
+  document.getElementById(
+    "U9-page-message"
+  );
+
+
+const inboxPage =
+  document.getElementById(
+    "U9-page-inbox"
+  );
+
+
+const giftPage =
+  document.getElementById(
+    "U9-page-gift"
+  );
+
+
+const historyPage =
+  document.getElementById(
+    "U9-page-history"
   );
 
 
@@ -123,6 +148,30 @@ const test2Button =
   );
 
 
+const messageButton =
+  document.getElementById(
+    "U9-page-container-tool-message"
+  );
+
+
+const inboxButton =
+  document.getElementById(
+    "U9-page-container-tool-inbox"
+  );
+
+
+const giftButton =
+  document.getElementById(
+    "U9-page-container-tool-gift"
+  );
+
+
+const historyButton =
+  document.getElementById(
+    "U9-page-container-tool-history"
+  );
+
+
 /* =========================
    SHOW PAGE
 ========================= */
@@ -144,6 +193,18 @@ function showPage(
     "none";
 
   test2Page.style.display =
+    "none";
+
+  messagePage.style.display =
+    "none";
+
+  inboxPage.style.display =
+    "none";
+
+  giftPage.style.display =
+    "none";
+
+  historyPage.style.display =
     "none";
 
   page.style.display =
@@ -219,6 +280,94 @@ test2Button.addEventListener(
 
     showPage(
       test2Page
+    );
+
+  }
+);
+
+
+messageButton.addEventListener(
+  "click",
+  function () {
+
+    messageButton.classList.remove(
+      "message-bounce"
+    );
+
+    void messageButton.offsetWidth;
+
+    messageButton.classList.add(
+      "message-bounce"
+    );
+
+    showPage(
+      messagePage
+    );
+
+  }
+);
+
+
+inboxButton.addEventListener(
+  "click",
+  function () {
+
+    inboxButton.classList.remove(
+      "inbox-shake"
+    );
+
+    void inboxButton.offsetWidth;
+
+    inboxButton.classList.add(
+      "inbox-shake"
+    );
+
+    showPage(
+      inboxPage
+    );
+
+  }
+);
+
+
+giftButton.addEventListener(
+  "click",
+  function () {
+
+    giftButton.classList.remove(
+      "gift-bounce"
+    );
+
+    void giftButton.offsetWidth;
+
+    giftButton.classList.add(
+      "gift-bounce"
+    );
+
+    showPage(
+      giftPage
+    );
+
+  }
+);
+
+
+historyButton.addEventListener(
+  "click",
+  function () {
+
+    historyButton.classList.remove(
+      "history-shake"
+    );
+
+    void historyButton.offsetWidth;
+
+    historyButton.classList.add(
+      "history-shake"
+    );
+
+    showPage(
+      historyPage
     );
 
   }
