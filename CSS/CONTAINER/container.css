@@ -1,6 +1,6 @@
- /* =========== CONTAINER =========== */
+/* =========== CONTAINER TOOL =========== */
 
-#U9-page-container {
+#U9-page-container-tool {
 
   position: fixed;
 
@@ -31,17 +31,13 @@
 }
 
 
-/* =========== NUMBER BUTTON =========== */
+/* =========== TOOL BUTTON =========== */
 
-#U9-page-container-1,
-
-#U9-page-container-2,
-
-#U9-page-container-3,
-
-#U9-page-container-4,
-
-#U9-page-container-5 {
+#U9-page-container-tool-menu,
+#U9-page-container-tool-message,
+#U9-page-container-tool-inbox,
+#U9-page-container-tool-gift,
+#U9-page-container-tool-shop {
 
   width: 40px;
 
@@ -64,7 +60,7 @@
 
 /* =========== SEARCH CONTAINER =========== */
 
-#U9-page-container-search {
+#U9-page-container-tool-search {
 
   display: flex;
 
@@ -89,7 +85,7 @@
 
 /* =========== SEARCH BUTTON =========== */
 
-#U9-page-container-search-button {
+#U9-page-container-tool-search-button {
 
   display: flex;
 
@@ -122,7 +118,7 @@
 
 /* =========== SEARCH INPUT =========== */
 
-#U9-page-container-search-input {
+#U9-page-container-tool-search-input {
 
   flex: 1;
 
@@ -141,9 +137,32 @@
 }
 
 
+/* =========== MENU ICON =========== */
+
+#U9-page-container-tool-menu {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+#U9-page-container-tool-menu svg {
+
+  width: 18px;
+
+  height: 18px;
+
+  fill: currentColor;
+
+}
+
+
 /* =========== SEARCH ICON =========== */
 
-#U9-page-container-search-icon {
+#U9-page-container-tool-search-button svg {
 
   width: 16px;
 
@@ -153,7 +172,41 @@
 
 }
 
-#U9-page-container-menu-icon {
+
+/* =========== MESSAGE ICON =========== */
+
+#U9-page-container-tool-message {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+#U9-page-container-tool-message svg {
+
+  width: 18px;
+
+  height: 18px;
+
+}
+
+
+/* =========== INBOX ICON =========== */
+
+#U9-page-container-tool-inbox {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+#U9-page-container-tool-inbox svg {
 
   width: 18px;
 
@@ -163,29 +216,10 @@
 
 }
 
-/* =========== CONTAINER 2 ICON =========== */
 
-#U9-page-container-2 {
+/* =========== GIFT ICON =========== */
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-#U9-page-container-2-icon {
-
-  width: 18px;
-
-  height: 18px;
-
-}
-
-/* =========== CONTAINER 3 ICON =========== */
-
-#U9-page-container-3 {
+#U9-page-container-tool-gift {
 
   display: flex;
 
@@ -195,40 +229,35 @@
 
 }
 
-#U9-page-container-3-icon {
+#U9-page-container-tool-gift svg {
 
   width: 18px;
 
-  height: 18px;
-
-  fill: currentColor;
-
-}
-
-/* =========== CONTAINER 4 ICON =========== */
-
-#U9-page-container-4 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#U9-page-container-4-icon {
-  width: 18px;
   height: 17px;
+
   fill: currentColor;
+
 }
 
-/* =========== CONTAINER 5 ICON =========== */
 
-#U9-page-container-5 {
+/* =========== SHOP ICON =========== */
+
+#U9-page-container-tool-shop {
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
 }
 
-#U9-page-container-5-icon {
+#U9-page-container-tool-shop svg {
+
   width: 21px;
+
   height: 21px;
+
   fill: currentColor;
+
 }
