@@ -16,8 +16,6 @@
 
   align-items: center;
 
-  justify-content: center;
-
   gap: 5px;
 
   padding: 0 10px;
@@ -58,18 +56,37 @@
 #U9-page-container-4,
 #U9-page-container-5 {
 
-  width: 5%;
+  width: 30px;
 
-  min-width: 0;
+  min-width: 30px;
 
   padding: 0;
 
 }
 
 
-/* =========== SEARCH BUTTON =========== */
+/* =========== SEARCH =========== */
 
 #U9-page-container-search {
+
+  display: flex;
+
+  align-items: center;
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 30px;
+
+  gap: 5px;
+
+}
+
+
+/* =========== SEARCH BUTTON =========== */
+
+#U9-page-container-search-button {
 
   display: flex;
 
@@ -79,9 +96,34 @@
 
   gap: 6px;
 
-  width: 75%;
+  height: 30px;
 
   padding: 0 10px;
+
+  white-space: nowrap;
+
+}
+
+
+/* =========== SEARCH INPUT =========== */
+
+#U9-page-container-search-input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 30px;
+
+  padding: 0 10px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  outline: none;
+
+  background-color: white;
 
 }
 
