@@ -595,3 +595,16 @@
   min-height: calc(100vh - 115px);
 
 }
+
+#U9-page-shop,
+#U9-page-auction,
+#U9-page-test1,
+#U9-page-test2,
+#U9-page-message,
+#U9-page-inbox,
+#U9-page-gift,
+#U9-page-history {
+
+  display: none;
+
+}
