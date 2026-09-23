@@ -16,6 +16,10 @@
 
   align-items: center;
 
+  justify-content: center;
+
+  gap: 10px;
+
   padding: 0 20px;
 
   background-color: rgb(58 255 7);
@@ -29,45 +33,9 @@
 }
 
 
-/* =========== LEFT 50% =========== */
-
-#U9-page-container-left {
-
-  width: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 10px;
-
-}
-
-
-/* =========== RIGHT 50% =========== */
-
-#U9-page-container-right {
-
-  width: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 10px;
-
-}
-
-
 /* =========== BUTTON =========== */
 
-#U9-page-container-left button,
-
-#U9-page-container-right button {
+#U9-page-container button {
 
   height: 30px;
 
@@ -82,13 +50,30 @@
 }
 
 
-/* =========== SEARCH =========== */
+/* =========== NUMBER BUTTON =========== */
+
+#U9-page-container-1,
+#U9-page-container-2,
+#U9-page-container-3,
+#U9-page-container-4,
+#U9-page-container-5 {
+
+  min-width: 30px;
+
+  padding: 0 10px;
+
+}
+
+
+/* =========== SEARCH BUTTON =========== */
 
 #U9-page-container-search {
 
   display: flex;
 
   align-items: center;
+
+  justify-content: center;
 
   gap: 6px;
 
