@@ -1,17 +1,16 @@
-
 /* =========================
    SEARCH
 ========================= */
 
 const searchInput =
   document.getElementById(
-    "U9-page-container-search-input"
+    "U9-page-container-tool-search-input"
   );
 
 
 const searchButton =
   document.getElementById(
-    "U9-page-container-search-button"
+    "U9-page-container-tool-search-button"
   );
 
 
