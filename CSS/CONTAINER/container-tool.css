@@ -115,7 +115,7 @@
 #U9-page-container-tool-message,
 #U9-page-container-tool-inbox,
 #U9-page-container-tool-gift,
-#U9-page-container-tool-shop {
+#U9-page-container-tool-history {
 
   width: 40px;
 
@@ -362,9 +362,9 @@
 }
 
 
-/* =========== SHOP ICON =========== */
+/* =========== HISTORY ICON =========== */
 
-#U9-page-container-tool-shop {
+#U9-page-container-tool-history {
 
   display: flex;
 
@@ -374,7 +374,7 @@
 
 }
 
-#U9-page-container-tool-shop svg {
+#U9-page-container-tool-history svg {
 
   width: 21px;
 
