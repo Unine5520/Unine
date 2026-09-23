@@ -16,7 +16,7 @@
 
   align-items: center;
 
-  gap: 5px;
+  gap: 10px;
 
   padding: 0 10px;
 
@@ -53,7 +53,7 @@
 
   border: none;
 
-  border-radius: 50%;
+  border-radius: 30%;
 
   background-color: white;
 
@@ -151,4 +151,84 @@
 
   fill: currentColor;
 
+}
+
+#U9-page-container-menu-icon {
+
+  width: 18px;
+
+  height: 18px;
+
+  fill: currentColor;
+
+}
+
+/* =========== CONTAINER 2 ICON =========== */
+
+#U9-page-container-2 {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+#U9-page-container-2-icon {
+
+  width: 18px;
+
+  height: 18px;
+
+}
+
+/* =========== CONTAINER 3 ICON =========== */
+
+#U9-page-container-3 {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+#U9-page-container-3-icon {
+
+  width: 18px;
+
+  height: 18px;
+
+  fill: currentColor;
+
+}
+
+/* =========== CONTAINER 4 ICON =========== */
+
+#U9-page-container-4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#U9-page-container-4-icon {
+  width: 18px;
+  height: 17px;
+  fill: currentColor;
+}
+
+/* =========== CONTAINER 5 ICON =========== */
+
+#U9-page-container-5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#U9-page-container-5-icon {
+  width: 21px;
+  height: 21px;
+  fill: currentColor;
 }
