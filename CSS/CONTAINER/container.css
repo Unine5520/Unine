@@ -1,10 +1,10 @@
-/* =========== CONTAINER =========== */
+ /* =========== CONTAINER =========== */
 
 #U9-page-container {
 
   position: fixed;
 
-  top: 65px;
+  top: 70px;
 
   left: 0;
 
@@ -34,22 +34,26 @@
 /* =========== NUMBER BUTTON =========== */
 
 #U9-page-container-1,
+
 #U9-page-container-2,
+
 #U9-page-container-3,
+
 #U9-page-container-4,
+
 #U9-page-container-5 {
 
-  width: 30px;
+  width: 40px;
 
-  min-width: 30px;
+  min-width: 40px;
 
-  height: 30px;
+  height: 40px;
 
   padding: 0;
 
   border: none;
 
-  border-radius: 6px;
+  border-radius: 50%;
 
   background-color: white;
 
@@ -70,13 +74,13 @@
 
   min-width: 0;
 
-  height: 30px;
+  height: 40px;
 
-  padding: 3px;
+  padding: 8px;
 
   background-color: white;
 
-  border-radius: 6px;
+  border-radius: 50px;
 
   overflow: hidden;
 
@@ -93,23 +97,23 @@
 
   justify-content: center;
 
-  gap: 6px;
+  width: 30px;
 
-  height: 24px;
+  min-width: 24px;
 
-  padding: 0 12px;
+  height: 30px;
+
+  padding: 0;
 
   border: none;
 
-  border-radius: 5px;
+  border-radius: 50%;
 
-  background-color: #2762ea;
+  background-color: #abacb2;
 
   color: white;
 
   cursor: pointer;
-
-  white-space: nowrap;
 
   flex-shrink: 0;
 
@@ -141,18 +145,10 @@
 
 #U9-page-container-search-icon {
 
-  width: 18px;
+  width: 16px;
 
-  height: 18px;
+  height: 16px;
 
-  fill: none;
-
-  stroke: currentColor;
-
-  stroke-width: 2;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
+  fill: currentColor;
 
 }
