@@ -16,6 +16,8 @@
 
   align-items: center;
 
+  justify-content: space-between;
+
   padding: 0 20px;
 
   background-color: rgb(58 255 7);
@@ -25,5 +27,86 @@
   -webkit-backdrop-filter: blur(10px);
 
   z-index: 900;
+
+}
+
+
+/* =========== LEFT =========== */
+
+#U9-page-container-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+/* =========== RIGHT =========== */
+
+#U9-page-container-right {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+/* =========== BUTTON =========== */
+
+#U9-page-container-left button,
+
+#U9-page-container-right button {
+
+  height: 30px;
+
+  border: none;
+
+  background-color: white;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== SEARCH =========== */
+
+#U9-page-container-search {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 0 10px;
+
+}
+
+
+/* =========== SEARCH ICON =========== */
+
+#U9-page-container-search-icon {
+
+  width: 18px;
+
+  height: 18px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
 
 }
