@@ -16,8 +16,6 @@
 
   align-items: center;
 
-  justify-content: space-between;
-
   padding: 0 20px;
 
   background-color: rgb(58 255 7);
@@ -31,9 +29,11 @@
 }
 
 
-/* =========== LEFT =========== */
+/* =========== LEFT 50% =========== */
 
 #U9-page-container-left {
+
+  width: 50%;
 
   display: flex;
 
@@ -44,13 +44,17 @@
 }
 
 
-/* =========== RIGHT =========== */
+/* =========== RIGHT 50% =========== */
 
 #U9-page-container-right {
+
+  width: 50%;
 
   display: flex;
 
   align-items: center;
+
+  justify-content: flex-end;
 
   gap: 10px;
 
