@@ -91,8 +91,7 @@
 
 /* =========== MENU OPEN =========== */
 
-#U9-page-container-tool.menu-open
-#U9-page-container-tool-normal {
+#U9-page-container-tool.menu-open #U9-page-container-tool-normal {
 
   transform: translateX(
     calc(100% - 40px)
@@ -101,8 +100,7 @@
 }
 
 
-#U9-page-container-tool.menu-open
-#U9-page-container-tool-pages {
+#U9-page-container-tool.menu-open #U9-page-container-tool-pages {
 
   transform: translateX(0);
 
@@ -599,11 +597,7 @@
 #U9-page-shop,
 #U9-page-auction,
 #U9-page-test1,
-#U9-page-test2,
-#U9-page-message,
-#U9-page-inbox,
-#U9-page-gift,
-#U9-page-history {
+#U9-page-test2 {
 
   display: none;
 
