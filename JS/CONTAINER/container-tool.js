@@ -22,6 +22,19 @@ menuButton.addEventListener(
   "click",
   function () {
 
+    if (
+      !tool.classList.contains(
+        "menu-open"
+      )
+    ) {
+
+      showPage(
+        homePage
+      );
+
+    }
+
+
     tool.classList.toggle(
       "menu-open"
     );
@@ -39,22 +52,8 @@ menuButton.addEventListener(
       "menu-heartbeat"
     );
 
-
-    if (
-      !tool.classList.contains(
-        "menu-open"
-      )
-    ) {
-
-      showPage(
-        homePage
-      );
-
-    }
-
   }
 );
-
 
 /* =========================
    PAGE ELEMENTS
