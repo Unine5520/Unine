@@ -110,3 +110,13 @@
   font-weight: 500;
 
 }
+
+#U9-page-header-actions {
+
+  display: none;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
