@@ -4,11 +4,16 @@
 
 #U9-page-home-products {
 
-  display: flex;
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 10px;
 
-  padding: 10px;
+  padding: 20px 35px 30px 35px;
+
+  width: 100%;
 
 }
 
@@ -17,12 +22,10 @@
    PRODUCT
 ========================= */
 
-#U9-page-home-product-1,
-#U9-page-home-product-2 {
+#U9-page-home-products
+> [id^="U9-page-home-product-"] {
 
   position: relative;
-
-  flex: 1;
 
   min-width: 0;
 
@@ -41,8 +44,9 @@
    PRODUCT IMAGE
 ========================= */
 
-#U9-page-home-product-1 img,
-#U9-page-home-product-2 img {
+#U9-page-home-products
+> [id^="U9-page-home-product-"]
+> img {
 
   display: none;
 
@@ -59,8 +63,8 @@
    LOADING
 ========================= */
 
-#U9-page-home-product-1::before,
-#U9-page-home-product-2::before {
+#U9-page-home-products
+> [id^="U9-page-home-product-"]::before {
 
   content: "";
 
@@ -107,10 +111,12 @@
 
 
 /* =========================
-   PRODUCT 1 ICON
+   PRODUCT ICON
 ========================= */
 
-#U9-page-home-product-1-icon {
+#U9-page-home-products
+> [id^="U9-page-home-product-"]
+[id$="-icon"] {
 
   display: none;
 
@@ -134,14 +140,18 @@
 
   border: 2px solid #55d4eb;
 
-  background-color: rgb(255, 255, 255);
+  background-color: white;
 
   z-index: 2;
 
 }
 
 
-#U9-page-home-product-1-icon svg {
+/* =========================
+   PRODUCT ICON SVG
+========================= */
+
+.U9-page-home-product-icon {
 
   display: block;
 
@@ -155,10 +165,12 @@
 
 
 /* =========================
-   PRODUCT 1 NAME
+   PRODUCT NAME
 ========================= */
 
-#U9-page-home-product-1-name {
+#U9-page-home-products
+> [id^="U9-page-home-product-"]
+[id$="-name"] {
 
   display: none;
 
@@ -180,10 +192,12 @@
 
 
 /* =========================
-   PRODUCT 1 DESCRIPTION
+   PRODUCT DESCRIPTION
 ========================= */
 
-#U9-page-home-product-1-description {
+#U9-page-home-products
+> [id^="U9-page-home-product-"]
+[id$="-description"] {
 
   display: none;
 
@@ -203,173 +217,85 @@
 
 
 /* =========================
-   LOADED PRODUCT 1
+   LOADED PRODUCT
 ========================= */
 
-#U9-page-home-product-1.loaded::before {
+#U9-page-home-products
+> [id^="U9-page-home-product-"].loaded::before {
 
   display: none;
 
 }
 
 
-#U9-page-home-product-1.loaded img {
+#U9-page-home-products
+> [id^="U9-page-home-product-"].loaded
+> img {
 
   display: block;
 
 }
 
 
-#U9-page-home-product-1.loaded #U9-page-home-product-1-icon {
+#U9-page-home-products
+> [id^="U9-page-home-product-"].loaded
+[id$="-icon"] {
 
   display: block;
 
 }
 
 
-#U9-page-home-product-1.loaded #U9-page-home-product-1-name {
+#U9-page-home-products
+> [id^="U9-page-home-product-"].loaded
+[id$="-name"] {
 
   display: block;
 
 }
 
 
-#U9-page-home-product-1.loaded #U9-page-home-product-1-description {
+#U9-page-home-products
+> [id^="U9-page-home-product-"].loaded
+[id$="-description"] {
 
   display: block;
-
-}
-
-/* =========================
-   PRODUCT 2
-========================= */
-
-#U9-page-home-product-2-icon {
-
-  display: none;
-
-  position: absolute;
-
-  top: 170px;
-
-  left: 50%;
-
-  width: 60px;
-
-  height: 60px;
-
-  transform: translateX(-50%);
-
-  padding: 6px;
-
-  box-sizing: border-box;
-
-  border-radius: 50%;
-
-  border: 2px solid #55d4eb;
-
-  background-color: rgb(255, 255, 255);
-
-  z-index: 2;
-
-}
-
-
-#U9-page-home-product-2-icon svg {
-
-  display: block;
-
-  width: 100%;
-
-  height: 100%;
-
-  fill: #ff0000;
 
 }
 
 
 /* =========================
-   PRODUCT 2 NAME
+   TABLET
+   768px 以上
 ========================= */
 
-#U9-page-home-product-2-name {
+@media (min-width: 768px) {
 
-  display: none;
+  #U9-page-home-products {
 
-  position: absolute;
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
 
-  top: 235px;
+    max-width: 1200px;
 
-  left: 15px;
+    margin: 0 auto;
 
-  right: 15px;
-
-  font-size: 16px;
-
-  font-weight: 600;
-
-  line-height: 22px;
+  }
 
 }
 
 
 /* =========================
-   PRODUCT 2 DESCRIPTION
+   DESKTOP
+   1200px 以上
 ========================= */
 
-#U9-page-home-product-2-description {
+@media (min-width: 1200px) {
 
-  display: none;
+  #U9-page-home-products {
 
-  position: absolute;
+    max-width: 1200px;
 
-  top: 260px;
-
-  left: 15px;
-
-  right: 15px;
-
-  font-size: 13px;
-
-  line-height: 19px;
-
-}
-
-
-/* =========================
-   LOADED PRODUCT 2
-========================= */
-
-#U9-page-home-product-2.loaded::before {
-
-  display: none;
-
-}
-
-
-#U9-page-home-product-2.loaded img {
-
-  display: block;
-
-}
-
-
-#U9-page-home-product-2.loaded #U9-page-home-product-2-icon {
-
-  display: block;
-
-}
-
-
-#U9-page-home-product-2.loaded #U9-page-home-product-2-name {
-
-  display: block;
-
-}
-
-
-#U9-page-home-product-2.loaded #U9-page-home-product-2-description {
-
-  display: block;
+  }
 
 }
