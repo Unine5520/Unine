@@ -2,95 +2,69 @@
    HOME PAGE PRODUCTS
 ========================= */
 
-const product1 =
-  document.getElementById(
-    "U9-page-home-product-1"
+const products =
+  document.querySelectorAll(
+    "#U9-page-home-products > [id^=\"U9-page-home-product-\"]"
   );
 
 
-const product2 =
-  document.getElementById(
-    "U9-page-home-product-2"
-  );
+products.forEach(
+  function (product) {
+
+    const image =
+      product.querySelector(
+        "img"
+      );
 
 
-const product1Image =
-  product1.querySelector(
-    "img"
-  );
+    if (!image) {
+
+      return;
+
+    }
 
 
-const product2Image =
-  product2.querySelector(
-    "img"
-  );
+    /* =========================
+       LOAD PRODUCT
+    ========================= */
+
+    function loadProduct() {
+
+      if (
+        image.complete &&
+        image.naturalWidth > 0
+      ) {
+
+        product.classList.add(
+          "loaded"
+        );
+
+      }
+
+    }
 
 
-/* =========================
-   PRODUCT 1
-========================= */
+    /* =========================
+       IMAGE LOAD
+    ========================= */
 
-function loadProduct1() {
+    image.addEventListener(
+      "load",
+      function () {
 
-  if (
-    product1Image.complete &&
-    product1Image.naturalWidth > 0
-  ) {
+        product.classList.add(
+          "loaded"
+        );
 
-    product1.classList.add(
-      "loaded"
+      }
     );
 
-  }
 
-}
+    /* =========================
+       CHECK LOADED
+    ========================= */
 
-
-product1Image.addEventListener(
-  "load",
-  function () {
-
-    product1.classList.add(
-      "loaded"
-    );
-
-  }
-);
-
-
-loadProduct1();
-
-
-/* =========================
-   PRODUCT 2
-========================= */
-
-function loadProduct2() {
-
-  if (
-    product2Image.complete &&
-    product2Image.naturalWidth > 0
-  ) {
-
-    product2.classList.add(
-      "loaded"
-    );
-
-  }
-
-}
-
-
-product2Image.addEventListener(
-  "load",
-  function () {
-
-    product2.classList.add(
-      "loaded"
-    );
+    loadProduct();
 
   }
 );
-
-
-loadProduct2();
