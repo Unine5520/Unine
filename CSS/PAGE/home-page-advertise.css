@@ -1,0 +1,49 @@
+/* =========================
+   HOME PAGE ADVERTISE
+========================= */
+
+#U9-page-home-advertise {
+
+  width: 100%;
+
+  height: 200px;
+
+  margin: 125px auto 0 auto;
+
+  padding: 10px;
+
+  background-color: #6eccff;
+
+}
+
+
+/* =========================
+   TABLET / DESKTOP
+   768px 以上
+========================= */
+
+@media (min-width: 768px) {
+
+  #U9-page-home-advertise {
+
+    max-width: 1200px;
+
+  }
+
+}
+
+
+/* =========================
+   DESKTOP
+   1200px 以上
+========================= */
+
+@media (min-width: 1200px) {
+
+  #U9-page-home-advertise {
+
+    max-width: 1200px;
+
+  }
+
+}
