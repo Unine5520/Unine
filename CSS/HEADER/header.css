@@ -20,11 +20,7 @@
 
   justify-content: space-between;
 
-  background: rgba(255, 255, 255, 0.65);
-
-  backdrop-filter: blur(10px);
-
-  -webkit-backdrop-filter: blur(10px);
+  background-color: white;
 
   border-bottom: 0px solid rgba(255, 255, 255, 0);
 
