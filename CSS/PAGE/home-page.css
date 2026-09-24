@@ -1,1 +1,375 @@
+/* =========================
+   HOME PAGE PRODUCTS
+========================= */
 
+#U9-page-home-products {
+
+  display: flex;
+
+  gap: 10px;
+
+  padding: 10px;
+
+}
+
+
+/* =========================
+   PRODUCT
+========================= */
+
+#U9-page-home-product-1,
+#U9-page-home-product-2 {
+
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 300px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background-color: #54d4ec;
+
+}
+
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
+#U9-page-home-product-1 img,
+#U9-page-home-product-2 img {
+
+  display: none;
+
+  width: 100%;
+
+  height: 200px;
+
+  object-fit: cover;
+
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+#U9-page-home-product-1::before,
+#U9-page-home-product-2::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 85px;
+
+  left: 50%;
+
+  width: 30px;
+
+  height: 30px;
+
+  margin-left: -19px;
+
+  border: 4px solid #e5e5e5;
+
+  border-top-color: #30bff1;
+
+  border-radius: 50%;
+
+  animation:
+    U9-home-loading
+    0.8s linear infinite;
+
+}
+
+
+@keyframes U9-home-loading {
+
+  from {
+
+    transform: rotate(0deg);
+
+  }
+
+  to {
+
+    transform: rotate(360deg);
+
+  }
+
+}
+
+
+/* =========================
+   PRODUCT 1 ICON
+========================= */
+
+#U9-page-home-product-1-icon {
+
+  display: none;
+
+  position: absolute;
+
+  top: 170px;
+
+  left: 50%;
+
+  width: 60px;
+
+  height: 60px;
+
+  transform: translateX(-50%);
+
+  padding: 6px;
+
+  box-sizing: border-box;
+
+  border-radius: 50%;
+
+  border: 2px solid #55d4eb;
+
+  background-color: rgb(255, 255, 255);
+
+  z-index: 2;
+
+}
+
+
+#U9-page-home-product-1-icon svg {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  fill: #ff0000;
+
+}
+
+
+/* =========================
+   PRODUCT 1 NAME
+========================= */
+
+#U9-page-home-product-1-name {
+
+  display: none;
+
+  position: absolute;
+
+  top: 235px;
+
+  left: 15px;
+
+  right: 15px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 22px;
+
+}
+
+
+/* =========================
+   PRODUCT 1 DESCRIPTION
+========================= */
+
+#U9-page-home-product-1-description {
+
+  display: none;
+
+  position: absolute;
+
+  top: 260px;
+
+  left: 15px;
+
+  right: 15px;
+
+  font-size: 13px;
+
+  line-height: 19px;
+
+}
+
+
+/* =========================
+   LOADED PRODUCT 1
+========================= */
+
+#U9-page-home-product-1.loaded::before {
+
+  display: none;
+
+}
+
+
+#U9-page-home-product-1.loaded img {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-1.loaded #U9-page-home-product-1-icon {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-1.loaded #U9-page-home-product-1-name {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-1.loaded #U9-page-home-product-1-description {
+
+  display: block;
+
+}
+
+/* =========================
+   PRODUCT 2
+========================= */
+
+#U9-page-home-product-2-icon {
+
+  display: none;
+
+  position: absolute;
+
+  top: 170px;
+
+  left: 50%;
+
+  width: 60px;
+
+  height: 60px;
+
+  transform: translateX(-50%);
+
+  padding: 6px;
+
+  box-sizing: border-box;
+
+  border-radius: 50%;
+
+  border: 2px solid #55d4eb;
+
+  background-color: rgb(255, 255, 255);
+
+  z-index: 2;
+
+}
+
+
+#U9-page-home-product-2-icon svg {
+
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  fill: #ff0000;
+
+}
+
+
+/* =========================
+   PRODUCT 2 NAME
+========================= */
+
+#U9-page-home-product-2-name {
+
+  display: none;
+
+  position: absolute;
+
+  top: 235px;
+
+  left: 15px;
+
+  right: 15px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  line-height: 22px;
+
+}
+
+
+/* =========================
+   PRODUCT 2 DESCRIPTION
+========================= */
+
+#U9-page-home-product-2-description {
+
+  display: none;
+
+  position: absolute;
+
+  top: 260px;
+
+  left: 15px;
+
+  right: 15px;
+
+  font-size: 13px;
+
+  line-height: 19px;
+
+}
+
+
+/* =========================
+   LOADED PRODUCT 2
+========================= */
+
+#U9-page-home-product-2.loaded::before {
+
+  display: none;
+
+}
+
+
+#U9-page-home-product-2.loaded img {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-2.loaded #U9-page-home-product-2-icon {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-2.loaded #U9-page-home-product-2-name {
+
+  display: block;
+
+}
+
+
+#U9-page-home-product-2.loaded #U9-page-home-product-2-description {
+
+  display: block;
+
+}
