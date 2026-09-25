@@ -1,3 +1,4 @@
+
 /* =========================
    HOME PAGE PRODUCTS
 ========================= */
@@ -72,6 +73,7 @@ const saveIcon = `
     />
   </svg>
 `;
+
 
 /* =========================
    LOAD PRODUCTS
@@ -181,363 +183,412 @@ async function loadProducts() {
      CREATE PRODUCTS
   ========================= */
 
-  products.forEach(
-    function (product) {
+  for (const product of products) {
 
 
-      /* =========================
-         PRODUCT CARD
-      ========================= */
+    /* =========================
+       PRODUCT CARD
+    ========================= */
 
-      const card =
-        document.createElement(
-          "div"
-        );
-
-      card.className =
-        "U9-page-home-product";
-
-      card.dataset.productId =
-        product.id;
-
-
-      /* =========================
-         PRODUCT IMAGE
-      ========================= */
-
-      const image =
-        document.createElement(
-          "img"
-        );
-
-      image.src =
-        product.image_url || "";
-
-      image.alt =
-        product.name || "Product";
-
-      /* =========================
-        PRODUCT SAVE
-      ========================= */
-
-      const saveButton =
-        document.createElement(
-          "button"
-        );
-
-      saveButton.className =
-        "U9-page-home-product-save";
-
-      saveButton.type =
-        "button";
-
-      saveButton.setAttribute(
-        "aria-label",
-        "Save product"
+    const card =
+      document.createElement(
+        "div"
       );
 
-      saveButton.innerHTML =
-        saveIcon;
+    card.className =
+      "U9-page-home-product";
 
-      /* =========================
-        PRODUCT SAVE
-      ========================= */
-
-      saveButton.addEventListener(
-        "click",
-        async function () {
-
-          const productId =
-            product.id;
-
-          saveButton.disabled = true;
-
-          try {
-
-            const isSaved =
-              saveButton.classList.contains(
-                "saved"
-              );
-
-            const response =
-              await fetch(
-                "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/product-save",
-                {
-                  method: isSaved
-                    ? "DELETE"
-                    : "POST",
-
-                  credentials: "include",
-
-                  headers: {
-                    "Content-Type":
-                      "application/json"
-                  },
-
-                  body: JSON.stringify({
-                    product_id:
-                      productId
-                  })
-                }
-              );
+    card.dataset.productId =
+      product.id;
 
 
-            if (!response.ok) {
+    /* =========================
+       PRODUCT IMAGE
+    ========================= */
 
-              const errorData =
-                await response.json()
-                  .catch(function () {
-                    return {};
-                  });
+    const image =
+      document.createElement(
+        "img"
+      );
 
-              console.error(
-                "Product save error:",
-                response.status,
-                errorData
-              );
+    image.src =
+      product.image_url || "";
 
-              return;
-            }
+    image.alt =
+      product.name || "Product";
 
 
-            const data =
-              await response.json();
+    /* =========================
+       PRODUCT SAVE
+    ========================= */
+
+    const saveButton =
+      document.createElement(
+        "button"
+      );
+
+    saveButton.className =
+      "U9-page-home-product-save";
+
+    saveButton.type =
+      "button";
+
+    saveButton.setAttribute(
+      "aria-label",
+      "Save product"
+    );
+
+    saveButton.innerHTML =
+      saveIcon;
 
 
-            if (data.saved) {
+    /* =========================
+       CHECK SAVE STATUS
+    ========================= */
 
-              saveButton.classList.add(
-                "saved"
-              );
+    try {
 
-            } else {
-
-              saveButton.classList.remove(
-                "saved"
-              );
-
-            }
-
-          } catch (error) {
-
-            console.error(
-              "Failed to save product:",
-              error
-            );
-
-          } finally {
-
-            saveButton.disabled = false;
-
+      const saveStatus =
+        await fetch(
+          "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/product-save?product_id=" +
+          encodeURIComponent(
+            product.id
+          ),
+          {
+            method: "GET",
+            credentials: "include"
           }
+        );
+
+
+      if (saveStatus.ok) {
+
+        const saveData =
+          await saveStatus.json();
+
+
+        if (
+          saveData.saved
+        ) {
+
+          saveButton.classList.add(
+            "saved"
+          );
 
         }
-      );
-
-      /* =========================
-         PRODUCT INFO
-      ========================= */
-
-      const info =
-        document.createElement(
-          "div"
-        );
-
-      info.className =
-        "U9-page-home-product-info";
-
-
-      /* =========================
-         PRODUCT ICON
-      ========================= */
-
-      const icon =
-        document.createElement(
-          "div"
-        );
-
-      icon.className =
-        "U9-page-home-product-icon-container";
-
-      icon.innerHTML =
-        productIcon;
-
-
-      /* =========================
-         PRODUCT NAME
-      ========================= */
-
-      const name =
-        document.createElement(
-          "div"
-        );
-
-      name.className =
-        "U9-page-home-product-name";
-
-      name.textContent =
-        product.name || "";
-
-
-      /* =========================
-         PRODUCT PRICE
-      ========================= */
-
-      const price =
-        document.createElement(
-          "div"
-        );
-
-      price.className =
-        "U9-page-home-product-price";
-
-      price.textContent =
-        product.price ?? "";
-
-
-      /* =========================
-         PRODUCT DISCOUNT
-      ========================= */
-
-      const discount =
-        document.createElement(
-          "div"
-        );
-
-      discount.className =
-        "U9-page-home-product-discount";
-
-      if (
-        Number(product.discount) > 0
-      ) {
-
-        discount.textContent =
-          `-${product.discount}%`;
 
       }
 
+    } catch (error) {
 
-      /* =========================
-         PRODUCT DESCRIPTION
-      ========================= */
-
-      const description =
-        document.createElement(
-          "div"
-        );
-
-      description.className =
-        "U9-page-home-product-description";
-
-      description.textContent =
-        product.description || "";
-
-
-      /* =========================
-         BUILD INFO
-      ========================= */
-
-      info.appendChild(
-        icon
+      console.error(
+        "Failed to check product save status:",
+        error
       );
 
-      info.appendChild(
-        name
-      );
-
-      info.appendChild(
-        price
-      );
-
-      info.appendChild(
-        discount
-      );
-
-      info.appendChild(
-        description
-      );
+    }
 
 
-      /* =========================
-         BUILD CARD
-      ========================= */
+    /* =========================
+       PRODUCT SAVE
+    ========================= */
 
-      card.appendChild(
-        image
-      );
+    saveButton.addEventListener(
+      "click",
+      async function () {
 
-      card.appendChild(
-        saveButton
-      );
+        const productId =
+          product.id;
 
-      card.appendChild(
-        info
-      );
+        saveButton.disabled = true;
+
+        try {
+
+          const isSaved =
+            saveButton.classList.contains(
+              "saved"
+            );
+
+          const response =
+            await fetch(
+              "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/product-save",
+              {
+                method: isSaved
+                  ? "DELETE"
+                  : "POST",
+
+                credentials: "include",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  product_id:
+                    productId
+                })
+              }
+            );
 
 
-      /* =========================
-         IMAGE LOAD
-      ========================= */
+          if (!response.ok) {
 
-      image.addEventListener(
-        "load",
-        function () {
+            const errorData =
+              await response.json()
+                .catch(function () {
+                  return {};
+                });
 
-          card.classList.add(
-            "loaded"
-          );
+            console.error(
+              "Product save error:",
+              response.status,
+              errorData
+            );
 
-        }
-      );
+            return;
+
+          }
 
 
-      /* =========================
-         IMAGE ERROR
-      ========================= */
+          const data =
+            await response.json();
 
-      image.addEventListener(
-        "error",
-        function () {
 
-          card.classList.add(
-            "image-error"
-          );
+          if (data.saved) {
+
+            saveButton.classList.add(
+              "saved"
+            );
+
+          } else {
+
+            saveButton.classList.remove(
+              "saved"
+            );
+
+          }
+
+        } catch (error) {
 
           console.error(
-            "Failed to load product image:",
-            product.image_url
+            "Failed to save product:",
+            error
           );
 
+        } finally {
+
+          saveButton.disabled = false;
+
         }
+
+      }
+    );
+
+
+    /* =========================
+       PRODUCT INFO
+    ========================= */
+
+    const info =
+      document.createElement(
+        "div"
       );
 
+    info.className =
+      "U9-page-home-product-info";
 
-      /* =========================
-         CHECK IMAGE
-      ========================= */
 
-      if (
-        image.complete &&
-        image.naturalWidth > 0
-      ) {
+    /* =========================
+       PRODUCT ICON
+    ========================= */
+
+    const icon =
+      document.createElement(
+        "div"
+      );
+
+    icon.className =
+      "U9-page-home-product-icon-container";
+
+    icon.innerHTML =
+      productIcon;
+
+
+    /* =========================
+       PRODUCT NAME
+    ========================= */
+
+    const name =
+      document.createElement(
+        "div"
+      );
+
+    name.className =
+      "U9-page-home-product-name";
+
+    name.textContent =
+      product.name || "";
+
+
+    /* =========================
+       PRODUCT PRICE
+    ========================= */
+
+    const price =
+      document.createElement(
+        "div"
+      );
+
+    price.className =
+      "U9-page-home-product-price";
+
+    price.textContent =
+      product.price ?? "";
+
+
+    /* =========================
+       PRODUCT DISCOUNT
+    ========================= */
+
+    const discount =
+      document.createElement(
+        "div"
+      );
+
+    discount.className =
+      "U9-page-home-product-discount";
+
+    if (
+      Number(product.discount) > 0
+    ) {
+
+      discount.textContent =
+        `-${product.discount}%`;
+
+    }
+
+
+    /* =========================
+       PRODUCT DESCRIPTION
+    ========================= */
+
+    const description =
+      document.createElement(
+        "div"
+      );
+
+    description.className =
+      "U9-page-home-product-description";
+
+    description.textContent =
+      product.description || "";
+
+
+    /* =========================
+       BUILD INFO
+    ========================= */
+
+    info.appendChild(
+      icon
+    );
+
+    info.appendChild(
+      name
+    );
+
+    info.appendChild(
+      price
+    );
+
+    info.appendChild(
+      discount
+    );
+
+    info.appendChild(
+      description
+    );
+
+
+    /* =========================
+       BUILD CARD
+    ========================= */
+
+    card.appendChild(
+      image
+    );
+
+    card.appendChild(
+      saveButton
+    );
+
+    card.appendChild(
+      info
+    );
+
+
+    /* =========================
+       IMAGE LOAD
+    ========================= */
+
+    image.addEventListener(
+      "load",
+      function () {
 
         card.classList.add(
           "loaded"
         );
 
       }
+    );
 
 
-      /* =========================
-         ADD PRODUCT
-      ========================= */
+    /* =========================
+       IMAGE ERROR
+    ========================= */
 
-      productsContainer.appendChild(
-        card
+    image.addEventListener(
+      "error",
+      function () {
+
+        card.classList.add(
+          "image-error"
+        );
+
+        console.error(
+          "Failed to load product image:",
+          product.image_url
+        );
+
+      }
+    );
+
+
+    /* =========================
+       CHECK IMAGE
+    ========================= */
+
+    if (
+      image.complete &&
+      image.naturalWidth > 0
+    ) {
+
+      card.classList.add(
+        "loaded"
       );
 
     }
-  );
+
+
+    /* =========================
+       ADD PRODUCT
+    ========================= */
+
+    productsContainer.appendChild(
+      card
+    );
+
+  }
 
 }
 
