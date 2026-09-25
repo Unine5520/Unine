@@ -43,6 +43,10 @@ async function getCurrentUser() {
     const result =
       await response.json();
 
+    alert(
+      JSON.stringify(result)
+    );
+
 
     /* =========================
        NOT LOGGED IN
