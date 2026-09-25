@@ -305,6 +305,11 @@ async function loadProducts() {
 
         saveButton.disabled = true;
 
+
+        saveButton.classList.add(
+          "loading"
+        );
+
         try {
 
           const isSaved =
@@ -364,6 +369,7 @@ async function loadProducts() {
               "saved"
             );
 
+
           } else {
 
             saveButton.classList.remove(
@@ -380,6 +386,11 @@ async function loadProducts() {
           );
 
         } finally {
+
+          saveButton.classList.remove(
+            "loading"
+          );
+
 
           saveButton.disabled = false;
 
