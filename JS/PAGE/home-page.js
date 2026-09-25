@@ -330,6 +330,37 @@ async function loadProducts() {
     );
 
     /* =========================
+       SHARE MODAL CLOSE
+    ========================= */
+
+    const shareModal =
+      document.getElementById(
+        "U9-home-share-modal"
+      );
+
+    const shareModalClose =
+      document.getElementById(
+        "U9-home-share-modal-close"
+      );
+
+    if (
+      shareModal &&
+      shareModalClose
+    ) {
+
+      shareModalClose.addEventListener(
+        "click",
+        function () {
+
+          shareModal.style.display =
+            "none";
+
+        }
+      );
+
+    }
+
+    /* =========================
        CHECK SAVE STATUS
     ========================= */
 
