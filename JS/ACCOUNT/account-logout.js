@@ -1,4 +1,3 @@
-
 /* =========================
    LOGOUT CONFIRM
 ========================= */
@@ -155,6 +154,16 @@ logoutYes.addEventListener(
 
 
     /* =========================
+       GET SESSION TOKEN
+    ========================= */
+
+    const sessionToken =
+      localStorage.getItem(
+        "u9_session"
+      );
+
+
+    /* =========================
        LOGOUT REQUEST
     ========================= */
 
@@ -166,7 +175,15 @@ logoutYes.addEventListener(
           {
             method: "POST",
 
-            credentials: "include"
+            credentials: "include",
+
+            headers: {
+
+              "Authorization":
+                `Bearer ${sessionToken}`
+
+            }
+
           }
         );
 
@@ -192,7 +209,16 @@ logoutYes.addEventListener(
 
 
       /* =========================
-         LOGOUT SUCCESS
+         REMOVE LOCAL SESSION
+      ========================= */
+
+      localStorage.removeItem(
+        "u9_session"
+      );
+
+
+      /* =========================
+         CLOSE MODAL
       ========================= */
 
       logoutModal.style.display =
@@ -217,6 +243,10 @@ logoutYes.addEventListener(
 
       await getCurrentUser();
 
+
+      /* =========================
+         DEBUG
+      ========================= */
 
       console.log(
         "Logout result:",
