@@ -429,3 +429,20 @@
   stroke: #000000;
 
 }
+
+/* =========================
+   PRODUCT LOADING
+========================= */
+
+.U9-page-home-product.loading {
+
+  visibility: hidden;
+
+}
+
+
+.U9-page-home-product.loaded {
+
+  visibility: visible;
+
+}
