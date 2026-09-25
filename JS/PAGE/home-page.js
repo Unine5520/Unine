@@ -14,19 +14,6 @@ const productsContainer =
 
 
 /* =========================
-   CHECK CONTAINER
-========================= */
-
-if (!productsContainer) {
-
-  console.error(
-    "U9-page-home-products not found."
-  );
-
-}
-
-
-/* =========================
    PRODUCT SVG
 ========================= */
 
@@ -52,6 +39,10 @@ async function loadProducts() {
 
   if (!productsContainer) {
 
+    console.error(
+      "U9-page-home-products not found."
+    );
+
     return;
 
   }
@@ -61,42 +52,75 @@ async function loadProducts() {
      GET PRODUCTS
   ========================= */
 
-  const {
-    data,
-    error
-  } = await supabase
-    .from("products")
-    .select(`
-      id,
-      name,
-      price,
-      discount,
-      description,
-      image_url,
-      is_active,
-      sort_order
-    `)
-    .eq(
-      "is_active",
-      true
-    )
-    .order(
-      "sort_order",
-      {
-        ascending: true
-      }
+  let response;
+
+  try {
+
+    response = await fetch(
+      "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/products"
     );
+
+  } catch (error) {
+
+    console.error(
+      "Failed to connect to products function:",
+      error
+    );
+
+    return;
+
+  }
 
 
   /* =========================
-     CHECK ERROR
+     CHECK RESPONSE
   ========================= */
 
-  if (error) {
+  if (!response.ok) {
 
     console.error(
-      "Failed to load products:",
+      "Products function error:",
+      response.status,
+      response.statusText
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     GET JSON
+  ========================= */
+
+  let products;
+
+  try {
+
+    products =
+      await response.json();
+
+  } catch (error) {
+
+    console.error(
+      "Failed to read products response:",
       error
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     CHECK PRODUCTS
+  ========================= */
+
+  if (!Array.isArray(products)) {
+
+    console.error(
+      "Invalid products response:",
+      products
     );
 
     return;
@@ -112,24 +136,10 @@ async function loadProducts() {
 
 
   /* =========================
-     CHECK PRODUCTS
-  ========================= */
-
-  if (
-    !data ||
-    data.length === 0
-  ) {
-
-    return;
-
-  }
-
-
-  /* =========================
      CREATE PRODUCTS
   ========================= */
 
-  data.forEach(
+  products.forEach(
     function (product) {
 
 
@@ -211,22 +221,6 @@ async function loadProducts() {
 
 
       /* =========================
-         PRODUCT DESCRIPTION
-      ========================= */
-
-      const description =
-        document.createElement(
-          "div"
-        );
-
-      description.className =
-        "U9-page-home-product-description";
-
-      description.textContent =
-        product.description || "";
-
-
-      /* =========================
          PRODUCT PRICE
       ========================= */
 
@@ -262,6 +256,22 @@ async function loadProducts() {
           `-${product.discount}%`;
 
       }
+
+
+      /* =========================
+         PRODUCT DESCRIPTION
+      ========================= */
+
+      const description =
+        document.createElement(
+          "div"
+        );
+
+      description.className =
+        "U9-page-home-product-description";
+
+      description.textContent =
+        product.description || "";
 
 
       /* =========================
@@ -306,26 +316,6 @@ async function loadProducts() {
          IMAGE LOAD
       ========================= */
 
-      function loadProduct() {
-
-        if (
-          image.complete &&
-          image.naturalWidth > 0
-        ) {
-
-          card.classList.add(
-            "loaded"
-          );
-
-        }
-
-      }
-
-
-      /* =========================
-         IMAGE LOAD EVENT
-      ========================= */
-
       image.addEventListener(
         "load",
         function () {
@@ -363,7 +353,16 @@ async function loadProducts() {
          CHECK IMAGE
       ========================= */
 
-      loadProduct();
+      if (
+        image.complete &&
+        image.naturalWidth > 0
+      ) {
+
+        card.classList.add(
+          "loaded"
+        );
+
+      }
 
 
       /* =========================
