@@ -23,10 +23,22 @@ const productIcon = `
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
-    <path d="M12 3v18"></path>
-    <path d="M3 12h18"></path>
-    <path d="M5 5l14 14"></path>
-    <path d="M19 5L5 19"></path>
+    <circle
+      cx="12"
+      cy="12"
+      r="8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    ></circle>
+
+    <path
+      d="M12 8v8M8 12h8"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    ></path>
   </svg>
 `;
 
