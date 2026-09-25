@@ -239,6 +239,100 @@ async function loadProducts() {
       saveButton.innerHTML =
         saveIcon;
 
+      /* =========================
+        PRODUCT SAVE
+      ========================= */
+
+      saveButton.addEventListener(
+        "click",
+        async function () {
+
+          const productId =
+            product.id;
+
+          saveButton.disabled = true;
+
+          try {
+
+            const isSaved =
+              saveButton.classList.contains(
+                "saved"
+              );
+
+            const response =
+              await fetch(
+                "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/product-save",
+                {
+                  method: isSaved
+                    ? "DELETE"
+                    : "POST",
+
+                  credentials: "include",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json"
+                  },
+
+                  body: JSON.stringify({
+                    product_id:
+                      productId
+                  })
+                }
+              );
+
+
+            if (!response.ok) {
+
+              const errorData =
+                await response.json()
+                  .catch(function () {
+                    return {};
+                  });
+
+              console.error(
+                "Product save error:",
+                response.status,
+                errorData
+              );
+
+              return;
+            }
+
+
+            const data =
+              await response.json();
+
+
+            if (data.saved) {
+
+              saveButton.classList.add(
+                "saved"
+              );
+
+            } else {
+
+              saveButton.classList.remove(
+                "saved"
+              );
+
+            }
+
+          } catch (error) {
+
+            console.error(
+              "Failed to save product:",
+              error
+            );
+
+          } finally {
+
+            saveButton.disabled = false;
+
+          }
+
+        }
+      );
 
       /* =========================
          PRODUCT INFO
