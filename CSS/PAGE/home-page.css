@@ -487,3 +487,52 @@
   visibility: visible;
 
 }
+
+/* =========================
+   PRODUCT SHARE
+========================= */
+
+.U9-page-home-product-share {
+
+  position: absolute;
+
+  top: 42px;
+
+  right: 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 32px;
+
+  height: 32px;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  z-index: 3;
+
+}
+
+
+/* =========================
+   SHARE SVG
+========================= */
+
+.U9-page-home-product-share-icon {
+
+  display: block;
+
+  width: 65%;
+
+  height: 65%;
+
+}
