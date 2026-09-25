@@ -207,12 +207,6 @@ loginForm.addEventListener(
          UPDATE HEADER
       ========================= */
 
-      localStorage.setItem(
-        "u9_session",
-        result.session.token
-      );
-
-
       await getCurrentUser();
 
 
@@ -220,6 +214,7 @@ loginForm.addEventListener(
         "Login result:",
         result
       );
+
 
     } catch (error) {
 
