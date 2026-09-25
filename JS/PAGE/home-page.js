@@ -196,7 +196,7 @@ async function loadProducts() {
       );
 
     card.className =
-      "U9-page-home-product";
+      "U9-page-home-product loading";
 
     card.dataset.productId =
       product.id;
@@ -535,6 +535,10 @@ async function loadProducts() {
       "load",
       function () {
 
+        card.classList.remove(
+          "loading"
+        );
+
         card.classList.add(
           "loaded"
         );
@@ -550,6 +554,10 @@ async function loadProducts() {
     image.addEventListener(
       "error",
       function () {
+
+        card.classList.remove(
+          "loading"
+        );
 
         card.classList.add(
           "image-error"
@@ -572,6 +580,10 @@ async function loadProducts() {
       image.complete &&
       image.naturalWidth > 0
     ) {
+
+      card.classList.remove(
+        "loading"
+      );
 
       card.classList.add(
         "loaded"
