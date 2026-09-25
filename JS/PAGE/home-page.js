@@ -308,10 +308,23 @@ async function loadProducts() {
       "click",
       function () {
 
-        console.log(
-          "Share product:",
-          product.id
-        );
+        const shareModal =
+          document.getElementById(
+            "U9-home-share-modal"
+          );
+
+        if (!shareModal) {
+
+          console.error(
+            "U9-home-share-modal not found."
+          );
+
+          return;
+
+        }
+
+        shareModal.style.display =
+          "flex";
 
       }
     );
