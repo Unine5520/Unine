@@ -29,13 +29,22 @@ async function getCurrentUser() {
 
   try {
 
+    const sessionToken =
+      localStorage.getItem(
+        "u9_session"
+      );
+
+
     const response =
       await fetch(
         "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me",
         {
           method: "GET",
 
-          credentials: "include"
+          headers: {
+            "Authorization":
+              `Bearer ${sessionToken}`
+          }
         }
       );
 
