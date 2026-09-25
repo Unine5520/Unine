@@ -431,6 +431,47 @@
 }
 
 /* =========================
+   SAVE LOADING
+========================= */
+
+.U9-page-home-product-save.loading
+.U9-page-home-product-save-icon {
+
+  animation: U9-save-spin 0.8s linear infinite;
+
+}
+
+
+/* =========================
+   SAVE SPIN
+========================= */
+
+@keyframes U9-save-spin {
+
+  from {
+
+    transform: rotate(0deg);
+
+  }
+
+
+  to {
+
+    transform: rotate(360deg);
+
+  }
+
+}
+
+.U9-page-home-product-save-icon {
+
+  transition:
+    fill 0.25s ease,
+    stroke 0.25s ease;
+
+}
+
+/* =========================
    PRODUCT LOADING
 ========================= */
 
