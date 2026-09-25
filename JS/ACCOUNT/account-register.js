@@ -288,13 +288,12 @@ registerForm.addEventListener(
          UPDATE HEADER
       ========================= */
 
-      await getCurrentUser();
-
-
-      console.log(
-        "Register result:",
-        result
+      localStorage.setItem(
+        "u9_session",
+        result.session.token
       );
+      
+      await getCurrentUser();
 
 
     } catch (error) {
