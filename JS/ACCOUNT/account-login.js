@@ -1,4 +1,3 @@
-
 /* =========================
    LOGIN ELEMENTS
 ========================= */
@@ -207,6 +206,12 @@ loginForm.addEventListener(
       /* =========================
          UPDATE HEADER
       ========================= */
+
+      localStorage.setItem(
+        "u9_session",
+        result.session.token
+      );
+
 
       await getCurrentUser();
 
