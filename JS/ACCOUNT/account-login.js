@@ -211,8 +211,8 @@ loginForm.addEventListener(
 
 
       console.log(
-        "Login result:",
-        result
+        "Login session:",
+        result.session
       );
 
 
