@@ -242,6 +242,9 @@ async function loadProducts() {
       saveIcon;
 
 
+    saveButton.style.visibility =
+      "hidden";
+
     /* =========================
        CHECK SAVE STATUS
     ========================= */
@@ -535,13 +538,20 @@ async function loadProducts() {
       "load",
       function () {
 
+
         card.classList.remove(
           "loading"
         );
 
+
         card.classList.add(
           "loaded"
         );
+
+
+        saveButton.style.visibility =
+          "visible";
+
 
       }
     );
@@ -575,7 +585,7 @@ async function loadProducts() {
     /* =========================
        CHECK IMAGE
     ========================= */
-
+    
     if (
       image.complete &&
       image.naturalWidth > 0
@@ -585,9 +595,14 @@ async function loadProducts() {
         "loading"
       );
 
+
       card.classList.add(
         "loaded"
       );
+
+
+      saveButton.style.visibility =
+        "visible";
 
     }
 
