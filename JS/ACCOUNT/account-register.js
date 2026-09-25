@@ -1,4 +1,3 @@
-
 /* =========================
    REGISTER ELEMENTS
 ========================= */
@@ -292,7 +291,8 @@ registerForm.addEventListener(
         "u9_session",
         result.session.token
       );
-      
+
+
       await getCurrentUser();
 
 
