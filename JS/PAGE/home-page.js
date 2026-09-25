@@ -61,6 +61,15 @@ const productIcon = `
   </svg>
 `;
 
+const saveIcon = `
+  <svg
+    class="U9-page-home-product-save-icon"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M12 21s-8-4.8-8-10.5C4 7.5 5.8 5 8.5 5c1.5 0 2.8.8 3.5 2 0.7-1.2 2-2 3.5-2C18.2 5 20 7.5 20 10.5 20 16.2 12 21 12 21z"></path>
+  </svg>
+`;
 
 /* =========================
    LOAD PRODUCTS
@@ -205,6 +214,29 @@ async function loadProducts() {
       image.alt =
         product.name || "Product";
 
+      /* =========================
+        PRODUCT SAVE
+      ========================= */
+
+      const saveButton =
+        document.createElement(
+          "button"
+        );
+
+      saveButton.className =
+        "U9-page-home-product-save";
+
+      saveButton.type =
+        "button";
+
+      saveButton.setAttribute(
+        "aria-label",
+        "Save product"
+      );
+
+      saveButton.innerHTML =
+        saveIcon;
+
 
       /* =========================
          PRODUCT INFO
@@ -336,6 +368,10 @@ async function loadProducts() {
 
       card.appendChild(
         image
+      );
+
+      card.appendChild(
+        saveButton
       );
 
       card.appendChild(
