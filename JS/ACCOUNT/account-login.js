@@ -204,11 +204,25 @@ loginForm.addEventListener(
 
 
       /* =========================
+         SAVE SESSION TOKEN
+      ========================= */
+
+      localStorage.setItem(
+        "u9_session",
+        result.session.token
+      );
+
+
+      /* =========================
          UPDATE HEADER
       ========================= */
 
       await getCurrentUser();
 
+
+      /* =========================
+         DEBUG
+      ========================= */
 
       console.log(
         "Login session:",
