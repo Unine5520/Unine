@@ -1,3 +1,16 @@
+
+/* =========== HEADER U9 LOGO =========== */
+#U9-page-header-u9-logo {
+  display: flex;
+  align-items: center;
+}
+
+#U9-page-header-u9-logo svg {
+  display: block;
+  width: 100px;
+  height: auto;
+}
+
 /* =========== HEADER =========== */
 
 #U9-page-header {
