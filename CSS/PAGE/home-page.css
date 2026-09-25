@@ -396,6 +396,7 @@
 }
 
 
+
 /* =========================
    SAVE BUTTON
 ========================= */
@@ -414,17 +415,15 @@
 
   justify-content: center;
 
-  width: 38px;
+  width: 32px;
 
-  height: 38px;
+  height: 32px;
 
-  padding: 7px;
+  padding: 0;
 
-  border: 2px solid #000000;
+  border: none;
 
-  border-radius: 50%;
-
-  background-color: rgba(255, 255, 255, 0.85);
+  background: none;
 
   cursor: pointer;
 
@@ -445,15 +444,7 @@
 
   height: 100%;
 
-  fill: none;
-
-  stroke: #ff0000;
-
-  stroke-width: 1.5;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
+  fill: #ff0000;
 
 }
 
@@ -462,18 +453,9 @@
    SAVED
 ========================= */
 
-.U9-page-home-product-save.saved {
-
-  background-color: #ff0000;
-
-}
-
-
 .U9-page-home-product-save.saved
 .U9-page-home-product-save-icon {
 
-  fill: #ffffff;
-
-  stroke: #ffffff;
+  fill: #ff0000;
 
 }
