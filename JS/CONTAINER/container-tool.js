@@ -173,18 +173,14 @@ function showPage(
   homePage.style.display =
     "none";
 
-
   shopPage.style.display =
     "none";
-
 
   auctionPage.style.display =
     "none";
 
-
   test1Page.style.display =
     "none";
-
 
   test2Page.style.display =
     "none";
@@ -192,6 +188,22 @@ function showPage(
 
   page.style.display =
     "block";
+
+
+  homeButton.classList.remove(
+    "active"
+  );
+
+
+  if (
+    page === homePage
+  ) {
+
+    homeButton.classList.add(
+      "active"
+    );
+
+  }
 
 }
 
