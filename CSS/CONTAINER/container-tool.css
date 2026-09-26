@@ -562,6 +562,18 @@
 
 }
 
+/* =========== HOME SVG =========== */
+
+#U9-page-container-tool-home img {
+
+  display: block;
+
+  width: 40px;
+
+  height: auto;
+
+}
+
 /* =========== PAGE BUTTON =========== */
 
 #U9-page-container-tool-pages button {
