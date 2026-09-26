@@ -35,7 +35,7 @@
 
   margin: 0;
 
-  padding: 10px 5px;
+  padding: 0;
 
   box-sizing: border-box;
 
@@ -68,9 +68,79 @@
 }
 
 
+/* =========== SETTING HEADER =========== */
+
+#U9-account-setting-header {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  width: 100%;
+
+  height: 52px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========== BACK BUTTON =========== */
+
+#U9-account-setting-back {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 42px;
+
+  height: 42px;
+
+  padding: 0;
+
+}
+
+
+/* =========== BACK SVG =========== */
+
+#U9-account-setting-back svg {
+
+  width: 20px;
+
+  height: 20px;
+
+  fill: none;
+
+  stroke: currentColor;
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+
+}
+
+
+/* =========== SETTING TITLE =========== */
+
+#U9-account-setting-header span {
+
+  font-size: 15px;
+
+}
+
+
 /* =========== SETTING BUTTONS =========== */
 
-#U9-account-setting-content button {
+#U9-account-setting-content > button {
 
   display: flex;
 
@@ -95,7 +165,7 @@
 
 /* =========== SVG =========== */
 
-#U9-account-setting-content button svg {
+#U9-account-setting-content > button svg {
 
   width: 20px;
 
