@@ -741,9 +741,69 @@
 
   display: block;
 
+  height: auto;
+
+}
+
+
+/* =========== HOME SVG =========== */
+
+#U9-page-container-tool-home img {
+
   width: 40px;
 
-  height: auto;
+}
+
+
+/* =========== SHOP SVG =========== */
+
+#U9-page-container-tool-shop-page img {
+
+  width: 38px;
+
+}
+
+
+/* =========== AUCTION SVG =========== */
+
+#U9-page-container-tool-auction img {
+
+  width: 47px;
+
+}
+
+
+/* =========== TEST1 SVG =========== */
+
+#U9-page-container-tool-test1 img {
+
+  width: 40px;
+
+}
+
+
+/* =========== TEST2 SVG =========== */
+
+#U9-page-container-tool-test2 img {
+
+  width: 40px;
+
+}
+
+
+/* =========== PAGE ACTIVE =========== */
+
+#U9-page-container-tool-pages button.active img {
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(33%)
+    sepia(98%)
+    saturate(2400%)
+    hue-rotate(205deg)
+    brightness(97%)
+    contrast(101%);
 
 }
 
