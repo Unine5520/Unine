@@ -72,11 +72,11 @@
 
 #U9-account-setting-header {
 
+  position: relative;
+
   display: flex;
 
   align-items: center;
-
-  gap: 8px;
 
   width: 100%;
 
@@ -111,7 +111,7 @@
 
   background: none;
 
-  color: green;
+  color: rgb(249, 249, 249);
 
   cursor: pointer;
 
@@ -143,10 +143,15 @@
 
 #U9-account-setting-header span {
 
+  position: absolute;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
   font-size: 15px;
 
 }
-
 
 /* =========== SETTING BUTTONS =========== */
 
