@@ -94,3 +94,9 @@
   opacity: 0.5;
 
 }
+
+#U9-page-header-logout svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
