@@ -110,9 +110,13 @@
 /* =========== TOOL BUTTON =========== */
 
 #U9-page-container-tool-menu,
+
 #U9-page-container-tool-message,
+
 #U9-page-container-tool-inbox,
+
 #U9-page-container-tool-gift,
+
 #U9-page-container-tool-history {
 
   width: 40px;
@@ -191,6 +195,7 @@
 
 }
 
+
 #U9-page-container-tool-search-button.search-effect svg {
 
   animation:
@@ -202,18 +207,25 @@
 @keyframes search-effect {
 
   0% {
+
     transform: scale(1);
+
   }
 
   35% {
+
     transform: scale(1.35);
+
   }
 
   100% {
+
     transform: scale(1);
+
   }
 
 }
+
 
 /* =========== SEARCH INPUT =========== */
 
@@ -248,6 +260,7 @@
 
 }
 
+
 #U9-page-container-tool-menu svg {
 
   width: 18px;
@@ -257,6 +270,7 @@
   fill: currentColor;
 
 }
+
 
 /* =========== MENU HEARTBEAT =========== */
 
@@ -271,38 +285,56 @@
 @keyframes menu-heartbeat {
 
   0% {
+
     transform: scale(1);
+
   }
 
   10% {
+
     transform: scale(1.2);
+
   }
 
   20% {
+
     transform: scale(1);
+
   }
 
   30% {
+
     transform: scale(1.2);
+
   }
 
   40% {
+
     transform: scale(1);
+
   }
 
   50% {
+
     transform: scale(1.2);
+
   }
 
   60% {
+
     transform: scale(1);
+
   }
 
   100% {
+
     transform: scale(1);
+
   }
 
 }
+
+
 /* =========== SEARCH ICON =========== */
 
 #U9-page-container-tool-search-button svg {
@@ -328,6 +360,7 @@
 
 }
 
+
 #U9-page-container-tool-message svg {
 
   width: 18px;
@@ -335,6 +368,7 @@
   height: 18px;
 
 }
+
 
 #U9-page-container-tool-message.message-bounce svg {
 
@@ -347,34 +381,63 @@
 @keyframes message-bounce {
 
   0% {
-    transform: translateY(0) rotate(0deg);
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
   }
 
   25% {
-    transform: translateY(-6px) rotate(0deg);
+
+    transform:
+      translateY(-6px)
+      rotate(0deg);
+
   }
 
   45% {
-    transform: translateY(0) rotate(0deg);
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
   }
 
   60% {
-    transform: translateY(0) rotate(-8deg);
+
+    transform:
+      translateY(0)
+      rotate(-8deg);
+
   }
 
   75% {
-    transform: translateY(0) rotate(8deg);
+
+    transform:
+      translateY(0)
+      rotate(8deg);
+
   }
 
   90% {
-    transform: translateY(0) rotate(-4deg);
+
+    transform:
+      translateY(0)
+      rotate(-4deg);
+
   }
 
   100% {
-    transform: translateY(0) rotate(0deg);
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
   }
 
 }
+
 
 /* =========== INBOX ICON =========== */
 
@@ -388,6 +451,7 @@
 
 }
 
+
 #U9-page-container-tool-inbox svg {
 
   width: 18px;
@@ -397,6 +461,7 @@
   fill: currentColor;
 
 }
+
 
 #U9-page-container-tool-inbox.inbox-shake svg {
 
@@ -409,38 +474,63 @@
 @keyframes inbox-shake {
 
   0% {
-    transform: rotate(0deg);
+
+    transform:
+      rotate(0deg);
+
   }
 
   15% {
-    transform: rotate(-15deg);
+
+    transform:
+      rotate(-15deg);
+
   }
 
   30% {
-    transform: rotate(15deg);
+
+    transform:
+      rotate(15deg);
+
   }
 
   45% {
-    transform: rotate(-12deg);
+
+    transform:
+      rotate(-12deg);
+
   }
 
   60% {
-    transform: rotate(12deg);
+
+    transform:
+      rotate(12deg);
+
   }
 
   75% {
-    transform: rotate(-6deg);
+
+    transform:
+      rotate(-6deg);
+
   }
 
   90% {
-    transform: rotate(4deg);
+
+    transform:
+      rotate(4deg);
+
   }
 
   100% {
-    transform: rotate(0deg);
+
+    transform:
+      rotate(0deg);
+
   }
 
 }
+
 
 /* =========== GIFT ICON =========== */
 
@@ -454,6 +544,7 @@
 
 }
 
+
 #U9-page-container-tool-gift svg {
 
   width: 18px;
@@ -463,6 +554,7 @@
   fill: currentColor;
 
 }
+
 
 #U9-page-container-tool-gift.gift-bounce svg {
 
@@ -475,30 +567,55 @@
 @keyframes gift-bounce {
 
   0% {
-    transform: translateY(0) scale(1);
+
+    transform:
+      translateY(0)
+      scale(1);
+
   }
 
   20% {
-    transform: translateY(3px) scale(0.95);
+
+    transform:
+      translateY(3px)
+      scale(0.95);
+
   }
 
   45% {
-    transform: translateY(-6px) scale(1.12);
+
+    transform:
+      translateY(-6px)
+      scale(1.12);
+
   }
 
   60% {
-    transform: translateY(0) scale(1.05);
+
+    transform:
+      translateY(0)
+      scale(1.05);
+
   }
 
   75% {
-    transform: translateY(-3px) scale(1.02);
+
+    transform:
+      translateY(-3px)
+      scale(1.02);
+
   }
 
   100% {
-    transform: translateY(0) scale(1);
+
+    transform:
+      translateY(0)
+      scale(1);
+
   }
 
 }
+
 
 /* =========== HISTORY ICON =========== */
 
@@ -512,6 +629,7 @@
 
 }
 
+
 #U9-page-container-tool-history svg {
 
   width: 21px;
@@ -521,6 +639,7 @@
   fill: currentColor;
 
 }
+
 
 #U9-page-container-tool-history.history-shake svg {
 
@@ -533,63 +652,63 @@
 @keyframes history-shake {
 
   0% {
-    transform: translateY(0) rotate(0deg);
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
   }
 
   15% {
-    transform: translateY(2px) rotate(-12deg);
+
+    transform:
+      translateY(2px)
+      rotate(-12deg);
+
   }
 
   30% {
-    transform: translateY(0) rotate(12deg);
+
+    transform:
+      translateY(0)
+      rotate(12deg);
+
   }
 
   45% {
-    transform: translateY(1px) rotate(-10deg);
+
+    transform:
+      translateY(1px)
+      rotate(-10deg);
+
   }
 
   60% {
-    transform: translateY(0) rotate(8deg);
+
+    transform:
+      translateY(0)
+      rotate(8deg);
+
   }
 
   75% {
-    transform: translateY(0) rotate(-5deg);
+
+    transform:
+      translateY(0)
+      rotate(-5deg);
+
   }
 
   100% {
-    transform: translateY(0) rotate(0deg);
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
   }
 
 }
 
-/* =========== HOME SVG =========== */
-
-#U9-page-container-tool-home img {
-
-  display: block;
-
-  width: 40px;
-
-  height: auto;
-
-}
-
-
-/* =========== HOME ACTIVE =========== */
-
-#U9-page-container-tool-home.active img {
-
-  filter:
-    brightness(0)
-    saturate(100%)
-    invert(33%)
-    sepia(98%)
-    saturate(2400%)
-    hue-rotate(205deg)
-    brightness(97%)
-    contrast(101%);
-
-}
 
 /* =========== PAGE BUTTON =========== */
 
@@ -607,7 +726,44 @@
 
   white-space: nowrap;
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
 }
+
+
+/* =========== PAGE SVG =========== */
+
+#U9-page-container-tool-pages button img {
+
+  display: block;
+
+  width: 40px;
+
+  height: auto;
+
+}
+
+
+/* =========== PAGE ACTIVE =========== */
+
+#U9-page-container-tool-pages button.active img {
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(33%)
+    sepia(98%)
+    saturate(2400%)
+    hue-rotate(205deg)
+    brightness(97%)
+    contrast(101%);
+
+}
+
 
 /* =========== PAGE CONTENT =========== */
 
@@ -619,13 +775,18 @@
 
   width: 100%;
 
-  min-height: calc(100vh - 115px);
+  min-height:
+    calc(100vh - 115px);
 
 }
 
+
 #U9-page-shop,
+
 #U9-page-auction,
+
 #U9-page-test1,
+
 #U9-page-test2 {
 
   display: none;
