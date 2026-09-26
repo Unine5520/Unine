@@ -209,14 +209,10 @@ showPage(
    MENU
 ========================= */
 
+
 menuButton.addEventListener(
   "click",
   function () {
-
-    showPage(
-      homePage
-    );
-
 
     tool.classList.toggle(
       "menu-open"
