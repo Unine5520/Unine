@@ -95,8 +95,12 @@
 
 }
 
-#U9-page-header-logout svg {
+#U9-account-setting-5 img {
+
   width: 18px;
+
   height: 18px;
-  fill: currentColor;
+
+  display: block;
+
 }
