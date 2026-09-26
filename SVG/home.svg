@@ -3,7 +3,13 @@
      height="70"
      viewBox="0 0 240 70">
 
-  <g fill="#FFFFFF">
+  <g
+    fill="#FFFFFF"
+    stroke="#000000"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+  >
 
     <!-- H -->
     <path d="
