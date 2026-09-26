@@ -163,6 +163,40 @@ const historyButton =
 
 
 /* =========================
+   PAGE MAP
+========================= */
+
+const pageItems = [
+
+  {
+    page: homePage,
+    button: homeButton
+  },
+
+  {
+    page: shopPage,
+    button: shopButton
+  },
+
+  {
+    page: auctionPage,
+    button: auctionButton
+  },
+
+  {
+    page: test1Page,
+    button: test1Button
+  },
+
+  {
+    page: test2Page,
+    button: test2Button
+  }
+
+];
+
+
+/* =========================
    SHOW PAGE
 ========================= */
 
@@ -170,40 +204,51 @@ function showPage(
   page
 ) {
 
-  homePage.style.display =
-    "none";
+  pageItems.forEach(
+    function (item) {
 
-  shopPage.style.display =
-    "none";
-
-  auctionPage.style.display =
-    "none";
-
-  test1Page.style.display =
-    "none";
-
-  test2Page.style.display =
-    "none";
+      item.page.style.display =
+        "none";
 
 
-  page.style.display =
-    "block";
+      item.button.classList.remove(
+        "active"
+      );
 
-
-  homeButton.classList.remove(
-    "active"
+    }
   );
 
 
-  if (
-    page === homePage
-  ) {
+  const activeItem =
+    pageItems.find(
+      function (item) {
 
-    homeButton.classList.add(
-      "active"
+        return item.page ===
+          page;
+
+      }
     );
 
+
+  if (!activeItem) {
+
+    console.error(
+      "Page not found:",
+      page
+    );
+
+    return;
+
   }
+
+
+  activeItem.page.style.display =
+    "block";
+
+
+  activeItem.button.classList.add(
+    "active"
+  );
 
 }
 
@@ -220,7 +265,6 @@ showPage(
 /* =========================
    MENU
 ========================= */
-
 
 menuButton.addEventListener(
   "click",
