@@ -566,9 +566,19 @@
 
 #U9-page-container-tool-pages button {
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 60px;
+
+  min-width: 60px;
+
   height: 40px;
 
-  padding: 0 5px;
+  padding: 0;
 
   border: none;
 
@@ -576,7 +586,18 @@
 
   cursor: pointer;
 
-  white-space: nowrap;
+}
+
+
+/* =========== PAGE BUTTON SVG =========== */
+
+#U9-page-container-tool-pages button img {
+
+  display: block;
+
+  width: 60px;
+
+  height: auto;
 
 }
 
