@@ -39,7 +39,7 @@
 
   box-sizing: border-box;
 
-  background-color: rgb(181, 181, 181);
+  background-color: rgb(255 255 255);
 
   transform: translateY(100%);
 
@@ -86,7 +86,7 @@
 
   box-sizing: border-box;
 
-  background-color: green;
+  background-color: #578ef1;
 
 }
 
