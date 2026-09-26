@@ -1,9 +1,8 @@
-
 /* =========== ACCOUNT SETTING =========== */
 
 #U9-account-setting {
 
-  display: none;
+  visibility: hidden;
 
   position: fixed;
 
@@ -11,11 +10,17 @@
 
   left: 0;
 
+  right: 0;
+
+  bottom: 0;
+
   width: 100%;
 
-  height: calc(100% - 60px);
-
   z-index: 1500;
+
+  overflow: hidden;
+
+  pointer-events: none;
 
 }
 
@@ -24,19 +29,41 @@
 
 #U9-account-setting-content {
 
-  width: 180px;
+  width: 100%;
 
-  margin-left: auto;
+  height: 100%;
 
-  margin-right: 10px;
+  margin: 0;
 
-  padding: 10px 5px 10px 5px;
+  padding: 10px 5px;
+
+  box-sizing: border-box;
 
   background-color: white;
 
-  border-radius: 10px;
+  transform: translateY(100%);
 
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  transition:
+    transform 0.35s ease;
+
+}
+
+
+/* =========== OPEN =========== */
+
+#U9-account-setting.active {
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+}
+
+
+#U9-account-setting.active
+#U9-account-setting-content {
+
+  transform: translateY(0);
 
 }
 
