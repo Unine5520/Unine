@@ -2,8 +2,6 @@
 
 #U9-account-setting {
 
-  visibility: hidden;
-
   position: fixed;
 
   top: 60px;
@@ -52,8 +50,6 @@
 /* =========== OPEN =========== */
 
 #U9-account-setting.active {
-
-  visibility: visible;
 
   pointer-events: auto;
 
@@ -151,7 +147,10 @@
 
   font-size: 15px;
 
+  color: rgb(249, 249, 249);
+
 }
+
 
 /* =========== SETTING BUTTONS =========== */
 
