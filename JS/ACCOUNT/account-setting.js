@@ -9,16 +9,108 @@ const accountSetting =
 
 
 /* =========================
+   BACK BUTTON
+========================= */
+
+const accountSettingBack =
+  document.getElementById(
+    "U9-account-setting-back"
+  );
+
+
+/* =========================
+   OPEN / CLOSE
+========================= */
+
+function openAccountSetting() {
+
+  accountSetting.classList.add(
+    "active"
+  );
+
+}
+
+
+function closeAccountSetting() {
+
+  accountSetting.classList.remove(
+    "active"
+  );
+
+}
+
+
+/* =========================
    OPEN ACCOUNT SETTING
 ========================= */
 
 userButton.addEventListener(
   "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    if (
+      accountSetting.classList.contains(
+        "active"
+      )
+    ) {
+
+      closeAccountSetting();
+
+      return;
+
+    }
+
+
+    openAccountSetting();
+
+  }
+);
+
+
+/* =========================
+   CLICK HEADER
+   CLOSE ACCOUNT SETTING
+========================= */
+
+const pageHeader =
+  document.getElementById(
+    "U9-page-header"
+  );
+
+
+pageHeader.addEventListener(
+  "click",
   () => {
 
-    accountSetting.classList.add(
-      "active"
-    );
+    if (
+      accountSetting.classList.contains(
+        "active"
+      )
+    ) {
+
+      closeAccountSetting();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   X BUTTON
+   CLOSE ACCOUNT SETTING
+========================= */
+
+accountSettingBack.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+    closeAccountSetting();
 
   }
 );
@@ -38,9 +130,7 @@ accountSetting.addEventListener(
       accountSetting
     ) {
 
-      accountSetting.classList.remove(
-        "active"
-      );
+      closeAccountSetting();
 
     }
 
@@ -60,11 +150,12 @@ const accountSettingLogout =
 
 accountSettingLogout.addEventListener(
   "click",
-  () => {
+  (event) => {
 
-    accountSetting.classList.remove(
-      "active"
-    );
+    event.stopPropagation();
+
+
+    closeAccountSetting();
 
 
     openLogoutConfirm();
