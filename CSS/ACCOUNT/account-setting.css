@@ -89,15 +89,12 @@
 
 /* =========== LOGOUT BUTTON =========== */
 
-#U9-account-setting-5 {
+#U9-account-setting-5 img {
 
-  gap: 8px;
+  width: 18px;
 
-}
+  height: 18px;
 
-
-#U9-account-setting-5 span {
-
-  font-size: 14px;
+  display: block;
 
 }
