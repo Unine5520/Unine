@@ -574,6 +574,23 @@
 
 }
 
+
+/* =========== HOME ACTIVE =========== */
+
+#U9-page-container-tool-home.active img {
+
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(33%)
+    sepia(98%)
+    saturate(2400%)
+    hue-rotate(205deg)
+    brightness(97%)
+    contrast(101%);
+
+}
+
 /* =========== PAGE BUTTON =========== */
 
 #U9-page-container-tool-pages button {
