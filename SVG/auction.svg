@@ -1,16 +1,16 @@
 <svg
-  width="324"
-  height="125"
-  viewBox="0 0 324 125"
+  width="281"
+  height="112"
+  viewBox="0 0 281 112"
   xmlns="http://www.w3.org/2000/svg"
 >
 
   <text
-    x="162"
-    y="83.75"
+    x="140.5"
+    y="74"
     text-anchor="middle"
     font-family="Arial, sans-serif"
-    font-size="85"
+    font-size="72"
     font-weight="normal"
     fill="#FFFFFF"
     stroke="#000000"
