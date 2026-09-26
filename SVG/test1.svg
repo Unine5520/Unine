@@ -1,0 +1,25 @@
+<svg
+  width="274"
+  height="115"
+  viewBox="0 0 274 115"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="Test1"
+>
+
+  <text
+    x="137"
+    y="76.25"
+    text-anchor="middle"
+    font-family="Arial, sans-serif"
+    font-size="75"
+    font-weight="normal"
+    fill="#FFFFFF"
+    stroke="#000000"
+    stroke-width="2"
+    stroke-linejoin="round"
+    paint-order="stroke fill"
+  >
+    TEST1
+  </text>
+
+</svg>
