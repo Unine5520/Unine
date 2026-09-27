@@ -1,3 +1,4 @@
+
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -100,6 +101,23 @@ const accountAddFriend =
 const accountEditProfile =
   document.getElementById(
     "Account-U9-account-edit-profile"
+  );
+
+
+
+/* =========================
+   EDIT PROFILE MODAL
+========================= */
+
+const accountEditProfileModal =
+  document.getElementById(
+    "U9-account-edit-profile-modal"
+  );
+
+
+const accountEditProfileModalClose =
+  document.getElementById(
+    "U9-account-edit-profile-modal-close"
   );
 
 
@@ -235,7 +253,8 @@ async function loadAccountInfo() {
         "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me",
         {
 
-          method: "GET",
+          method:
+            "GET",
 
           headers: {
 
@@ -246,7 +265,6 @@ async function loadAccountInfo() {
 
         }
       );
-
 
 
     /* =========================
@@ -309,7 +327,9 @@ async function loadAccountInfo() {
 
 
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.error(
       "Failed to load account info:",
@@ -450,23 +470,7 @@ accountAddFriend.addEventListener(
 
 
 /* =========================
-   EDIT PROFILE
-========================= */
-
-const accountEditProfileModal =
-  document.getElementById(
-    "U9-account-edit-profile-modal"
-  );
-
-
-const accountEditProfileModalClose =
-  document.getElementById(
-    "U9-account-edit-profile-modal-close"
-  );
-
-
-/* =========================
-   EDIT PROFILE
+   OPEN EDIT PROFILE MODAL
 ========================= */
 
 accountEditProfile.addEventListener(
@@ -476,15 +480,80 @@ accountEditProfile.addEventListener(
     event.stopPropagation();
 
 
+    if (!accountEditProfileModal) {
+
+      console.error(
+        "Edit Profile Modal not found."
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * 强制显示
+     */
+
     accountEditProfileModal.style.display =
       "flex";
+
+
+    /*
+     * 强制定位
+     */
+
+    accountEditProfileModal.style.position =
+      "fixed";
+
+
+    accountEditProfileModal.style.top =
+      "0";
+
+
+    accountEditProfileModal.style.left =
+      "0";
+
+
+    accountEditProfileModal.style.width =
+      "100%";
+
+
+    accountEditProfileModal.style.height =
+      "100%";
+
+
+    accountEditProfileModal.style.alignItems =
+      "center";
+
+
+    accountEditProfileModal.style.justifyContent =
+      "center";
+
+
+    accountEditProfileModal.style.backgroundColor =
+      "rgba(0, 0, 0, 0.25)";
+
+
+    /*
+     * 放到最上层
+     */
+
+    accountEditProfileModal.style.zIndex =
+      "9999";
+
+
+    console.log(
+      "Edit Profile Modal opened."
+    );
 
   }
 );
 
 
+
 /* =========================
-   EDIT PROFILE CLOSE
+   CLOSE EDIT PROFILE MODAL
 ========================= */
 
 accountEditProfileModalClose.addEventListener(
@@ -494,15 +563,29 @@ accountEditProfileModalClose.addEventListener(
     event.stopPropagation();
 
 
+    if (!accountEditProfileModal) {
+
+      return;
+
+    }
+
+
     accountEditProfileModal.style.display =
       "none";
+
+
+    console.log(
+      "Edit Profile Modal closed."
+    );
 
   }
 );
 
 
+
 /* =========================
-   EDIT PROFILE BACKGROUND
+   EDIT PROFILE MODAL
+   BACKGROUND
 ========================= */
 
 accountEditProfileModal.addEventListener(
@@ -521,6 +604,7 @@ accountEditProfileModal.addEventListener(
 
   }
 );
+
 
 
 /* =========================
