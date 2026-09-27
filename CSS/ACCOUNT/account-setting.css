@@ -1,5 +1,4 @@
-
-/* =========================
+ /* =========================
    ACCOUNT SETTING
 ========================= */
 
@@ -89,6 +88,8 @@
 
 /* =========== HEADER PAGES =========== */
 
+#Account-U9-account-add-friend-page-header,
+
 #Account-U9-account-header,
 
 #Account-U9-account-setting-page-header {
@@ -117,6 +118,33 @@
 }
 
 
+/* =========== ADD FRIEND HEADER =========== */
+
+#Account-U9-account-add-friend-page-header {
+
+  transform: translateX(-100%);
+
+}
+
+
+/* =========== ADD FRIEND HEADER ACTIVE =========== */
+
+#Account-U9-account-add-friend-page-header.active {
+
+  transform: translateX(0);
+
+}
+
+
+/* =========== ADD FRIEND HEADER HIDDEN =========== */
+
+#Account-U9-account-add-friend-page-header.hidden {
+
+  transform: translateX(-100%);
+
+}
+
+
 /* =========== ACCOUNT HEADER =========== */
 
 #Account-U9-account-header {
@@ -126,18 +154,9 @@
 }
 
 
-/* =========== SETTING HEADER =========== */
+/* =========== ACCOUNT HEADER ACTIVE =========== */
 
-#Account-U9-account-setting-page-header {
-
-  transform: translateX(100%);
-
-}
-
-
-/* =========== SETTING HEADER ACTIVE =========== */
-
-#Account-U9-account-setting-page-header.active {
+#Account-U9-account-header.active {
 
   transform: translateX(0);
 
@@ -153,7 +172,36 @@
 }
 
 
+/* =========== SETTING / EDIT HEADER =========== */
+
+#Account-U9-account-setting-page-header {
+
+  transform: translateX(100%);
+
+}
+
+
+/* =========== SETTING / EDIT HEADER ACTIVE =========== */
+
+#Account-U9-account-setting-page-header.active {
+
+  transform: translateX(0);
+
+}
+
+
+/* =========== SETTING / EDIT HEADER HIDDEN =========== */
+
+#Account-U9-account-setting-page-header.hidden {
+
+  transform: translateX(100%);
+
+}
+
+
 /* =========== HEADER BUTTON =========== */
+
+#Account-U9-account-add-friend-page-header button,
 
 #Account-U9-account-header button,
 
@@ -186,6 +234,8 @@
 
 /* =========== HEADER BUTTON SVG =========== */
 
+#Account-U9-account-add-friend-page-header button svg,
+
 #Account-U9-account-header button svg,
 
 #Account-U9-account-setting-page-header button svg {
@@ -208,6 +258,8 @@
 
 
 /* =========== HEADER TITLE SVG =========== */
+
+#Account-U9-account-add-friend-page-header > img,
 
 #Account-U9-account-header > img,
 
@@ -232,7 +284,7 @@
 
 #Account-U9-account-setting-pages {
 
-  width: 200%;
+  width: 400%;
 
   height: calc(100% - 52px);
 
@@ -246,13 +298,17 @@
 
 /* =========== PAGE =========== */
 
+#Account-U9-account-add-friend-page,
+
 #Account-U9-account-page,
 
-#Account-U9-account-setting-page {
+#Account-U9-account-setting-page,
 
-  width: 50%;
+#Account-U9-account-edit-profile-page {
 
-  min-width: 50%;
+  width: 25%;
+
+  min-width: 25%;
 
   height: 100%;
 
@@ -261,9 +317,48 @@
 }
 
 
+/* =========== ADD FRIEND PAGE =========== */
+
+#Account-U9-account-add-friend-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
 /* =========== ACCOUNT PAGE =========== */
 
 #Account-U9-account-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========== SETTING PAGE =========== */
+
+#Account-U9-account-setting-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========== EDIT PROFILE PAGE =========== */
+
+#Account-U9-account-edit-profile-page {
 
   display: flex;
 
