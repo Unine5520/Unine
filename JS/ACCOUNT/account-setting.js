@@ -1,4 +1,3 @@
-
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -101,17 +100,6 @@ const accountAddFriend =
 const accountEditProfile =
   document.getElementById(
     "Account-U9-account-edit-profile"
-  );
-
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-const accountSettingLogout =
-  document.getElementById(
-    "Account-U9-account-logout"
   );
 
 
@@ -369,7 +357,7 @@ userButton.addEventListener(
 
 
 /* =========================
-   CLICK PAGE HEADER
+   CLICK HEADER
    CLOSE ACCOUNT SETTING
 ========================= */
 
@@ -492,27 +480,6 @@ accountSetting.addEventListener(
       closeAccountSetting();
 
     }
-
-  }
-);
-
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-accountSettingLogout.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-
-    closeAccountSetting();
-
-
-    openLogoutConfirm();
 
   }
 );
