@@ -1,4 +1,9 @@
 /* =========================
+   LOGOUT
+========================= */
+
+
+/* =========================
    LOGOUT CONFIRM
 ========================= */
 
@@ -26,7 +31,18 @@ const logoutCountdown =
   );
 
 
+/* =========================
+   SETTING PAGE LOGOUT BUTTON
+========================= */
+
+const accountSettingLogout =
+  document.getElementById(
+    "Account-U9-account-logout"
+  );
+
+
 let logoutTimer = null;
+
 
 
 /* =========================
@@ -39,13 +55,16 @@ function openLogoutConfirm() {
     "flex";
 
 
-  /* Reset */
+  /* =========================
+     RESET
+  ========================= */
 
   logoutYes.disabled =
     true;
 
 
   let count = 5;
+
 
   logoutCountdown.textContent =
     count;
@@ -55,7 +74,9 @@ function openLogoutConfirm() {
     `Yes (${count})`;
 
 
-  /* Clear old timer */
+  /* =========================
+     CLEAR OLD TIMER
+  ========================= */
 
   if (logoutTimer) {
 
@@ -66,13 +87,16 @@ function openLogoutConfirm() {
   }
 
 
-  /* Countdown */
+  /* =========================
+     COUNTDOWN
+  ========================= */
 
   logoutTimer =
     setInterval(
       () => {
 
         count--;
+
 
         logoutCountdown.textContent =
           count;
@@ -109,6 +133,35 @@ function openLogoutConfirm() {
 }
 
 
+
+/* =========================
+   SETTING PAGE LOGOUT
+========================= */
+
+accountSettingLogout.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    if (
+      typeof closeAccountSetting ===
+      "function"
+    ) {
+
+      closeAccountSetting();
+
+    }
+
+
+    openLogoutConfirm();
+
+  }
+);
+
+
+
 /* =========================
    NO
 ========================= */
@@ -127,6 +180,7 @@ logoutNo.addEventListener(
         logoutTimer
       );
 
+
       logoutTimer =
         null;
 
@@ -134,6 +188,7 @@ logoutNo.addEventListener(
 
   }
 );
+
 
 
 /* =========================
@@ -173,6 +228,7 @@ logoutYes.addEventListener(
         await fetch(
           "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/logout",
           {
+
             method: "POST",
 
             credentials: "include",
@@ -203,6 +259,7 @@ logoutYes.addEventListener(
           "Logout failed."
         );
 
+
         return;
 
       }
@@ -230,6 +287,7 @@ logoutYes.addEventListener(
         clearInterval(
           logoutTimer
         );
+
 
         logoutTimer =
           null;
