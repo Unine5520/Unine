@@ -120,7 +120,7 @@
       type="rotate"
       from="0 100 100"
       to="360 100 100"
-      dur="4s"
+      dur="15s"
       repeatCount="indefinite"
     />
 
