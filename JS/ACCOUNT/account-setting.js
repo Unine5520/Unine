@@ -1,5 +1,11 @@
+
 /* =========================
    ACCOUNT SETTING
+========================= */
+
+
+/* =========================
+   MAIN
 ========================= */
 
 const accountSetting =
@@ -10,8 +16,9 @@ const accountSetting =
 
 const accountSettingPages =
   document.getElementById(
-    "U9-account-setting-pages"
+    "Account-U9-account-setting-pages"
   );
+
 
 
 /* =========================
@@ -20,14 +27,15 @@ const accountSettingPages =
 
 const accountHeader =
   document.getElementById(
-    "U9-account-header"
+    "Account-U9-account-header"
   );
 
 
 const accountSettingPageHeader =
   document.getElementById(
-    "U9-account-setting-page-header"
+    "Account-U9-account-setting-page-header"
   );
+
 
 
 /* =========================
@@ -36,14 +44,15 @@ const accountSettingPageHeader =
 
 const accountSettingBack =
   document.getElementById(
-    "U9-account-setting-back"
+    "Account-U9-account-setting-back"
   );
 
 
 const accountSettingPageBack =
   document.getElementById(
-    "U9-account-setting-page-back"
+    "Account-U9-account-setting-page-back"
   );
+
 
 
 /* =========================
@@ -52,14 +61,15 @@ const accountSettingPageBack =
 
 const accountUsername =
   document.getElementById(
-    "U9-account-username"
+    "Account-U9-account-username"
   );
 
 
 const accountAccount =
   document.getElementById(
-    "U9-account-account"
+    "Account-U9-account-account"
   );
+
 
 
 /* =========================
@@ -68,8 +78,9 @@ const accountAccount =
 
 const accountSettingButton =
   document.getElementById(
-    "U9-account-setting-button"
+    "Account-U9-account-setting-button"
   );
+
 
 
 /* =========================
@@ -78,8 +89,9 @@ const accountSettingButton =
 
 const accountAddFriend =
   document.getElementById(
-    "U9-account-add-friend"
+    "Account-U9-account-add-friend"
   );
+
 
 
 /* =========================
@@ -88,8 +100,9 @@ const accountAddFriend =
 
 const accountEditProfile =
   document.getElementById(
-    "U9-account-edit-profile"
+    "Account-U9-account-edit-profile"
   );
+
 
 
 /* =========================
@@ -98,8 +111,9 @@ const accountEditProfile =
 
 const accountSettingLogout =
   document.getElementById(
-    "U9-account-setting-5"
+    "Account-U9-account-logout"
   );
+
 
 
 /* =========================
@@ -110,6 +124,7 @@ const pageHeader =
   document.getElementById(
     "U9-page-header"
   );
+
 
 
 /* =========================
@@ -134,6 +149,7 @@ function showAccountPage() {
 }
 
 
+
 /* =========================
    SHOW SETTING PAGE
 ========================= */
@@ -156,6 +172,7 @@ function showSettingPage() {
 }
 
 
+
 /* =========================
    OPEN ACCOUNT SETTING
 ========================= */
@@ -172,6 +189,7 @@ function openAccountSetting() {
 }
 
 
+
 /* =========================
    CLOSE ACCOUNT SETTING
 ========================= */
@@ -183,6 +201,7 @@ function closeAccountSetting() {
   );
 
 }
+
 
 
 /* =========================
@@ -197,6 +216,10 @@ async function loadAccountInfo() {
     );
 
 
+  /* =========================
+     NO SESSION
+  ========================= */
+
   if (!sessionToken) {
 
     accountUsername.textContent =
@@ -206,10 +229,16 @@ async function loadAccountInfo() {
     accountAccount.textContent =
       "";
 
+
     return;
 
   }
 
+
+
+  /* =========================
+     REQUEST
+  ========================= */
 
   try {
 
@@ -217,6 +246,7 @@ async function loadAccountInfo() {
       await fetch(
         "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me",
         {
+
           method: "GET",
 
           headers: {
@@ -230,6 +260,11 @@ async function loadAccountInfo() {
       );
 
 
+
+    /* =========================
+       REQUEST FAILED
+    ========================= */
+
     if (!response.ok) {
 
       accountUsername.textContent =
@@ -239,14 +274,25 @@ async function loadAccountInfo() {
       accountAccount.textContent =
         "";
 
+
       return;
 
     }
 
 
+
+    /* =========================
+       JSON
+    ========================= */
+
     const result =
       await response.json();
 
+
+
+    /* =========================
+       USER DATA
+    ========================= */
 
     const user =
       result.user ||
@@ -254,14 +300,26 @@ async function loadAccountInfo() {
       result;
 
 
+
+    /* =========================
+       USERNAME
+    ========================= */
+
     accountUsername.textContent =
       user?.username ||
       "";
 
 
+
+    /* =========================
+       ACCOUNT
+    ========================= */
+
     accountAccount.textContent =
       user?.account ||
       "";
+
+
 
   } catch (error) {
 
@@ -273,6 +331,7 @@ async function loadAccountInfo() {
   }
 
 }
+
 
 
 /* =========================
@@ -308,8 +367,9 @@ userButton.addEventListener(
 );
 
 
+
 /* =========================
-   CLICK HEADER
+   CLICK PAGE HEADER
    CLOSE ACCOUNT SETTING
 ========================= */
 
@@ -331,6 +391,7 @@ pageHeader.addEventListener(
 );
 
 
+
 /* =========================
    ACCOUNT X
 ========================= */
@@ -346,6 +407,7 @@ accountSettingBack.addEventListener(
 
   }
 );
+
 
 
 /* =========================
@@ -365,6 +427,7 @@ accountSettingButton.addEventListener(
 );
 
 
+
 /* =========================
    SETTING BACK
 ========================= */
@@ -382,6 +445,7 @@ accountSettingPageBack.addEventListener(
 );
 
 
+
 /* =========================
    ADD FRIEND
 ========================= */
@@ -396,6 +460,7 @@ accountAddFriend.addEventListener(
 );
 
 
+
 /* =========================
    EDIT PROFILE
 ========================= */
@@ -408,6 +473,7 @@ accountEditProfile.addEventListener(
 
   }
 );
+
 
 
 /* =========================
@@ -429,6 +495,7 @@ accountSetting.addEventListener(
 
   }
 );
+
 
 
 /* =========================
