@@ -1,3 +1,4 @@
+
 /* =========================
    LOGOUT
 ========================= */
@@ -41,6 +42,10 @@ const accountSettingLogout =
   );
 
 
+/* =========================
+   TIMER
+========================= */
+
 let logoutTimer = null;
 
 
@@ -83,6 +88,10 @@ function openLogoutConfirm() {
     clearInterval(
       logoutTimer
     );
+
+
+    logoutTimer =
+      null;
 
   }
 
@@ -135,7 +144,7 @@ function openLogoutConfirm() {
 
 
 /* =========================
-   SETTING PAGE LOGOUT
+   SETTING PAGE LOGOUT BUTTON
 ========================= */
 
 accountSettingLogout.addEventListener(
@@ -145,14 +154,7 @@ accountSettingLogout.addEventListener(
     event.stopPropagation();
 
 
-    if (
-      typeof closeAccountSetting ===
-      "function"
-    ) {
-
-      closeAccountSetting();
-
-    }
+    closeAccountSetting();
 
 
     openLogoutConfirm();
@@ -199,6 +201,10 @@ logoutYes.addEventListener(
   "click",
   async () => {
 
+    /* =========================
+       PREVENT EARLY CLICK
+    ========================= */
+
     if (
       logoutYes.disabled
     ) {
@@ -216,6 +222,42 @@ logoutYes.addEventListener(
       localStorage.getItem(
         "u9_session"
       );
+
+
+    /* =========================
+       NO SESSION
+    ========================= */
+
+    if (!sessionToken) {
+
+      localStorage.removeItem(
+        "u9_session"
+      );
+
+
+      logoutModal.style.display =
+        "none";
+
+
+      if (logoutTimer) {
+
+        clearInterval(
+          logoutTimer
+        );
+
+
+        logoutTimer =
+          null;
+
+      }
+
+
+      await getCurrentUser();
+
+
+      return;
+
+    }
 
 
     /* =========================
@@ -275,7 +317,7 @@ logoutYes.addEventListener(
 
 
       /* =========================
-         CLOSE MODAL
+         CLOSE LOGOUT CONFIRM
       ========================= */
 
       logoutModal.style.display =
