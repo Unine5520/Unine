@@ -8,9 +8,9 @@ const accountSetting =
   );
 
 
-const accountSettingContent =
+const accountSettingPages =
   document.getElementById(
-    "U9-account-setting-content"
+    "U9-account-setting-pages"
   );
 
 
@@ -18,25 +18,15 @@ const accountSettingContent =
    ACCOUNT HEADER
 ========================= */
 
-const accountSettingAccountHeader =
+const accountHeader =
   document.getElementById(
-    "U9-account-setting-account-header"
+    "U9-account-header"
   );
 
 
-const accountEditProfileHeader =
+const editProfileHeader =
   document.getElementById(
-    "U9-account-setting-setting-header"
-  );
-
-
-/* =========================
-   ACCOUNT PAGES
-========================= */
-
-const accountSettingPages =
-  document.getElementById(
-    "U9-account-setting-pages"
+    "U9-account-edit-profile-header"
   );
 
 
@@ -50,9 +40,9 @@ const accountSettingBack =
   );
 
 
-const accountSettingSettingBack =
+const editProfileBack =
   document.getElementById(
-    "U9-account-setting-setting-back"
+    "U9-account-edit-profile-back"
   );
 
 
@@ -73,7 +63,7 @@ const accountAccount =
 
 
 /* =========================
-   SETTING BUTTON
+   EDIT PROFILE
 ========================= */
 
 const accountEditProfile =
@@ -81,8 +71,9 @@ const accountEditProfile =
     "U9-account-edit-profile"
   );
 
+
 /* =========================
-   LOGOUT BUTTON
+   LOGOUT
 ========================= */
 
 const accountSettingLogout =
@@ -111,12 +102,12 @@ function showAccountPage() {
     "translateX(0)";
 
 
-  accountSettingAccountHeader.classList.remove(
+  accountHeader.classList.remove(
     "hidden"
   );
 
 
-  accountSettingSettingHeader.classList.remove(
+  editProfileHeader.classList.remove(
     "active"
   );
 
@@ -124,7 +115,7 @@ function showAccountPage() {
 
 
 /* =========================
-   SHOW SETTING PAGE
+   SHOW EDIT PROFILE PAGE
 ========================= */
 
 function showEditProfilePage() {
@@ -132,11 +123,13 @@ function showEditProfilePage() {
   accountSettingPages.style.transform =
     "translateX(-50%)";
 
-  accountSettingAccountHeader.classList.add(
+
+  accountHeader.classList.add(
     "hidden"
   );
 
-  accountSettingSettingHeader.classList.add(
+
+  editProfileHeader.classList.add(
     "active"
   );
 
@@ -319,7 +312,7 @@ pageHeader.addEventListener(
 
 
 /* =========================
-   X BUTTON
+   ACCOUNT X
 ========================= */
 
 accountSettingBack.addEventListener(
@@ -328,6 +321,7 @@ accountSettingBack.addEventListener(
 
     event.stopPropagation();
 
+
     closeAccountSetting();
 
   }
@@ -335,7 +329,7 @@ accountSettingBack.addEventListener(
 
 
 /* =========================
-   SETTING BUTTON
+   EDIT PROFILE
 ========================= */
 
 accountEditProfile.addEventListener(
@@ -344,6 +338,7 @@ accountEditProfile.addEventListener(
 
     event.stopPropagation();
 
+
     showEditProfilePage();
 
   }
@@ -351,14 +346,15 @@ accountEditProfile.addEventListener(
 
 
 /* =========================
-   SETTING BACK BUTTON
+   EDIT PROFILE BACK
 ========================= */
 
-accountSettingSettingBack.addEventListener(
+editProfileBack.addEventListener(
   "click",
   (event) => {
 
     event.stopPropagation();
+
 
     showAccountPage();
 
@@ -367,7 +363,28 @@ accountSettingSettingBack.addEventListener(
 
 
 /* =========================
-   LOGOUT BUTTON
+   CLICK BACKGROUND
+========================= */
+
+accountSetting.addEventListener(
+  "click",
+  (event) => {
+
+    if (
+      event.target ===
+      accountSetting
+    ) {
+
+      closeAccountSetting();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   LOGOUT
 ========================= */
 
 accountSettingLogout.addEventListener(
