@@ -1,9 +1,3 @@
-
-/* =========================
-   ACCOUNT FRAME
-========================= */
-
-
 /* =========================
    AVATAR FRAME
 ========================= */
@@ -12,6 +6,22 @@ const accountAvatarFrame =
   document.getElementById(
     "Account-U9-account-avatar-frame"
   );
+
+
+/* =========================
+   LOADING FRAME
+========================= */
+
+const loadingFrameSvg =
+  "SVG/test.svg";
+
+
+if (accountAvatarFrame) {
+
+  accountAvatarFrame.src =
+    loadingFrameSvg;
+
+}
 
 
 /* =========================
