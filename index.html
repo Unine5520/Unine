@@ -527,173 +527,6 @@
   <!-- ======== ALL MODAL  ======== -->
 
   <!-- =========================
-      REGISTER MODAL
-  ========================= -->
-  <div id="U9-register-modal">
-
-    <div id="U9-register-modal-content">
-
-      <button id="U9-register-modal-close">
-        ×
-      </button>
-
-      <h2>Register</h2>
-
-      <form id="U9-register-form">
-
-        <label for="U9-register-username">
-          Username
-        </label>
-
-        <input
-          type="text"
-          id="U9-register-username"
-          name="username"
-          autocomplete="username"
-          required
-        >
-
-
-        <label for="U9-register-email">
-          Email
-        </label>
-
-        <input
-          type="email"
-          id="U9-register-email"
-          name="email"
-          autocomplete="email"
-          required
-        >
-
-
-        <label for="U9-register-password">
-          Password
-        </label>
-
-        <div id="U9-register-password-wrapper">
-
-          <input
-            type="password"
-            id="U9-register-password"
-            name="password"
-            autocomplete="new-password"
-            required
-          >
-
-          <button
-            type="button"
-            id="U9-register-password-toggle"
-          >
-            Show
-          </button>
-
-        </div>
-
-
-        <label for="U9-register-confirm-password">
-          Confirm Password
-        </label>
-
-        <div id="U9-register-confirm-password-wrapper">
-
-          <input
-            type="password"
-            id="U9-register-confirm-password"
-            name="confirm-password"
-            autocomplete="new-password"
-            required
-          >
-
-          <button
-            type="button"
-            id="U9-register-confirm-password-toggle"
-          >
-            Show
-          </button>
-
-        </div>
-
-
-        <button
-          type="submit"
-          id="U9-register-submit"
-        >
-          Register
-        </button>
-
-      </form>
-
-    </div>
-
-  </div>
-
-  <!-- =========================
-      LOGIN MODAL
-  ========================= -->
-  <div id="U9-login-modal">
-
-    <div id="U9-login-modal-content">
-
-      <button id="U9-login-modal-close">
-        ×
-      </button>
-
-      <h2>Login</h2>
-
-      <form id="U9-login-form">
-
-        <label for="U9-login-email">
-          Email
-        </label>
-
-        <input
-          type="email"
-          id="U9-login-email"
-          name="email"
-          autocomplete="email"
-          required
-        >
-
-
-        <label for="U9-login-password">
-          Password
-        </label>
-
-        <div id="U9-login-password-wrapper">
-
-          <input
-            type="password"
-            id="U9-login-password"
-            name="password"
-            autocomplete="current-password"
-            required
-          >
-
-          <button
-            type="button"
-            id="U9-login-password-toggle"
-          >
-            Show
-          </button>
-
-        </div>
-
-
-        <button
-          type="submit"
-          id="U9-login-submit"
-        >
-          Login
-        </button>
-
-      </form>
-
-    </div>
-
-  </div>
-
-  <!-- =========================
       ACCOUNT SETTING
   ========================= -->
 
@@ -706,6 +539,41 @@
       <!-- =========== HEADER =========== -->
 
       <div id="U9-account-setting-header">
+
+
+        <!-- ADD FRIEND HEADER -->
+
+        <div
+          id="Account-U9-account-add-friend-page-header"
+        >
+
+          <button
+            id="Account-U9-account-add-friend-page-back"
+            type="button"
+            aria-label="Back"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+
+              <path
+                d="M9 6L15 12L9 18"
+              ></path>
+
+            </svg>
+
+          </button>
+
+
+          <img
+            id="Account-U9-account-add-friend-page-header-icon"
+            src="SVG/add-friend-header.svg"
+            alt="Add Friend"
+          >
+
+        </div>
 
 
         <!-- ACCOUNT HEADER -->
@@ -747,7 +615,7 @@
         </div>
 
 
-        <!-- SETTING HEADER -->
+        <!-- SETTING / EDIT HEADER -->
 
         <div
           id="Account-U9-account-setting-page-header"
@@ -774,6 +642,7 @@
 
 
           <img
+            id="Account-U9-account-setting-page-header-icon"
             src="SVG/setting-header.svg"
             alt="Setting"
           >
@@ -786,7 +655,18 @@
 
       <!-- =========== PAGES =========== -->
 
-      <div id="Account-U9-account-setting-pages">
+      <div
+        id="Account-U9-account-setting-pages"
+      >
+
+
+        <!-- =========== ADD FRIEND PAGE =========== -->
+
+        <div
+          id="Account-U9-account-add-friend-page"
+        >
+
+        </div>
 
 
         <!-- =========== ACCOUNT PAGE =========== -->
@@ -955,6 +835,15 @@
         </div>
 
 
+        <!-- =========== EDIT PROFILE PAGE =========== -->
+
+        <div
+          id="Account-U9-account-edit-profile-page"
+        >
+
+        </div>
+
+
       </div>
 
 
@@ -964,24 +853,167 @@
   </div>
 
   <!-- =========================
-      EDIT PROFILE MODAL
+      REGISTER MODAL
   ========================= -->
+  <div id="U9-register-modal">
 
-  <div id="U9-account-edit-profile-modal">
+    <div id="U9-register-modal-content">
 
-    <div id="U9-account-edit-profile-modal-content">
-
-      <button
-        id="U9-account-edit-profile-modal-close"
-        type="button"
-        aria-label="Close"
-      >
+      <button id="U9-register-modal-close">
         ×
       </button>
 
-      <h2>
-        Edit Profile
-      </h2>
+      <h2>Register</h2>
+
+      <form id="U9-register-form">
+
+        <label for="U9-register-username">
+          Username
+        </label>
+
+        <input
+          type="text"
+          id="U9-register-username"
+          name="username"
+          autocomplete="username"
+          required
+        >
+
+
+        <label for="U9-register-email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="U9-register-email"
+          name="email"
+          autocomplete="email"
+          required
+        >
+
+
+        <label for="U9-register-password">
+          Password
+        </label>
+
+        <div id="U9-register-password-wrapper">
+
+          <input
+            type="password"
+            id="U9-register-password"
+            name="password"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            id="U9-register-password-toggle"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+        <label for="U9-register-confirm-password">
+          Confirm Password
+        </label>
+
+        <div id="U9-register-confirm-password-wrapper">
+
+          <input
+            type="password"
+            id="U9-register-confirm-password"
+            name="confirm-password"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            type="button"
+            id="U9-register-confirm-password-toggle"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+        <button
+          type="submit"
+          id="U9-register-submit"
+        >
+          Register
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+      LOGIN MODAL
+  ========================= -->
+  <div id="U9-login-modal">
+
+    <div id="U9-login-modal-content">
+
+      <button id="U9-login-modal-close">
+        ×
+      </button>
+
+      <h2>Login</h2>
+
+      <form id="U9-login-form">
+
+        <label for="U9-login-email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="U9-login-email"
+          name="email"
+          autocomplete="email"
+          required
+        >
+
+
+        <label for="U9-login-password">
+          Password
+        </label>
+
+        <div id="U9-login-password-wrapper">
+
+          <input
+            type="password"
+            id="U9-login-password"
+            name="password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button
+            type="button"
+            id="U9-login-password-toggle"
+          >
+            Show
+          </button>
+
+        </div>
+
+
+        <button
+          type="submit"
+          id="U9-login-submit"
+        >
+          Login
+        </button>
+
+      </form>
 
     </div>
 
