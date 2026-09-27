@@ -1,3 +1,4 @@
+
 /* =========================
    ACCOUNT FRAME
 ========================= */
@@ -38,6 +39,14 @@ const freeFrameFunction =
 
 
 /* =========================
+   EQUIP FRAME FUNCTION
+========================= */
+
+const equipFrameFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-equip";
+
+
+/* =========================
    LOAD CURRENT FRAME
 ========================= */
 
@@ -45,19 +54,10 @@ async function loadCurrentFrame() {
 
   try {
 
-    /* =========================
-       GET SESSION
-    ========================= */
-
     const sessionToken =
       localStorage.getItem(
         "u9_session"
       );
-
-
-    /* =========================
-       NO SESSION
-    ========================= */
 
     if (!sessionToken) {
 
@@ -66,35 +66,22 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       GET CURRENT USER
-    ========================= */
 
     const meResponse =
       await fetch(
         meFunction,
         {
-
           method: "GET",
 
           headers: {
-
             "Authorization":
               `Bearer ${sessionToken}`
-
           }
-
         }
       );
 
-
-    /* =========================
-       ME FAILED
-    ========================= */
 
     if (!meResponse.ok) {
 
@@ -103,21 +90,12 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       ME JSON
-    ========================= */
 
     const meResult =
       await meResponse.json();
 
-
-    /* =========================
-       USER
-    ========================= */
 
     const user =
       meResult.user;
@@ -130,21 +108,12 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       CURRENT FRAME TYPE
-    ========================= */
 
     const frameType =
       user.avatar_frame_type;
 
-
-    /* =========================
-       CURRENT FRAME ID
-    ========================= */
 
     const frameId =
       user.avatar_frame_id;
@@ -162,10 +131,6 @@ async function loadCurrentFrame() {
     );
 
 
-    /* =========================
-       DEFAULT FRAME
-    ========================= */
-
     if (
       frameType ===
       "default"
@@ -176,13 +141,8 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       FREE FRAME
-    ========================= */
 
     if (
       frameType ===
@@ -194,14 +154,8 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       PAID FRAME
-       LATER
-    ========================= */
 
     if (
       frameType ===
@@ -213,20 +167,17 @@ async function loadCurrentFrame() {
       );
 
       return;
-
     }
 
-
-    /* =========================
-       UNKNOWN TYPE
-    ========================= */
 
     console.error(
       "Unknown frame type:",
       frameType
     );
 
-  } catch (error) {
+  }
+
+  catch (error) {
 
     console.error(
       "Failed to load current frame:",
@@ -248,22 +199,15 @@ async function loadDefaultFrame(
 
   try {
 
-    /* =========================
-       REQUEST
-    ========================= */
-
     const response =
       await fetch(
         defaultFrameFunction,
         {
-          method: "GET"
+          method:
+            "GET"
         }
       );
 
-
-    /* =========================
-       REQUEST FAILED
-    ========================= */
 
     if (!response.ok) {
 
@@ -272,21 +216,12 @@ async function loadDefaultFrame(
       );
 
       return;
-
     }
 
-
-    /* =========================
-       JSON
-    ========================= */
 
     const result =
       await response.json();
 
-
-    /* =========================
-       FIND CURRENT FRAME
-    ========================= */
 
     const frame =
       result.frames?.find(
@@ -294,10 +229,6 @@ async function loadDefaultFrame(
           item.id === frameId
       );
 
-
-    /* =========================
-       FRAME NOT FOUND
-    ========================= */
 
     if (!frame) {
 
@@ -307,29 +238,21 @@ async function loadDefaultFrame(
       );
 
       return;
-
     }
 
-
-    /* =========================
-       SET FRAME
-    ========================= */
 
     accountAvatarFrame.src =
       frame.svg;
 
-
-    /* =========================
-       DEBUG
-    ========================= */
 
     console.log(
       "Current default frame:",
       frame
     );
 
+  }
 
-  } catch (error) {
+  catch (error) {
 
     console.error(
       "Failed to load default frame:",
@@ -351,22 +274,15 @@ async function loadFreeFrame(
 
   try {
 
-    /* =========================
-       REQUEST
-    ========================= */
-
     const response =
       await fetch(
         freeFrameFunction,
         {
-          method: "GET"
+          method:
+            "GET"
         }
       );
 
-
-    /* =========================
-       REQUEST FAILED
-    ========================= */
 
     if (!response.ok) {
 
@@ -375,21 +291,12 @@ async function loadFreeFrame(
       );
 
       return;
-
     }
 
-
-    /* =========================
-       JSON
-    ========================= */
 
     const result =
       await response.json();
 
-
-    /* =========================
-       FIND CURRENT FRAME
-    ========================= */
 
     const frame =
       result.frames?.find(
@@ -397,10 +304,6 @@ async function loadFreeFrame(
           item.id === frameId
       );
 
-
-    /* =========================
-       FRAME NOT FOUND
-    ========================= */
 
     if (!frame) {
 
@@ -410,29 +313,21 @@ async function loadFreeFrame(
       );
 
       return;
-
     }
 
-
-    /* =========================
-       SET FRAME
-    ========================= */
 
     accountAvatarFrame.src =
       frame.svg;
 
-
-    /* =========================
-       DEBUG
-    ========================= */
 
     console.log(
       "Current free frame:",
       frame
     );
 
+  }
 
-  } catch (error) {
+  catch (error) {
 
     console.error(
       "Failed to load free frame:",
@@ -445,7 +340,296 @@ async function loadFreeFrame(
 
 
 /* =========================
+   LOAD FREE FRAME LIST
+========================= */
+
+async function loadFreeFrames() {
+
+  try {
+
+    const response =
+      await fetch(
+        freeFrameFunction,
+        {
+          method:
+            "GET"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Failed to load free frame list."
+      );
+
+      return;
+    }
+
+
+    const result =
+      await response.json();
+
+
+    const frames =
+      result.frames || [];
+
+
+    /*
+     * 找到所有可以点击的 Free Frame
+     */
+
+    const frameElements =
+      document.querySelectorAll(
+        "[data-frame-name]"
+      );
+
+
+    frameElements.forEach(
+      (element) => {
+
+        const frameName =
+          element.dataset.frameName;
+
+
+        const frame =
+          frames.find(
+            (item) =>
+              item.name ===
+              frameName
+          );
+
+
+        if (!frame) {
+
+          console.error(
+            "Free frame not found:",
+            frameName
+          );
+
+          return;
+        }
+
+
+        /*
+         * 保存 UUID
+         */
+
+        element.dataset.frameId =
+          frame.id;
+
+
+        /*
+         * 保存 SVG URL
+         */
+
+        element.dataset.frameSvg =
+          frame.svg;
+
+
+        /*
+         * 点击装备
+         */
+
+        element.addEventListener(
+          "click",
+          () => {
+
+            equipFreeFrame(
+              frame.id,
+              frame.svg,
+              frame.name,
+              element
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    console.log(
+      "Free frames loaded:",
+      frames
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load free frames:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   EQUIP FREE FRAME
+========================= */
+
+async function equipFreeFrame(
+  frameId,
+  frameSvg,
+  frameName,
+  element
+) {
+
+  try {
+
+    const sessionToken =
+      localStorage.getItem(
+        "u9_session"
+      );
+
+
+    if (!sessionToken) {
+
+      console.error(
+        "No session found."
+      );
+
+      return;
+    }
+
+
+    /*
+     * 防止重复点击
+     */
+
+    if (
+      element.dataset.equipping ===
+      "true"
+    ) {
+
+      return;
+    }
+
+
+    element.dataset.equipping =
+      "true";
+
+
+    /*
+     * 调用 Edge Function
+     */
+
+    const response =
+      await fetch(
+        equipFrameFunction,
+        {
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              frame_type:
+                "free",
+
+              frame_id:
+                frameId
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Equip frame failed:",
+        result
+      );
+
+      return;
+    }
+
+
+    if (
+      !result.success
+    ) {
+
+      console.error(
+        "Equip frame failed:",
+        result
+      );
+
+      return;
+    }
+
+
+    /*
+     * 立即更新头像 Frame
+     */
+
+    accountAvatarFrame.src =
+      frameSvg;
+
+
+    /*
+     * 保存当前状态
+     */
+
+    console.log(
+      "Frame equipped:",
+      {
+        type:
+          "free",
+
+        id:
+          frameId,
+
+        name:
+          frameName
+      }
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to equip free frame:",
+      error
+    );
+
+  }
+
+  finally {
+
+    element.dataset.equipping =
+      "false";
+
+  }
+
+}
+
+
+/* =========================
    LOAD
 ========================= */
 
 loadCurrentFrame();
+
+loadFreeFrames();
