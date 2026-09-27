@@ -85,7 +85,7 @@
 
 #U9-account-header,
 
-#U9-account-edit-profile-header {
+#U9-account-setting-page-header {
 
   position: absolute;
 
@@ -120,18 +120,18 @@
 }
 
 
-/* =========== EDIT PROFILE HEADER =========== */
+/* =========== SETTING HEADER =========== */
 
-#U9-account-edit-profile-header {
+#U9-account-setting-page-header {
 
   transform: translateX(100%);
 
 }
 
 
-/* =========== EDIT PROFILE HEADER ACTIVE =========== */
+/* =========== SETTING HEADER ACTIVE =========== */
 
-#U9-account-edit-profile-header.active {
+#U9-account-setting-page-header.active {
 
   transform: translateX(0);
 
@@ -151,7 +151,7 @@
 
 #U9-account-header button,
 
-#U9-account-edit-profile-header button {
+#U9-account-setting-page-header button {
 
   display: flex;
 
@@ -180,7 +180,7 @@
 
 #U9-account-header button svg,
 
-#U9-account-edit-profile-header button svg {
+#U9-account-setting-page-header button svg {
 
   width: 20px;
 
@@ -201,9 +201,9 @@
 
 /* =========== HEADER TITLE SVG =========== */
 
-#U9-account-header img,
+#U9-account-header > img,
 
-#U9-account-edit-profile-header img {
+#U9-account-setting-page-header > img {
 
   position: absolute;
 
@@ -211,14 +211,14 @@
 
   transform: translateX(-50%);
 
-  width: 100px;
+  width: 80px;
 
   height: auto;
 
 }
 
 
-/* =========== ACCOUNT PAGES =========== */
+/* =========== ACCOUNT SETTING PAGES =========== */
 
 #U9-account-setting-pages {
 
@@ -238,7 +238,7 @@
 
 #U9-account-page,
 
-#U9-account-edit-profile-page {
+#U9-account-setting-page {
 
   width: 50%;
 
@@ -264,9 +264,9 @@
 }
 
 
-/* =========== EDIT PROFILE PAGE =========== */
+/* =========== SETTING PAGE =========== */
 
-#U9-account-edit-profile-page {
+#U9-account-setting-page {
 
   overflow-y: auto;
 
@@ -275,27 +275,84 @@
 }
 
 
-/* =========== ACCOUNT PROFILE =========== */
+/* =========== ACCOUNT ACTIONS =========== */
 
-#U9-account-profile {
-
-  width: calc(100% - 20px);
-
-  margin: 10px;
-
-  padding: 12px;
-
-  box-sizing: border-box;
+#U9-account-actions {
 
   display: flex;
 
   align-items: center;
 
-  gap: 12px;
+  justify-content: space-between;
 
-  background-color: rgb(248 248 248);
+  width: 100%;
 
-  border-radius: 12px;
+  height: 50px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========== ACTION BUTTON =========== */
+
+#U9-account-add-friend,
+
+#U9-account-setting-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== ACTION SVG =========== */
+
+#U9-account-add-friend img,
+
+#U9-account-setting-button img {
+
+  display: block;
+
+  width: 22px;
+
+  height: 22px;
+
+}
+
+
+/* =========== ACCOUNT PROFILE =========== */
+
+#U9-account-profile {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  width: 100%;
+
+  padding: 10px 10px 20px;
+
+  box-sizing: border-box;
 
 }
 
@@ -304,11 +361,9 @@
 
 #U9-account-avatar {
 
-  width: 56px;
+  width: 72px;
 
-  min-width: 56px;
-
-  height: 56px;
+  height: 72px;
 
   display: flex;
 
@@ -336,32 +391,17 @@
 }
 
 
-/* =========== ACCOUNT INFO =========== */
-
-#U9-account-info {
-
-  flex: 1;
-
-  min-width: 0;
-
-}
-
-
 /* =========== USERNAME =========== */
 
 #U9-account-username {
+
+  margin-top: 10px;
 
   font-size: 16px;
 
   font-weight: 600;
 
   color: #111111;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
 
 }
 
@@ -376,16 +416,10 @@
 
   color: #777777;
 
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-
 }
 
 
-/* =========== EDIT PROFILE BUTTON =========== */
+/* =========== EDIT PROFILE =========== */
 
 #U9-account-edit-profile {
 
@@ -397,9 +431,9 @@
 
   width: 40px;
 
-  min-width: 40px;
-
   height: 40px;
+
+  margin-top: 6px;
 
   padding: 0;
 
