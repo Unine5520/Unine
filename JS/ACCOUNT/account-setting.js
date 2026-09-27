@@ -483,4 +483,3 @@ accountSetting.addEventListener(
 
   }
 );
-
