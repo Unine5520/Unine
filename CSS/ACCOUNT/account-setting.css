@@ -64,7 +64,7 @@
 }
 
 
-/* =========== SETTING HEADER =========== */
+/* =========== ACCOUNT SETTING HEADER =========== */
 
 #U9-account-setting-header {
 
@@ -81,11 +81,11 @@
 }
 
 
-/* =========== ACCOUNT HEADER =========== */
+/* =========== HEADER PAGES =========== */
 
-#U9-account-setting-account-header,
+#U9-account-header,
 
-#U9-account-setting-setting-header {
+#U9-account-edit-profile-header {
 
   position: absolute;
 
@@ -113,32 +113,34 @@
 
 /* =========== ACCOUNT HEADER =========== */
 
-#U9-account-setting-account-header {
+#U9-account-header {
 
   transform: translateX(0);
 
 }
 
 
-/* =========== SETTING HEADER =========== */
+/* =========== EDIT PROFILE HEADER =========== */
 
-#U9-account-setting-setting-header {
+#U9-account-edit-profile-header {
 
   transform: translateX(100%);
 
 }
 
 
-/* =========== SETTING HEADER ACTIVE =========== */
+/* =========== EDIT PROFILE HEADER ACTIVE =========== */
 
-#U9-account-setting-setting-header.active {
+#U9-account-edit-profile-header.active {
 
   transform: translateX(0);
 
 }
 
 
-#U9-account-setting-account-header.hidden {
+/* =========== ACCOUNT HEADER HIDDEN =========== */
+
+#U9-account-header.hidden {
 
   transform: translateX(-100%);
 
@@ -147,9 +149,9 @@
 
 /* =========== HEADER BUTTON =========== */
 
-#U9-account-setting-account-header button,
+#U9-account-header button,
 
-#U9-account-setting-setting-header button {
+#U9-account-edit-profile-header button {
 
   display: flex;
 
@@ -176,9 +178,9 @@
 
 /* =========== HEADER BUTTON SVG =========== */
 
-#U9-account-setting-account-header button svg,
+#U9-account-header button svg,
 
-#U9-account-setting-setting-header button svg {
+#U9-account-edit-profile-header button svg {
 
   width: 20px;
 
@@ -197,11 +199,11 @@
 }
 
 
-/* =========== ACCOUNT HEADER LOGO =========== */
+/* =========== HEADER TITLE SVG =========== */
 
-#U9-account-setting-account-header img,
+#U9-account-header img,
 
-#U9-account-setting-setting-header img {
+#U9-account-edit-profile-header img {
 
   position: absolute;
 
@@ -216,7 +218,7 @@
 }
 
 
-/* =========== SETTING PAGES =========== */
+/* =========== ACCOUNT PAGES =========== */
 
 #U9-account-setting-pages {
 
@@ -232,11 +234,11 @@
 }
 
 
-/* =========== ACCOUNT PAGE =========== */
+/* =========== PAGE =========== */
 
-#U9-account-setting-account-page,
+#U9-account-page,
 
-#U9-account-setting-setting-page {
+#U9-account-edit-profile-page {
 
   width: 50%;
 
@@ -251,7 +253,7 @@
 
 /* =========== ACCOUNT PAGE =========== */
 
-#U9-account-setting-account-page {
+#U9-account-page {
 
   display: flex;
 
@@ -262,9 +264,9 @@
 }
 
 
-/* =========== SETTING PAGE =========== */
+/* =========== EDIT PROFILE PAGE =========== */
 
-#U9-account-setting-setting-page {
+#U9-account-edit-profile-page {
 
   overflow-y: auto;
 
@@ -298,7 +300,7 @@
 }
 
 
-/* =========== ACCOUNT AVATAR =========== */
+/* =========== AVATAR =========== */
 
 #U9-account-avatar {
 
@@ -383,9 +385,9 @@
 }
 
 
-/* =========== SETTING BUTTON =========== */
+/* =========== EDIT PROFILE BUTTON =========== */
 
-#U9-account-setting-1 {
+#U9-account-edit-profile {
 
   display: flex;
 
@@ -410,9 +412,9 @@
 }
 
 
-/* =========== SETTING BUTTON SVG =========== */
+/* =========== EDIT PROFILE SVG =========== */
 
-#U9-account-setting-1 img {
+#U9-account-edit-profile img {
 
   display: block;
 
