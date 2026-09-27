@@ -145,14 +145,7 @@ accountSettingLogout.addEventListener(
     event.stopPropagation();
 
 
-    if (
-      typeof closeAccountSetting ===
-      "function"
-    ) {
-
-      closeAccountSetting();
-
-    }
+    closeAccountSetting();
 
 
     openLogoutConfirm();
