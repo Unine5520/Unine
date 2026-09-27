@@ -70,26 +70,86 @@
 
   position: relative;
 
-  display: flex;
+  width: 100%;
 
-  align-items: center;
+  height: 52px;
+
+  background-color: #71a6ff;
+
+  overflow: hidden;
+
+}
+
+
+/* =========== ACCOUNT HEADER =========== */
+
+#U9-account-setting-account-header,
+
+#U9-account-setting-setting-header {
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
 
   width: 100%;
 
   height: 52px;
 
-  padding: 0 10px;
+  display: flex;
+
+  align-items: center;
 
   box-sizing: border-box;
 
-  background-color: #71a6ff;
+  padding: 0 10px;
+
+  transition:
+    transform 0.35s ease;
 
 }
 
 
-/* =========== BACK BUTTON =========== */
+/* =========== ACCOUNT HEADER =========== */
 
-#U9-account-setting-back {
+#U9-account-setting-account-header {
+
+  transform: translateX(0);
+
+}
+
+
+/* =========== SETTING HEADER =========== */
+
+#U9-account-setting-setting-header {
+
+  transform: translateX(100%);
+
+}
+
+
+/* =========== SETTING HEADER ACTIVE =========== */
+
+#U9-account-setting-setting-header.active {
+
+  transform: translateX(0);
+
+}
+
+
+#U9-account-setting-account-header.hidden {
+
+  transform: translateX(-100%);
+
+}
+
+
+/* =========== HEADER BUTTON =========== */
+
+#U9-account-setting-account-header button,
+
+#U9-account-setting-setting-header button {
 
   display: flex;
 
@@ -107,16 +167,18 @@
 
   background: none;
 
-  color: rgb(249, 249, 249);
+  color: rgb(249 249 249);
 
   cursor: pointer;
 
 }
 
 
-/* =========== BACK SVG =========== */
+/* =========== HEADER BUTTON SVG =========== */
 
-#U9-account-setting-back svg {
+#U9-account-setting-account-header button svg,
+
+#U9-account-setting-setting-header button svg {
 
   width: 20px;
 
@@ -135,9 +197,11 @@
 }
 
 
-/* =========== ACCOUNT TITLE =========== */
+/* =========== ACCOUNT HEADER LOGO =========== */
 
-#U9-account-setting-header img {
+#U9-account-setting-account-header img,
+
+#U9-account-setting-setting-header img {
 
   position: absolute;
 
@@ -152,19 +216,241 @@
 }
 
 
-/* =========== SETTING BUTTONS =========== */
+/* =========== SETTING PAGES =========== */
 
-#U9-account-setting-content > button {
+#U9-account-setting-pages {
+
+  width: 200%;
+
+  height: calc(100% - 52px);
+
+  display: flex;
+
+  transition:
+    transform 0.35s ease;
+
+}
+
+
+/* =========== ACCOUNT PAGE =========== */
+
+#U9-account-setting-account-page,
+
+#U9-account-setting-setting-page {
+
+  width: 50%;
+
+  min-width: 50%;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========== ACCOUNT PAGE =========== */
+
+#U9-account-setting-account-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========== SETTING PAGE =========== */
+
+#U9-account-setting-setting-page {
+
+  overflow-y: auto;
+
+  background-color: rgb(255 255 255);
+
+}
+
+
+/* =========== ACCOUNT PROFILE =========== */
+
+#U9-account-profile {
+
+  width: calc(100% - 20px);
+
+  margin: 10px;
+
+  padding: 12px;
+
+  box-sizing: border-box;
 
   display: flex;
 
   align-items: center;
 
+  gap: 12px;
+
+  background-color: rgb(248 248 248);
+
+  border-radius: 12px;
+
+}
+
+
+/* =========== ACCOUNT AVATAR =========== */
+
+#U9-account-avatar {
+
+  width: 56px;
+
+  min-width: 56px;
+
+  height: 56px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 50%;
+
+}
+
+
+#U9-account-avatar img {
+
+  display: block;
+
   width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+}
+
+
+/* =========== ACCOUNT INFO =========== */
+
+#U9-account-info {
+
+  flex: 1;
+
+  min-width: 0;
+
+}
+
+
+/* =========== USERNAME =========== */
+
+#U9-account-username {
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #111111;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+
+/* =========== ACCOUNT =========== */
+
+#U9-account-account {
+
+  margin-top: 4px;
+
+  font-size: 13px;
+
+  color: #777777;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+}
+
+
+/* =========== SETTING BUTTON =========== */
+
+#U9-account-setting-1 {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== SETTING BUTTON SVG =========== */
+
+#U9-account-setting-1 img {
+
+  display: block;
+
+  width: 22px;
+
+  height: 22px;
+
+}
+
+
+/* =========== FUTURE CONTENT =========== */
+
+#U9-account-setting-future {
+
+  flex: 1;
+
+}
+
+
+/* =========== LOGOUT BUTTON =========== */
+
+#U9-account-setting-5 {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  width: calc(100% - 20px);
 
   height: 42px;
 
+  margin: 10px;
+
   padding: 0 12px;
+
+  box-sizing: border-box;
 
   border: none;
 
@@ -174,38 +460,25 @@
 
   cursor: pointer;
 
+  color: #111111;
+
 }
 
 
-/* =========== SVG =========== */
+/* =========== LOGOUT SVG =========== */
 
-#U9-account-setting-content > button svg {
+#U9-account-setting-5 img {
+
+  display: block;
 
   width: 20px;
 
   height: 20px;
 
-  fill: none;
-
-  stroke: currentColor;
-
-  stroke-width: 2;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
-
 }
 
 
-/* =========== LOGOUT BUTTON =========== */
-
-#U9-account-setting-5 {
-
-  gap: 8px;
-
-}
-
+/* =========== LOGOUT TEXT =========== */
 
 #U9-account-setting-5 span {
 
