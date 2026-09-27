@@ -15,35 +15,62 @@ const accountAvatarFrame =
 
 
 /* =========================
-   ME FUNCTION
+   EDIT PROFILE PAGE
+========================= */
+
+const editProfilePage =
+  document.getElementById(
+    "Account-U9-account-edit-profile-page"
+  );
+
+
+/* =========================
+   FUNCTIONS
 ========================= */
 
 const meFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me";
 
 
-/* =========================
-   DEFAULT FRAME FUNCTION
-========================= */
-
 const defaultFrameFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-default";
 
-
-/* =========================
-   FREE FRAME FUNCTION
-========================= */
 
 const freeFrameFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-free";
 
 
-/* =========================
-   EQUIP FRAME FUNCTION
-========================= */
-
 const equipFrameFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-equip";
+
+
+/* =========================
+   CURRENT FRAME
+========================= */
+
+let currentFrameType = null;
+
+let currentFrameId = null;
+
+
+/* =========================
+   SELECTED FRAME
+========================= */
+
+let selectedFrameType = null;
+
+let selectedFrameId = null;
+
+
+/* =========================
+   FRAME DATA
+========================= */
+
+let defaultFrames = [];
+
+let freeFrames = [];
+
+let allFrames = [];
 
 
 /* =========================
@@ -59,6 +86,7 @@ async function loadCurrentFrame() {
         "u9_session"
       );
 
+
     if (!sessionToken) {
 
       console.error(
@@ -66,14 +94,16 @@ async function loadCurrentFrame() {
       );
 
       return;
+
     }
 
 
-    const meResponse =
+    const response =
       await fetch(
         meFunction,
         {
-          method: "GET",
+          method:
+            "GET",
 
           headers: {
             "Authorization":
@@ -83,22 +113,23 @@ async function loadCurrentFrame() {
       );
 
 
-    if (!meResponse.ok) {
+    if (!response.ok) {
 
       console.error(
         "Failed to load current user."
       );
 
       return;
+
     }
 
 
-    const meResult =
-      await meResponse.json();
+    const result =
+      await response.json();
 
 
     const user =
-      meResult.user;
+      result.user;
 
 
     if (!user) {
@@ -108,72 +139,63 @@ async function loadCurrentFrame() {
       );
 
       return;
+
     }
 
 
-    const frameType =
-      user.avatar_frame_type;
+    currentFrameType =
+      user.avatar_frame_type ||
+      null;
 
 
-    const frameId =
-      user.avatar_frame_id;
+    currentFrameId =
+      user.avatar_frame_id ||
+      null;
+
+
+    /*
+     * 初始选择 = 当前 Frame
+     */
+
+    selectedFrameType =
+      currentFrameType;
+
+
+    selectedFrameId =
+      currentFrameId;
 
 
     console.log(
       "Current frame:",
       {
         type:
-          frameType,
+          currentFrameType,
 
         id:
-          frameId
+          currentFrameId
       }
     );
 
 
+    /*
+     * 如果 Frame 数据已经加载
+     * 同步当前选中状态
+     */
+
     if (
-      frameType ===
-      "default"
+      allFrames.length > 0
     ) {
 
-      await loadDefaultFrame(
-        frameId
-      );
+      updateSelectedFrameUI();
 
-      return;
     }
 
 
-    if (
-      frameType ===
-      "free"
-    ) {
+    /*
+     * 显示当前头像 Frame
+     */
 
-      await loadFreeFrame(
-        frameId
-      );
-
-      return;
-    }
-
-
-    if (
-      frameType ===
-      "paid"
-    ) {
-
-      console.log(
-        "Paid frame loading will be added later."
-      );
-
-      return;
-    }
-
-
-    console.error(
-      "Unknown frame type:",
-      frameType
-    );
+    await loadCurrentFrameImage();
 
   }
 
@@ -181,6 +203,113 @@ async function loadCurrentFrame() {
 
     console.error(
       "Failed to load current frame:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD CURRENT FRAME IMAGE
+========================= */
+
+async function loadCurrentFrameImage() {
+
+  try {
+
+    if (
+      !currentFrameType ||
+      !currentFrameId
+    ) {
+
+      return;
+
+    }
+
+
+    const frame =
+      allFrames.find(
+        (item) =>
+          item.type ===
+            currentFrameType &&
+          item.id ===
+            currentFrameId
+      );
+
+
+    /*
+     * 数据已经在前端
+     */
+
+    if (frame) {
+
+      accountAvatarFrame.src =
+        frame.svg;
+
+      return;
+
+    }
+
+
+    /*
+     * Default
+     */
+
+    if (
+      currentFrameType ===
+      "default"
+    ) {
+
+      await loadDefaultFrame(
+        currentFrameId
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Free
+     */
+
+    if (
+      currentFrameType ===
+      "free"
+    ) {
+
+      await loadFreeFrame(
+        currentFrameId
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Paid
+     */
+
+    if (
+      currentFrameType ===
+      "paid"
+    ) {
+
+      console.log(
+        "Paid frame loading will be added later."
+      );
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load current frame image:",
       error
     );
 
@@ -216,6 +345,7 @@ async function loadDefaultFrame(
       );
 
       return;
+
     }
 
 
@@ -226,7 +356,8 @@ async function loadDefaultFrame(
     const frame =
       result.frames?.find(
         (item) =>
-          item.id === frameId
+          item.id ===
+          frameId
       );
 
 
@@ -238,6 +369,7 @@ async function loadDefaultFrame(
       );
 
       return;
+
     }
 
 
@@ -291,6 +423,7 @@ async function loadFreeFrame(
       );
 
       return;
+
     }
 
 
@@ -301,7 +434,8 @@ async function loadFreeFrame(
     const frame =
       result.frames?.find(
         (item) =>
-          item.id === frameId
+          item.id ===
+          frameId
       );
 
 
@@ -313,6 +447,7 @@ async function loadFreeFrame(
       );
 
       return;
+
     }
 
 
@@ -340,7 +475,82 @@ async function loadFreeFrame(
 
 
 /* =========================
-   LOAD FREE FRAME LIST
+   LOAD DEFAULT FRAMES
+========================= */
+
+async function loadDefaultFrames() {
+
+  try {
+
+    const response =
+      await fetch(
+        defaultFrameFunction,
+        {
+          method:
+            "GET"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Failed to load default frame list."
+      );
+
+      return;
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    defaultFrames =
+      (
+        result.frames ||
+        []
+      ).map(
+        (frame) => ({
+
+          id:
+            frame.id,
+
+          name:
+            frame.name,
+
+          svg:
+            frame.svg,
+
+          type:
+            "default"
+
+        })
+      );
+
+
+    console.log(
+      "Default frames loaded:",
+      defaultFrames
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load default frames:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD FREE FRAMES
 ========================= */
 
 async function loadFreeFrames() {
@@ -364,6 +574,7 @@ async function loadFreeFrames() {
       );
 
       return;
+
     }
 
 
@@ -371,87 +582,37 @@ async function loadFreeFrames() {
       await response.json();
 
 
-    const frames =
-      result.frames || [];
+    freeFrames =
+      (
+        result.frames ||
+        []
+      )
+      .filter(
+        (frame) =>
+          frame.is_active !== false
+      )
+      .map(
+        (frame) => ({
 
+          id:
+            frame.id,
 
-    /*
-     * 找到所有可以点击的 Free Frame
-     */
+          name:
+            frame.name,
 
-    const frameElements =
-      document.querySelectorAll(
-        "[data-frame-name]"
+          svg:
+            frame.svg,
+
+          type:
+            "free"
+
+        })
       );
-
-
-    frameElements.forEach(
-      (element) => {
-
-        const frameName =
-          element.dataset.frameName;
-
-
-        const frame =
-          frames.find(
-            (item) =>
-              item.name ===
-              frameName
-          );
-
-
-        if (!frame) {
-
-          console.error(
-            "Free frame not found:",
-            frameName
-          );
-
-          return;
-        }
-
-
-        /*
-         * 保存 UUID
-         */
-
-        element.dataset.frameId =
-          frame.id;
-
-
-        /*
-         * 保存 SVG URL
-         */
-
-        element.dataset.frameSvg =
-          frame.svg;
-
-
-        /*
-         * 点击装备
-         */
-
-        element.addEventListener(
-          "click",
-          () => {
-
-            equipFreeFrame(
-              frame.id,
-              frame.svg,
-              frame.name,
-              element
-            );
-
-          }
-        );
-
-      }
-    );
 
 
     console.log(
       "Free frames loaded:",
-      frames
+      freeFrames
     );
 
   }
@@ -469,54 +630,549 @@ async function loadFreeFrames() {
 
 
 /* =========================
-   EQUIP FREE FRAME
+   COMBINE FRAME DATA
 ========================= */
 
-async function equipFreeFrame(
-  frameId,
-  frameSvg,
-  frameName,
-  element
+function buildAllFrames() {
+
+  allFrames = [
+
+    ...defaultFrames,
+
+    ...freeFrames
+
+  ];
+
+
+  console.log(
+    "All frames:",
+    allFrames
+  );
+
+}
+
+
+/* =========================
+   CREATE EDIT PROFILE UI
+========================= */
+
+function createFrameEditor() {
+
+  if (!editProfilePage) {
+
+    console.error(
+      "Edit Profile Page not found."
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * 清空旧内容
+   */
+
+  editProfilePage.innerHTML =
+    "";
+
+
+  /* =========================
+     WRAPPER
+  ========================= */
+
+  const wrapper =
+    document.createElement(
+      "div"
+    );
+
+  wrapper.id =
+    "Account-U9-frame-editor";
+
+
+  /* =========================
+     TITLE
+  ========================= */
+
+  const title =
+    document.createElement(
+      "div"
+    );
+
+  title.id =
+    "Account-U9-frame-editor-title";
+
+  title.textContent =
+    "Frame";
+
+
+  /* =========================
+     FRAME LIST
+  ========================= */
+
+  const frameList =
+    document.createElement(
+      "div"
+    );
+
+  frameList.id =
+    "Account-U9-frame-editor-list";
+
+
+  /* =========================
+     CONFIRM BUTTON
+  ========================= */
+
+  const confirmButton =
+    document.createElement(
+      "button"
+    );
+
+  confirmButton.id =
+    "Account-U9-frame-editor-confirm";
+
+  confirmButton.type =
+    "button";
+
+  confirmButton.textContent =
+    "Confirm";
+
+  confirmButton.disabled =
+    true;
+
+
+  /* =========================
+     APPEND
+  ========================= */
+
+  wrapper.appendChild(
+    title
+  );
+
+  wrapper.appendChild(
+    frameList
+  );
+
+  wrapper.appendChild(
+    confirmButton
+  );
+
+
+  editProfilePage.appendChild(
+    wrapper
+  );
+
+
+  /*
+   * Render Frame
+   */
+
+  renderFrameList();
+
+
+  /*
+   * Confirm
+   */
+
+  confirmButton.addEventListener(
+    "click",
+    confirmSelectedFrame
+  );
+
+}
+
+
+/* =========================
+   RENDER FRAME LIST
+========================= */
+
+function renderFrameList() {
+
+  const frameList =
+    document.getElementById(
+      "Account-U9-frame-editor-list"
+    );
+
+
+  if (!frameList) {
+
+    return;
+
+  }
+
+
+  frameList.innerHTML =
+    "";
+
+
+  allFrames.forEach(
+    (frame) => {
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+      button.type =
+        "button";
+
+      button.className =
+        "Account-U9-frame-card";
+
+
+      button.dataset.frameType =
+        frame.type;
+
+
+      button.dataset.frameId =
+        frame.id;
+
+
+      /* =========================
+         FRAME IMAGE
+      ========================= */
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.className =
+        "Account-U9-frame-card-image";
+
+      image.src =
+        frame.svg;
+
+      image.alt =
+        frame.name;
+
+      image.draggable =
+        false;
+
+
+      /* =========================
+         FRAME NAME
+      ========================= */
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+      name.className =
+        "Account-U9-frame-card-name";
+
+      name.textContent =
+        frame.name;
+
+
+      /* =========================
+         TYPE
+      ========================= */
+
+      const type =
+        document.createElement(
+          "span"
+        );
+
+      type.className =
+        "Account-U9-frame-card-type";
+
+      type.textContent =
+        frame.type ===
+          "default"
+          ? "Default"
+          : "Free";
+
+
+      /* =========================
+         CHECK
+      ========================= */
+
+      const check =
+        document.createElement(
+          "span"
+        );
+
+      check.className =
+        "Account-U9-frame-card-check";
+
+      check.textContent =
+        "✓";
+
+
+      /* =========================
+         CONTENT
+      ========================= */
+
+      button.appendChild(
+        image
+      );
+
+      button.appendChild(
+        name
+      );
+
+      button.appendChild(
+        type
+      );
+
+      button.appendChild(
+        check
+      );
+
+
+      /* =========================
+         CLICK
+      ========================= */
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          selectFrame(
+            frame.type,
+            frame.id
+          );
+
+        }
+      );
+
+
+      frameList.appendChild(
+        button
+      );
+
+    }
+  );
+
+
+  updateSelectedFrameUI();
+
+}
+
+
+/* =========================
+   SELECT FRAME
+========================= */
+
+function selectFrame(
+  frameType,
+  frameId
 ) {
+
+  selectedFrameType =
+    frameType;
+
+
+  selectedFrameId =
+    frameId;
+
+
+  updateSelectedFrameUI();
+
+
+  console.log(
+    "Frame selected:",
+    {
+      type:
+        frameType,
+
+      id:
+        frameId
+    }
+  );
+
+}
+
+
+/* =========================
+   UPDATE SELECTED UI
+========================= */
+
+function updateSelectedFrameUI() {
+
+  const cards =
+    document.querySelectorAll(
+      ".Account-U9-frame-card"
+    );
+
+
+  cards.forEach(
+    (card) => {
+
+      const isSelected =
+        card.dataset.frameType ===
+          selectedFrameType &&
+        card.dataset.frameId ===
+          selectedFrameId;
+
+
+      if (isSelected) {
+
+        card.classList.add(
+          "selected"
+        );
+
+      }
+
+      else {
+
+        card.classList.remove(
+          "selected"
+        );
+
+      }
+
+    }
+  );
+
+
+  updateConfirmButton();
+
+}
+
+
+/* =========================
+   CONFIRM BUTTON
+========================= */
+
+function updateConfirmButton() {
+
+  const confirmButton =
+    document.getElementById(
+      "Account-U9-frame-editor-confirm"
+    );
+
+
+  if (!confirmButton) {
+
+    return;
+
+  }
+
+
+  const hasSelection =
+    Boolean(
+      selectedFrameType &&
+      selectedFrameId
+    );
+
+
+  const isSameAsCurrent =
+    selectedFrameType ===
+      currentFrameType &&
+    selectedFrameId ===
+      currentFrameId;
+
+
+  confirmButton.disabled =
+    !hasSelection ||
+    isSameAsCurrent;
+
+}
+
+
+/* =========================
+   CONFIRM SELECTED FRAME
+========================= */
+
+async function confirmSelectedFrame() {
+
+  if (
+    !selectedFrameType ||
+    !selectedFrameId
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+   * 当前已经是这个 Frame
+   */
+
+  if (
+    selectedFrameType ===
+      currentFrameType &&
+    selectedFrameId ===
+      currentFrameId
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (!sessionToken) {
+
+    console.error(
+      "No session found."
+    );
+
+    return;
+
+  }
+
+
+  const confirmButton =
+    document.getElementById(
+      "Account-U9-frame-editor-confirm"
+    );
+
+
+  const selectedFrame =
+    allFrames.find(
+      (frame) =>
+        frame.type ===
+          selectedFrameType &&
+        frame.id ===
+          selectedFrameId
+    );
+
+
+  if (!selectedFrame) {
+
+    console.error(
+      "Selected frame not found."
+    );
+
+    return;
+
+  }
+
 
   try {
 
-    const sessionToken =
-      localStorage.getItem(
-        "u9_session"
+    /*
+     * Loading
+     */
+
+    if (confirmButton) {
+
+      confirmButton.disabled =
+        true;
+
+      confirmButton.classList.add(
+        "loading"
       );
 
+      confirmButton.textContent =
+        "Saving...";
 
-    if (!sessionToken) {
-
-      console.error(
-        "No session found."
-      );
-
-      return;
     }
 
 
-    /*
-     * 防止重复点击
-     */
-
-    if (
-      element.dataset.equipping ===
-      "true"
-    ) {
-
-      return;
-    }
-
-
-    element.dataset.equipping =
-      "true";
-
-
-    /*
-     * 调用 Edge Function
-     */
+    /* =========================
+       REQUEST
+    ========================= */
 
     const response =
       await fetch(
@@ -539,10 +1195,10 @@ async function equipFreeFrame(
             JSON.stringify({
 
               frame_type:
-                "free",
+                selectedFrameType,
 
               frame_id:
-                frameId
+                selectedFrameId
 
             })
 
@@ -554,6 +1210,10 @@ async function equipFreeFrame(
       await response.json();
 
 
+    /* =========================
+       FAILED
+    ========================= */
+
     if (!response.ok) {
 
       console.error(
@@ -562,6 +1222,7 @@ async function equipFreeFrame(
       );
 
       return;
+
     }
 
 
@@ -575,42 +1236,57 @@ async function equipFreeFrame(
       );
 
       return;
+
     }
 
 
-    /*
-     * 立即更新头像 Frame
-     */
+    /* =========================
+       SAVE CURRENT STATE
+    ========================= */
+
+    currentFrameType =
+      selectedFrameType;
+
+
+    currentFrameId =
+      selectedFrameId;
+
+
+    /* =========================
+       UPDATE AVATAR
+    ========================= */
 
     accountAvatarFrame.src =
-      frameSvg;
+      selectedFrame.svg;
 
 
-    /*
-     * 保存当前状态
-     */
+    /* =========================
+       UPDATE UI
+    ========================= */
+
+    updateSelectedFrameUI();
+
 
     console.log(
-      "Frame equipped:",
+      "Frame equipped successfully:",
       {
         type:
-          "free",
+          selectedFrameType,
 
         id:
-          frameId,
+          selectedFrameId,
 
         name:
-          frameName
+          selectedFrame.name
       }
     );
-
 
   }
 
   catch (error) {
 
     console.error(
-      "Failed to equip free frame:",
+      "Failed to equip frame:",
       error
     );
 
@@ -618,8 +1294,74 @@ async function equipFreeFrame(
 
   finally {
 
-    element.dataset.equipping =
-      "false";
+    if (confirmButton) {
+
+      confirmButton.classList.remove(
+        "loading"
+      );
+
+      confirmButton.textContent =
+        "Confirm";
+
+      updateConfirmButton();
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   LOAD EDIT PROFILE
+========================= */
+
+async function loadFrameEditor() {
+
+  try {
+
+    await Promise.all([
+
+      loadDefaultFrames(),
+
+      loadFreeFrames(),
+
+      loadCurrentFrame()
+
+    ]);
+
+
+    buildAllFrames();
+
+
+    /*
+     * 再次同步当前选择
+     */
+
+    if (
+      currentFrameType &&
+      currentFrameId
+    ) {
+
+      selectedFrameType =
+        currentFrameType;
+
+      selectedFrameId =
+        currentFrameId;
+
+    }
+
+
+    createFrameEditor();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load frame editor:",
+      error
+    );
 
   }
 
@@ -630,6 +1372,4 @@ async function equipFreeFrame(
    LOAD
 ========================= */
 
-loadCurrentFrame();
-
-loadFreeFrames();
+loadFrameEditor();
