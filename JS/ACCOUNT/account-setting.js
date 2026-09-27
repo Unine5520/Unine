@@ -24,9 +24,9 @@ const accountHeader =
   );
 
 
-const editProfileHeader =
+const accountSettingPageHeader =
   document.getElementById(
-    "U9-account-edit-profile-header"
+    "U9-account-setting-page-header"
   );
 
 
@@ -40,9 +40,9 @@ const accountSettingBack =
   );
 
 
-const editProfileBack =
+const accountSettingPageBack =
   document.getElementById(
-    "U9-account-edit-profile-back"
+    "U9-account-setting-page-back"
   );
 
 
@@ -59,6 +59,26 @@ const accountUsername =
 const accountAccount =
   document.getElementById(
     "U9-account-account"
+  );
+
+
+/* =========================
+   SETTING BUTTON
+========================= */
+
+const accountSettingButton =
+  document.getElementById(
+    "U9-account-setting-button"
+  );
+
+
+/* =========================
+   ADD FRIEND
+========================= */
+
+const accountAddFriend =
+  document.getElementById(
+    "U9-account-add-friend"
   );
 
 
@@ -107,7 +127,7 @@ function showAccountPage() {
   );
 
 
-  editProfileHeader.classList.remove(
+  accountSettingPageHeader.classList.remove(
     "active"
   );
 
@@ -115,10 +135,10 @@ function showAccountPage() {
 
 
 /* =========================
-   SHOW EDIT PROFILE PAGE
+   SHOW SETTING PAGE
 ========================= */
 
-function showEditProfilePage() {
+function showSettingPage() {
 
   accountSettingPages.style.transform =
     "translateX(-50%)";
@@ -129,7 +149,7 @@ function showEditProfilePage() {
   );
 
 
-  editProfileHeader.classList.add(
+  accountSettingPageHeader.classList.add(
     "active"
   );
 
@@ -329,6 +349,54 @@ accountSettingBack.addEventListener(
 
 
 /* =========================
+   SETTING
+========================= */
+
+accountSettingButton.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    showSettingPage();
+
+  }
+);
+
+
+/* =========================
+   SETTING BACK
+========================= */
+
+accountSettingPageBack.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    showAccountPage();
+
+  }
+);
+
+
+/* =========================
+   ADD FRIEND
+========================= */
+
+accountAddFriend.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+  }
+);
+
+
+/* =========================
    EDIT PROFILE
 ========================= */
 
@@ -337,26 +405,6 @@ accountEditProfile.addEventListener(
   (event) => {
 
     event.stopPropagation();
-
-
-    showEditProfilePage();
-
-  }
-);
-
-
-/* =========================
-   EDIT PROFILE BACK
-========================= */
-
-editProfileBack.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-
-    showAccountPage();
 
   }
 );
