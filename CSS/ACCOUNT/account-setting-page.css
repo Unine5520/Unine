@@ -1,6 +1,6 @@
- /* =========================
-    ACCOUNT SETTING PAGE
- ========================= */
+/* =========================
+   ACCOUNT SETTING PAGE
+========================= */
 
 
 /* =========== SETTING PAGE =========== */
@@ -21,6 +21,8 @@
   display: flex;
 
   align-items: center;
+
+  justify-content: center;
 
   gap: 8px;
 
