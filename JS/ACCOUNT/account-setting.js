@@ -453,15 +453,74 @@ accountAddFriend.addEventListener(
    EDIT PROFILE
 ========================= */
 
+const accountEditProfileModal =
+  document.getElementById(
+    "U9-account-edit-profile-modal"
+  );
+
+
+const accountEditProfileModalClose =
+  document.getElementById(
+    "U9-account-edit-profile-modal-close"
+  );
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
 accountEditProfile.addEventListener(
   "click",
   (event) => {
 
     event.stopPropagation();
 
+
+    accountEditProfileModal.style.display =
+      "flex";
+
   }
 );
 
+
+/* =========================
+   EDIT PROFILE CLOSE
+========================= */
+
+accountEditProfileModalClose.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    accountEditProfileModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   EDIT PROFILE BACKGROUND
+========================= */
+
+accountEditProfileModal.addEventListener(
+  "click",
+  (event) => {
+
+    if (
+      event.target ===
+      accountEditProfileModal
+    ) {
+
+      accountEditProfileModal.style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
 /* =========================
