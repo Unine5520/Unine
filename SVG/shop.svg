@@ -14,7 +14,7 @@
     font-weight="normal"
     fill="#FFFFFF"
     stroke="#000000"
-    stroke-width="2"
+    stroke-width="10"
     stroke-linejoin="round"
     paint-order="stroke fill"
   >
