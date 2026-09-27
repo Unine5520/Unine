@@ -18,7 +18,7 @@
 
   padding: 0 10px;
 
-  background-color: rgb(255 255 255 / 0%);
+  background-color: rgb(110 204 255);
 
   backdrop-filter: blur(10px);
 
@@ -710,31 +710,6 @@
 }
 
 
-/* =========== PAGE BUTTON =========== */
-
-#U9-page-container-tool-pages button {
-
-  height: 40px;
-
-  padding: 0 5px;
-
-  border: none;
-
-  background-color: transparent;
-
-  cursor: pointer;
-
-  white-space: nowrap;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
 /* =========== PAGE SVG =========== */
 
 #U9-page-container-tool-pages button img {
@@ -791,21 +766,6 @@
 }
 
 
-/* =========== PAGE ACTIVE =========== */
-
-#U9-page-container-tool-pages button.active img {
-
-  filter:
-    brightness(0)
-    saturate(100%)
-    invert(33%)
-    sepia(98%)
-    saturate(2400%)
-    hue-rotate(205deg)
-    brightness(97%)
-    contrast(101%);
-
-}
 
 
 /* =========== PAGE ACTIVE =========== */
