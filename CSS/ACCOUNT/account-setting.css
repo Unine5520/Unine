@@ -1,3 +1,9 @@
+
+/* =========================
+   ACCOUNT SETTING
+========================= */
+
+
 /* =========== ACCOUNT SETTING =========== */
 
 #U9-account-setting {
@@ -42,6 +48,7 @@
   transform: translateY(100%);
 
   transition:
+
     transform 0.35s ease;
 
 }
@@ -83,9 +90,9 @@
 
 /* =========== HEADER PAGES =========== */
 
-#U9-account-header,
+#Account-U9-account-header,
 
-#U9-account-setting-page-header {
+#Account-U9-account-setting-page-header {
 
   position: absolute;
 
@@ -106,6 +113,7 @@
   padding: 0 10px;
 
   transition:
+
     transform 0.35s ease;
 
 }
@@ -113,7 +121,7 @@
 
 /* =========== ACCOUNT HEADER =========== */
 
-#U9-account-header {
+#Account-U9-account-header {
 
   transform: translateX(0);
 
@@ -122,7 +130,7 @@
 
 /* =========== SETTING HEADER =========== */
 
-#U9-account-setting-page-header {
+#Account-U9-account-setting-page-header {
 
   transform: translateX(100%);
 
@@ -131,7 +139,7 @@
 
 /* =========== SETTING HEADER ACTIVE =========== */
 
-#U9-account-setting-page-header.active {
+#Account-U9-account-setting-page-header.active {
 
   transform: translateX(0);
 
@@ -140,7 +148,7 @@
 
 /* =========== ACCOUNT HEADER HIDDEN =========== */
 
-#U9-account-header.hidden {
+#Account-U9-account-header.hidden {
 
   transform: translateX(-100%);
 
@@ -149,9 +157,9 @@
 
 /* =========== HEADER BUTTON =========== */
 
-#U9-account-header button,
+#Account-U9-account-header button,
 
-#U9-account-setting-page-header button {
+#Account-U9-account-setting-page-header button {
 
   display: flex;
 
@@ -167,6 +175,8 @@
 
   border: none;
 
+  outline: none;
+
   background: none;
 
   color: rgb(249 249 249);
@@ -178,9 +188,9 @@
 
 /* =========== HEADER BUTTON SVG =========== */
 
-#U9-account-header button svg,
+#Account-U9-account-header button svg,
 
-#U9-account-setting-page-header button svg {
+#Account-U9-account-setting-page-header button svg {
 
   width: 20px;
 
@@ -201,9 +211,9 @@
 
 /* =========== HEADER TITLE SVG =========== */
 
-#U9-account-header > img,
+#Account-U9-account-header > img,
 
-#U9-account-setting-page-header > img {
+#Account-U9-account-setting-page-header > img {
 
   position: absolute;
 
@@ -215,12 +225,14 @@
 
   height: auto;
 
+  display: block;
+
 }
 
 
 /* =========== ACCOUNT SETTING PAGES =========== */
 
-#U9-account-setting-pages {
+#Account-U9-account-setting-pages {
 
   width: 200%;
 
@@ -229,6 +241,7 @@
   display: flex;
 
   transition:
+
     transform 0.35s ease;
 
 }
@@ -236,9 +249,9 @@
 
 /* =========== PAGE =========== */
 
-#U9-account-page,
+#Account-U9-account-page,
 
-#U9-account-setting-page {
+#Account-U9-account-setting-page {
 
   width: 50%;
 
@@ -253,7 +266,7 @@
 
 /* =========== ACCOUNT PAGE =========== */
 
-#U9-account-page {
+#Account-U9-account-page {
 
   display: flex;
 
@@ -266,7 +279,7 @@
 
 /* =========== SETTING PAGE =========== */
 
-#U9-account-setting-page {
+#Account-U9-account-setting-page {
 
   overflow-y: auto;
 
@@ -277,30 +290,28 @@
 
 /* =========== ACCOUNT ACTIONS =========== */
 
-#U9-account-actions {
+#Account-U9-account-actions {
 
   display: flex;
 
-  align-items: center;
+  align-items: flex-start;
 
   justify-content: space-between;
 
   width: 100%;
 
-  height: 50px;
+  height: auto;
 
-  padding: 0 10px;
+  padding: 10px;
 
   box-sizing: border-box;
 
 }
 
 
-/* =========== ACTION BUTTON =========== */
+/* =========== ADD FRIEND =========== */
 
-#U9-account-add-friend,
-
-#U9-account-setting-button {
+#Account-U9-account-add-friend {
 
   display: flex;
 
@@ -316,6 +327,52 @@
 
   border: none;
 
+  outline: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== RIGHT ACTIONS =========== */
+
+#Account-U9-account-right-actions {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 2px;
+
+}
+
+
+/* =========== SETTING / EDIT BUTTON =========== */
+
+#Account-U9-account-setting-button,
+
+#Account-U9-account-edit-profile {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
   background: none;
 
   cursor: pointer;
@@ -325,9 +382,11 @@
 
 /* =========== ACTION SVG =========== */
 
-#U9-account-add-friend img,
+#Account-U9-account-add-friend img,
 
-#U9-account-setting-button img {
+#Account-U9-account-setting-button img,
+
+#Account-U9-account-edit-profile img {
 
   display: block;
 
@@ -340,7 +399,7 @@
 
 /* =========== ACCOUNT PROFILE =========== */
 
-#U9-account-profile {
+#Account-U9-account-profile {
 
   display: flex;
 
@@ -359,7 +418,7 @@
 
 /* =========== AVATAR =========== */
 
-#U9-account-avatar {
+#Account-U9-account-avatar {
 
   width: 72px;
 
@@ -378,7 +437,9 @@
 }
 
 
-#U9-account-avatar img {
+/* =========== AVATAR SVG =========== */
+
+#Account-U9-account-avatar img {
 
   display: block;
 
@@ -393,7 +454,7 @@
 
 /* =========== USERNAME =========== */
 
-#U9-account-username {
+#Account-U9-account-username {
 
   margin-top: 10px;
 
@@ -408,7 +469,7 @@
 
 /* =========== ACCOUNT =========== */
 
-#U9-account-account {
+#Account-U9-account-account {
 
   margin-top: 4px;
 
@@ -419,49 +480,9 @@
 }
 
 
-/* =========== EDIT PROFILE =========== */
-
-#U9-account-edit-profile {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 40px;
-
-  height: 40px;
-
-  margin-top: 6px;
-
-  padding: 0;
-
-  border: none;
-
-  background: none;
-
-  cursor: pointer;
-
-}
-
-
-/* =========== EDIT PROFILE SVG =========== */
-
-#U9-account-edit-profile img {
-
-  display: block;
-
-  width: 22px;
-
-  height: 22px;
-
-}
-
-
 /* =========== FUTURE CONTENT =========== */
 
-#U9-account-setting-future {
+#Account-U9-account-setting-future {
 
   flex: 1;
 
@@ -470,7 +491,7 @@
 
 /* =========== LOGOUT BUTTON =========== */
 
-#U9-account-setting-5 {
+#Account-U9-account-logout {
 
   display: flex;
 
@@ -490,6 +511,8 @@
 
   border: none;
 
+  outline: none;
+
   background: none;
 
   border-radius: 6px;
@@ -503,7 +526,7 @@
 
 /* =========== LOGOUT SVG =========== */
 
-#U9-account-setting-5 img {
+#Account-U9-account-logout img {
 
   display: block;
 
@@ -516,8 +539,17 @@
 
 /* =========== LOGOUT TEXT =========== */
 
-#U9-account-setting-5 span {
+#Account-U9-account-logout span {
 
   font-size: 14px;
+
+}
+
+
+/* =========== SETTING PAGE =========== */
+
+#Account-U9-account-setting-page {
+
+  background-color: rgb(255 255 255);
 
 }
