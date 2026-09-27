@@ -30,6 +30,14 @@ const defaultFrameFunction =
 
 
 /* =========================
+   FREE FRAME FUNCTION
+========================= */
+
+const freeFrameFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-free";
+
+
+/* =========================
    LOAD CURRENT FRAME
 ========================= */
 
@@ -174,7 +182,6 @@ async function loadCurrentFrame() {
 
     /* =========================
        FREE FRAME
-       LATER
     ========================= */
 
     if (
@@ -182,8 +189,8 @@ async function loadCurrentFrame() {
       "free"
     ) {
 
-      console.log(
-        "Free frame loading will be added later."
+      await loadFreeFrame(
+        frameId
       );
 
       return;
@@ -326,6 +333,109 @@ async function loadDefaultFrame(
 
     console.error(
       "Failed to load default frame:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD FREE FRAME
+========================= */
+
+async function loadFreeFrame(
+  frameId
+) {
+
+  try {
+
+    /* =========================
+       REQUEST
+    ========================= */
+
+    const response =
+      await fetch(
+        freeFrameFunction,
+        {
+          method: "GET"
+        }
+      );
+
+
+    /* =========================
+       REQUEST FAILED
+    ========================= */
+
+    if (!response.ok) {
+
+      console.error(
+        "Failed to load free frames."
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       JSON
+    ========================= */
+
+    const result =
+      await response.json();
+
+
+    /* =========================
+       FIND CURRENT FRAME
+    ========================= */
+
+    const frame =
+      result.frames?.find(
+        (item) =>
+          item.id === frameId
+      );
+
+
+    /* =========================
+       FRAME NOT FOUND
+    ========================= */
+
+    if (!frame) {
+
+      console.error(
+        "Current free frame not found:",
+        frameId
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       SET FRAME
+    ========================= */
+
+    accountAvatarFrame.src =
+      frame.svg;
+
+
+    /* =========================
+       DEBUG
+    ========================= */
+
+    console.log(
+      "Current free frame:",
+      frame
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Failed to load free frame:",
       error
     );
 
