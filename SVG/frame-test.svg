@@ -1,90 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="200"
-  height="200"
-  viewBox="0 0 200 200"
->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200"
+     height="200"
+     viewBox="0 0 200 200">
 
   <defs>
 
-    <!-- BLUE GRADIENT -->
+    <!-- Blue → Sky Blue -->
     <linearGradient
-      id="frameGradient"
-      x1="0"
-      y1="0"
-      x2="200"
-      y2="200"
+      id="rabbitFrameGradient"
+      x1="20"
+      y1="20"
+      x2="180"
+      y2="180"
       gradientUnits="userSpaceOnUse"
     >
-
-      <stop
-        offset="0%"
-        stop-color="#2874F2"
-      />
-
-      <stop
-        offset="50%"
-        stop-color="#6CB8FF"
-      />
-
-      <stop
-        offset="100%"
-        stop-color="#2874F2"
-      />
-
+      <stop offset="0%" stop-color="#1677FF"/>
+      <stop offset="50%" stop-color="#5BC8FF"/>
+      <stop offset="100%" stop-color="#1677FF"/>
     </linearGradient>
 
-
-    <!-- GLOW -->
-    <filter
-      id="glow"
-      x="-50%"
-      y="-50%"
-      width="200%"
-      height="200%"
+    <!-- Ear Gradient -->
+    <linearGradient
+      id="earGradient"
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="1"
     >
-
-      <feGaussianBlur
-        stdDeviation="3"
-        result="blur"
-      />
-
-      <feMerge>
-
-        <feMergeNode in="blur" />
-
-        <feMergeNode in="SourceGraphic" />
-
-      </feMerge>
-
-    </filter>
+      <stop offset="0%" stop-color="#5BC8FF"/>
+      <stop offset="100%" stop-color="#1677FF"/>
+    </linearGradient>
 
   </defs>
-
-
-  <!-- OUTER GLOW -->
-
-  <circle
-    cx="100"
-    cy="100"
-    r="88"
-    fill="none"
-    stroke="#4DA8FF"
-    stroke-width="6"
-    opacity="0.35"
-    filter="url(#glow)"
-  >
-
-    <animate
-      attributeName="opacity"
-      values="0.2;0.5;0.2"
-      dur="2s"
-      repeatCount="indefinite"
-    />
-
-  </circle>
 
 
   <!-- MAIN FRAME -->
@@ -94,36 +41,112 @@
     cy="100"
     r="82"
     fill="none"
-    stroke="url(#frameGradient)"
-    stroke-width="6"
+    stroke="url(#rabbitFrameGradient)"
+    stroke-width="5"
   />
 
 
-  <!-- ROTATING LIGHT -->
+  <!-- LEFT EAR -->
 
-  <g>
-
-    <circle
-      cx="100"
-      cy="100"
-      r="82"
-      fill="none"
-      stroke="#FFFFFF"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-dasharray="18 32"
-      opacity="0.9"
-    />
+  <ellipse
+    cx="76"
+    cy="17"
+    rx="8"
+    ry="15"
+    fill="url(#earGradient)"
+    transform="rotate(-20 76 17)"
+  >
 
     <animateTransform
       attributeName="transform"
       type="rotate"
-      from="0 100 100"
-      to="360 100 100"
-      dur="15s"
+      values="-20 76 17;-10 76 17;-20 76 17"
+      dur="1.5s"
       repeatCount="indefinite"
     />
 
-  </g>
+  </ellipse>
+
+
+  <!-- RIGHT EAR -->
+
+  <ellipse
+    cx="124"
+    cy="17"
+    rx="8"
+    ry="15"
+    fill="url(#earGradient)"
+    transform="rotate(20 124 17)"
+  >
+
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      values="20 124 17;10 124 17;20 124 17"
+      dur="1.5s"
+      repeatCount="indefinite"
+    />
+
+  </ellipse>
+
+
+  <!-- CUTE LITTLE BLUE DOTS -->
+
+  <circle
+    cx="34"
+    cy="75"
+    r="4"
+    fill="#1677FF"
+  >
+    <animate
+      attributeName="r"
+      values="4;6;4"
+      dur="1.4s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+
+  <circle
+    cx="166"
+    cy="75"
+    r="4"
+    fill="#5BC8FF"
+  >
+    <animate
+      attributeName="r"
+      values="4;6;4"
+      dur="1.7s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+
+  <!-- SMALL BOTTOM SPARKLE -->
+
+  <path
+    d="
+      M 100 181
+      L 103 187
+      L 109 190
+      L 103 193
+      L 100 199
+      L 97 193
+      L 91 190
+      L 97 187
+      Z
+    "
+    fill="#5BC8FF"
+  >
+
+    <animate
+      attributeName="opacity"
+      values="0.4;1;0.4"
+      dur="1.8s"
+      repeatCount="indefinite"
+    />
+
+  </path>
+
 
 </svg>
