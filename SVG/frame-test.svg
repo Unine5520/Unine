@@ -4,149 +4,63 @@
      viewBox="0 0 200 200">
 
   <defs>
-
-    <!-- Blue → Sky Blue -->
-    <linearGradient
-      id="rabbitFrameGradient"
-      x1="20"
-      y1="20"
-      x2="180"
-      y2="180"
-      gradientUnits="userSpaceOnUse"
-    >
-      <stop offset="0%" stop-color="#1677FF"/>
-      <stop offset="50%" stop-color="#5BC8FF"/>
-      <stop offset="100%" stop-color="#1677FF"/>
-    </linearGradient>
-
-    <!-- Ear Gradient -->
-    <linearGradient
-      id="earGradient"
-      x1="0"
-      y1="0"
-      x2="0"
-      y2="1"
-    >
-      <stop offset="0%" stop-color="#5BC8FF"/>
-      <stop offset="100%" stop-color="#1677FF"/>
-    </linearGradient>
-
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
   </defs>
 
-
-  <!-- MAIN FRAME -->
-
+  <!-- Main Frame -->
   <circle
     cx="100"
     cy="100"
     r="82"
     fill="none"
-    stroke="url(#rabbitFrameGradient)"
+    stroke="#000000"
     stroke-width="5"
   />
 
+  <!-- Cute Stars -->
+  <g fill="#000000">
 
-  <!-- LEFT EAR -->
-
-  <ellipse
-    cx="76"
-    cy="17"
-    rx="8"
-    ry="15"
-    fill="url(#earGradient)"
-    transform="rotate(-20 76 17)"
-  >
-
-    <animateTransform
-      attributeName="transform"
-      type="rotate"
-      values="-20 76 17;-10 76 17;-20 76 17"
-      dur="1.5s"
-      repeatCount="indefinite"
-    />
-
-  </ellipse>
-
-
-  <!-- RIGHT EAR -->
-
-  <ellipse
-    cx="124"
-    cy="17"
-    rx="8"
-    ry="15"
-    fill="url(#earGradient)"
-    transform="rotate(20 124 17)"
-  >
-
-    <animateTransform
-      attributeName="transform"
-      type="rotate"
-      values="20 124 17;10 124 17;20 124 17"
-      dur="1.5s"
-      repeatCount="indefinite"
-    />
-
-  </ellipse>
-
-
-  <!-- CUTE LITTLE BLUE DOTS -->
-
-  <circle
-    cx="34"
-    cy="75"
-    r="4"
-    fill="#1677FF"
-  >
-    <animate
-      attributeName="r"
-      values="4;6;4"
-      dur="1.4s"
-      repeatCount="indefinite"
-    />
-  </circle>
-
-
-  <circle
-    cx="166"
-    cy="75"
-    r="4"
-    fill="#5BC8FF"
-  >
-    <animate
-      attributeName="r"
-      values="4;6;4"
-      dur="1.7s"
-      repeatCount="indefinite"
-    />
-  </circle>
-
-
-  <!-- SMALL BOTTOM SPARKLE -->
-
-  <path
-    d="
-      M 100 181
-      L 103 187
-      L 109 190
-      L 103 193
-      L 100 199
-      L 97 193
-      L 91 190
-      L 97 187
+    <path d="
+      M 100 7
+      L 103 14
+      L 110 17
+      L 103 20
+      L 100 27
+      L 97 20
+      L 90 17
+      L 97 14
       Z
-    "
-    fill="#5BC8FF"
-  >
+    ">
+      <animateTransform
+        attributeName="transform"
+        type="rotate"
+        from="0 100 100"
+        to="360 100 100"
+        dur="5s"
+        repeatCount="indefinite"
+      />
+    </path>
 
-    <animate
-      attributeName="opacity"
-      values="0.4;1;0.4"
-      dur="1.8s"
-      repeatCount="indefinite"
-    />
+    <circle cx="170" cy="55" r="3">
+      <animate
+        attributeName="r"
+        values="3;5;3"
+        dur="1.5s"
+        repeatCount="indefinite"
+      />
+    </circle>
 
-  </path>
+    <circle cx="32" cy="135" r="3">
+      <animate
+        attributeName="r"
+        values="3;5;3"
+        dur="1.8s"
+        repeatCount="indefinite"
+      />
+    </circle>
 
+  </g>
 
 </svg>
