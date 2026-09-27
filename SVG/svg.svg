@@ -1,0 +1,165 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+>
+
+  <defs>
+
+    <!-- BLUE GRADIENT -->
+    <linearGradient
+      id="frameGradient"
+      x1="0"
+      y1="0"
+      x2="200"
+      y2="200"
+      gradientUnits="userSpaceOnUse"
+    >
+
+      <stop
+        offset="0%"
+        stop-color="#2874F2"
+      />
+
+      <stop
+        offset="50%"
+        stop-color="#6CB8FF"
+      />
+
+      <stop
+        offset="100%"
+        stop-color="#2874F2"
+      />
+
+    </linearGradient>
+
+
+    <!-- GLOW -->
+    <filter
+      id="glow"
+      x="-50%"
+      y="-50%"
+      width="200%"
+      height="200%"
+    >
+
+      <feGaussianBlur
+        stdDeviation="3"
+        result="blur"
+      />
+
+      <feMerge>
+
+        <feMergeNode
+          in="blur"
+        />
+
+        <feMergeNode
+          in="SourceGraphic"
+        />
+
+      </feMerge>
+
+    </filter>
+
+  </defs>
+
+
+  <!-- =========================
+       OUTER GLOW
+  ========================= -->
+
+  <circle
+    cx="100"
+    cy="100"
+    r="88"
+    fill="none"
+    stroke="#4DA8FF"
+    stroke-width="6"
+    opacity="0.35"
+    filter="url(#glow)"
+  >
+
+    <animate
+      attributeName="opacity"
+      values="0.2;0.5;0.2"
+      dur="2s"
+      repeatCount="indefinite"
+    />
+
+  </circle>
+
+
+  <!-- =========================
+       MAIN FRAME
+  ========================= -->
+
+  <circle
+    cx="100"
+    cy="100"
+    r="82"
+    fill="none"
+    stroke="url(#frameGradient)"
+    stroke-width="6"
+  />
+
+
+  <!-- =========================
+       ROTATING LIGHT
+  ========================= -->
+
+  <g>
+
+    <circle
+      cx="100"
+      cy="100"
+      r="82"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-dasharray="18 32"
+      opacity="0.9"
+    />
+
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+      dur="4s"
+      repeatCount="indefinite"
+    />
+
+  </g>
+
+
+  <!-- =========================
+       INNER LIGHT
+  ========================= -->
+
+  <circle
+    cx="100"
+    cy="100"
+    r="75"
+    fill="none"
+    stroke="#FFFFFF"
+    stroke-width="1.5"
+    opacity="0.55"
+  >
+
+    <animate
+      attributeName="opacity"
+      values="0.25;0.65;0.25"
+      dur="1.8s"
+      repeatCount="indefinite"
+    />
+
+  </circle>
+
+
+</svg>
