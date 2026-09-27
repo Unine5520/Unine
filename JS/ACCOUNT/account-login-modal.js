@@ -1,248 +1,178 @@
-/* =========================
-   LOGIN ELEMENTS
-========================= */
+/* =========== LOGIN MODAL =========== */
 
-const loginButton =
-  document.getElementById(
-    "U9-page-header-login"
-  );
+#U9-login-modal {
 
+  display: none;
 
-const loginModal =
-  document.getElementById(
-    "U9-login-modal"
-  );
+  position: fixed;
 
+  top: 0;
 
-const loginClose =
-  document.getElementById(
-    "U9-login-modal-close"
-  );
+  left: 0;
 
+  width: 100%;
 
-const loginForm =
-  document.getElementById(
-    "U9-login-form"
-  );
+  height: 100%;
 
+  align-items: center;
 
-/* =========================
-   OPEN LOGIN
-========================= */
+  justify-content: center;
 
-loginButton.addEventListener(
-  "click",
-  () => {
+  background-color: rgba(0, 0, 0, 0.25);
 
-    loginModal.style.display =
-      "flex";
+  backdrop-filter: blur(5px);
 
-  }
-);
+  -webkit-backdrop-filter: blur(5px);
 
+  z-index: 2000;
 
-/* =========================
-   CLOSE LOGIN
-========================= */
+}
 
-loginClose.addEventListener(
-  "click",
-  () => {
 
-    loginModal.style.display =
-      "none";
+/* =========== MODAL CONTENT =========== */
 
-  }
-);
+#U9-login-modal-content {
 
+  position: relative;
 
-/* =========================
-   LOGIN PASSWORD
-   SHOW / HIDE
-========================= */
+  width: 320px;
 
-const loginPassword =
-  document.getElementById(
-    "U9-login-password"
-  );
+  padding: 25px;
 
+  background-color: white;
 
-const loginPasswordToggle =
-  document.getElementById(
-    "U9-login-password-toggle"
-  );
+  border-radius: 12px;
 
+}
 
-loginPasswordToggle.addEventListener(
-  "click",
-  () => {
 
-    if (
-      loginPassword.type ===
-      "password"
-    ) {
+/* =========== MODAL TITLE =========== */
 
-      loginPassword.type =
-        "text";
+#U9-login-modal-content h2 {
 
-      loginPasswordToggle.textContent =
-        "Hide";
+  margin: 0 0 25px 0;
 
-    } else {
+  text-align: center;
 
-      loginPassword.type =
-        "password";
+}
 
-      loginPasswordToggle.textContent =
-        "Show";
 
-    }
+/* =========== FORM =========== */
 
-  }
-);
+#U9-login-form {
 
+  display: flex;
 
-/* =========================
-   LOGIN FORM
-========================= */
+  flex-direction: column;
 
-loginForm.addEventListener(
-  "submit",
-  async (event) => {
+  gap: 8px;
 
-    event.preventDefault();
+}
 
 
-    /* =========================
-       GET FORM DATA
-    ========================= */
+/* =========== INPUT =========== */
 
-    const email =
-      document
-        .getElementById(
-          "U9-login-email"
-        )
-        .value
-        .trim();
+#U9-login-form input {
 
+  width: 100%;
 
-    const password =
-      document
-        .getElementById(
-          "U9-login-password"
-        )
-        .value;
+  height: 40px;
 
+  padding: 0 10px;
 
-    /* =========================
-       LOGIN REQUEST
-    ========================= */
+  border: 1px solid #ccc;
 
-    try {
+  border-radius: 6px;
 
-      const response =
-        await fetch(
-          "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/login",
-          {
-            method: "POST",
+  outline: none;
 
-            credentials: "include",
+  font-size: 14px;
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+}
 
-            body: JSON.stringify({
 
-              email:
-                email,
+/* =========== PASSWORD WRAPPER =========== */
 
-              password:
-                password
+#U9-login-password-wrapper {
 
-            })
+  display: flex;
 
-          }
-        );
+  align-items: center;
 
+  width: 100%;
 
-      const result =
-        await response.json();
+}
 
 
-      /* =========================
-         LOGIN ERROR
-      ========================= */
+#U9-login-password-wrapper input {
 
-      if (!response.ok) {
+  flex: 1;
 
-        alert(
-          result.error ||
-          "Login failed."
-        );
+  min-width: 0;
 
-        return;
+}
 
-      }
 
+/* =========== SHOW / HIDE BUTTON =========== */
 
-      /* =========================
-         LOGIN SUCCESS
-      ========================= */
+#U9-login-password-toggle {
 
-      alert(
-        "Login successful."
-      );
+  height: 40px;
 
+  padding: 0 10px;
 
-      loginForm.reset();
+  border: 1px solid #ccc;
 
+  border-left: none;
 
-      loginModal.style.display =
-        "none";
+  background-color: #f5f5f5;
 
+  cursor: pointer;
 
-      /* =========================
-         SAVE SESSION TOKEN
-      ========================= */
+}
 
-      localStorage.setItem(
-        "u9_session",
-        result.session.token
-      );
 
+/* =========== CLOSE BUTTON =========== */
 
-      /* =========================
-         UPDATE HEADER
-      ========================= */
+#U9-login-modal-close {
 
-      await getCurrentUser();
+  position: absolute;
 
+  top: 10px;
 
-      /* =========================
-         DEBUG
-      ========================= */
+  right: 10px;
 
-      console.log(
-        "Login session:",
-        result.session
-      );
+  width: 30px;
 
+  height: 30px;
 
-    } catch (error) {
+  padding: 0;
 
-      console.error(
-        "Login error:",
-        error
-      );
+  border: none;
 
+  background: none;
 
-      alert(
-        "Unable to connect to the server."
-      );
+  font-size: 24px;
 
-    }
+  cursor: pointer;
 
-  }
-);
+}
+
+
+/* =========== SUBMIT BUTTON =========== */
+
+#U9-login-submit {
+
+  width: 100%;
+
+  height: 40px;
+
+  margin-top: 12px;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+}
