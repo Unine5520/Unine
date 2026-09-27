@@ -1,17 +1,18 @@
 <svg
-  width="233"
-  height="112"
-  viewBox="0 0 233 112"
+  width="243"
+  height="100"
+  viewBox="0 0 243 100"
   xmlns="http://www.w3.org/2000/svg"
+  aria-label="Home"
 >
 
   <text
-    x="116.5"
-    y="74"
+    x="121.5"
+    y="70"
     text-anchor="middle"
     font-family="Arial, sans-serif"
-    font-size="72"
-    font-weight="normal"
+    font-size="80"
+    font-weight="bold"
     fill="#FFFFFF"
     stroke="#000000"
     stroke-width="2"
