@@ -13,7 +13,7 @@ const accountAvatarFrame =
 ========================= */
 
 const loadingFrameSvg =
-  "SVG/test.svg";
+  "SVG/ordinary.svg";
 
 
 if (accountAvatarFrame) {
