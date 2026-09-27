@@ -24,7 +24,7 @@ const accountSettingAccountHeader =
   );
 
 
-const accountSettingSettingHeader =
+const accountEditProfileHeader =
   document.getElementById(
     "U9-account-setting-setting-header"
   );
@@ -76,11 +76,10 @@ const accountAccount =
    SETTING BUTTON
 ========================= */
 
-const accountSettingButton =
+const accountEditProfile =
   document.getElementById(
-    "U9-account-setting-1"
+    "U9-account-edit-profile"
   );
-
 
 /* =========================
    LOGOUT BUTTON
@@ -128,16 +127,14 @@ function showAccountPage() {
    SHOW SETTING PAGE
 ========================= */
 
-function showSettingPage() {
+function showEditProfilePage() {
 
   accountSettingPages.style.transform =
     "translateX(-50%)";
 
-
   accountSettingAccountHeader.classList.add(
     "hidden"
   );
-
 
   accountSettingSettingHeader.classList.add(
     "active"
@@ -341,13 +338,13 @@ accountSettingBack.addEventListener(
    SETTING BUTTON
 ========================= */
 
-accountSettingButton.addEventListener(
+accountEditProfile.addEventListener(
   "click",
   (event) => {
 
     event.stopPropagation();
 
-    showSettingPage();
+    showEditProfilePage();
 
   }
 );
