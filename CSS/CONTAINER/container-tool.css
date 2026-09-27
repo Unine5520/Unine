@@ -710,80 +710,6 @@
 }
 
 
-/* =========== PAGE SVG =========== */
-
-#U9-page-container-tool-pages button img {
-
-  display: block;
-
-  height: auto;
-
-}
-
-
-/* =========== HOME SVG =========== */
-
-#U9-page-container-tool-home img {
-
-  width: 40px;
-
-}
-
-
-/* =========== SHOP SVG =========== */
-
-#U9-page-container-tool-shop-page img {
-
-  width: 38px;
-
-}
-
-
-/* =========== AUCTION SVG =========== */
-
-#U9-page-container-tool-auction img {
-
-  width: 47px;
-
-}
-
-
-/* =========== TEST1 SVG =========== */
-
-#U9-page-container-tool-test1 img {
-
-  width: 40px;
-
-}
-
-
-/* =========== TEST2 SVG =========== */
-
-#U9-page-container-tool-test2 img {
-
-  width: 40px;
-
-}
-
-
-
-
-/* =========== PAGE ACTIVE =========== */
-
-#U9-page-container-tool-pages button.active img {
-
-  filter:
-    brightness(0)
-    saturate(100%)
-    invert(33%)
-    sepia(98%)
-    saturate(2400%)
-    hue-rotate(205deg)
-    brightness(97%)
-    contrast(101%);
-
-}
-
 
 /* =========== PAGE CONTENT =========== */
 
@@ -810,5 +736,52 @@
 #U9-page-test2 {
 
   display: none;
+
+}
+
+/* =========== PAGE BUTTON =========== */
+
+#U9-page-container-tool-pages button {
+
+  height: 40px;
+
+  padding: 0 5px;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  box-shadow: none;
+
+  appearance: none;
+
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #000000;
+
+}
+
+
+/* =========== PAGE ACTIVE =========== */
+
+#U9-page-container-tool-pages button.active {
+
+  color: #0d65f8;
 
 }
