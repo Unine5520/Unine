@@ -18,7 +18,7 @@ const accountAvatarFrame =
    EDIT PROFILE PAGE
 ========================= */
 
-const editProfilePage =
+const accountFrameEditPage =
   document.getElementById(
     "Account-U9-account-edit-profile-page"
   );
@@ -106,9 +106,12 @@ async function loadCurrentFrame() {
             "GET",
 
           headers: {
+
             "Authorization":
               `Bearer ${sessionToken}`
+
           }
+
         }
       );
 
@@ -153,10 +156,6 @@ async function loadCurrentFrame() {
       null;
 
 
-    /*
-     * 初始选择 = 当前 Frame
-     */
-
     selectedFrameType =
       currentFrameType;
 
@@ -178,8 +177,8 @@ async function loadCurrentFrame() {
 
 
     /*
-     * 如果 Frame 数据已经加载
-     * 同步当前选中状态
+     * 如果 Frame 已经加载
+     * 更新选中状态
      */
 
     if (
@@ -192,7 +191,7 @@ async function loadCurrentFrame() {
 
 
     /*
-     * 显示当前头像 Frame
+     * 显示当前 Frame
      */
 
     await loadCurrentFrameImage();
@@ -229,19 +228,21 @@ async function loadCurrentFrameImage() {
     }
 
 
+    /*
+     * 优先从已经加载的数据里面找
+     */
+
     const frame =
       allFrames.find(
         (item) =>
+
           item.type ===
             currentFrameType &&
+
           item.id ===
             currentFrameId
       );
 
-
-    /*
-     * 数据已经在前端
-     */
 
     if (frame) {
 
@@ -653,12 +654,12 @@ function buildAllFrames() {
 
 
 /* =========================
-   CREATE EDIT PROFILE UI
+   CREATE FRAME EDITOR
 ========================= */
 
 function createFrameEditor() {
 
-  if (!editProfilePage) {
+  if (!accountFrameEditPage) {
 
     console.error(
       "Edit Profile Page not found."
@@ -670,10 +671,10 @@ function createFrameEditor() {
 
 
   /*
-   * 清空旧内容
+   * 清空页面
    */
 
-  editProfilePage.innerHTML =
+  accountFrameEditPage.innerHTML =
     "";
 
 
@@ -720,7 +721,7 @@ function createFrameEditor() {
 
 
   /* =========================
-     CONFIRM BUTTON
+     CONFIRM
   ========================= */
 
   const confirmButton =
@@ -749,30 +750,32 @@ function createFrameEditor() {
     title
   );
 
+
   wrapper.appendChild(
     frameList
   );
+
 
   wrapper.appendChild(
     confirmButton
   );
 
 
-  editProfilePage.appendChild(
+  accountFrameEditPage.appendChild(
     wrapper
   );
 
 
-  /*
-   * Render Frame
-   */
+  /* =========================
+     RENDER
+  ========================= */
 
   renderFrameList();
 
 
-  /*
-   * Confirm
-   */
+  /* =========================
+     CONFIRM
+  ========================= */
 
   confirmButton.addEventListener(
     "click",
@@ -808,28 +811,32 @@ function renderFrameList() {
   allFrames.forEach(
     (frame) => {
 
-      const button =
+      /* =========================
+         CARD
+      ========================= */
+
+      const card =
         document.createElement(
           "button"
         );
 
-      button.type =
+      card.type =
         "button";
 
-      button.className =
+      card.className =
         "Account-U9-frame-card";
 
 
-      button.dataset.frameType =
+      card.dataset.frameType =
         frame.type;
 
 
-      button.dataset.frameId =
+      card.dataset.frameId =
         frame.id;
 
 
       /* =========================
-         FRAME IMAGE
+         IMAGE
       ========================= */
 
       const image =
@@ -840,18 +847,21 @@ function renderFrameList() {
       image.className =
         "Account-U9-frame-card-image";
 
+
       image.src =
         frame.svg;
 
+
       image.alt =
         frame.name;
+
 
       image.draggable =
         false;
 
 
       /* =========================
-         FRAME NAME
+         NAME
       ========================= */
 
       const name =
@@ -861,6 +871,7 @@ function renderFrameList() {
 
       name.className =
         "Account-U9-frame-card-name";
+
 
       name.textContent =
         frame.name;
@@ -878,9 +889,10 @@ function renderFrameList() {
       type.className =
         "Account-U9-frame-card-type";
 
+
       type.textContent =
         frame.type ===
-          "default"
+        "default"
           ? "Default"
           : "Free";
 
@@ -897,27 +909,31 @@ function renderFrameList() {
       check.className =
         "Account-U9-frame-card-check";
 
+
       check.textContent =
         "✓";
 
 
       /* =========================
-         CONTENT
+         APPEND
       ========================= */
 
-      button.appendChild(
+      card.appendChild(
         image
       );
 
-      button.appendChild(
+
+      card.appendChild(
         name
       );
 
-      button.appendChild(
+
+      card.appendChild(
         type
       );
 
-      button.appendChild(
+
+      card.appendChild(
         check
       );
 
@@ -926,7 +942,7 @@ function renderFrameList() {
          CLICK
       ========================= */
 
-      button.addEventListener(
+      card.addEventListener(
         "click",
         () => {
 
@@ -940,7 +956,7 @@ function renderFrameList() {
 
 
       frameList.appendChild(
-        button
+        card
       );
 
     }
@@ -1002,8 +1018,10 @@ function updateSelectedFrameUI() {
     (card) => {
 
       const isSelected =
+
         card.dataset.frameType ===
           selectedFrameType &&
+
         card.dataset.frameId ===
           selectedFrameId;
 
@@ -1034,7 +1052,7 @@ function updateSelectedFrameUI() {
 
 
 /* =========================
-   CONFIRM BUTTON
+   UPDATE CONFIRM BUTTON
 ========================= */
 
 function updateConfirmButton() {
@@ -1053,6 +1071,7 @@ function updateConfirmButton() {
 
 
   const hasSelection =
+
     Boolean(
       selectedFrameType &&
       selectedFrameId
@@ -1060,13 +1079,16 @@ function updateConfirmButton() {
 
 
   const isSameAsCurrent =
+
     selectedFrameType ===
       currentFrameType &&
+
     selectedFrameId ===
       currentFrameId;
 
 
   confirmButton.disabled =
+
     !hasSelection ||
     isSameAsCurrent;
 
@@ -1090,14 +1112,17 @@ async function confirmSelectedFrame() {
 
 
   /*
-   * 当前已经是这个 Frame
+   * 已经是当前 Frame
    */
 
   if (
+
     selectedFrameType ===
       currentFrameType &&
+
     selectedFrameId ===
       currentFrameId
+
   ) {
 
     return;
@@ -1131,8 +1156,10 @@ async function confirmSelectedFrame() {
   const selectedFrame =
     allFrames.find(
       (frame) =>
+
         frame.type ===
           selectedFrameType &&
+
         frame.id ===
           selectedFrameId
     );
@@ -1151,18 +1178,20 @@ async function confirmSelectedFrame() {
 
   try {
 
-    /*
-     * Loading
-     */
+    /* =========================
+       LOADING
+    ========================= */
 
     if (confirmButton) {
 
       confirmButton.disabled =
         true;
 
+
       confirmButton.classList.add(
         "loading"
       );
+
 
       confirmButton.textContent =
         "Saving...";
@@ -1178,6 +1207,7 @@ async function confirmSelectedFrame() {
       await fetch(
         equipFrameFunction,
         {
+
           method:
             "POST",
 
@@ -1211,7 +1241,7 @@ async function confirmSelectedFrame() {
 
 
     /* =========================
-       FAILED
+       RESPONSE FAILED
     ========================= */
 
     if (!response.ok) {
@@ -1241,7 +1271,7 @@ async function confirmSelectedFrame() {
 
 
     /* =========================
-       SAVE CURRENT STATE
+       UPDATE CURRENT STATE
     ========================= */
 
     currentFrameType =
@@ -1300,8 +1330,10 @@ async function confirmSelectedFrame() {
         "loading"
       );
 
+
       confirmButton.textContent =
         "Confirm";
+
 
       updateConfirmButton();
 
@@ -1313,12 +1345,20 @@ async function confirmSelectedFrame() {
 
 
 /* =========================
-   LOAD EDIT PROFILE
+   LOAD FRAME EDITOR
 ========================= */
 
 async function loadFrameEditor() {
 
   try {
+
+    /*
+     * 同时读取：
+     *
+     * Default
+     * Free
+     * Current User
+     */
 
     await Promise.all([
 
@@ -1331,12 +1371,16 @@ async function loadFrameEditor() {
     ]);
 
 
+    /* =========================
+       COMBINE
+    ========================= */
+
     buildAllFrames();
 
 
-    /*
-     * 再次同步当前选择
-     */
+    /* =========================
+       CURRENT SELECTION
+    ========================= */
 
     if (
       currentFrameType &&
@@ -1346,11 +1390,16 @@ async function loadFrameEditor() {
       selectedFrameType =
         currentFrameType;
 
+
       selectedFrameId =
         currentFrameId;
 
     }
 
+
+    /* =========================
+       CREATE UI
+    ========================= */
 
     createFrameEditor();
 
@@ -1369,7 +1418,7 @@ async function loadFrameEditor() {
 
 
 /* =========================
-   LOAD
+   START
 ========================= */
 
 loadFrameEditor();
