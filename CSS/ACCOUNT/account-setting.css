@@ -405,6 +405,8 @@
 
 #Account-U9-account-avatar {
 
+  position: relative;
+
   width: 72px;
 
   height: 72px;
@@ -415,24 +417,49 @@
 
   justify-content: center;
 
-  overflow: hidden;
-
-  border-radius: 50%;
-
 }
 
 
-/* =========== AVATAR SVG =========== */
+/* =========== AVATAR IMAGE =========== */
 
-#Account-U9-account-avatar img {
+#Account-U9-account-avatar-image {
 
-  display: block;
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
 
   width: 100%;
 
   height: 100%;
 
   object-fit: cover;
+
+  border-radius: 50%;
+
+  display: block;
+
+}
+
+
+/* =========== AVATAR FRAME =========== */
+
+#Account-U9-account-avatar-frame {
+
+  position: absolute;
+
+  top: 0;
+
+  left: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  pointer-events: none;
 
 }
 
