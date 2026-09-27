@@ -1,4 +1,3 @@
-
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -22,8 +21,14 @@ const accountSettingPages =
 
 
 /* =========================
-   ACCOUNT HEADER
+   HEADERS
 ========================= */
+
+const addFriendPageHeader =
+  document.getElementById(
+    "Account-U9-account-add-friend-page-header"
+  );
+
 
 const accountHeader =
   document.getElementById(
@@ -37,9 +42,15 @@ const accountSettingPageHeader =
   );
 
 
+const accountSettingPageHeaderIcon =
+  document.getElementById(
+    "Account-U9-account-setting-page-header-icon"
+  );
+
+
 
 /* =========================
-   BACK BUTTON
+   BACK BUTTONS
 ========================= */
 
 const accountSettingBack =
@@ -51,6 +62,12 @@ const accountSettingBack =
 const accountSettingPageBack =
   document.getElementById(
     "Account-U9-account-setting-page-back"
+  );
+
+
+const addFriendPageBack =
+  document.getElementById(
+    "Account-U9-account-add-friend-page-back"
   );
 
 
@@ -73,7 +90,7 @@ const accountAccount =
 
 
 /* =========================
-   SETTING BUTTON
+   ACCOUNT BUTTONS
 ========================= */
 
 const accountSettingButton =
@@ -82,42 +99,15 @@ const accountSettingButton =
   );
 
 
-
-/* =========================
-   ADD FRIEND
-========================= */
-
 const accountAddFriend =
   document.getElementById(
     "Account-U9-account-add-friend"
   );
 
 
-
-/* =========================
-   EDIT PROFILE
-========================= */
-
 const accountEditProfile =
   document.getElementById(
     "Account-U9-account-edit-profile"
-  );
-
-
-
-/* =========================
-   EDIT PROFILE MODAL
-========================= */
-
-const accountEditProfileModal =
-  document.getElementById(
-    "U9-account-edit-profile-modal"
-  );
-
-
-const accountEditProfileModalClose =
-  document.getElementById(
-    "U9-account-edit-profile-modal-close"
   );
 
 
@@ -134,21 +124,136 @@ const pageHeader =
 
 
 /* =========================
+   ADD FRIEND PAGE
+========================= */
+
+const addFriendPage =
+  document.getElementById(
+    "Account-U9-account-add-friend-page"
+  );
+
+
+
+/* =========================
+   ACCOUNT PAGE
+========================= */
+
+const accountPage =
+  document.getElementById(
+    "Account-U9-account-page"
+  );
+
+
+
+/* =========================
+   SETTING PAGE
+========================= */
+
+const settingPage =
+  document.getElementById(
+    "Account-U9-account-setting-page"
+  );
+
+
+
+/* =========================
+   EDIT PROFILE PAGE
+========================= */
+
+const editProfilePage =
+  document.getElementById(
+    "Account-U9-account-edit-profile-page"
+  );
+
+
+
+/* =========================
+   HIDE ALL HEADERS
+========================= */
+
+function hideAllHeaders() {
+
+  addFriendPageHeader.classList.remove(
+    "active"
+  );
+
+  addFriendPageHeader.classList.add(
+    "hidden"
+  );
+
+
+  accountHeader.classList.remove(
+    "active"
+  );
+
+  accountHeader.classList.add(
+    "hidden"
+  );
+
+
+  accountSettingPageHeader.classList.remove(
+    "active"
+  );
+
+  accountSettingPageHeader.classList.add(
+    "hidden"
+  );
+
+}
+
+
+
+/* =========================
+   SHOW ADD FRIEND PAGE
+========================= */
+
+function showAddFriendPage() {
+
+  /*
+   * Add Friend 在最左边
+   */
+
+  accountSettingPages.style.transform =
+    "translateX(0)";
+
+
+  hideAllHeaders();
+
+
+  addFriendPageHeader.classList.remove(
+    "hidden"
+  );
+
+  addFriendPageHeader.classList.add(
+    "active"
+  );
+
+}
+
+
+
+/* =========================
    SHOW ACCOUNT PAGE
 ========================= */
 
 function showAccountPage() {
 
+  /*
+   * Account 在第二页
+   */
+
   accountSettingPages.style.transform =
-    "translateX(0)";
+    "translateX(-25%)";
+
+
+  hideAllHeaders();
 
 
   accountHeader.classList.remove(
     "hidden"
   );
 
-
-  accountSettingPageHeader.classList.remove(
+  accountHeader.classList.add(
     "active"
   );
 
@@ -162,18 +267,69 @@ function showAccountPage() {
 
 function showSettingPage() {
 
+  /*
+   * Setting 在第三页
+   */
+
   accountSettingPages.style.transform =
     "translateX(-50%)";
 
 
-  accountHeader.classList.add(
+  hideAllHeaders();
+
+
+  accountSettingPageHeader.classList.remove(
     "hidden"
   );
-
 
   accountSettingPageHeader.classList.add(
     "active"
   );
+
+
+  accountSettingPageHeaderIcon.src =
+    "SVG/setting-header.svg";
+
+
+  accountSettingPageHeaderIcon.alt =
+    "Setting";
+
+}
+
+
+
+/* =========================
+   SHOW EDIT PROFILE PAGE
+========================= */
+
+function showEditProfilePage() {
+
+  /*
+   * Edit Profile 在最右边
+   */
+
+  accountSettingPages.style.transform =
+    "translateX(-75%)";
+
+
+  hideAllHeaders();
+
+
+  accountSettingPageHeader.classList.remove(
+    "hidden"
+  );
+
+  accountSettingPageHeader.classList.add(
+    "active"
+  );
+
+
+  accountSettingPageHeaderIcon.src =
+    "SVG/edit-header.svg";
+
+
+  accountSettingPageHeaderIcon.alt =
+    "Edit Profile";
 
 }
 
@@ -343,7 +499,7 @@ async function loadAccountInfo() {
 
 
 /* =========================
-   OPEN ACCOUNT SETTING
+   USER BUTTON
 ========================= */
 
 userButton.addEventListener(
@@ -377,7 +533,7 @@ userButton.addEventListener(
 
 
 /* =========================
-   CLICK HEADER
+   PAGE HEADER
    CLOSE ACCOUNT SETTING
 ========================= */
 
@@ -419,6 +575,42 @@ accountSettingBack.addEventListener(
 
 
 /* =========================
+   ADD FRIEND
+========================= */
+
+accountAddFriend.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    showAddFriendPage();
+
+  }
+);
+
+
+
+/* =========================
+   ADD FRIEND BACK
+========================= */
+
+addFriendPageBack.addEventListener(
+  "click",
+  (event) => {
+
+    event.stopPropagation();
+
+
+    showAccountPage();
+
+  }
+);
+
+
+
+/* =========================
    SETTING
 ========================= */
 
@@ -437,7 +629,7 @@ accountSettingButton.addEventListener(
 
 
 /* =========================
-   SETTING BACK
+   SETTING / EDIT BACK
 ========================= */
 
 accountSettingPageBack.addEventListener(
@@ -455,22 +647,7 @@ accountSettingPageBack.addEventListener(
 
 
 /* =========================
-   ADD FRIEND
-========================= */
-
-accountAddFriend.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-  }
-);
-
-
-
-/* =========================
-   OPEN EDIT PROFILE MODAL
+   EDIT PROFILE
 ========================= */
 
 accountEditProfile.addEventListener(
@@ -480,72 +657,7 @@ accountEditProfile.addEventListener(
     event.stopPropagation();
 
 
-    if (!accountEditProfileModal) {
-
-      console.error(
-        "Edit Profile Modal not found."
-      );
-
-      return;
-
-    }
-
-
-    /*
-     * 强制显示
-     */
-
-    accountEditProfileModal.style.display =
-      "flex";
-
-
-    /*
-     * 强制定位
-     */
-
-    accountEditProfileModal.style.position =
-      "fixed";
-
-
-    accountEditProfileModal.style.top =
-      "0";
-
-
-    accountEditProfileModal.style.left =
-      "0";
-
-
-    accountEditProfileModal.style.width =
-      "100%";
-
-
-    accountEditProfileModal.style.height =
-      "100%";
-
-
-    accountEditProfileModal.style.alignItems =
-      "center";
-
-
-    accountEditProfileModal.style.justifyContent =
-      "center";
-
-
-    accountEditProfileModal.style.backgroundColor =
-      "rgba(0, 0, 0, 0.25)";
-
-
-    /*
-     * 放到最上层
-     */
-
-    accountEditProfileModal.style.zIndex =
-      "9999";
-
-
-    console.log(
-      "Edit Profile Modal opened."
-    );
+    showEditProfilePage();
 
   }
 );
@@ -553,62 +665,7 @@ accountEditProfile.addEventListener(
 
 
 /* =========================
-   CLOSE EDIT PROFILE MODAL
-========================= */
-
-accountEditProfileModalClose.addEventListener(
-  "click",
-  (event) => {
-
-    event.stopPropagation();
-
-
-    if (!accountEditProfileModal) {
-
-      return;
-
-    }
-
-
-    accountEditProfileModal.style.display =
-      "none";
-
-
-    console.log(
-      "Edit Profile Modal closed."
-    );
-
-  }
-);
-
-
-
-/* =========================
-   EDIT PROFILE MODAL
-   BACKGROUND
-========================= */
-
-accountEditProfileModal.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      event.target ===
-      accountEditProfileModal
-    ) {
-
-      accountEditProfileModal.style.display =
-        "none";
-
-    }
-
-  }
-);
-
-
-
-/* =========================
-   CLICK BACKGROUND
+   CLICK ACCOUNT SETTING BACKGROUND
 ========================= */
 
 accountSetting.addEventListener(
