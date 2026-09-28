@@ -2019,10 +2019,20 @@ async function purchasePaidFrame(
   }
 
 
+  /*
+   * 找到购买弹窗里的 Message
+   */
+
+  const message =
+    document.getElementById(
+      "Account-U9-frame-purchase-message"
+    );
+
+
   try {
 
     /* =========================
-       BUTTON LOADING
+       LOADING
     ========================= */
 
     if (confirmButton) {
@@ -2079,29 +2089,123 @@ async function purchasePaidFrame(
 
 
     /* =========================
-       FAILED
+       BUSINESS ERROR
     ========================= */
 
-    if (!response.ok) {
-
-      console.error(
-        "Purchase failed:",
-        result
-      );
-
-      return;
-
-    }
-
-
     if (
+      !response.ok ||
       !result.success
     ) {
 
+      /*
+       * Coins 不足
+       */
+
+      if (
+        result.message ===
+        "Not enough coins."
+      ) {
+
+        const currentCoins =
+          Number(
+            result.coins || 0
+          );
+
+
+        const requiredCoins =
+          Number(
+            result.required_coins || 0
+          );
+
+
+        if (message) {
+
+          message.textContent =
+            `Not enough Coins. You have ${currentCoins.toFixed(2)} Coins, but you need ${requiredCoins.toFixed(2)} Coins.`;
+
+          message.classList.add(
+            "error"
+          );
+
+        }
+
+
+        return;
+
+      }
+
+
+      /*
+       * 已经购买
+       */
+
+      if (
+        result.message ===
+        "Paid frame already purchased."
+      ) {
+
+        /*
+         * 更新前端 owned
+         */
+
+        const paidFrameIndex =
+          paidFrames.findIndex(
+            (item) =>
+              item.id ===
+              frame.id
+          );
+
+
+        if (
+          paidFrameIndex !==
+          -1
+        ) {
+
+          paidFrames[
+            paidFrameIndex
+          ].owned =
+            true;
+
+        }
+
+
+        buildAllFrames();
+
+        closePurchaseModal();
+
+        renderFrameList();
+
+        console.log(
+          "Paid frame was already purchased."
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * 其他购买错误
+       */
+
+      if (message) {
+
+        message.textContent =
+          result.message ||
+          "Purchase failed.";
+
+        message.classList.add(
+          "error"
+        );
+
+      }
+
+
       console.error(
         "Purchase failed:",
         result
       );
+
 
       return;
 
@@ -2109,7 +2213,7 @@ async function purchasePaidFrame(
 
 
     /* =========================
-       UPDATE PAID FRAME
+       PURCHASE SUCCESS
     ========================= */
 
     const paidFrameIndex =
@@ -2131,6 +2235,16 @@ async function purchasePaidFrame(
         true;
 
     }
+
+
+    /* =========================
+       CURRENT COINS
+    ========================= */
+
+    console.log(
+      "Coins after purchase:",
+      result.coins
+    );
 
 
     /* =========================
@@ -2177,12 +2291,52 @@ async function purchasePaidFrame(
       error
     );
 
+
+    if (message) {
+
+      message.textContent =
+        "Network error. Please try again.";
+
+      message.classList.add(
+        "error"
+      );
+
+    }
+
   }
 
   finally {
 
     purchasingFrame =
       false;
+
+
+    /*
+     * 如果购买成功
+     * Modal 已经关闭
+     *
+     * 如果失败
+     * 恢复 Confirm
+     */
+
+    if (
+      purchaseModal &&
+      confirmButton
+    ) {
+
+      confirmButton.classList.remove(
+        "loading"
+      );
+
+
+      confirmButton.textContent =
+        "Confirm";
+
+
+      confirmButton.disabled =
+        false;
+
+    }
 
   }
 
