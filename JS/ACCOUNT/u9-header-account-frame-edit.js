@@ -19,7 +19,7 @@ const accountAvatarFrame =
 ========================= */
 
 const loadingFrameSvg =
-  "SVG/ordinary.svg";
+  "SSVG/avatar/ordinary.svg";
 
 
 if (accountAvatarFrame) {
