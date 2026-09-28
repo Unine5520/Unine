@@ -182,7 +182,7 @@ let u9AccountCurrentPage =
 ========================= */
 
 const u9AccountFramePlaceholder =
-  "SSVG/ordinary.svg";
+  "SSVG/avatar/ordinary.svg";
 
 
 /* =========================
