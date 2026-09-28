@@ -3,42 +3,23 @@
      height="200"
      viewBox="0 0 200 200">
 
-  <!-- Main Frame -->
+  <defs>
+    <linearGradient id="blueSky"
+                    x1="20" y1="20"
+                    x2="180" y2="180"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#70D6FF"/>
+    </linearGradient>
+  </defs>
+
   <circle
     cx="100"
     cy="100"
     r="82"
     fill="none"
-    stroke="#000000"
-    stroke-width="5"
+    stroke="url(#blueSky)"
+    stroke-width="6"
   />
-
-  <!-- Rotating Cute Dot -->
-  <g>
-
-    <circle
-      cx="100"
-      cy="13"
-      r="7"
-      fill="#000000"
-    />
-
-    <circle
-      cx="100"
-      cy="13"
-      r="3"
-      fill="#FFFFFF"
-    />
-
-    <animateTransform
-      attributeName="transform"
-      type="rotate"
-      from="0 100 100"
-      to="360 100 100"
-      dur="3s"
-      repeatCount="indefinite"
-    />
-
-  </g>
 
 </svg>
