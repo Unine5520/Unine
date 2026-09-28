@@ -30,8 +30,7 @@
 
 }
 
-
-/* =========== NORMAL TOOL =========== */
+/* =========== NORMAL-PAGE =========== */
 
 #U9-page-container-tool-normal {
 
@@ -88,55 +87,104 @@
 
 }
 
+/* =========== MENU ICON =========== */
 
-/* =========== MENU OPEN =========== */
+#U9-page-container-tool-menu {
 
-#U9-page-container-tool.menu-open #U9-page-container-tool-normal {
+  display: flex;
 
-  transform: translateX(
-    calc(100% - 40px)
-  );
+  align-items: center;
 
-}
-
-
-#U9-page-container-tool.menu-open #U9-page-container-tool-pages {
-
-  transform: translateX(0);
+  justify-content: center;
 
 }
 
+#U9-page-container-tool-menu img {
 
-/* =========== TOOL BUTTON =========== */
+  display: block;
 
-#U9-page-container-tool-menu,
+  width: 18px;
 
-#U9-page-container-tool-message,
+  height: 18px;
 
-#U9-page-container-tool-inbox,
+  max-width: 18px;
 
-#U9-page-container-tool-gift,
+  max-height: 18px;
 
-#U9-page-container-tool-history {
+  object-fit: contain;
 
-  width: 40px;
-
-  min-width: 40px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  cursor: pointer;
+  flex: 0 0 18px;
 
 }
 
+/* =========== MENU HEARTBEAT =========== */
+
+#U9-page-container-tool-menu.menu-heartbeat img {
+
+  animation:
+    menu-heartbeat 2.2s ease-in-out 1;
+
+}
+
+@keyframes menu-heartbeat {
+
+  0% {
+
+    transform:
+      scale(1);
+
+  }
+
+  10% {
+
+    transform:
+      scale(1.2);
+
+  }
+
+  20% {
+
+    transform:
+      scale(1);
+
+  }
+
+  30% {
+
+    transform:
+      scale(1.2);
+
+  }
+
+  40% {
+
+    transform:
+      scale(1);
+
+  }
+
+  50% {
+
+    transform:
+      scale(1.2);
+
+  }
+
+  60% {
+
+    transform:
+      scale(1);
+
+  }
+
+  100% {
+
+    transform:
+      scale(1);
+
+  }
+
+}
 
 /* =========== SEARCH CONTAINER =========== */
 
@@ -162,6 +210,25 @@
 
 }
 
+/* =========== SEARCH INPUT =========== */
+
+#U9-page-container-tool-search-input {
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 100%;
+
+  padding: 0 10px;
+
+  border: none;
+
+  outline: none;
+
+  background-color: white;
+
+}
 
 /* =========== SEARCH BUTTON =========== */
 
@@ -195,158 +262,61 @@
 
 }
 
+/* =========== SEARCH ICON =========== */
 
-#U9-page-container-tool-search-button.search-effect svg {
+#U9-page-container-tool-search-button img {
+
+  display: block;
+
+  width: 16px;
+
+  height: 16px;
+
+  max-width: 16px;
+
+  max-height: 16px;
+
+  object-fit: contain;
+
+  flex: 0 0 16px;
+
+}
+
+/* =========== SEARCH EFFECT =========== */
+
+#U9-page-container-tool-search-button.search-effect img {
 
   animation:
     search-effect 1.2s ease-in-out 1;
 
 }
 
+/* =========== SEARCH EFFECT ANIMATION =========== */
 
 @keyframes search-effect {
 
   0% {
 
-    transform: scale(1);
+    transform:
+      scale(1);
 
   }
 
   35% {
 
-    transform: scale(1.35);
+    transform:
+      scale(1.35);
 
   }
 
   100% {
 
-    transform: scale(1);
+    transform:
+      scale(1);
 
   }
 
 }
-
-
-/* =========== SEARCH INPUT =========== */
-
-#U9-page-container-tool-search-input {
-
-  flex: 1;
-
-  min-width: 0;
-
-  height: 100%;
-
-  padding: 0 10px;
-
-  border: none;
-
-  outline: none;
-
-  background-color: white;
-
-}
-
-
-/* =========== MENU ICON =========== */
-
-#U9-page-container-tool-menu {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-#U9-page-container-tool-menu svg {
-
-  width: 18px;
-
-  height: 18px;
-
-  fill: currentColor;
-
-}
-
-
-/* =========== MENU HEARTBEAT =========== */
-
-#U9-page-container-tool-menu.menu-heartbeat svg {
-
-  animation:
-    menu-heartbeat 2.2s ease-in-out 1;
-
-}
-
-
-@keyframes menu-heartbeat {
-
-  0% {
-
-    transform: scale(1);
-
-  }
-
-  10% {
-
-    transform: scale(1.2);
-
-  }
-
-  20% {
-
-    transform: scale(1);
-
-  }
-
-  30% {
-
-    transform: scale(1.2);
-
-  }
-
-  40% {
-
-    transform: scale(1);
-
-  }
-
-  50% {
-
-    transform: scale(1.2);
-
-  }
-
-  60% {
-
-    transform: scale(1);
-
-  }
-
-  100% {
-
-    transform: scale(1);
-
-  }
-
-}
-
-
-/* =========== SEARCH ICON =========== */
-
-#U9-page-container-tool-search-button svg {
-
-  width: 16px;
-
-  height: 16px;
-
-  fill: currentColor;
-
-}
-
 
 /* =========== MESSAGE ICON =========== */
 
@@ -360,23 +330,34 @@
 
 }
 
+#U9-page-container-tool-message img {
 
-#U9-page-container-tool-message svg {
+  display: block;
 
   width: 18px;
 
   height: 18px;
 
+  max-width: 18px;
+
+  max-height: 18px;
+
+  object-fit: contain;
+
+  flex: 0 0 18px;
+
 }
 
+/* =========== MESSAGE BOUNCE =========== */
 
-#U9-page-container-tool-message.message-bounce svg {
+#U9-page-container-tool-message.message-bounce img {
 
   animation:
     message-bounce 0.7s ease-in-out 1;
 
 }
 
+/* =========== MESSAGE BOUNCE ANIMATION =========== */
 
 @keyframes message-bounce {
 
@@ -438,7 +419,6 @@
 
 }
 
-
 /* =========== INBOX ICON =========== */
 
 #U9-page-container-tool-inbox {
@@ -451,25 +431,34 @@
 
 }
 
+#U9-page-container-tool-inbox img {
 
-#U9-page-container-tool-inbox svg {
+  display: block;
 
   width: 18px;
 
   height: 18px;
 
-  fill: currentColor;
+  max-width: 18px;
+
+  max-height: 18px;
+
+  object-fit: contain;
+
+  flex: 0 0 18px;
 
 }
 
+/* =========== INBOX SHAKE =========== */
 
-#U9-page-container-tool-inbox.inbox-shake svg {
+#U9-page-container-tool-inbox.inbox-shake img {
 
   animation:
     inbox-shake 0.8s ease-in-out 1;
 
 }
 
+/* =========== INBOX SHAKE ANIMATION =========== */
 
 @keyframes inbox-shake {
 
@@ -531,7 +520,6 @@
 
 }
 
-
 /* =========== GIFT ICON =========== */
 
 #U9-page-container-tool-gift {
@@ -544,25 +532,34 @@
 
 }
 
+#U9-page-container-tool-gift img {
 
-#U9-page-container-tool-gift svg {
+  display: block;
 
   width: 18px;
 
   height: 17px;
 
-  fill: currentColor;
+  max-width: 18px;
+
+  max-height: 17px;
+
+  object-fit: contain;
+
+  flex: 0 0 auto;
 
 }
 
+/* =========== GIFT BOUNCE =========== */
 
-#U9-page-container-tool-gift.gift-bounce svg {
+#U9-page-container-tool-gift.gift-bounce img {
 
   animation:
     gift-bounce 0.8s ease-in-out 1;
 
 }
 
+/* =========== GIFT BOUNCE ANIMATION =========== */
 
 @keyframes gift-bounce {
 
@@ -616,7 +613,6 @@
 
 }
 
-
 /* =========== HISTORY ICON =========== */
 
 #U9-page-container-tool-history {
@@ -629,25 +625,34 @@
 
 }
 
+#U9-page-container-tool-history img {
 
-#U9-page-container-tool-history svg {
+  display: block;
 
   width: 21px;
 
   height: 21px;
 
-  fill: currentColor;
+  max-width: 21px;
+
+  max-height: 21px;
+
+  object-fit: contain;
+
+  flex: 0 0 21px;
 
 }
 
+/* =========== HISTORY SHAKE =========== */
 
-#U9-page-container-tool-history.history-shake svg {
+#U9-page-container-tool-history.history-shake img {
 
   animation:
     history-shake 0.8s ease-in-out 1;
 
 }
 
+/* =========== HISTORY SHAKE ANIMATION =========== */
 
 @keyframes history-shake {
 
@@ -709,7 +714,63 @@
 
 }
 
+/* =========== NEW BUTTON =========== */
 
+#U9-page-container-tool-new img {
+
+  display: block;
+
+  width: 17px;
+
+  height: 17px;
+
+}
+
+/* =========== MENU OPEN =========== */
+
+#U9-page-container-tool.menu-open #U9-page-container-tool-normal {
+
+  transform: translateX(
+    calc(100% - 40px)
+  );
+
+}
+
+#U9-page-container-tool.menu-open #U9-page-container-tool-pages {
+
+  transform: translateX(0);
+
+}
+
+/* =========== TOOL BUTTON =========== */
+
+#U9-page-container-tool-menu,
+
+#U9-page-container-tool-message,
+
+#U9-page-container-tool-inbox,
+
+#U9-page-container-tool-gift,
+
+#U9-page-container-tool-history {
+
+  width: 40px;
+
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 30%;
+
+  background-color: white;
+
+  cursor: pointer;
+
+}
 
 /* =========== PAGE CONTENT =========== */
 
@@ -725,7 +786,6 @@
     calc(100vh - 115px);
 
 }
-
 
 #U9-page-shop,
 
@@ -777,23 +837,10 @@
 
 }
 
-
 /* =========== PAGE ACTIVE =========== */
 
 #U9-page-container-tool-pages button.active {
 
   color: #1b67ea;
-
-}
-
-/* =========== NEW BUTTON =========== */
-
-#U9-page-container-tool-new img {
-
-  display: block;
-
-  width: 17px;
-
-  height: 17px;
 
 }
