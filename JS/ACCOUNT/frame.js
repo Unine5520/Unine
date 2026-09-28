@@ -1,3 +1,9 @@
+
+/* =========================
+   AVATAR FRAME
+========================= */
+
+
 /* =========================
    AVATAR FRAME
 ========================= */
@@ -50,8 +56,16 @@ const freeFrameFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-free";
 
 
+const paidFrameFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-paid";
+
+
 const equipFrameFunction =
   "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-equip";
+
+
+const paidFramePurchaseFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-frame-paid-purchase";
 
 
 /* =========================
@@ -80,7 +94,23 @@ let defaultFrames = [];
 
 let freeFrames = [];
 
+let paidFrames = [];
+
 let allFrames = [];
+
+
+/* =========================
+   PURCHASE MODAL
+========================= */
+
+let purchaseModal = null;
+
+
+/* =========================
+   PURCHASE PROCESS
+========================= */
+
+let purchasingFrame = false;
 
 
 /* =========================
@@ -310,7 +340,7 @@ async function loadCurrentFrameImage() {
     ) {
 
       console.log(
-        "Paid frame loading will be added later."
+        "Current paid frame is waiting for paid frame data."
       );
 
     }
@@ -641,6 +671,136 @@ async function loadFreeFrames() {
 
 
 /* =========================
+   LOAD PAID FRAMES
+========================= */
+
+async function loadPaidFrames() {
+
+  try {
+
+    const sessionToken =
+      localStorage.getItem(
+        "u9_session"
+      );
+
+
+    if (!sessionToken) {
+
+      console.error(
+        "No session found."
+      );
+
+      return;
+
+    }
+
+
+    const response =
+      await fetch(
+        paidFrameFunction,
+        {
+          method:
+            "GET",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`
+
+          }
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      console.error(
+        "Failed to load paid frames."
+      );
+
+      return;
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !result.success
+    ) {
+
+      console.error(
+        "Failed to load paid frames:",
+        result
+      );
+
+      return;
+
+    }
+
+
+    paidFrames =
+      (
+        result.frames ||
+        []
+      )
+      .filter(
+        (frame) =>
+          frame.is_active !== false
+      )
+      .map(
+        (frame) => ({
+
+          id:
+            frame.id,
+
+          name:
+            frame.name,
+
+          svg:
+            frame.svg,
+
+          coins_price:
+            Number(
+              frame.coins_price || 0
+            ),
+
+          is_active:
+            frame.is_active,
+
+          owned:
+            frame.owned === true,
+
+          type:
+            "paid"
+
+        })
+      );
+
+
+    console.log(
+      "Paid frames loaded:",
+      paidFrames
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load paid frames:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
    COMBINE FRAME DATA
 ========================= */
 
@@ -650,7 +810,9 @@ function buildAllFrames() {
 
     ...defaultFrames,
 
-    ...freeFrames
+    ...freeFrames,
+
+    ...paidFrames
 
   ];
 
@@ -830,8 +992,10 @@ function renderFrameList() {
           "button"
         );
 
+
       card.type =
         "button";
+
 
       card.className =
         "Account-U9-frame-card";
@@ -846,6 +1010,23 @@ function renderFrameList() {
 
 
       /* =========================
+         PAID OWNERSHIP
+      ========================= */
+
+      if (
+        frame.type ===
+        "paid"
+      ) {
+
+        card.dataset.owned =
+          frame.owned
+            ? "true"
+            : "false";
+
+      }
+
+
+      /* =========================
          IMAGE
       ========================= */
 
@@ -853,6 +1034,7 @@ function renderFrameList() {
         document.createElement(
           "img"
         );
+
 
       image.className =
         "Account-U9-frame-card-image";
@@ -879,6 +1061,7 @@ function renderFrameList() {
           "span"
         );
 
+
       name.className =
         "Account-U9-frame-card-name";
 
@@ -896,15 +1079,42 @@ function renderFrameList() {
           "span"
         );
 
+
       type.className =
         "Account-U9-frame-card-type";
 
 
-      type.textContent =
+      if (
         frame.type ===
         "default"
-          ? "Default"
-          : "Free";
+      ) {
+
+        type.textContent =
+          "Default";
+
+      }
+
+      else if (
+        frame.type ===
+        "free"
+      ) {
+
+        type.textContent =
+          "Free";
+
+      }
+
+      else if (
+        frame.type ===
+        "paid"
+      ) {
+
+        type.textContent =
+          frame.owned
+            ? "Owned"
+            : `${frame.coins_price} Coins`;
+
+      }
 
 
       /* =========================
@@ -916,12 +1126,52 @@ function renderFrameList() {
           "span"
         );
 
+
       check.className =
         "Account-U9-frame-card-check";
 
 
       check.textContent =
         "✓";
+
+
+      /* =========================
+         PAID LOCK
+      ========================= */
+
+      let lock = null;
+
+
+      if (
+        frame.type ===
+          "paid" &&
+        !frame.owned
+      ) {
+
+        card.classList.add(
+          "locked"
+        );
+
+
+        lock =
+          document.createElement(
+            "span"
+          );
+
+
+        lock.className =
+          "Account-U9-frame-card-lock";
+
+
+        lock.textContent =
+          "🔒";
+
+
+        card.appendChild(
+          lock
+        );
+
+      }
 
 
       /* =========================
@@ -955,6 +1205,31 @@ function renderFrameList() {
       card.addEventListener(
         "click",
         () => {
+
+          /*
+           * Paid + 未购买
+           * 打开购买弹窗
+           */
+
+          if (
+            frame.type ===
+              "paid" &&
+            !frame.owned
+          ) {
+
+            openPurchaseModal(
+              frame
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * 已购买 / Default / Free
+           * 正常选择
+           */
 
           selectFrame(
             frame.type,
@@ -1355,6 +1630,566 @@ async function confirmSelectedFrame() {
 
 
 /* =========================
+   OPEN PURCHASE MODAL
+========================= */
+
+function openPurchaseModal(
+  frame
+) {
+
+  if (
+    purchasingFrame
+  ) {
+
+    return;
+
+  }
+
+
+  closePurchaseModal();
+
+
+  /* =========================
+     OVERLAY
+  ========================= */
+
+  const overlay =
+    document.createElement(
+      "div"
+    );
+
+
+  overlay.id =
+    "Account-U9-frame-purchase-modal";
+
+
+  /* =========================
+     CONTENT
+  ========================= */
+
+  const content =
+    document.createElement(
+      "div"
+    );
+
+
+  content.id =
+    "Account-U9-frame-purchase-content";
+
+
+  /* =========================
+     TITLE
+  ========================= */
+
+  const title =
+    document.createElement(
+      "div"
+    );
+
+
+  title.id =
+    "Account-U9-frame-purchase-title";
+
+
+  title.textContent =
+    "Purchase Frame";
+
+
+  /* =========================
+     FRAME IMAGE
+  ========================= */
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.id =
+    "Account-U9-frame-purchase-image";
+
+
+  image.src =
+    frame.svg;
+
+
+  image.alt =
+    frame.name;
+
+
+  image.draggable =
+    false;
+
+
+  /* =========================
+     FRAME NAME
+  ========================= */
+
+  const name =
+    document.createElement(
+      "div"
+    );
+
+
+  name.id =
+    "Account-U9-frame-purchase-name";
+
+
+  name.textContent =
+    frame.name;
+
+
+  /* =========================
+     PRICE
+  ========================= */
+
+  const price =
+    document.createElement(
+      "div"
+    );
+
+
+  price.id =
+    "Account-U9-frame-purchase-price";
+
+
+  price.textContent =
+    `${frame.coins_price} Coins`;
+
+
+  /* =========================
+     MESSAGE
+  ========================= */
+
+  const message =
+    document.createElement(
+      "div"
+    );
+
+
+  message.id =
+    "Account-U9-frame-purchase-message";
+
+
+  message.textContent =
+    `Purchase ${frame.name} for ${frame.coins_price} Coins?`;
+
+
+  /* =========================
+     ACTIONS
+  ========================= */
+
+  const actions =
+    document.createElement(
+      "div"
+    );
+
+
+  actions.id =
+    "Account-U9-frame-purchase-actions";
+
+
+  /* =========================
+     CANCEL
+  ========================= */
+
+  const cancelButton =
+    document.createElement(
+      "button"
+    );
+
+
+  cancelButton.id =
+    "Account-U9-frame-purchase-cancel";
+
+
+  cancelButton.type =
+    "button";
+
+
+  cancelButton.textContent =
+    "Cancel";
+
+
+  /* =========================
+     CONFIRM
+  ========================= */
+
+  const confirmButton =
+    document.createElement(
+      "button"
+    );
+
+
+  confirmButton.id =
+    "Account-U9-frame-purchase-confirm";
+
+
+  confirmButton.type =
+    "button";
+
+
+  confirmButton.textContent =
+    "Confirm";
+
+
+  /* =========================
+     APPEND ACTIONS
+  ========================= */
+
+  actions.appendChild(
+    cancelButton
+  );
+
+
+  actions.appendChild(
+    confirmButton
+  );
+
+
+  /* =========================
+     APPEND CONTENT
+  ========================= */
+
+  content.appendChild(
+    title
+  );
+
+
+  content.appendChild(
+    image
+  );
+
+
+  content.appendChild(
+    name
+  );
+
+
+  content.appendChild(
+    price
+  );
+
+
+  content.appendChild(
+    message
+  );
+
+
+  content.appendChild(
+    actions
+  );
+
+
+  overlay.appendChild(
+    content
+  );
+
+
+  document.body.appendChild(
+    overlay
+  );
+
+
+  purchaseModal =
+    overlay;
+
+
+  /* =========================
+     CANCEL
+  ========================= */
+
+  cancelButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      closePurchaseModal();
+
+    }
+  );
+
+
+  /* =========================
+     CONFIRM
+  ========================= */
+
+  confirmButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
+
+      purchasePaidFrame(
+        frame,
+        confirmButton
+      );
+
+    }
+  );
+
+
+  /* =========================
+     BACKGROUND
+  ========================= */
+
+  overlay.addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target ===
+        overlay
+      ) {
+
+        closePurchaseModal();
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   CLOSE PURCHASE MODAL
+========================= */
+
+function closePurchaseModal() {
+
+  if (
+    purchaseModal
+  ) {
+
+    purchaseModal.remove();
+
+    purchaseModal =
+      null;
+
+  }
+
+
+  purchasingFrame =
+    false;
+
+}
+
+
+/* =========================
+   PURCHASE PAID FRAME
+========================= */
+
+async function purchasePaidFrame(
+  frame,
+  confirmButton
+) {
+
+  if (
+    purchasingFrame
+  ) {
+
+    return;
+
+  }
+
+
+  purchasingFrame =
+    true;
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (!sessionToken) {
+
+    console.error(
+      "No session found."
+    );
+
+    purchasingFrame =
+      false;
+
+    return;
+
+  }
+
+
+  try {
+
+    /* =========================
+       BUTTON LOADING
+    ========================= */
+
+    if (confirmButton) {
+
+      confirmButton.disabled =
+        true;
+
+      confirmButton.textContent =
+        "Purchasing...";
+
+      confirmButton.classList.add(
+        "loading"
+      );
+
+    }
+
+
+    /* =========================
+       REQUEST
+    ========================= */
+
+    const response =
+      await fetch(
+        paidFramePurchaseFunction,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              frame_id:
+                frame.id
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    /* =========================
+       FAILED
+    ========================= */
+
+    if (!response.ok) {
+
+      console.error(
+        "Purchase failed:",
+        result
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !result.success
+    ) {
+
+      console.error(
+        "Purchase failed:",
+        result
+      );
+
+      return;
+
+    }
+
+
+    /* =========================
+       UPDATE PAID FRAME
+    ========================= */
+
+    const paidFrameIndex =
+      paidFrames.findIndex(
+        (item) =>
+          item.id ===
+          frame.id
+      );
+
+
+    if (
+      paidFrameIndex !==
+      -1
+    ) {
+
+      paidFrames[
+        paidFrameIndex
+      ].owned =
+        true;
+
+    }
+
+
+    /* =========================
+       REBUILD DATA
+    ========================= */
+
+    buildAllFrames();
+
+
+    /* =========================
+       CLOSE MODAL
+    ========================= */
+
+    closePurchaseModal();
+
+
+    /* =========================
+       RENDER
+    ========================= */
+
+    renderFrameList();
+
+
+    console.log(
+      "Paid frame purchased successfully:",
+      {
+        id:
+          frame.id,
+
+        name:
+          frame.name,
+
+        coins:
+          result.coins
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to purchase paid frame:",
+      error
+    );
+
+  }
+
+  finally {
+
+    purchasingFrame =
+      false;
+
+  }
+
+}
+
+
+/* =========================
    LOAD FRAME EDITOR
 ========================= */
 
@@ -1367,6 +2202,7 @@ async function loadFrameEditor() {
      *
      * Default
      * Free
+     * Paid
      * Current User
      */
 
@@ -1375,6 +2211,8 @@ async function loadFrameEditor() {
       loadDefaultFrames(),
 
       loadFreeFrames(),
+
+      loadPaidFrames(),
 
       loadCurrentFrame()
 
@@ -1405,6 +2243,21 @@ async function loadFrameEditor() {
         currentFrameId;
 
     }
+
+
+    /* =========================
+       LOAD CURRENT IMAGE AGAIN
+    ========================= */
+
+    /*
+     * Promise.all 完成以后
+     * allFrames 已经存在
+     *
+     * 如果当前是 Paid Frame
+     * 这里可以找到它
+     */
+
+    await loadCurrentFrameImage();
 
 
     /* =========================
