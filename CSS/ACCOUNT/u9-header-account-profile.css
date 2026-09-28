@@ -1,1 +1,528 @@
+/* =========================
+   U9 HEADER ACCOUNT PROFILE
+========================= */
 
+
+/* =========================
+   ACCOUNT SETTING PAGES
+========================= */
+
+#Account-U9-account-setting-pages {
+
+  width: 500%;
+
+  height: calc(100% - 52px);
+
+  display: flex;
+
+  transition:
+    transform 0.35s ease;
+
+}
+
+
+/* =========================
+   ALL PAGES
+========================= */
+
+#Account-U9-account-add-friend-page,
+
+#Account-U9-account-page,
+
+#Account-U9-account-setting-page,
+
+#Account-U9-account-edit-page,
+
+#Account-U9-account-edit-profile-page {
+
+  width: 20%;
+
+  min-width: 20%;
+
+  height: 100%;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========================
+   ADD FRIEND PAGE
+========================= */
+
+#Account-U9-account-add-friend-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================
+   ACCOUNT PAGE
+========================= */
+
+#Account-U9-account-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================
+   SETTING PAGE
+========================= */
+
+#Account-U9-account-setting-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================
+   ACCOUNT EDIT PAGE
+========================= */
+
+#Account-U9-account-edit-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================
+   FRAME EDIT PAGE
+========================= */
+
+#Account-U9-account-edit-profile-page {
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+}
+
+
+/* =========================
+   ACCOUNT ACTIONS
+========================= */
+
+#Account-U9-account-actions {
+
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  width: 100%;
+
+  height: auto;
+
+  padding: 10px;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========================
+   ADD FRIEND BUTTON
+========================= */
+
+#Account-U9-account-add-friend {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================
+   RIGHT ACTIONS
+========================= */
+
+#Account-U9-account-right-actions {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 2px;
+
+}
+
+
+/* =========================
+   SETTING BUTTON
+========================= */
+
+#Account-U9-account-setting-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================
+   EDIT PROFILE BUTTON
+========================= */
+
+#Account-U9-account-edit-profile {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: none;
+
+  cursor: pointer;
+
+}
+
+
+/* =========================
+   ACTION SVG / IMG
+========================= */
+
+#Account-U9-account-add-friend img,
+
+#Account-U9-account-setting-button img,
+
+#Account-U9-account-edit-profile img {
+
+  display: block;
+
+  width: 22px;
+
+  height: 22px;
+
+}
+
+
+/* =========================
+   BUTTON INTERACTION
+========================= */
+
+#Account-U9-account-add-friend:active,
+
+#Account-U9-account-setting-button:active,
+
+#Account-U9-account-edit-profile:active {
+
+  transform: scale(0.94);
+
+}
+
+
+/* =========================
+   ACCOUNT PROFILE
+========================= */
+
+#Account-U9-account-profile {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  width: 100%;
+
+  padding: 10px 10px 20px;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+#Account-U9-account-avatar {
+
+  position: relative;
+
+  width: 72px;
+
+  height: 72px;
+
+  margin: 0 auto;
+
+  flex: 0 0 72px;
+
+}
+
+
+/* =========================
+   AVATAR IMAGE
+========================= */
+
+#Account-U9-account-avatar-image {
+
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  width: 72px;
+
+  height: 72px;
+
+  transform: translate(
+    -50%,
+    -50%
+  );
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  display: block;
+
+}
+
+
+/* =========================
+   AVATAR FRAME
+========================= */
+
+#Account-U9-account-avatar-frame {
+
+  position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  width: 90px;
+
+  height: 90px;
+
+  transform: translate(
+    -50%,
+    -50%
+  );
+
+  display: block;
+
+  pointer-events: none;
+
+  object-fit: contain;
+
+}
+
+
+/* =========================
+   USERNAME
+========================= */
+
+#Account-U9-account-username {
+
+  margin-top: 10px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  color: #111111;
+
+}
+
+
+/* =========================
+   ACCOUNT
+========================= */
+
+#Account-U9-account-account {
+
+  margin-top: 4px;
+
+  font-size: 13px;
+
+  color: #777777;
+
+}
+
+
+/* =========================
+   FUTURE CONTENT
+========================= */
+
+#Account-U9-account-setting-future {
+
+  flex: 1;
+
+}
+
+
+/* =========================
+   ACCOUNT EDIT BUTTON
+========================= */
+
+#Account-U9-account-frame-edit {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: calc(100% - 40px);
+
+  min-height: 44px;
+
+  margin: 20px;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background-color: #71a6ff;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+
+}
+
+
+/* =========================
+   ACCOUNT EDIT BUTTON ACTIVE
+========================= */
+
+#Account-U9-account-frame-edit:active {
+
+  transform: scale(0.98);
+
+}
+
+
+/* =========================
+   ACCOUNT EDIT BUTTON DISABLED
+========================= */
+
+#Account-U9-account-frame-edit:disabled {
+
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (
+  max-width: 480px
+) {
+
+  #Account-U9-account-actions {
+
+    padding: 8px;
+
+  }
+
+
+  #Account-U9-account-profile {
+
+    padding:
+      8px
+      8px
+      18px;
+
+  }
+
+
+  #Account-U9-account-frame-edit {
+
+    width: calc(100% - 32px);
+
+    margin: 16px;
+
+  }
+
+}
