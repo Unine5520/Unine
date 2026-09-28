@@ -1,3 +1,4 @@
+
 /* =========================
    U9 HEADER ACCOUNT SETTING
 ========================= */
@@ -14,7 +15,17 @@ const u9AccountLogout =
 
 
 /* =========================
-   LOGOUT
+   LOGOUT CONFIRM MODAL
+========================= */
+
+const u9LogoutModal =
+  document.getElementById(
+    "U9-account-logout"
+  );
+
+
+/* =========================
+   SETTING LOGOUT BUTTON
 ========================= */
 
 if (u9AccountLogout) {
@@ -26,20 +37,30 @@ if (u9AccountLogout) {
       event.stopPropagation();
 
 
-      /* =========================
-         REMOVE SESSION
-      ========================= */
+      /*
+       * Close Account Setting
+       */
 
-      localStorage.removeItem(
-        "u9_session"
-      );
+      if (
+        typeof closeAccountSetting ===
+        "function"
+      ) {
+
+        closeAccountSetting();
+
+      }
 
 
-      /* =========================
-         RELOAD PAGE
-      ========================= */
+      /*
+       * Open Logout Confirm Modal
+       */
 
-      window.location.reload();
+      if (u9LogoutModal) {
+
+        u9LogoutModal.style.display =
+          "flex";
+
+      }
 
     }
   );
