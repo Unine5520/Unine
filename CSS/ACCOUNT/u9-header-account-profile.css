@@ -1,3 +1,4 @@
+
 /* =========================
    U9 HEADER ACCOUNT PROFILE
 ========================= */
@@ -296,7 +297,7 @@
 
   width: 100%;
 
-  padding: 10px 10px 20px;
+  padding: 20px 10px 30px;
 
   box-sizing: border-box;
 
@@ -304,20 +305,20 @@
 
 
 /* =========================
-   AVATAR
+   AVATAR CONTAINER
 ========================= */
 
 #Account-U9-account-avatar {
 
   position: relative;
 
-  width: 72px;
+  width: 130px;
 
-  height: 72px;
+  height: 130px;
 
   margin: 0 auto;
 
-  flex: 0 0 72px;
+  flex: 0 0 130px;
 
 }
 
@@ -338,10 +339,11 @@
 
   height: 105px;
 
-  transform: translate(
-    -50%,
-    -50%
-  );
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
   object-fit: cover;
 
@@ -368,10 +370,11 @@
 
   height: 130px;
 
-  transform: translate(
-    -50%,
-    -50%
-  );
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
   display: block;
 
@@ -388,13 +391,17 @@
 
 #Account-U9-account-username {
 
-  margin-top: 30px;
+  margin-top: 14px;
 
   font-size: 26px;
 
   font-weight: 600;
 
+  line-height: 1.2;
+
   color: #111111;
+
+  text-align: center;
 
 }
 
@@ -405,11 +412,15 @@
 
 #Account-U9-account-account {
 
-  margin-top: 4px;
+  margin-top: 6px;
 
   font-size: 13px;
 
+  line-height: 1.2;
+
   color: #777777;
+
+  text-align: center;
 
 }
 
@@ -510,9 +521,9 @@
   #Account-U9-account-profile {
 
     padding:
-      25px
+      20px
       8px
-      18px;
+      24px;
 
   }
 
