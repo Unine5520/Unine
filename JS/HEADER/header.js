@@ -1,4 +1,3 @@
-
 /* =========================
    U9 HEADER
 ========================= */
@@ -46,13 +45,13 @@ const accountSettingBack =
    REGISTER / LOGIN
 ========================= */
 
-const registerButton =
+const u9HeaderRegisterButton =
   document.getElementById(
     "U9-page-header-register"
   );
 
 
-const loginButton =
+const u9HeaderLoginButton =
   document.getElementById(
     "U9-page-header-login"
   );
@@ -82,11 +81,11 @@ async function getCurrentUser() {
 
     if (!sessionToken) {
 
-      registerButton.style.display =
+      u9HeaderRegisterButton.style.display =
         "block";
 
 
-      loginButton.style.display =
+      u9HeaderLoginButton.style.display =
         "block";
 
 
@@ -140,11 +139,11 @@ async function getCurrentUser() {
 
     if (!response.ok) {
 
-      registerButton.style.display =
+      u9HeaderRegisterButton.style.display =
         "block";
 
 
-      loginButton.style.display =
+      u9HeaderLoginButton.style.display =
         "block";
 
 
@@ -184,11 +183,11 @@ async function getCurrentUser() {
          HIDE REGISTER / LOGIN
       ========================= */
 
-      registerButton.style.display =
+      u9HeaderRegisterButton.style.display =
         "none";
 
 
-      loginButton.style.display =
+      u9HeaderLoginButton.style.display =
         "none";
 
 
@@ -245,11 +244,11 @@ async function getCurrentUser() {
        UNKNOWN STATE
     ========================= */
 
-    registerButton.style.display =
+    u9HeaderRegisterButton.style.display =
       "block";
 
 
-    loginButton.style.display =
+    u9HeaderLoginButton.style.display =
       "block";
 
 
@@ -281,11 +280,11 @@ async function getCurrentUser() {
        SESSION CHECK FAILED
     ========================= */
 
-    registerButton.style.display =
+    u9HeaderRegisterButton.style.display =
       "block";
 
 
-    loginButton.style.display =
+    u9HeaderLoginButton.style.display =
       "block";
 
 
