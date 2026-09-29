@@ -395,8 +395,10 @@
   transition:
     background-color
     0.2s ease,
+
     border-color
     0.2s ease,
+
     transform
     0.15s ease;
 
@@ -434,7 +436,7 @@
     11px
     18px;
 
-  border: none;
+  border: 0;
 
   border-radius: 10px;
 
@@ -451,6 +453,7 @@
   transition:
     opacity
     0.2s ease,
+
     transform
     0.15s ease;
 
@@ -629,8 +632,10 @@
   transition:
     border-color
     0.2s ease,
+
     transform
     0.15s ease,
+
     background-color
     0.2s ease;
 
@@ -783,7 +788,7 @@
 
 
 /* =========================
-   ACCOUNT FRAME EDIT BUTTON
+   ACCOUNT EDIT BUTTON
 ========================= */
 
 #Account-U9-account-frame-edit {
@@ -801,9 +806,10 @@
   min-height: 44px;
 
   margin:
-    0
+    0px
     auto
-    20px;
+    20px
+    auto;
 
   padding:
     11px
@@ -829,14 +835,14 @@
   transition:
     transform
     0.2s ease,
+
     opacity
     0.2s ease;
 
 }
 
-
 /* =========================
-   ACCOUNT FRAME EDIT ACTIVE
+   ACCOUNT EDIT BUTTON ACTIVE
 ========================= */
 
 #Account-U9-account-frame-edit:active {
@@ -848,7 +854,7 @@
 
 
 /* =========================
-   ACCOUNT FRAME EDIT DISABLED
+   ACCOUNT EDIT BUTTON DISABLED
 ========================= */
 
 #Account-U9-account-frame-edit:disabled {
