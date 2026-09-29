@@ -803,7 +803,7 @@
 
   min-height: 44px;
 
-  margin: 20px;
+  margin: 175px 15px 20px 15px;
 
   padding:
     0
@@ -1019,7 +1019,7 @@
       100% - 32px
     );
 
-    margin: 16px;
+    margin: 160px 15px 15px 15px;
 
   }
 
