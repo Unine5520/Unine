@@ -334,9 +334,9 @@
 
   left: 50%;
 
-  width: 72px;
+  width: 105px;
 
-  height: 72px;
+  height: 105px;
 
   transform: translate(
     -50%,
@@ -388,9 +388,9 @@
 
 #Account-U9-account-username {
 
-  margin-top: 10px;
+  margin-top: 30px;
 
-  font-size: 16px;
+  font-size: 26px;
 
   font-weight: 600;
 
@@ -510,7 +510,7 @@
   #Account-U9-account-profile {
 
     padding:
-      8px
+      25px
       8px
       18px;
 
