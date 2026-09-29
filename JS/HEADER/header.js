@@ -1,5 +1,10 @@
 
 /* =========================
+   U9 HEADER
+========================= */
+
+
+/* =========================
    HEADER ELEMENTS
 ========================= */
 
@@ -38,12 +43,32 @@ const accountSettingBack =
 
 
 /* =========================
+   REGISTER / LOGIN
+========================= */
+
+const registerButton =
+  document.getElementById(
+    "U9-page-header-register"
+  );
+
+
+const loginButton =
+  document.getElementById(
+    "U9-page-header-login"
+  );
+
+
+/* =========================
    GET CURRENT USER
 ========================= */
 
 async function getCurrentUser() {
 
   try {
+
+    /* =========================
+       SESSION
+    ========================= */
 
     const sessionToken =
       localStorage.getItem(
@@ -57,15 +82,11 @@ async function getCurrentUser() {
 
     if (!sessionToken) {
 
-      document.getElementById(
-        "U9-page-header-register"
-      ).style.display =
+      registerButton.style.display =
         "block";
 
 
-      document.getElementById(
-        "U9-page-header-login"
-      ).style.display =
+      loginButton.style.display =
         "block";
 
 
@@ -94,6 +115,7 @@ async function getCurrentUser() {
       await fetch(
         "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me",
         {
+
           method:
             "GET",
 
@@ -118,15 +140,11 @@ async function getCurrentUser() {
 
     if (!response.ok) {
 
-      document.getElementById(
-        "U9-page-header-register"
-      ).style.display =
+      registerButton.style.display =
         "block";
 
 
-      document.getElementById(
-        "U9-page-header-login"
-      ).style.display =
+      loginButton.style.display =
         "block";
 
 
@@ -166,15 +184,11 @@ async function getCurrentUser() {
          HIDE REGISTER / LOGIN
       ========================= */
 
-      document.getElementById(
-        "U9-page-header-register"
-      ).style.display =
+      registerButton.style.display =
         "none";
 
 
-      document.getElementById(
-        "U9-page-header-login"
-      ).style.display =
+      loginButton.style.display =
         "none";
 
 
@@ -231,15 +245,11 @@ async function getCurrentUser() {
        UNKNOWN STATE
     ========================= */
 
-    document.getElementById(
-      "U9-page-header-register"
-    ).style.display =
+    registerButton.style.display =
       "block";
 
 
-    document.getElementById(
-      "U9-page-header-login"
-    ).style.display =
+    loginButton.style.display =
       "block";
 
 
@@ -257,7 +267,6 @@ async function getCurrentUser() {
 
     return null;
 
-
   }
 
   catch (error) {
@@ -272,15 +281,11 @@ async function getCurrentUser() {
        SESSION CHECK FAILED
     ========================= */
 
-    document.getElementById(
-      "U9-page-header-register"
-    ).style.display =
+    registerButton.style.display =
       "block";
 
 
-    document.getElementById(
-      "U9-page-header-login"
-    ).style.display =
+    loginButton.style.display =
       "block";
 
 
@@ -313,6 +318,11 @@ function openAccountSetting() {
     "active"
   );
 
+
+  userButton.classList.add(
+    "account-open"
+  );
+
 }
 
 
@@ -324,6 +334,11 @@ function closeAccountSetting() {
 
   accountSetting.classList.remove(
     "active"
+  );
+
+
+  userButton.classList.remove(
+    "account-open"
   );
 
 }
