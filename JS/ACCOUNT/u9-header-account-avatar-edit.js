@@ -20,8 +20,29 @@ const u9AvatarEditContainer =
 const u9AvatarDefaultImage =
   "SSVG/avatar/profile.svg";
 
+
 const u9AvatarOutputSize =
   300;
+
+
+/* =========================
+   API
+========================= */
+
+const u9AvatarFreeFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-free";
+
+
+const u9AvatarSetFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-set";
+
+
+const u9AvatarMeFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me";
+
+
+const u9AvatarUploadFunction =
+  "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-upload";
 
 
 /* =========================
@@ -64,20 +85,39 @@ let u9AvatarBaseScale =
 let u9AvatarZoom =
   1;
 
+let u9AvatarCurrentType =
+  "default";
+
+let u9AvatarCurrentId =
+  null;
+
+let u9AvatarFreeAvatars =
+  [];
+
 
 /* =========================
    ELEMENTS
 ========================= */
 
 let u9AvatarPreview = null;
+
 let u9AvatarImage = null;
+
 let u9AvatarCropGuide = null;
+
 let u9AvatarFileInput = null;
+
 let u9AvatarChooseButton = null;
+
 let u9AvatarZoomInput = null;
+
 let u9AvatarZoomValue = null;
+
 let u9AvatarSaveButton = null;
+
 let u9AvatarStatus = null;
+
+let u9AvatarFreeList = null;
 
 
 /* =========================
@@ -158,6 +198,50 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     FREE AVATAR SECTION
+  ========================= */
+
+  const freeSection =
+    document.createElement(
+      "div"
+    );
+
+  freeSection.id =
+    "Account-U9-avatar-editor-free-section";
+
+
+  const freeTitle =
+    document.createElement(
+      "div"
+    );
+
+  freeTitle.id =
+    "Account-U9-avatar-editor-free-title";
+
+  freeTitle.textContent =
+    "Free Avatar";
+
+
+  u9AvatarFreeList =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarFreeList.id =
+    "Account-U9-avatar-editor-free-list";
+
+
+  freeSection.appendChild(
+    freeTitle
+  );
+
+
+  freeSection.appendChild(
+    u9AvatarFreeList
+  );
+
+
+  /* =========================
      PREVIEW
   ========================= */
 
@@ -212,6 +296,7 @@ function createU9AvatarEditor() {
   u9AvatarPreview.appendChild(
     u9AvatarImage
   );
+
 
   u9AvatarPreview.appendChild(
     u9AvatarCropGuide
@@ -315,9 +400,11 @@ function createU9AvatarEditor() {
     zoomLabel
   );
 
+
   zoomWrapper.appendChild(
     u9AvatarZoomInput
   );
+
 
   zoomWrapper.appendChild(
     u9AvatarZoomValue
@@ -374,6 +461,7 @@ function createU9AvatarEditor() {
     u9AvatarChooseButton
   );
 
+
   chooseArea.appendChild(
     u9AvatarFileInput
   );
@@ -422,25 +510,36 @@ function createU9AvatarEditor() {
     title
   );
 
+
+  wrapper.appendChild(
+    freeSection
+  );
+
+
   wrapper.appendChild(
     u9AvatarPreview
   );
+
 
   wrapper.appendChild(
     dragHint
   );
 
+
   wrapper.appendChild(
     zoomWrapper
   );
+
 
   wrapper.appendChild(
     chooseArea
   );
 
+
   wrapper.appendChild(
     u9AvatarSaveButton
   );
+
 
   wrapper.appendChild(
     u9AvatarStatus
@@ -498,16 +597,15 @@ function createU9AvatarEditor() {
       u9AvatarImageLoaded =
         true;
 
+
       calculateBaseScale();
+
 
       clampAvatarPosition();
 
+
       updateAvatarImage();
 
-
-      /* =========================
-        ENABLE SAVE
-      ========================= */
 
       if (
         u9AvatarSaveButton
@@ -521,12 +619,679 @@ function createU9AvatarEditor() {
     }
   );
 
+
   /* =========================
      INITIAL IMAGE
   ========================= */
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
+
+
+  /* =========================
+     LOAD DATA
+  ========================= */
+
+  loadCurrentAvatar();
+
+
+  loadFreeAvatars();
+
+}
+
+
+/* =========================
+   LOAD CURRENT AVATAR
+========================= */
+
+async function loadCurrentAvatar() {
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (
+    !sessionToken
+  ) {
+
+    u9AvatarCurrentType =
+      "default";
+
+    u9AvatarCurrentId =
+      null;
+
+    updateFreeAvatarSelection();
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        u9AvatarMeFunction,
+        {
+
+          method:
+            "GET",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`
+
+          }
+
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      return;
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    const avatar =
+      result.user?.avatar ||
+      null;
+
+
+    if (
+      !avatar
+    ) {
+
+      u9AvatarCurrentType =
+        "default";
+
+      u9AvatarCurrentId =
+        null;
+
+    }
+
+    else {
+
+      u9AvatarCurrentType =
+        avatar.type ||
+        "default";
+
+
+      u9AvatarCurrentId =
+        avatar.id ||
+        null;
+
+    }
+
+
+    updateFreeAvatarSelection();
+
+
+    console.log(
+      "Current avatar:",
+      {
+        type:
+          u9AvatarCurrentType,
+
+        id:
+          u9AvatarCurrentId
+      }
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load current avatar:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   LOAD FREE AVATARS
+========================= */
+
+async function loadFreeAvatars() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    u9AvatarFreeList.innerHTML =
+      `
+      <div class="Account-U9-avatar-editor-free-loading">
+        Loading...
+      </div>
+      `;
+
+
+    const response =
+      await fetch(
+        u9AvatarFreeFunction,
+        {
+
+          method:
+            "GET"
+
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      throw new Error(
+        "Failed to load free avatars."
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    u9AvatarFreeAvatars =
+      result.avatars ||
+      [];
+
+
+    renderFreeAvatars();
+
+
+    console.log(
+      "Free avatars loaded:",
+      u9AvatarFreeAvatars
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load free avatars:",
+      error
+    );
+
+
+    if (
+      u9AvatarFreeList
+    ) {
+
+      u9AvatarFreeList.innerHTML =
+        `
+        <div class="Account-U9-avatar-editor-free-error">
+          Failed to load free avatars.
+        </div>
+        `;
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   RENDER FREE AVATARS
+========================= */
+
+function renderFreeAvatars() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarFreeList.innerHTML =
+    "";
+
+
+  if (
+    !Array.isArray(
+      u9AvatarFreeAvatars
+    ) ||
+    u9AvatarFreeAvatars.length === 0
+  ) {
+
+    u9AvatarFreeList.innerHTML =
+      `
+      <div class="Account-U9-avatar-editor-free-empty">
+        No free avatars.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  u9AvatarFreeAvatars.forEach(
+    (avatar) => {
+
+      const card =
+        document.createElement(
+          "button"
+        );
+
+
+      card.type =
+        "button";
+
+
+      card.className =
+        "Account-U9-free-avatar-card";
+
+
+      card.dataset.avatarId =
+        avatar.id;
+
+
+      /* =========================
+         IMAGE
+      ========================= */
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+
+      image.className =
+        "Account-U9-free-avatar-image";
+
+
+      image.src =
+        avatar.svg;
+
+
+      image.alt =
+        avatar.name ||
+        "Free Avatar";
+
+
+      image.draggable =
+        false;
+
+
+      /* =========================
+         NAME
+      ========================= */
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      name.className =
+        "Account-U9-free-avatar-name";
+
+
+      name.textContent =
+        avatar.name ||
+        "Avatar";
+
+
+      /* =========================
+         APPEND
+      ========================= */
+
+      card.appendChild(
+        image
+      );
+
+
+      card.appendChild(
+        name
+      );
+
+
+      /* =========================
+         CLICK
+      ========================= */
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          selectFreeAvatar(
+            avatar,
+            card
+          );
+
+        }
+      );
+
+
+      u9AvatarFreeList.appendChild(
+        card
+      );
+
+    }
+  );
+
+
+  updateFreeAvatarSelection();
+
+}
+
+
+/* =========================
+   UPDATE FREE AVATAR
+   SELECTED UI
+========================= */
+
+function updateFreeAvatarSelection() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList.querySelectorAll(
+      ".Account-U9-free-avatar-card"
+    );
+
+
+  cards.forEach(
+    (card) => {
+
+      const isSelected =
+
+        u9AvatarCurrentType ===
+          "free" &&
+
+        card.dataset.avatarId ===
+          String(
+            u9AvatarCurrentId
+          );
+
+
+      if (
+        isSelected
+      ) {
+
+        card.classList.add(
+          "selected"
+        );
+
+      }
+
+      else {
+
+        card.classList.remove(
+          "selected"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   SELECT FREE AVATAR
+========================= */
+
+async function selectFreeAvatar(
+  avatar,
+  card
+) {
+
+  if (
+    !avatar ||
+    !avatar.id
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (
+    !sessionToken
+  ) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     SAME AVATAR
+  ========================= */
+
+  if (
+
+    u9AvatarCurrentType ===
+      "free" &&
+
+    u9AvatarCurrentId ===
+      avatar.id
+
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList
+      ?.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      ) ||
+    [];
+
+
+  /* =========================
+     DISABLE
+  ========================= */
+
+  cards.forEach(
+    (item) => {
+
+      item.disabled =
+        true;
+
+    }
+  );
+
+
+  try {
+
+    card.classList.add(
+      "loading"
+    );
+
+
+    const response =
+      await fetch(
+        u9AvatarSetFunction,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              avatar_id:
+                avatar.id
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        "Failed to select free avatar."
+
+      );
+
+    }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      "free";
+
+
+    u9AvatarCurrentId =
+      avatar.id;
+
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage
+    ) {
+
+      accountAvatarImage.src =
+        `${avatar.svg}?v=${Date.now()}`;
+
+    }
+
+
+    /* =========================
+       FREE CARD SELECTED
+    ========================= */
+
+    updateFreeAvatarSelection();
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    setAvatarStatus(
+      "Free avatar updated successfully."
+    );
+
+
+    console.log(
+      "Free avatar selected:",
+      result
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to select free avatar:",
+      error
+    );
+
+
+    setAvatarStatus(
+
+      error instanceof Error
+        ? error.message
+        : "Failed to select free avatar.",
+
+      true
+
+    );
+
+  }
+
+  finally {
+
+    cards.forEach(
+      (item) => {
+
+        item.disabled =
+          false;
+
+      }
+    );
+
+
+    card.classList.remove(
+      "loading"
+    );
+
+  }
 
 }
 
@@ -543,7 +1308,9 @@ function handleAvatarFileChange(
     event.target.files?.[0];
 
 
-  if (!file) {
+  if (
+    !file
+  ) {
 
     return;
 
@@ -602,14 +1369,18 @@ function handleAvatarFileChange(
   u9AvatarOffsetX =
     0;
 
+
   u9AvatarOffsetY =
     0;
+
 
   u9AvatarZoom =
     1;
 
+
   u9AvatarZoomInput.value =
     "1";
+
 
   u9AvatarZoomValue.textContent =
     "100%";
@@ -663,6 +1434,7 @@ function calculateBaseScale() {
   const previewWidth =
     u9AvatarPreview.clientWidth;
 
+
   const previewHeight =
     u9AvatarPreview.clientHeight;
 
@@ -670,6 +1442,7 @@ function calculateBaseScale() {
   const scaleX =
     previewWidth /
     u9AvatarImage.naturalWidth;
+
 
   const scaleY =
     previewHeight /
@@ -722,6 +1495,7 @@ function handleAvatarZoom() {
 
   clampAvatarPosition();
 
+
   updateAvatarImage();
 
 }
@@ -749,6 +1523,7 @@ function updateAvatarImage() {
 
 
   u9AvatarImage.style.transform =
+
     `translate(-50%, -50%) translate(${u9AvatarOffsetX}px, ${u9AvatarOffsetY}px) scale(${scale})`;
 
 }
@@ -775,6 +1550,7 @@ function clampAvatarPosition() {
   const previewWidth =
     u9AvatarPreview.clientWidth;
 
+
   const previewHeight =
     u9AvatarPreview.clientHeight;
 
@@ -788,6 +1564,7 @@ function clampAvatarPosition() {
     u9AvatarImage.naturalWidth *
     scale;
 
+
   const imageHeight =
     u9AvatarImage.naturalHeight *
     scale;
@@ -795,37 +1572,51 @@ function clampAvatarPosition() {
 
   const maxOffsetX =
     Math.max(
+
       0,
+
       (
         imageWidth -
         previewWidth
       ) / 2
+
     );
 
 
   const maxOffsetY =
     Math.max(
+
       0,
+
       (
         imageHeight -
         previewHeight
       ) / 2
+
     );
 
 
   u9AvatarOffsetX =
     clamp(
+
       u9AvatarOffsetX,
+
       -maxOffsetX,
+
       maxOffsetX
+
     );
 
 
   u9AvatarOffsetY =
     clamp(
+
       u9AvatarOffsetY,
+
       -maxOffsetY,
+
       maxOffsetY
+
     );
 
 }
@@ -885,12 +1676,14 @@ function setupAvatarDrag() {
       u9AvatarDragStartX =
         event.clientX;
 
+
       u9AvatarDragStartY =
         event.clientY;
 
 
       u9AvatarStartOffsetX =
         u9AvatarOffsetX;
+
 
       u9AvatarStartOffsetY =
         u9AvatarOffsetY;
@@ -925,6 +1718,7 @@ function setupAvatarDrag() {
         event.clientX -
         u9AvatarDragStartX;
 
+
       const deltaY =
         event.clientY -
         u9AvatarDragStartY;
@@ -941,6 +1735,7 @@ function setupAvatarDrag() {
 
 
       clampAvatarPosition();
+
 
       updateAvatarImage();
 
@@ -1027,10 +1822,14 @@ function setupAvatarDrag() {
 
       const nextZoom =
         clamp(
+
           u9AvatarZoom +
             step,
+
           1,
+
           3
+
         );
 
 
@@ -1048,11 +1847,13 @@ function setupAvatarDrag() {
 
       u9AvatarZoomValue.textContent =
         `${Math.round(
-          u9AvatarZoom * 100
+          u9AvatarZoom *
+          100
         )}%`;
 
 
       clampAvatarPosition();
+
 
       updateAvatarImage();
 
@@ -1066,7 +1867,7 @@ function setupAvatarDrag() {
 
 
 /* =========================
-   SAVE CROP
+   SAVE CROP / UPLOAD
 ========================= */
 
 async function saveAvatarCrop() {
@@ -1087,7 +1888,9 @@ async function saveAvatarCrop() {
     );
 
 
-  if (!sessionToken) {
+  if (
+    !sessionToken
+  ) {
 
     setAvatarStatus(
       "Please log in first.",
@@ -1108,9 +1911,11 @@ async function saveAvatarCrop() {
     u9AvatarSaveButton.disabled =
       true;
 
+
     u9AvatarSaveButton.classList.add(
       "loading"
     );
+
 
     u9AvatarSaveButton.textContent =
       "Uploading...";
@@ -1175,7 +1980,7 @@ async function saveAvatarCrop() {
     const response =
       await fetch(
 
-        "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-upload",
+        u9AvatarUploadFunction,
 
         {
 
@@ -1302,14 +2107,16 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       SHOW NEW AVATAR
-       
-       加时间参数避免浏览器缓存
+       CACHE BUST
     ========================= */
 
     const cacheBustedUrl =
       `${avatarUrl}?v=${Date.now()}`;
 
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
 
     const accountAvatarImage =
       document.getElementById(
@@ -1325,6 +2132,25 @@ async function saveAvatarCrop() {
         cacheBustedUrl;
 
     }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      "custom";
+
+
+    u9AvatarCurrentId =
+      null;
+
+
+    /* =========================
+       CLEAR FREE SELECTION
+    ========================= */
+
+    updateFreeAvatarSelection();
 
 
     /* =========================
@@ -1354,10 +2180,9 @@ async function saveAvatarCrop() {
       avatarFile;
 
 
-    /*
-     * 本次上传完成
-     * 必须重新选择图片才能再次 Save
-     */
+    /* =========================
+       RESET CHOICE
+    ========================= */
 
     u9AvatarSelectedImage =
       null;
@@ -1404,14 +2229,6 @@ async function saveAvatarCrop() {
       "Save";
 
 
-    /*
-     * 成功后 selectedImage = null
-     * 所以 Save 会保持 disabled
-     *
-     * 如果上传失败：
-     * 仍然允许用户重新 Save
-     */
-
     u9AvatarSaveButton.disabled =
       !u9AvatarSelectedImage;
 
@@ -1453,6 +2270,7 @@ function createAvatarCropBlob() {
       canvas.width =
         u9AvatarOutputSize;
 
+
       canvas.height =
         u9AvatarOutputSize;
 
@@ -1479,6 +2297,7 @@ function createAvatarCropBlob() {
       const previewWidth =
         u9AvatarPreview.clientWidth;
 
+
       const previewHeight =
         u9AvatarPreview.clientHeight;
 
@@ -1490,6 +2309,7 @@ function createAvatarCropBlob() {
       const centerX =
         previewWidth / 2 +
         u9AvatarOffsetX;
+
 
       const centerY =
         previewHeight / 2 +
@@ -1553,6 +2373,7 @@ function createAvatarCropBlob() {
       context.imageSmoothingEnabled =
         true;
 
+
       context.imageSmoothingQuality =
         "high";
 
@@ -1583,6 +2404,7 @@ function createAvatarCropBlob() {
 
 
       canvas.toBlob(
+
         (blob) => {
 
           resolve(
@@ -1590,8 +2412,11 @@ function createAvatarCropBlob() {
           );
 
         },
+
         "image/webp",
+
         0.9
+
       );
 
     }
@@ -1672,7 +2497,13 @@ window.U9AvatarEditor = {
         }
       );
 
-    }
+    },
+
+  loadCurrentAvatar:
+    loadCurrentAvatar,
+
+  loadFreeAvatars:
+    loadFreeAvatars
 
 };
 
