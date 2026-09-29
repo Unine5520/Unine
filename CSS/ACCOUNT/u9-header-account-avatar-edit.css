@@ -786,60 +786,40 @@
 
 }
 
-
 /* =========================
-   ACCOUNT EDIT BUTTON
+   ACCOUNT FRAME EDIT BUTTON
 ========================= */
 
 #Account-U9-account-frame-edit {
 
-  flex: 0 0 auto;
+  min-width: 150px;
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: calc(
-    100% - 40px
-  );
-
-  min-height: 44px;
-
-  margin:
-    20px
-    15px
-    20px
-    15px;
+  margin-top: 12px;
 
   padding:
-    0
-    16px;
+    11px
+    18px;
 
-  box-sizing: border-box;
+  border: 0;
 
-  border: none;
+  border-radius: 10px;
 
-  border-radius: 12px;
-
-  background-color:
-    #71a6ff;
+  background: #71a6ff;
 
   color: #ffffff;
 
-  font-size: 15px;
+  font-size: 14px;
 
-  font-weight: 600;
+  font-weight: 500;
 
   cursor: pointer;
 
   transition:
-    transform
+    opacity
     0.2s ease,
 
-    opacity
-    0.2s ease;
+    transform
+    0.15s ease;
 
 }
 
@@ -862,9 +842,11 @@
 
 #Account-U9-account-frame-edit:disabled {
 
-  opacity: 0.5;
+  opacity: 0.45;
 
   cursor: not-allowed;
+
+  transform: none;
 
 }
 
@@ -961,11 +943,12 @@
 
 
   /* =========================
-     BUTTONS
+    BUTTONS
   ========================= */
 
   #Account-U9-avatar-editor-choose,
-  #Account-U9-avatar-editor-save {
+  #Account-U9-avatar-editor-save,
+  #Account-U9-account-frame-edit {
 
     min-width: 140px;
 
@@ -1013,25 +996,6 @@
     width: 48px;
 
     height: 48px;
-
-  }
-
-
-  /* =========================
-     FRAME EDIT BUTTON
-  ========================= */
-
-  #Account-U9-account-frame-edit {
-
-    width: calc(
-      100% - 32px
-    );
-
-    margin:
-      20px
-      15px
-      15px
-      15px;
 
   }
 
