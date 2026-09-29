@@ -791,7 +791,6 @@
    ACCOUNT EDIT BUTTON
 ========================= */
 
-
 #Account-U9-account-frame-edit {
 
   flex: 0 0 auto;
@@ -802,34 +801,34 @@
 
   justify-content: center;
 
-  width: calc(
-    100% - 30px
-  );
+  width: 40%;
 
   min-height: 44px;
 
   margin:
-    20px
+    12px
+    auto
+    0
     auto;
 
   padding:
-    0
-    16px;
+    11px
+    18px;
 
   box-sizing: border-box;
 
   border: none;
 
-  border-radius: 12px;
+  border-radius: 10px;
 
   background-color:
     #71a6ff;
 
   color: #ffffff;
 
-  font-size: 15px;
+  font-size: 14px;
 
-  font-weight: 600;
+  font-weight: 500;
 
   cursor: pointer;
 
@@ -841,7 +840,6 @@
     0.2s ease;
 
 }
-
 
 /* =========================
    ACCOUNT EDIT BUTTON ACTIVE
