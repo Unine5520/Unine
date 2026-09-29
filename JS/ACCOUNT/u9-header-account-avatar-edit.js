@@ -1081,7 +1081,29 @@ async function saveAvatarCrop() {
   }
 
 
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (!sessionToken) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
   try {
+
+    /* =========================
+       LOADING
+    ========================= */
 
     u9AvatarSaveButton.disabled =
       true;
@@ -1091,8 +1113,12 @@ async function saveAvatarCrop() {
     );
 
     u9AvatarSaveButton.textContent =
-      "Saving...";
+      "Uploading...";
 
+
+    /* =========================
+       CREATE CROP
+    ========================= */
 
     const blob =
       await createAvatarCropBlob();
@@ -1110,7 +1136,214 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       STORE FOR NEXT STEP
+       CREATE FILE
+    ========================= */
+
+    const avatarFile =
+      new File(
+
+        [blob],
+
+        "avatar.webp",
+
+        {
+          type:
+            "image/webp"
+        }
+
+      );
+
+
+    /* =========================
+       FORM DATA
+    ========================= */
+
+    const formData =
+      new FormData();
+
+
+    formData.append(
+      "avatar",
+      avatarFile
+    );
+
+
+    /* =========================
+       UPLOAD
+    ========================= */
+
+    const response =
+      await fetch(
+
+        "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/avatar-upload",
+
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`
+
+          },
+
+          body:
+            formData
+
+        }
+
+      );
+
+
+    /* =========================
+       RESPONSE
+    ========================= */
+
+    const result =
+      await response.json();
+
+
+    /* =========================
+       FAILED
+    ========================= */
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+
+      /* =========================
+         COOLDOWN
+      ========================= */
+
+      if (
+        response.status ===
+          429 ||
+        result.error ===
+          "Avatar is still on cooldown."
+      ) {
+
+        let message =
+          "Avatar is still on cooldown.";
+
+
+        if (
+          result.remaining_hours
+        ) {
+
+          message +=
+            ` ${result.remaining_hours} hours remaining.`;
+
+        }
+
+
+        setAvatarStatus(
+          message,
+          true
+        );
+
+
+        console.log(
+          "Avatar upload cooldown:",
+          result
+        );
+
+
+        return;
+
+      }
+
+
+      /* =========================
+         OTHER ERROR
+      ========================= */
+
+      setAvatarStatus(
+
+        result.error ||
+        "Avatar upload failed.",
+
+        true
+
+      );
+
+
+      console.error(
+        "Avatar upload failed:",
+        result
+      );
+
+
+      return;
+
+    }
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    const avatarUrl =
+      result.avatar?.url ||
+      "";
+
+
+    if (
+      !avatarUrl
+    ) {
+
+      throw new Error(
+        "Avatar URL not returned."
+      );
+
+    }
+
+
+    /* =========================
+       SHOW NEW AVATAR
+       
+       加时间参数避免浏览器缓存
+    ========================= */
+
+    const cacheBustedUrl =
+      `${avatarUrl}?v=${Date.now()}`;
+
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage
+    ) {
+
+      accountAvatarImage.src =
+        cacheBustedUrl;
+
+    }
+
+
+    /* =========================
+       SUCCESS MESSAGE
+    ========================= */
+
+    setAvatarStatus(
+      "Avatar updated successfully."
+    );
+
+
+    console.log(
+      "Avatar uploaded successfully:",
+      result
+    );
+
+
+    /* =========================
+       SAVE STATE
     ========================= */
 
     window.U9AvatarEditor.lastBlob =
@@ -1118,50 +1351,43 @@ async function saveAvatarCrop() {
 
 
     window.U9AvatarEditor.lastFile =
-      new File(
-        [blob],
-        "avatar.webp",
-        {
-          type:
-            "image/webp"
-        }
-      );
+      avatarFile;
 
 
-    setAvatarStatus(
-      "Avatar image is ready."
-    );
+    /*
+     * 本次上传完成
+     * 必须重新选择图片才能再次 Save
+     */
+
+    u9AvatarSelectedImage =
+      null;
 
 
-    console.log(
-      "Avatar crop ready:",
-      {
-        type:
-          blob.type,
+    u9AvatarImageLoaded =
+      false;
 
-        size:
-          blob.size,
 
-        width:
-          u9AvatarOutputSize,
+    if (
+      u9AvatarFileInput
+    ) {
 
-        height:
-          u9AvatarOutputSize
-      }
-    );
+      u9AvatarFileInput.value =
+        "";
+
+    }
 
   }
 
   catch (error) {
 
     console.error(
-      "Failed to save avatar crop:",
+      "Failed to upload avatar:",
       error
     );
 
 
     setAvatarStatus(
-      "Failed to create avatar.",
+      "Network error. Please try again.",
       true
     );
 
@@ -1178,8 +1404,16 @@ async function saveAvatarCrop() {
       "Save";
 
 
+    /*
+     * 成功后 selectedImage = null
+     * 所以 Save 会保持 disabled
+     *
+     * 如果上传失败：
+     * 仍然允许用户重新 Save
+     */
+
     u9AvatarSaveButton.disabled =
-      !u9AvatarImageLoaded;
+      !u9AvatarSelectedImage;
 
   }
 
