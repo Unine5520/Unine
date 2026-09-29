@@ -1080,7 +1080,6 @@ function createU9AvatarEditor() {
     chooseArea
   );
 
-
   wrapper.appendChild(
     u9AvatarSaveButton
   );
@@ -1090,6 +1089,38 @@ function createU9AvatarEditor() {
     u9AvatarStatus
   );
 
+
+  /* =========================
+     FRAME EDIT BUTTON
+  ========================= */
+
+  const frameEditButton =
+    document.createElement(
+      "button"
+    );
+
+  frameEditButton.id =
+    "Account-U9-account-frame-edit";
+
+  frameEditButton.type =
+    "button";
+
+  frameEditButton.textContent =
+    "Frame Edit";
+
+
+  /* =========================
+     APPEND FRAME EDIT
+  ========================= */
+
+  wrapper.appendChild(
+    frameEditButton
+  );
+
+
+  /* =========================
+     APPEND EDITOR
+  ========================= */
 
   u9AvatarEditContainer.appendChild(
     wrapper
