@@ -746,22 +746,22 @@ async function u9AccountLoadProfile() {
 
 
     /* =========================
-       AVATAR URL
+      AVATAR
     ========================= */
 
-    const avatarUrl =
-      user.avatar_url ||
-      user.avatarUrl ||
+    const avatar =
       user.avatar ||
+      null;
+
+
+    const avatarUrl =
+      avatar?.url ||
       "";
 
 
-    if (avatarUrl) {
-
-      u9AccountAvatarImage.src =
-        avatarUrl;
-
-    }
+    u9AccountAvatarImage.src =
+      avatarUrl ||
+      "SSVG/avatar/profile.svg";
 
 
     /* =========================
