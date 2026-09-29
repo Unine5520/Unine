@@ -85,11 +85,35 @@ let u9AvatarBaseScale =
 let u9AvatarZoom =
   1;
 
+
+/* =========================
+   CURRENT AVATAR
+========================= */
+
 let u9AvatarCurrentType =
   "default";
 
 let u9AvatarCurrentId =
   null;
+
+let u9AvatarCustomUrl =
+  null;
+
+
+/* =========================
+   COOLDOWN
+========================= */
+
+let u9AvatarCooldownUntil =
+  null;
+
+let u9AvatarCooldownTimer =
+  null;
+
+
+/* =========================
+   FREE AVATARS
+========================= */
 
 let u9AvatarFreeAvatars =
   [];
@@ -109,6 +133,10 @@ let u9AvatarFileInput = null;
 
 let u9AvatarChooseButton = null;
 
+let u9AvatarZoomWrapper = null;
+
+let u9AvatarZoomLabel = null;
+
 let u9AvatarZoomInput = null;
 
 let u9AvatarZoomValue = null;
@@ -117,7 +145,13 @@ let u9AvatarSaveButton = null;
 
 let u9AvatarStatus = null;
 
+let u9AvatarMySection = null;
+
+let u9AvatarMyList = null;
+
 let u9AvatarFreeList = null;
+
+let u9AvatarDragHint = null;
 
 
 /* =========================
@@ -137,6 +171,458 @@ function clamp(
     ),
     max
   );
+
+}
+
+
+/* =========================
+   COOLDOWN CHECK
+========================= */
+
+function isAvatarCooldownActive() {
+
+  if (
+    !u9AvatarCooldownUntil
+  ) {
+
+    return false;
+
+  }
+
+
+  const cooldownTime =
+    new Date(
+      u9AvatarCooldownUntil
+    ).getTime();
+
+
+  if (
+    Number.isNaN(
+      cooldownTime
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  return (
+    cooldownTime >
+    Date.now()
+  );
+
+}
+
+
+/* =========================
+   FORMAT COOLDOWN
+========================= */
+
+function formatAvatarCooldown(
+  remainingMs
+) {
+
+  if (
+    remainingMs <= 0
+  ) {
+
+    return "0m";
+
+  }
+
+
+  const totalMinutes =
+    Math.ceil(
+      remainingMs /
+      60000
+    );
+
+
+  const days =
+    Math.floor(
+      totalMinutes /
+      1440
+    );
+
+
+  const hours =
+    Math.floor(
+      (
+        totalMinutes %
+        1440
+      ) / 60
+    );
+
+
+  const minutes =
+    totalMinutes %
+    60;
+
+
+  if (
+    days > 0
+  ) {
+
+    return `${days}d ${hours}h`;
+
+  }
+
+
+  if (
+    hours > 0
+  ) {
+
+    return `${hours}h ${minutes}m`;
+
+  }
+
+
+  return `${minutes}m`;
+
+}
+
+
+/* =========================
+   UPDATE UPLOAD VISIBILITY
+========================= */
+
+function updateAvatarUploadVisibility() {
+
+  const cooldownActive =
+    isAvatarCooldownActive();
+
+
+  /* =========================
+     PREVIEW
+  ========================= */
+
+  if (
+    u9AvatarPreview
+  ) {
+
+    u9AvatarPreview.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
+     DRAG HINT
+  ========================= */
+
+  if (
+    u9AvatarDragHint
+  ) {
+
+    u9AvatarDragHint.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
+     ZOOM
+  ========================= */
+
+  if (
+    u9AvatarZoomWrapper
+  ) {
+
+    u9AvatarZoomWrapper.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  if (
+    u9AvatarZoomLabel
+  ) {
+
+    u9AvatarZoomLabel.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  if (
+    u9AvatarZoomInput
+  ) {
+
+    u9AvatarZoomInput.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  if (
+    u9AvatarZoomValue
+  ) {
+
+    u9AvatarZoomValue.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
+     CHOOSE
+  ========================= */
+
+  if (
+    u9AvatarChooseButton
+  ) {
+
+    u9AvatarChooseButton.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
+     SAVE
+  ========================= */
+
+  if (
+    u9AvatarSaveButton
+  ) {
+
+    u9AvatarSaveButton.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+
+    if (
+      cooldownActive
+    ) {
+
+      u9AvatarSaveButton.disabled =
+        true;
+
+    }
+
+    else {
+
+      u9AvatarSaveButton.disabled =
+        !u9AvatarSelectedImage;
+
+    }
+
+  }
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  if (
+    u9AvatarStatus
+  ) {
+
+    if (
+      cooldownActive
+    ) {
+
+      u9AvatarStatus.style.display =
+        "";
+
+    }
+
+    else {
+
+      /*
+       * Only hide status automatically
+       * when it is currently showing
+       * cooldown text.
+       */
+
+      if (
+        u9AvatarStatus.dataset.cooldown ===
+        "true"
+      ) {
+
+        u9AvatarStatus.style.display =
+          "none";
+
+
+        u9AvatarStatus.textContent =
+          "";
+
+
+        u9AvatarStatus.classList.remove(
+          "error"
+        );
+
+
+        u9AvatarStatus.dataset.cooldown =
+          "false";
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   UPDATE COOLDOWN DISPLAY
+========================= */
+
+function updateAvatarCooldownDisplay() {
+
+  if (
+    !u9AvatarStatus
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    !isAvatarCooldownActive()
+  ) {
+
+    stopAvatarCooldownTimer();
+
+
+    u9AvatarCooldownUntil =
+      null;
+
+
+    u9AvatarStatus.textContent =
+      "";
+
+
+    u9AvatarStatus.classList.remove(
+      "error"
+    );
+
+
+    u9AvatarStatus.dataset.cooldown =
+      "false";
+
+
+    u9AvatarStatus.style.display =
+      "none";
+
+
+    updateAvatarUploadVisibility();
+
+
+    return;
+
+  }
+
+
+  const cooldownTime =
+    new Date(
+      u9AvatarCooldownUntil
+    ).getTime();
+
+
+  const remainingMs =
+    cooldownTime -
+    Date.now();
+
+
+  const remaining =
+    formatAvatarCooldown(
+      remainingMs
+    );
+
+
+  u9AvatarStatus.textContent =
+    `Custom Avatar cooldown: ${remaining}`;
+
+
+  u9AvatarStatus.classList.add(
+    "error"
+  );
+
+
+  u9AvatarStatus.dataset.cooldown =
+    "true";
+
+
+  u9AvatarStatus.style.display =
+    "";
+
+
+  updateAvatarUploadVisibility();
+
+}
+
+
+/* =========================
+   START COOLDOWN TIMER
+========================= */
+
+function startAvatarCooldownTimer() {
+
+  stopAvatarCooldownTimer();
+
+
+  updateAvatarCooldownDisplay();
+
+
+  if (
+    !isAvatarCooldownActive()
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarCooldownTimer =
+    setInterval(
+      () => {
+
+        updateAvatarCooldownDisplay();
+
+      },
+      1000
+    );
+
+}
+
+
+/* =========================
+   STOP COOLDOWN TIMER
+========================= */
+
+function stopAvatarCooldownTimer() {
+
+  if (
+    u9AvatarCooldownTimer
+  ) {
+
+    clearInterval(
+      u9AvatarCooldownTimer
+    );
+
+    u9AvatarCooldownTimer =
+      null;
+
+  }
 
 }
 
@@ -195,6 +681,54 @@ function createU9AvatarEditor() {
 
   title.textContent =
     "Avatar";
+
+
+  /* =========================
+     MY AVATAR SECTION
+  ========================= */
+
+  u9AvatarMySection =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarMySection.id =
+    "Account-U9-avatar-editor-my-section";
+
+
+  const myTitle =
+    document.createElement(
+      "div"
+    );
+
+  myTitle.id =
+    "Account-U9-avatar-editor-my-title";
+
+  myTitle.textContent =
+    "My Avatar";
+
+
+  u9AvatarMyList =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarMyList.id =
+    "Account-U9-avatar-editor-my-list";
+
+
+  u9AvatarMySection.appendChild(
+    myTitle
+  );
+
+
+  u9AvatarMySection.appendChild(
+    u9AvatarMyList
+  );
+
+
+  u9AvatarMySection.style.display =
+    "none";
 
 
   /* =========================
@@ -307,15 +841,15 @@ function createU9AvatarEditor() {
      DRAG HINT
   ========================= */
 
-  const dragHint =
+  u9AvatarDragHint =
     document.createElement(
       "div"
     );
 
-  dragHint.id =
+  u9AvatarDragHint.id =
     "Account-U9-avatar-editor-drag-hint";
 
-  dragHint.textContent =
+  u9AvatarDragHint.textContent =
     "Drag to move";
 
 
@@ -323,12 +857,12 @@ function createU9AvatarEditor() {
      ZOOM WRAPPER
   ========================= */
 
-  const zoomWrapper =
+  u9AvatarZoomWrapper =
     document.createElement(
       "div"
     );
 
-  zoomWrapper.id =
+  u9AvatarZoomWrapper.id =
     "Account-U9-avatar-editor-zoom";
 
 
@@ -336,15 +870,15 @@ function createU9AvatarEditor() {
      ZOOM LABEL
   ========================= */
 
-  const zoomLabel =
+  u9AvatarZoomLabel =
     document.createElement(
       "div"
     );
 
-  zoomLabel.id =
+  u9AvatarZoomLabel.id =
     "Account-U9-avatar-editor-zoom-label";
 
-  zoomLabel.textContent =
+  u9AvatarZoomLabel.textContent =
     "Zoom";
 
 
@@ -396,17 +930,17 @@ function createU9AvatarEditor() {
      ZOOM APPEND
   ========================= */
 
-  zoomWrapper.appendChild(
-    zoomLabel
+  u9AvatarZoomWrapper.appendChild(
+    u9AvatarZoomLabel
   );
 
 
-  zoomWrapper.appendChild(
+  u9AvatarZoomWrapper.appendChild(
     u9AvatarZoomInput
   );
 
 
-  zoomWrapper.appendChild(
+  u9AvatarZoomWrapper.appendChild(
     u9AvatarZoomValue
   );
 
@@ -501,6 +1035,12 @@ function createU9AvatarEditor() {
   u9AvatarStatus.id =
     "Account-U9-avatar-editor-status";
 
+  u9AvatarStatus.dataset.cooldown =
+    "false";
+
+  u9AvatarStatus.style.display =
+    "none";
+
 
   /* =========================
      APPEND
@@ -508,6 +1048,11 @@ function createU9AvatarEditor() {
 
   wrapper.appendChild(
     title
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarMySection
   );
 
 
@@ -522,12 +1067,12 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
-    dragHint
+    u9AvatarDragHint
   );
 
 
   wrapper.appendChild(
-    zoomWrapper
+    u9AvatarZoomWrapper
   );
 
 
@@ -558,6 +1103,17 @@ function createU9AvatarEditor() {
   u9AvatarChooseButton.addEventListener(
     "click",
     () => {
+
+      if (
+        isAvatarCooldownActive()
+      ) {
+
+        updateAvatarCooldownDisplay();
+
+        return;
+
+      }
+
 
       u9AvatarFileInput.click();
 
@@ -608,7 +1164,8 @@ function createU9AvatarEditor() {
 
 
       if (
-        u9AvatarSaveButton
+        u9AvatarSaveButton &&
+        !isAvatarCooldownActive()
       ) {
 
         u9AvatarSaveButton.disabled =
@@ -646,6 +1203,35 @@ function createU9AvatarEditor() {
 
 async function loadCurrentAvatar() {
 
+  /* =========================
+     RESET
+  ========================= */
+
+  u9AvatarCurrentType =
+    "default";
+
+
+  u9AvatarCurrentId =
+    null;
+
+
+  u9AvatarCustomUrl =
+    null;
+
+
+  u9AvatarCooldownUntil =
+    null;
+
+
+  stopAvatarCooldownTimer();
+
+
+  hideMyAvatar();
+
+
+  updateAvatarUploadVisibility();
+
+
   const sessionToken =
     localStorage.getItem(
       "u9_session"
@@ -655,12 +1241,6 @@ async function loadCurrentAvatar() {
   if (
     !sessionToken
   ) {
-
-    u9AvatarCurrentType =
-      "default";
-
-    u9AvatarCurrentId =
-      null;
 
     updateFreeAvatarSelection();
 
@@ -694,6 +1274,8 @@ async function loadCurrentAvatar() {
       !response.ok
     ) {
 
+      updateFreeAvatarSelection();
+
       return;
 
     }
@@ -718,6 +1300,14 @@ async function loadCurrentAvatar() {
       u9AvatarCurrentId =
         null;
 
+      u9AvatarCustomUrl =
+        null;
+
+      u9AvatarCooldownUntil =
+        null;
+
+      hideMyAvatar();
+
     }
 
     else {
@@ -731,10 +1321,66 @@ async function loadCurrentAvatar() {
         avatar.id ||
         null;
 
+
+      u9AvatarCustomUrl =
+        avatar.custom_url ||
+        null;
+
+
+      u9AvatarCooldownUntil =
+        avatar.cooldown_until ||
+        null;
+
+
+      renderMyAvatar();
+
+
+      /* =========================
+         CURRENT AVATAR IMAGE
+      ========================= */
+
+      const accountAvatarImage =
+        document.getElementById(
+          "Account-U9-account-avatar-image"
+        );
+
+
+      if (
+        accountAvatarImage &&
+        avatar.url
+      ) {
+
+        accountAvatarImage.src =
+          `${avatar.url}?v=${Date.now()}`;
+
+      }
+
     }
 
 
     updateFreeAvatarSelection();
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      u9AvatarCooldownUntil =
+        null;
+
+      updateAvatarUploadVisibility();
+
+    }
 
 
     console.log(
@@ -744,7 +1390,13 @@ async function loadCurrentAvatar() {
           u9AvatarCurrentType,
 
         id:
-          u9AvatarCurrentId
+          u9AvatarCurrentId,
+
+        custom_url:
+          u9AvatarCustomUrl,
+
+        cooldown_until:
+          u9AvatarCooldownUntil
       }
     );
 
@@ -756,6 +1408,171 @@ async function loadCurrentAvatar() {
       "Failed to load current avatar:",
       error
     );
+
+  }
+
+}
+
+
+/* =========================
+   RENDER MY AVATAR
+========================= */
+
+function renderMyAvatar() {
+
+  if (
+    !u9AvatarMySection ||
+    !u9AvatarMyList
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarMyList.innerHTML =
+    "";
+
+
+  if (
+    !u9AvatarCustomUrl
+  ) {
+
+    hideMyAvatar();
+
+    return;
+
+  }
+
+
+  u9AvatarMySection.style.display =
+    "";
+
+
+  const card =
+    document.createElement(
+      "button"
+    );
+
+
+  card.type =
+    "button";
+
+
+  card.className =
+    "Account-U9-free-avatar-card";
+
+
+  card.dataset.avatarType =
+    "custom";
+
+
+  /* =========================
+     IMAGE
+  ========================= */
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.className =
+    "Account-U9-free-avatar-image";
+
+
+  image.src =
+    `${u9AvatarCustomUrl}?v=${Date.now()}`;
+
+
+  image.alt =
+    "My Avatar";
+
+
+  image.draggable =
+    false;
+
+
+  /* =========================
+     NAME
+  ========================= */
+
+  const name =
+    document.createElement(
+      "span"
+    );
+
+
+  name.className =
+    "Account-U9-free-avatar-name";
+
+
+  name.textContent =
+    "My Avatar";
+
+
+  /* =========================
+     APPEND
+  ========================= */
+
+  card.appendChild(
+    image
+  );
+
+
+  card.appendChild(
+    name
+  );
+
+
+  /* =========================
+     CLICK
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    () => {
+
+      selectCustomAvatar(
+        card
+      );
+
+    }
+  );
+
+
+  u9AvatarMyList.appendChild(
+    card
+  );
+
+
+  updateFreeAvatarSelection();
+
+}
+
+
+/* =========================
+   HIDE MY AVATAR
+========================= */
+
+function hideMyAvatar() {
+
+  if (
+    u9AvatarMySection
+  ) {
+
+    u9AvatarMySection.style.display =
+      "none";
+
+  }
+
+
+  if (
+    u9AvatarMyList
+  ) {
+
+    u9AvatarMyList.innerHTML =
+      "";
 
   }
 
@@ -914,6 +1731,10 @@ function renderFreeAvatars() {
         avatar.id;
 
 
+      card.dataset.avatarType =
+        "free";
+
+
       /* =========================
          IMAGE
       ========================= */
@@ -1005,46 +1826,90 @@ function renderFreeAvatars() {
 
 
 /* =========================
-   UPDATE FREE AVATAR
-   SELECTED UI
+   UPDATE AVATAR SELECTED UI
 ========================= */
 
 function updateFreeAvatarSelection() {
 
+  /* =========================
+     FREE
+  ========================= */
+
   if (
-    !u9AvatarFreeList
+    u9AvatarFreeList
   ) {
 
-    return;
+    const cards =
+      u9AvatarFreeList.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      );
+
+
+    cards.forEach(
+      (card) => {
+
+        const isSelected =
+
+          u9AvatarCurrentType ===
+            "free" &&
+
+          card.dataset.avatarType ===
+            "free" &&
+
+          card.dataset.avatarId ===
+            String(
+              u9AvatarCurrentId
+            );
+
+
+        if (
+          isSelected
+        ) {
+
+          card.classList.add(
+            "selected"
+          );
+
+        }
+
+        else {
+
+          card.classList.remove(
+            "selected"
+          );
+
+        }
+
+      }
+    );
 
   }
 
 
-  const cards =
-    u9AvatarFreeList.querySelectorAll(
-      ".Account-U9-free-avatar-card"
-    );
+  /* =========================
+     MY AVATAR
+  ========================= */
+
+  if (
+    u9AvatarMyList
+  ) {
+
+    const myCard =
+      u9AvatarMyList.querySelector(
+        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
+      );
 
 
-  cards.forEach(
-    (card) => {
-
-      const isSelected =
-
-        u9AvatarCurrentType ===
-          "free" &&
-
-        card.dataset.avatarId ===
-          String(
-            u9AvatarCurrentId
-          );
-
+    if (
+      myCard
+    ) {
 
       if (
-        isSelected
+        u9AvatarCurrentType ===
+        "custom"
       ) {
 
-        card.classList.add(
+        myCard.classList.add(
           "selected"
         );
 
@@ -1052,14 +1917,15 @@ function updateFreeAvatarSelection() {
 
       else {
 
-        card.classList.remove(
+        myCard.classList.remove(
           "selected"
         );
 
       }
 
     }
-  );
+
+  }
 
 }
 
@@ -1130,6 +1996,13 @@ async function selectFreeAvatar(
     [];
 
 
+  const myCard =
+    u9AvatarMyList
+      ?.querySelector(
+        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
+      );
+
+
   /* =========================
      DISABLE
   ========================= */
@@ -1142,6 +2015,16 @@ async function selectFreeAvatar(
 
     }
   );
+
+
+  if (
+    myCard
+  ) {
+
+    myCard.disabled =
+      true;
+
+  }
 
 
   try {
@@ -1171,6 +2054,9 @@ async function selectFreeAvatar(
 
           body:
             JSON.stringify({
+
+              type:
+                "free",
 
               avatar_id:
                 avatar.id
@@ -1213,6 +2099,30 @@ async function selectFreeAvatar(
 
 
     /* =========================
+       PRESERVE CUSTOM DATA
+    ========================= */
+
+    if (
+      result.avatar?.custom_url
+    ) {
+
+      u9AvatarCustomUrl =
+        result.avatar.custom_url;
+
+    }
+
+
+    if (
+      result.avatar?.cooldown_until
+    ) {
+
+      u9AvatarCooldownUntil =
+        result.avatar.cooldown_until;
+
+    }
+
+
+    /* =========================
        UPDATE ACCOUNT AVATAR
     ========================= */
 
@@ -1233,19 +2143,38 @@ async function selectFreeAvatar(
 
 
     /* =========================
-       FREE CARD SELECTED
+       UPDATE MY AVATAR
+    ========================= */
+
+    renderMyAvatar();
+
+
+    /* =========================
+       SELECTED
     ========================= */
 
     updateFreeAvatarSelection();
 
 
     /* =========================
-       STATUS
+       COOLDOWN
     ========================= */
 
-    setAvatarStatus(
-      "Free avatar updated successfully."
-    );
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+        "Free avatar updated successfully."
+      );
+
+    }
 
 
     console.log(
@@ -1263,15 +2192,27 @@ async function selectFreeAvatar(
     );
 
 
-    setAvatarStatus(
+    if (
+      isAvatarCooldownActive()
+    ) {
 
-      error instanceof Error
-        ? error.message
-        : "Failed to select free avatar.",
+      updateAvatarCooldownDisplay();
 
-      true
+    }
 
-    );
+    else {
+
+      setAvatarStatus(
+
+        error instanceof Error
+          ? error.message
+          : "Failed to select free avatar.",
+
+        true
+
+      );
+
+    }
 
   }
 
@@ -1287,9 +2228,320 @@ async function selectFreeAvatar(
     );
 
 
+    if (
+      myCard
+    ) {
+
+      myCard.disabled =
+        false;
+
+    }
+
+
     card.classList.remove(
       "loading"
     );
+
+  }
+
+}
+
+
+/* =========================
+   SELECT CUSTOM AVATAR
+========================= */
+
+async function selectCustomAvatar(
+  card
+) {
+
+  if (
+    !u9AvatarCustomUrl
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (
+    !sessionToken
+  ) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     SAME AVATAR
+  ========================= */
+
+  if (
+    u9AvatarCurrentType ===
+    "custom"
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList
+      ?.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      ) ||
+    [];
+
+
+  const myCard =
+    card;
+
+
+  /* =========================
+     DISABLE
+  ========================= */
+
+  cards.forEach(
+    (item) => {
+
+      item.disabled =
+        true;
+
+    }
+  );
+
+
+  if (
+    myCard
+  ) {
+
+    myCard.disabled =
+      true;
+
+  }
+
+
+  try {
+
+    myCard.classList.add(
+      "loading"
+    );
+
+
+    const response =
+      await fetch(
+        u9AvatarSetFunction,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              type:
+                "custom"
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        "Failed to select custom avatar."
+
+      );
+
+    }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      "custom";
+
+
+    u9AvatarCurrentId =
+      null;
+
+
+    if (
+      result.avatar?.custom_url
+    ) {
+
+      u9AvatarCustomUrl =
+        result.avatar.custom_url;
+
+    }
+
+
+    if (
+      result.avatar?.cooldown_until
+    ) {
+
+      u9AvatarCooldownUntil =
+        result.avatar.cooldown_until;
+
+    }
+
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage &&
+      u9AvatarCustomUrl
+    ) {
+
+      accountAvatarImage.src =
+        `${u9AvatarCustomUrl}?v=${Date.now()}`;
+
+    }
+
+
+    /* =========================
+       UPDATE MY AVATAR
+    ========================= */
+
+    renderMyAvatar();
+
+
+    /* =========================
+       SELECTED
+    ========================= */
+
+    updateFreeAvatarSelection();
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+        "Custom avatar selected successfully."
+      );
+
+    }
+
+
+    console.log(
+      "Custom avatar selected:",
+      result
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to select custom avatar:",
+      error
+    );
+
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      updateAvatarCooldownDisplay();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+
+        error instanceof Error
+          ? error.message
+          : "Failed to select custom avatar.",
+
+        true
+
+      );
+
+    }
+
+  }
+
+  finally {
+
+    cards.forEach(
+      (item) => {
+
+        item.disabled =
+          false;
+
+      }
+    );
+
+
+    if (
+      myCard
+    ) {
+
+      myCard.disabled =
+        false;
+
+
+      myCard.classList.remove(
+        "loading"
+      );
+
+    }
 
   }
 
@@ -1303,6 +2555,21 @@ async function selectFreeAvatar(
 function handleAvatarFileChange(
   event
 ) {
+
+  if (
+    isAvatarCooldownActive()
+  ) {
+
+    event.target.value =
+      "";
+
+
+    updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
 
   const file =
     event.target.files?.[0];
@@ -1471,6 +2738,17 @@ function handleAvatarZoom() {
   if (
     !u9AvatarZoomInput
   ) {
+
+    return;
+
+  }
+
+
+  if (
+    isAvatarCooldownActive()
+  ) {
+
+    updateAvatarCooldownDisplay();
 
     return;
 
@@ -1646,6 +2924,15 @@ function setupAvatarDrag() {
     (event) => {
 
       if (
+        isAvatarCooldownActive()
+      ) {
+
+        return;
+
+      }
+
+
+      if (
         !u9AvatarImageLoaded
       ) {
 
@@ -1803,6 +3090,15 @@ function setupAvatarDrag() {
     (event) => {
 
       if (
+        isAvatarCooldownActive()
+      ) {
+
+        return;
+
+      }
+
+
+      if (
         !u9AvatarImageLoaded
       ) {
 
@@ -1871,6 +3167,17 @@ function setupAvatarDrag() {
 ========================= */
 
 async function saveAvatarCrop() {
+
+  if (
+    isAvatarCooldownActive()
+  ) {
+
+    updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
 
   if (
     !u9AvatarImageLoaded ||
@@ -2030,24 +3337,27 @@ async function saveAvatarCrop() {
           "Avatar is still on cooldown."
       ) {
 
-        let message =
-          "Avatar is still on cooldown.";
+        u9AvatarCooldownUntil =
+          result.cooldown_until ||
+          null;
 
 
         if (
-          result.remaining_hours
+          isAvatarCooldownActive()
         ) {
 
-          message +=
-            ` ${result.remaining_hours} hours remaining.`;
+          startAvatarCooldownTimer();
 
         }
 
+        else {
 
-        setAvatarStatus(
-          message,
-          true
-        );
+          setAvatarStatus(
+            "Avatar upload failed.",
+            true
+          );
+
+        }
 
 
         console.log(
@@ -2107,11 +3417,16 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       CACHE BUST
+       SAVE CUSTOM AVATAR
     ========================= */
 
-    const cacheBustedUrl =
-      `${avatarUrl}?v=${Date.now()}`;
+    u9AvatarCustomUrl =
+      avatarUrl;
+
+
+    u9AvatarCooldownUntil =
+      result.avatar?.cooldown_until ||
+      null;
 
 
     /* =========================
@@ -2129,7 +3444,7 @@ async function saveAvatarCrop() {
     ) {
 
       accountAvatarImage.src =
-        cacheBustedUrl;
+        `${avatarUrl}?v=${Date.now()}`;
 
     }
 
@@ -2147,25 +3462,17 @@ async function saveAvatarCrop() {
 
 
     /* =========================
+       UPDATE MY AVATAR
+    ========================= */
+
+    renderMyAvatar();
+
+
+    /* =========================
        CLEAR FREE SELECTION
     ========================= */
 
     updateFreeAvatarSelection();
-
-
-    /* =========================
-       SUCCESS MESSAGE
-    ========================= */
-
-    setAvatarStatus(
-      "Avatar updated successfully."
-    );
-
-
-    console.log(
-      "Avatar uploaded successfully:",
-      result
-    );
 
 
     /* =========================
@@ -2193,6 +3500,20 @@ async function saveAvatarCrop() {
 
 
     if (
+      u9AvatarObjectUrl
+    ) {
+
+      URL.revokeObjectURL(
+        u9AvatarObjectUrl
+      );
+
+      u9AvatarObjectUrl =
+        null;
+
+    }
+
+
+    if (
       u9AvatarFileInput
     ) {
 
@@ -2200,6 +3521,41 @@ async function saveAvatarCrop() {
         "";
 
     }
+
+
+    /* =========================
+       RESET PREVIEW
+    ========================= */
+
+    u9AvatarImage.src =
+      u9AvatarDefaultImage;
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+        "Avatar updated successfully."
+      );
+
+    }
+
+
+    console.log(
+      "Avatar uploaded successfully:",
+      result
+    );
 
   }
 
@@ -2229,8 +3585,14 @@ async function saveAvatarCrop() {
       "Save";
 
 
-    u9AvatarSaveButton.disabled =
-      !u9AvatarSelectedImage;
+    if (
+      !isAvatarCooldownActive()
+    ) {
+
+      u9AvatarSaveButton.disabled =
+        !u9AvatarSelectedImage;
+
+    }
 
   }
 
@@ -2443,6 +3805,24 @@ function setAvatarStatus(
   }
 
 
+  /*
+   * Do not overwrite cooldown
+   * message with normal status.
+   */
+
+  if (
+    isAvatarCooldownActive() &&
+    u9AvatarStatus.dataset.cooldown ===
+      "true"
+  ) {
+
+    updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
+
   u9AvatarStatus.textContent =
     message || "";
 
@@ -2453,6 +3833,27 @@ function setAvatarStatus(
       isError
     )
   );
+
+
+  u9AvatarStatus.dataset.cooldown =
+    "false";
+
+
+  if (
+    message
+  ) {
+
+    u9AvatarStatus.style.display =
+      "";
+
+  }
+
+  else {
+
+    u9AvatarStatus.style.display =
+      "none";
+
+  }
 
 }
 
