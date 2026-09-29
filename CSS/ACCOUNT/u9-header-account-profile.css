@@ -311,9 +311,9 @@
 
   position: relative;
 
-  width: 72px;
+  width: 100px;
 
-  height: 72px;
+  height: 100px;
 
   margin: 0 auto;
 
@@ -334,9 +334,9 @@
 
   left: 50%;
 
-  width: 72px;
+  width: 100px;
 
-  height: 72px;
+  height: 100px;
 
   transform: translate(
     -50%,
