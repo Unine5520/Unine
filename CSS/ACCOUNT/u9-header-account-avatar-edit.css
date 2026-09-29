@@ -431,3 +431,198 @@
   }
 
 }
+
+/* =========================
+   FREE AVATAR SECTION
+========================= */
+
+#Account-U9-avatar-editor-free-section {
+  width: min(
+    300px,
+    82vw
+  );
+
+  margin-top: 24px;
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+#Account-U9-avatar-editor-free-title {
+  margin-bottom: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #333;
+}
+
+
+/* =========================
+   LIST
+========================= */
+
+#Account-U9-avatar-editor-free-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 10px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.Account-U9-free-avatar-card {
+  position: relative;
+
+  min-width: 0;
+
+  padding: 8px;
+
+  border:
+    1px solid
+    #dfe3ea;
+
+  border-radius: 12px;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 5px;
+
+  transition:
+    border-color
+    0.2s ease,
+    transform
+    0.15s ease,
+    background-color
+    0.2s ease;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+.Account-U9-free-avatar-image {
+  width: 52px;
+  height: 52px;
+
+  object-fit: contain;
+
+  display: block;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   NAME
+========================= */
+
+.Account-U9-free-avatar-name {
+  width: 100%;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 11px;
+
+  color: #666;
+
+  text-align: center;
+}
+
+
+/* =========================
+   SELECTED
+========================= */
+
+.Account-U9-free-avatar-card.selected {
+  border:
+    2px solid
+    #71a6ff;
+
+  background: #f5f8ff;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.Account-U9-free-avatar-card.loading {
+  opacity: 0.6;
+
+  cursor: wait;
+}
+
+
+/* =========================
+   DISABLED
+========================= */
+
+.Account-U9-free-avatar-card:disabled {
+  cursor: wait;
+}
+
+
+/* =========================
+   LOADING / EMPTY / ERROR
+========================= */
+
+.Account-U9-avatar-editor-free-loading,
+.Account-U9-avatar-editor-free-empty,
+.Account-U9-avatar-editor-free-error {
+  padding: 14px 0;
+
+  font-size: 13px;
+
+  color: #777;
+
+  text-align: center;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (
+  max-width: 480px
+) {
+
+  #Account-U9-avatar-editor-free-list {
+    grid-template-columns:
+      repeat(
+        4,
+        1fr
+      );
+
+    gap: 8px;
+  }
+
+
+  .Account-U9-free-avatar-image {
+    width: 48px;
+    height: 48px;
+  }
+
+}
