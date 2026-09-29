@@ -374,6 +374,34 @@
 
 
 /* =========================
+   ACCOUNT EDIT
+   FRAME BUTTON POSITION
+========================= */
+
+#Account-U9-account-frame-edit {
+
+  position: static !important;
+
+  float: none !important;
+
+  clear: both;
+
+  display: block;
+
+  width: auto;
+
+  max-width: 300px;
+
+  margin:
+    24px auto
+    40px;
+
+  z-index: auto !important;
+
+}
+
+
+/* =========================
    PURCHASE MODAL
 ========================= */
 
@@ -760,6 +788,22 @@
     width: 90px;
 
     height: 90px;
+
+  }
+
+
+  /* =========================
+     ACCOUNT EDIT
+     MOBILE FRAME BUTTON
+  ========================= */
+
+  #Account-U9-account-frame-edit {
+
+    max-width: 100%;
+
+    margin:
+      20px auto
+      32px;
 
   }
 
