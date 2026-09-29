@@ -504,9 +504,22 @@ function createU9AvatarEditor() {
 
       updateAvatarImage();
 
+
+      /* =========================
+        ENABLE SAVE
+      ========================= */
+
+      if (
+        u9AvatarSaveButton
+      ) {
+
+        u9AvatarSaveButton.disabled =
+          !u9AvatarSelectedImage;
+
+      }
+
     }
   );
-
 
   /* =========================
      INITIAL IMAGE
