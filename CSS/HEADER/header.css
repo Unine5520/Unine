@@ -1,19 +1,21 @@
+```css
+/* =========================
+   U9 HEADER
+========================= */
 
-/* =========== HEADER U9 LOGO =========== */
+
+/* =========================
+   HEADER U9 LOGO
+========================= */
+
 #U9-page-header-u9-logo {
+
   display: flex;
+
   align-items: center;
+
 }
 
-/* =========== HEADER U9 LOGO =========== */
-
-#U9-page-header-u9-logo {
-
-  display: flex;
-
-  align-items: center;
-
-}
 
 #U9-page-header-u9-logo img {
 
@@ -25,7 +27,10 @@
 
 }
 
-/* =========== HEADER =========== */
+
+/* =========================
+   HEADER
+========================= */
 
 #U9-page-header {
 
@@ -39,7 +44,11 @@
 
   height: 60px;
 
-  padding: 0px 10px 0px 25px;
+  padding:
+    0px
+    10px
+    0px
+    25px;
 
   display: flex;
 
@@ -49,14 +58,39 @@
 
   background-color: white;
 
-  border-bottom: 0px solid rgba(255, 255, 255, 0);
+  border-bottom:
+    0px
+    solid
+    rgba(
+      255,
+      255,
+      255,
+      0
+    );
 
   z-index: 1000;
 
 }
 
 
-/* =========== REGISTER / LOGIN BUTTON =========== */
+/* =========================
+   HEADER ACTIONS
+========================= */
+
+#U9-page-header-actions {
+
+  display: none;
+
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+
+/* =========================
+   REGISTER / LOGIN BUTTON
+========================= */
 
 #U9-page-header-register,
 
@@ -64,14 +98,18 @@
 
   border: none;
 
-  padding: 10px 15px;
+  padding:
+    10px
+    15px;
 
   cursor: pointer;
 
 }
 
 
-/* =========== USER BUTTON =========== */
+/* =========================
+   USER BUTTON
+========================= */
 
 #U9-page-header-user {
 
@@ -83,9 +121,16 @@
 
   gap: 10px;
 
-  padding: 5px 15px 5px 5px;
+  padding:
+    5px
+    15px
+    5px
+    5px;
 
-  border: 1px solid #ccc;
+  border:
+    1px
+    solid
+    #ccc;
 
   border-radius: 50px;
 
@@ -96,7 +141,23 @@
 }
 
 
-/* =========== USER ICON =========== */
+/* =========================
+   USER BUTTON ACTIVE
+========================= */
+
+#U9-page-header-user.account-open {
+
+  border:
+    1px
+    solid
+    #71a6ff;
+
+}
+
+
+/* =========================
+   USER ICON
+========================= */
 
 #U9-page-header-user-icon {
 
@@ -116,7 +177,10 @@
 
   stroke-linejoin: round;
 
-  border: 1px solid #ccc;
+  border:
+    1px
+    solid
+    #ccc;
 
   border-radius: 50%;
 
@@ -124,7 +188,25 @@
 
 }
 
-/* =========== USERNAME =========== */
+
+/* =========================
+   USER ICON ACTIVE
+========================= */
+
+#U9-page-header-user.account-open
+#U9-page-header-user-icon {
+
+  border:
+    1px
+    solid
+    #71a6ff;
+
+}
+
+
+/* =========================
+   USERNAME
+========================= */
 
 #U9-page-header-username {
 
@@ -133,13 +215,4 @@
   font-weight: 500;
 
 }
-
-#U9-page-header-actions {
-
-  display: none;
-
-  align-items: center;
-
-  gap: 10px;
-
-}
+```
