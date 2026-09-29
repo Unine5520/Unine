@@ -21,8 +21,13 @@
 #Account-U9-avatar-editor {
   width: 100%;
   max-width: 420px;
+
   margin: 0 auto;
-  padding: 24px 16px 40px;
+
+  padding:
+    24px
+    16px
+    40px;
 
   box-sizing: border-box;
 
@@ -39,7 +44,10 @@
 #Account-U9-avatar-editor-title {
   width: 100%;
 
-  margin: 0 0 20px;
+  margin:
+    0
+    0
+    20px;
 
   font-size: 22px;
   font-weight: 600;
@@ -48,6 +56,53 @@
   color: #111;
 
   text-align: center;
+}
+
+
+/* =========================
+   MY AVATAR SECTION
+========================= */
+
+#Account-U9-avatar-editor-my-section {
+  width: min(
+    300px,
+    82vw
+  );
+
+  margin-top: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   MY AVATAR TITLE
+========================= */
+
+#Account-U9-avatar-editor-my-title {
+  margin-bottom: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #333;
+}
+
+
+/* =========================
+   MY AVATAR LIST
+========================= */
+
+#Account-U9-avatar-editor-my-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 10px;
 }
 
 
@@ -113,6 +168,7 @@
   pointer-events: none;
 
   user-select: none;
+
   -webkit-user-select: none;
 }
 
@@ -286,8 +342,10 @@
   transition:
     background-color
     0.2s ease,
+
     border-color
     0.2s ease,
+
     transform
     0.15s ease;
 }
@@ -336,6 +394,7 @@
   transition:
     opacity
     0.2s ease,
+
     transform
     0.15s ease;
 }
@@ -383,54 +442,32 @@
 }
 
 
+/* =========================
+   STATUS ERROR
+========================= */
+
 #Account-U9-avatar-editor-status.error {
   color: #d64545;
+
+  font-weight: 500;
 }
 
 
 /* =========================
-   MOBILE
+   COOLDOWN
 ========================= */
 
-@media (
-  max-width: 480px
-) {
+#Account-U9-avatar-editor-status.error[data-cooldown="true"] {
+  margin-top: 18px;
 
-  #Account-U9-avatar-editor {
-    padding:
-      20px
-      10px
-      32px;
-  }
+  font-size: 14px;
+  font-weight: 600;
 
+  color: #d64545;
 
-  #Account-U9-avatar-editor-title {
-    margin-bottom: 16px;
-
-    font-size: 20px;
-  }
-
-
-  #Account-U9-avatar-editor-crop-guide {
-    width: 210px;
-    height: 210px;
-  }
-
-
-  #Account-U9-avatar-editor-zoom {
-    width: min(
-      100%,
-      300px
-    );
-  }
-
-
-  #Account-U9-avatar-editor-choose,
-  #Account-U9-avatar-editor-save {
-    min-width: 140px;
-  }
-
+  text-align: center;
 }
+
 
 /* =========================
    FREE AVATAR SECTION
@@ -447,7 +484,7 @@
 
 
 /* =========================
-   TITLE
+   FREE AVATAR TITLE
 ========================= */
 
 #Account-U9-avatar-editor-free-title {
@@ -461,7 +498,7 @@
 
 
 /* =========================
-   LIST
+   FREE AVATAR LIST
 ========================= */
 
 #Account-U9-avatar-editor-free-list {
@@ -478,7 +515,7 @@
 
 
 /* =========================
-   CARD
+   AVATAR CARD
 ========================= */
 
 .Account-U9-free-avatar-card {
@@ -504,18 +541,45 @@
 
   gap: 5px;
 
+  box-sizing: border-box;
+
   transition:
     border-color
     0.2s ease,
+
     transform
     0.15s ease,
+
     background-color
     0.2s ease;
 }
 
 
 /* =========================
-   IMAGE
+   CARD HOVER
+========================= */
+
+.Account-U9-free-avatar-card:hover {
+  border-color:
+    #bfc7d6;
+
+  background:
+    #f9fbff;
+}
+
+
+/* =========================
+   CARD ACTIVE
+========================= */
+
+.Account-U9-free-avatar-card:active {
+  transform:
+    scale(0.98);
+}
+
+
+/* =========================
+   AVATAR IMAGE
 ========================= */
 
 .Account-U9-free-avatar-image {
@@ -531,7 +595,7 @@
 
 
 /* =========================
-   NAME
+   AVATAR NAME
 ========================= */
 
 .Account-U9-free-avatar-name {
@@ -560,7 +624,21 @@
     2px solid
     #71a6ff;
 
-  background: #f5f8ff;
+  background:
+    #f5f8ff;
+}
+
+
+/* =========================
+   SELECTED HOVER
+========================= */
+
+.Account-U9-free-avatar-card.selected:hover {
+  border-color:
+    #71a6ff;
+
+  background:
+    #f5f8ff;
 }
 
 
@@ -591,7 +669,9 @@
 .Account-U9-avatar-editor-free-loading,
 .Account-U9-avatar-editor-free-empty,
 .Account-U9-avatar-editor-free-error {
-  padding: 14px 0;
+  padding:
+    14px
+    0;
 
   font-size: 13px;
 
@@ -609,6 +689,66 @@
   max-width: 480px
 ) {
 
+  #Account-U9-avatar-editor {
+    padding:
+      20px
+      10px
+      32px;
+  }
+
+
+  #Account-U9-avatar-editor-title {
+    margin-bottom: 16px;
+
+    font-size: 20px;
+  }
+
+
+  #Account-U9-avatar-editor-my-section {
+    width: min(
+      100%,
+      300px
+    );
+  }
+
+
+  #Account-U9-avatar-editor-free-section {
+    width: min(
+      100%,
+      300px
+    );
+  }
+
+
+  #Account-U9-avatar-editor-preview {
+    width: min(
+      300px,
+      82vw
+    );
+  }
+
+
+  #Account-U9-avatar-editor-crop-guide {
+    width: 210px;
+    height: 210px;
+  }
+
+
+  #Account-U9-avatar-editor-zoom {
+    width: min(
+      100%,
+      300px
+    );
+  }
+
+
+  #Account-U9-avatar-editor-choose,
+  #Account-U9-avatar-editor-save {
+    min-width: 140px;
+  }
+
+
+  #Account-U9-avatar-editor-my-list,
   #Account-U9-avatar-editor-free-list {
     grid-template-columns:
       repeat(
