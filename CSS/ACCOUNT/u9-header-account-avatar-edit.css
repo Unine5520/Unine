@@ -801,17 +801,9 @@
 
   justify-content: center;
 
-  width: calc(
-    100% - 40px
-  );
+  width: 100%;
 
   min-height: 44px;
-
-  margin:
-    20px
-    15px
-    20px
-    15px;
 
   padding:
     0
@@ -1023,15 +1015,7 @@
 
   #Account-U9-account-frame-edit {
 
-    width: calc(
-      100% - 32px
-    );
-
-    margin:
-      20px
-      15px
-      15px
-      15px;
+    width: 100%;
 
   }
 
