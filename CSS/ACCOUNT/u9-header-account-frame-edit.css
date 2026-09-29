@@ -1,3 +1,4 @@
+
 /* =========================
    ACCOUNT FRAME EDITOR
 ========================= */
@@ -6,10 +7,6 @@
 /* =========== EDITOR =========== */
 
 #Account-U9-frame-editor {
-
-  position: relative;
-
-  z-index: 1;
 
   width: 100%;
 
@@ -22,8 +19,6 @@
   display: flex;
 
   flex-direction: column;
-
-  overflow-x: hidden;
 
   overflow-y: auto;
 
@@ -374,34 +369,6 @@
 
 
 /* =========================
-   ACCOUNT EDIT
-   FRAME BUTTON POSITION
-========================= */
-
-#Account-U9-account-frame-edit {
-
-  position: static !important;
-
-  float: none !important;
-
-  clear: both;
-
-  display: block;
-
-  width: auto;
-
-  max-width: 300px;
-
-  margin:
-    24px auto
-    40px;
-
-  z-index: auto !important;
-
-}
-
-
-/* =========================
    PURCHASE MODAL
 ========================= */
 
@@ -581,7 +548,7 @@
 }
 
 
-/* =========== CANCEL / CONFIRM =========== */
+/* =========== CANCEL =========== */
 
 #Account-U9-frame-purchase-cancel,
 
@@ -733,10 +700,6 @@
 
     padding: 16px;
 
-    overflow-x: hidden;
-
-    overflow-y: auto;
-
   }
 
 
@@ -791,28 +754,7 @@
 
   }
 
-
-  /* =========================
-     ACCOUNT EDIT
-     MOBILE FRAME BUTTON
-  ========================= */
-
-  #Account-U9-account-frame-edit {
-
-    max-width: 100%;
-
-    margin:
-      20px auto
-      32px;
-
-  }
-
 }
-
-
-/* =========================
-   PURCHASE ERROR
-========================= */
 
 #Account-U9-frame-purchase-message.error {
 
