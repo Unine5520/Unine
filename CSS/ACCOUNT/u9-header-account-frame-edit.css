@@ -1,4 +1,3 @@
-
 /* =========================
    ACCOUNT FRAME EDITOR
 ========================= */
@@ -7,6 +6,10 @@
 /* =========== EDITOR =========== */
 
 #Account-U9-frame-editor {
+
+  position: relative;
+
+  z-index: 1;
 
   width: 100%;
 
@@ -19,6 +22,8 @@
   display: flex;
 
   flex-direction: column;
+
+  overflow-x: hidden;
 
   overflow-y: auto;
 
@@ -548,7 +553,7 @@
 }
 
 
-/* =========== CANCEL =========== */
+/* =========== CANCEL / CONFIRM =========== */
 
 #Account-U9-frame-purchase-cancel,
 
@@ -700,6 +705,10 @@
 
     padding: 16px;
 
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
   }
 
 
@@ -755,6 +764,11 @@
   }
 
 }
+
+
+/* =========================
+   PURCHASE ERROR
+========================= */
 
 #Account-U9-frame-purchase-message.error {
 
