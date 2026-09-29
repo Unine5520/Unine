@@ -791,6 +791,7 @@
    ACCOUNT EDIT BUTTON
 ========================= */
 
+
 #Account-U9-account-frame-edit {
 
   flex: 0 0 auto;
@@ -801,9 +802,15 @@
 
   justify-content: center;
 
-  width: 100%;
+  width: calc(
+    100% - 30px
+  );
 
   min-height: 44px;
+
+  margin:
+    20px
+    auto;
 
   padding:
     0
