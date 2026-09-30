@@ -1,19 +1,21 @@
-/* =========== CONTAINER TOOL =========== */
+
+/* =========================
+   CONTAINER TOOL
+========================= */
 
 #U9-page-container-tool {
 
   position: fixed;
 
   top: 60px;
-
   left: 0;
 
   width: 100%;
-
   height: 55px;
 
-  display: flex;
+  box-sizing: border-box;
 
+  display: flex;
   align-items: center;
 
   padding: 0 10px;
@@ -21,7 +23,6 @@
   background-color: rgba(113, 165, 255, 0);
 
   backdrop-filter: blur(10px);
-
   -webkit-backdrop-filter: blur(10px);
 
   z-index: 900;
@@ -31,22 +32,21 @@
 }
 
 
-/* =========== NORMAL-PAGE =========== */
+/* =========================
+   NORMAL PAGE TOOL
+========================= */
 
 #U9-page-container-tool-normal {
 
   position: absolute;
 
   top: 7.5px;
-
   left: 10px;
 
   width: calc(100% - 20px);
-
   height: 40px;
 
   display: flex;
-
   align-items: center;
 
   gap: 10px;
@@ -61,24 +61,22 @@
 }
 
 
-/* =========== PAGE MENU =========== */
+/* =========================
+   PAGE MENU
+========================= */
 
 #U9-page-container-tool-pages {
 
   position: absolute;
 
   top: 7.5px;
-
   left: 10px;
 
   width: calc(100% - 20px);
-
   height: 40px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: flex-start;
 
   gap: 6px;
@@ -95,14 +93,14 @@
 }
 
 
-/* =========== MENU ICON =========== */
+/* =========================
+   MENU BUTTON
+========================= */
 
 #U9-page-container-tool-menu {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
@@ -113,11 +111,9 @@
   display: block;
 
   width: 18px;
-
   height: 18px;
 
   max-width: 18px;
-
   max-height: 18px;
 
   object-fit: contain;
@@ -127,7 +123,9 @@
 }
 
 
-/* =========== MENU HEARTBEAT =========== */
+/* =========================
+   MENU HEARTBEAT
+========================= */
 
 #U9-page-container-tool-menu.menu-heartbeat img {
 
@@ -141,78 +139,72 @@
 
   0% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
   10% {
 
-    transform:
-      scale(1.2);
+    transform: scale(1.2);
 
   }
 
   20% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
   30% {
 
-    transform:
-      scale(1.2);
+    transform: scale(1.2);
 
   }
 
   40% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
   50% {
 
-    transform:
-      scale(1.2);
+    transform: scale(1.2);
 
   }
 
   60% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
   100% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
 }
 
 
-/* =========== SEARCH CONTAINER =========== */
+/* =========================
+   SEARCH CONTAINER
+========================= */
 
 #U9-page-container-tool-search {
 
   display: flex;
-
   align-items: center;
 
   flex: 1;
-
   min-width: 0;
 
   height: 40px;
 
   padding: 8px;
+
+  box-sizing: border-box;
 
   background-color: white;
 
@@ -223,12 +215,13 @@
 }
 
 
-/* =========== SEARCH INPUT =========== */
+/* =========================
+   SEARCH INPUT
+========================= */
 
 #U9-page-container-tool-search-input {
 
   flex: 1;
-
   min-width: 0;
 
   height: 100%;
@@ -236,7 +229,6 @@
   padding: 0 10px;
 
   border: none;
-
   outline: none;
 
   background-color: white;
@@ -244,26 +236,23 @@
 }
 
 
-/* =========== SEARCH BUTTON =========== */
+/* =========================
+   SEARCH BUTTON
+========================= */
 
 #U9-page-container-tool-search-button {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   width: 30px;
-
   min-width: 24px;
-
   height: 30px;
 
   padding: 0;
 
   border: none;
-
   border-radius: 50%;
 
   background-color: #abacb2;
@@ -277,18 +266,18 @@
 }
 
 
-/* =========== SEARCH ICON =========== */
+/* =========================
+   SEARCH ICON
+========================= */
 
 #U9-page-container-tool-search-button img {
 
   display: block;
 
   width: 16px;
-
   height: 16px;
 
   max-width: 16px;
-
   max-height: 16px;
 
   object-fit: contain;
@@ -298,7 +287,9 @@
 }
 
 
-/* =========== SEARCH EFFECT =========== */
+/* =========================
+   SEARCH EFFECT
+========================= */
 
 #U9-page-container-tool-search-button.search-effect img {
 
@@ -308,42 +299,37 @@
 }
 
 
-/* =========== SEARCH EFFECT ANIMATION =========== */
-
 @keyframes search-effect {
 
   0% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
   35% {
 
-    transform:
-      scale(1.35);
+    transform: scale(1.35);
 
   }
 
   100% {
 
-    transform:
-      scale(1);
+    transform: scale(1);
 
   }
 
 }
 
 
-/* =========== MESSAGE ICON =========== */
+/* =========================
+   MESSAGE BUTTON
+========================= */
 
 #U9-page-container-tool-message {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
@@ -354,11 +340,9 @@
   display: block;
 
   width: 18px;
-
   height: 18px;
 
   max-width: 18px;
-
   max-height: 18px;
 
   object-fit: contain;
@@ -368,7 +352,9 @@
 }
 
 
-/* =========== MESSAGE BOUNCE =========== */
+/* =========================
+   MESSAGE BOUNCE
+========================= */
 
 #U9-page-container-tool-message.message-bounce img {
 
@@ -377,8 +363,6 @@
 
 }
 
-
-/* =========== MESSAGE BOUNCE ANIMATION =========== */
 
 @keyframes message-bounce {
 
@@ -441,14 +425,14 @@
 }
 
 
-/* =========== INBOX ICON =========== */
+/* =========================
+   INBOX BUTTON
+========================= */
 
 #U9-page-container-tool-inbox {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
@@ -459,11 +443,9 @@
   display: block;
 
   width: 18px;
-
   height: 18px;
 
   max-width: 18px;
-
   max-height: 18px;
 
   object-fit: contain;
@@ -473,7 +455,9 @@
 }
 
 
-/* =========== INBOX SHAKE =========== */
+/* =========================
+   INBOX SHAKE
+========================= */
 
 #U9-page-container-tool-inbox.inbox-shake img {
 
@@ -487,71 +471,63 @@
 
   0% {
 
-    transform:
-      rotate(0deg);
+    transform: rotate(0deg);
 
   }
 
   15% {
 
-    transform:
-      rotate(-15deg);
+    transform: rotate(-15deg);
 
   }
 
   30% {
 
-    transform:
-      rotate(15deg);
+    transform: rotate(15deg);
 
   }
 
   45% {
 
-    transform:
-      rotate(-12deg);
+    transform: rotate(-12deg);
 
   }
 
   60% {
 
-    transform:
-      rotate(12deg);
+    transform: rotate(12deg);
 
   }
 
   75% {
 
-    transform:
-      rotate(-6deg);
+    transform: rotate(-6deg);
 
   }
 
   90% {
 
-    transform:
-      rotate(4deg);
+    transform: rotate(4deg);
 
   }
 
   100% {
 
-    transform:
-      rotate(0deg);
+    transform: rotate(0deg);
 
   }
 
 }
 
 
-/* =========== GIFT ICON =========== */
+/* =========================
+   GIFT BUTTON
+========================= */
 
 #U9-page-container-tool-gift {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
@@ -562,11 +538,9 @@
   display: block;
 
   width: 18px;
-
   height: 17px;
 
   max-width: 18px;
-
   max-height: 17px;
 
   object-fit: contain;
@@ -576,7 +550,9 @@
 }
 
 
-/* =========== GIFT BOUNCE =========== */
+/* =========================
+   GIFT BOUNCE
+========================= */
 
 #U9-page-container-tool-gift.gift-bounce img {
 
@@ -639,14 +615,14 @@
 }
 
 
-/* =========== HISTORY ICON =========== */
+/* =========================
+   HISTORY BUTTON
+========================= */
 
 #U9-page-container-tool-history {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
@@ -657,11 +633,9 @@
   display: block;
 
   width: 21px;
-
   height: 21px;
 
   max-width: 21px;
-
   max-height: 21px;
 
   object-fit: contain;
@@ -671,7 +645,9 @@
 }
 
 
-/* =========== HISTORY SHAKE =========== */
+/* =========================
+   HISTORY SHAKE
+========================= */
 
 #U9-page-container-tool-history.history-shake img {
 
@@ -742,12 +718,17 @@
 }
 
 
-/* =========== NEW BUTTON =========== */
+/* =========================
+   COMMON TOOL BUTTONS
+========================= */
 
-#U9-page-container-tool-new {
+#U9-page-container-tool-menu,
+#U9-page-container-tool-message,
+#U9-page-container-tool-inbox,
+#U9-page-container-tool-gift,
+#U9-page-container-tool-history {
 
   width: 40px;
-
   min-width: 40px;
 
   height: 40px;
@@ -755,7 +736,33 @@
   padding: 0;
 
   border: none;
+  outline: none;
 
+  border-radius: 30%;
+
+  background-color: white;
+
+  cursor: pointer;
+
+  flex: 0 0 40px;
+
+}
+
+
+/* =========================
+   NEW BUTTON
+========================= */
+
+#U9-page-container-tool-new {
+
+  width: 40px;
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
   outline: none;
 
   border-radius: 30%;
@@ -765,9 +772,7 @@
   cursor: pointer;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   flex: 0 0 40px;
@@ -780,11 +785,9 @@
   display: block;
 
   width: 17px;
-
   height: 17px;
 
   max-width: 17px;
-
   max-height: 17px;
 
   object-fit: contain;
@@ -792,14 +795,14 @@
 }
 
 
-/* =========== PAGE ARROWS =========== */
+/* =========================
+   PAGE ARROWS
+========================= */
 
 #U9-page-container-tool-pages-prev,
-
 #U9-page-container-tool-pages-next {
 
   width: 40px;
-
   min-width: 40px;
 
   height: 40px;
@@ -807,7 +810,6 @@
   padding: 0;
 
   border: none;
-
   outline: none;
 
   border-radius: 30%;
@@ -819,15 +821,12 @@
   cursor: pointer;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   flex: 0 0 40px;
 
   font-size: 18px;
-
   font-weight: 600;
 
   line-height: 1;
@@ -835,7 +834,120 @@
 }
 
 
-/* =========== MENU OPEN =========== */
+/* =========================
+   PAGE BUTTONS
+========================= */
+
+#U9-page-container-tool-home,
+#U9-page-container-tool-shop-page,
+#U9-page-container-tool-auction,
+#U9-page-container-tool-test1,
+#U9-page-container-tool-test2 {
+
+  height: 40px;
+
+  padding:
+    0 10px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 10%;
+
+  background-color: white;
+
+  box-shadow: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #111111;
+
+}
+
+
+/* =========================
+   PAGE ACTIVE
+========================= */
+
+#U9-page-container-tool-home.active,
+#U9-page-container-tool-shop-page.active,
+#U9-page-container-tool-auction.active,
+#U9-page-container-tool-test1.active,
+#U9-page-container-tool-test2.active {
+
+  color: #1b67ea;
+
+}
+
+
+/* =========================
+   PAGE BUTTON HOVER
+========================= */
+
+#U9-page-container-tool-home:hover,
+#U9-page-container-tool-shop-page:hover,
+#U9-page-container-tool-auction:hover,
+#U9-page-container-tool-test1:hover,
+#U9-page-container-tool-test2:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========================
+   NEW / ARROW HOVER
+========================= */
+
+#U9-page-container-tool-new:hover,
+#U9-page-container-tool-pages-prev:hover,
+#U9-page-container-tool-pages-next:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========================
+   BUTTON PRESS
+========================= */
+
+#U9-page-container-tool-menu:active,
+#U9-page-container-tool-message:active,
+#U9-page-container-tool-inbox:active,
+#U9-page-container-tool-gift:active,
+#U9-page-container-tool-history:active,
+#U9-page-container-tool-new:active,
+#U9-page-container-tool-pages-prev:active,
+#U9-page-container-tool-pages-next:active,
+#U9-page-container-tool-home:active,
+#U9-page-container-tool-shop-page:active,
+#U9-page-container-tool-auction:active,
+#U9-page-container-tool-test1:active,
+#U9-page-container-tool-test2:active {
+
+  transform: scale(0.96);
+
+}
+
+
+/* =========================
+   MENU OPEN
+========================= */
 
 #U9-page-container-tool.menu-open
 #U9-page-container-tool-normal {
@@ -851,44 +963,14 @@
 #U9-page-container-tool.menu-open
 #U9-page-container-tool-pages {
 
-  transform:
-    translateX(0);
+  transform: translateX(0);
 
 }
 
 
-/* =========== TOOL BUTTON =========== */
-
-#U9-page-container-tool-menu,
-
-#U9-page-container-tool-message,
-
-#U9-page-container-tool-inbox,
-
-#U9-page-container-tool-gift,
-
-#U9-page-container-tool-history {
-
-  width: 40px;
-
-  min-width: 40px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  cursor: pointer;
-
-}
-
-
-/* =========== PAGE CONTENT =========== */
+/* =========================
+   PAGE CONTENT
+========================= */
 
 #U9-page-pages {
 
@@ -905,11 +987,8 @@
 
 
 #U9-page-shop,
-
 #U9-page-auction,
-
 #U9-page-test1,
-
 #U9-page-test2 {
 
   display: none;
@@ -917,87 +996,11 @@
 }
 
 
-/* =========== PAGE BUTTON =========== */
+/* =========================
+   MOBILE
+========================= */
 
-#U9-page-container-tool-pages
-button[id^="U9-page-container-tool-"] {
-
-  height: 40px;
-
-  padding:
-    0px 10px;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 10%;
-
-  background-color: white;
-
-  box-shadow: none;
-
-  appearance: none;
-
-  -webkit-appearance: none;
-
-  cursor: pointer;
-
-  white-space: nowrap;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  font-size: 15px;
-
-  font-weight: 600;
-
-  color: #111111;
-
-}
-
-
-/* =========== PAGE ACTIVE =========== */
-
-#U9-page-container-tool-pages
-button.active {
-
-  color: #1b67ea;
-
-}
-
-
-/* =========== BUTTON HOVER =========== */
-
-#U9-page-container-tool-pages
-button:hover {
-
-  background-color: #f7f7f7;
-
-}
-
-
-/* =========== BUTTON ACTIVE PRESS =========== */
-
-#U9-page-container-tool-pages
-button:active {
-
-  transform:
-    scale(0.96);
-
-}
-
-
-/* =========== MOBILE =========== */
-
-@media (
-  max-width: 480px
-) {
+@media (max-width: 480px) {
 
   #U9-page-container-tool {
 
@@ -1029,14 +1032,25 @@ button:active {
   }
 
 
+  #U9-page-container-tool-menu,
+  #U9-page-container-tool-message,
+  #U9-page-container-tool-inbox,
+  #U9-page-container-tool-gift,
+  #U9-page-container-tool-history {
+
+    width: 36px;
+    min-width: 36px;
+
+    flex: 0 0 36px;
+
+  }
+
+
   #U9-page-container-tool-new,
-
   #U9-page-container-tool-pages-prev,
-
   #U9-page-container-tool-pages-next {
 
     width: 36px;
-
     min-width: 36px;
 
     height: 40px;
@@ -1046,31 +1060,32 @@ button:active {
   }
 
 
-  #U9-page-container-tool-pages
-  button[id^="U9-page-container-tool-"] {
-
-    padding:
-      0px 8px;
-
-    font-size: 14px;
-
-  }
-
-
   #U9-page-container-tool-new img {
 
     width: 16px;
-
     height: 16px;
 
   }
 
 
   #U9-page-container-tool-pages-prev,
-
   #U9-page-container-tool-pages-next {
 
     font-size: 17px;
+
+  }
+
+
+  #U9-page-container-tool-home,
+  #U9-page-container-tool-shop-page,
+  #U9-page-container-tool-auction,
+  #U9-page-container-tool-test1,
+  #U9-page-container-tool-test2 {
+
+    padding:
+      0 8px;
+
+    font-size: 14px;
 
   }
 
