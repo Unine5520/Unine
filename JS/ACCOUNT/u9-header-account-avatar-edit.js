@@ -13,12 +13,6 @@ const u9AvatarEditContainer =
   );
 
 
-const u9AccountFrameEditButton =
-  document.getElementById(
-    "Account-U9-account-frame-edit"
-  );
-
-
 /* =========================
    CONFIG
 ========================= */
@@ -233,6 +227,352 @@ function clamp(
 
 
 /* =========================
+   SESSION
+========================= */
+
+function getAvatarSessionToken() {
+
+  return localStorage.getItem(
+    "u9_session"
+  );
+
+}
+
+
+/* =========================
+   HEADERS
+========================= */
+
+function getAvatarHeaders(
+  includeJson = false
+) {
+
+  const headers = {};
+
+
+  const sessionToken =
+    getAvatarSessionToken();
+
+
+  if (
+    sessionToken
+  ) {
+
+    headers.Authorization =
+      `Bearer ${sessionToken}`;
+
+  }
+
+
+  if (
+    includeJson
+  ) {
+
+    headers[
+      "Content-Type"
+    ] =
+      "application/json";
+
+  }
+
+
+  return headers;
+
+}
+
+
+/* =========================
+   PARSE RESPONSE
+========================= */
+
+async function parseAvatarResponse(
+  response
+) {
+
+  const text =
+    await response.text();
+
+
+  if (
+    !text
+  ) {
+
+    return {};
+
+  }
+
+
+  try {
+
+    return JSON.parse(
+      text
+    );
+
+  }
+
+  catch {
+
+    return {
+      error:
+        text
+    };
+
+  }
+
+}
+
+
+/* =========================
+   GET USER OBJECT
+========================= */
+
+function getAvatarUserObject(
+  result
+) {
+
+  if (
+    result &&
+    typeof result.user ===
+      "object" &&
+    result.user !== null
+  ) {
+
+    return result.user;
+
+  }
+
+
+  if (
+    result &&
+    typeof result.data?.user ===
+      "object" &&
+    result.data.user !== null
+  ) {
+
+    return result.data.user;
+
+  }
+
+
+  return result || {};
+
+}
+
+
+/* =========================
+   GET AVATAR URL
+========================= */
+
+function getAvatarUrlFromObject(
+  value
+) {
+
+  if (
+    !value
+  ) {
+
+    return "";
+
+  }
+
+
+  if (
+    typeof value ===
+      "string"
+  ) {
+
+    return value;
+
+  }
+
+
+  return (
+    value.url ||
+    value.avatar_url ||
+    value.image_url ||
+    value.svg ||
+    ""
+  );
+
+}
+
+
+/* =========================
+   GET AVATAR TYPE
+========================= */
+
+function getAvatarTypeFromUser(
+  user
+) {
+
+  return (
+    user.avatar_type ||
+    user.avatarType ||
+    "default"
+  );
+
+}
+
+
+/* =========================
+   GET AVATAR ID
+========================= */
+
+function getAvatarIdFromUser(
+  user
+) {
+
+  return (
+    user.avatar_id ??
+    user.avatarId ??
+    null
+  );
+
+}
+
+
+/* =========================
+   GET CUSTOM URL
+========================= */
+
+function getAvatarCustomUrlFromUser(
+  user
+) {
+
+  return (
+    user.avatar_url ||
+    user.custom_avatar_url ||
+    user.avatar?.url ||
+    user.avatar?.avatar_url ||
+    ""
+  );
+
+}
+
+
+/* =========================
+   GET AVATAR LIST
+========================= */
+
+function getAvatarListFromResult(
+  result
+) {
+
+  if (
+    Array.isArray(result)
+  ) {
+
+    return result;
+
+  }
+
+
+  if (
+    Array.isArray(
+      result?.avatars
+    )
+  ) {
+
+    return result.avatars;
+
+  }
+
+
+  if (
+    Array.isArray(
+      result?.data
+    )
+  ) {
+
+    return result.data;
+
+  }
+
+
+  if (
+    Array.isArray(
+      result?.data?.avatars
+    )
+  ) {
+
+    return result.data.avatars;
+
+  }
+
+
+  return [];
+
+}
+
+
+/* =========================
+   NORMALIZE AVATAR
+========================= */
+
+function normalizeAvatarItem(
+  item
+) {
+
+  if (
+    !item
+  ) {
+
+    return null;
+
+  }
+
+
+  const id =
+    item.id ??
+    item.avatar_id ??
+    item.avatarId ??
+    null;
+
+
+  const name =
+    item.name ||
+    item.title ||
+    "Avatar";
+
+
+  const url =
+    item.svg ||
+    item.url ||
+    item.image_url ||
+    item.avatar_url ||
+    "";
+
+
+  if (
+    !url
+  ) {
+
+    return null;
+
+  }
+
+
+  return {
+
+    id:
+      id,
+
+    name:
+      name,
+
+    url:
+      url,
+
+    is_active:
+      item.is_active ??
+      true
+
+  };
+
+}
+
+
+/* =========================
    COOLDOWN CHECK
 ========================= */
 
@@ -321,7 +661,9 @@ function formatAvatarCooldown(
     days > 0
   ) {
 
-    return `${days}d ${hours}h`;
+    return (
+      `${days}d ${hours}h`
+    );
 
   }
 
@@ -330,7 +672,9 @@ function formatAvatarCooldown(
     hours > 0
   ) {
 
-    return `${hours}h ${minutes}m`;
+    return (
+      `${hours}h ${minutes}m`
+    );
 
   }
 
@@ -363,7 +707,9 @@ function updateAvatarMoveButtons() {
 
 
   buttons.forEach(
-    (button) => {
+    (
+      button
+    ) => {
 
       if (
         button
@@ -437,7 +783,9 @@ function updateAvatarUploadVisibility() {
 
 
   directionButtons.forEach(
-    (button) => {
+    (
+      button
+    ) => {
 
       if (
         button
@@ -479,7 +827,6 @@ function updateAvatarUploadVisibility() {
   ) {
 
     u9AvatarChooseButton.style.display =
-
       cooldownActive
         ? "none"
         : (
@@ -500,7 +847,6 @@ function updateAvatarUploadVisibility() {
   ) {
 
     u9AvatarCancelButton.style.display =
-
       cooldownActive
         ? "none"
         : (
@@ -534,39 +880,17 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     FRAME EDIT
-     
-     NEVER HIDE ON COOLDOWN
-  ========================= */
-
-  if (
-    u9AccountFrameEditButton
-  ) {
-
-    u9AccountFrameEditButton.style.display =
-      "flex";
-
-  }
-
-
-  /* =========================
      ACTION ROW
   ========================= */
-
-  /*
-   * Important:
-   *
-   * The action row must always
-   * remain visible because it
-   * contains Frame Edit.
-   */
 
   if (
     u9AvatarActionRow
   ) {
 
     u9AvatarActionRow.style.display =
-      "flex";
+      cooldownActive
+        ? "none"
+        : "flex";
 
   }
 
@@ -1317,7 +1641,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     ACTION ROW
+     ACTION ROW APPEND
   ========================= */
 
   u9AvatarActionRow.appendChild(
@@ -1328,29 +1652,6 @@ function createU9AvatarEditor() {
   u9AvatarActionRow.appendChild(
     u9AvatarSaveButton
   );
-
-
-  /* =========================
-     FRAME EDIT BUTTON
-  ========================= */
-
-  /*
-   * The button already exists
-   * in Account Edit Page.
-   *
-   * appendChild() moves it
-   * into the action row.
-   */
-
-  if (
-    u9AccountFrameEditButton
-  ) {
-
-    u9AvatarActionRow.appendChild(
-      u9AccountFrameEditButton
-    );
-
-  }
 
 
   /* =========================
@@ -1658,23 +1959,9 @@ function createU9AvatarEditor() {
     "none";
 
 
-  if (
-    u9AccountFrameEditButton
-  ) {
-
-    u9AccountFrameEditButton.style.display =
-      "flex";
-
-  }
-
-
   u9AvatarSaveButton.disabled =
     true;
 
-
-  /* =========================
-     INITIAL IMAGE
-  ========================= */
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
@@ -1688,47 +1975,6 @@ function createU9AvatarEditor() {
 
 
   loadFreeAvatars();
-
-}
-
-
-/* =========================
-   FRAME EDIT BUTTON
-========================= */
-
-if (
-  u9AccountFrameEditButton
-) {
-
-  u9AccountFrameEditButton.addEventListener(
-    "click",
-    (event) => {
-
-      event.preventDefault();
-
-      event.stopPropagation();
-
-
-      if (
-        window.U9AccountProfile &&
-        typeof
-          window.U9AccountProfile.showFrameEditPage ===
-          "function"
-      ) {
-
-        window.U9AccountProfile.showFrameEditPage();
-
-        return;
-
-      }
-
-
-      console.error(
-        "U9AccountProfile.showFrameEditPage is not available."
-      );
-
-    }
-  );
 
 }
 
@@ -1907,6 +2153,9 @@ function cancelAvatarSelection() {
 
 
   updateAvatarMoveButtons();
+
+
+  updateAvatarUploadVisibility();
 
 }
 
@@ -2190,7 +2439,6 @@ function updateAvatarImage() {
 
 
   u9AvatarImage.style.transform =
-
     `translate(-50%, -50%) translate(${u9AvatarOffsetX}px, ${u9AvatarOffsetY}px) scale(${scale})`;
 
 }
@@ -2239,27 +2487,21 @@ function clampAvatarPosition() {
 
   const maxOffsetX =
     Math.max(
-
       0,
-
       (
         imageWidth -
         previewWidth
       ) / 2
-
     );
 
 
   const maxOffsetY =
     Math.max(
-
       0,
-
       (
         imageHeight -
         previewHeight
       ) / 2
-
     );
 
 
@@ -2309,9 +2551,7 @@ async function saveAvatarCrop() {
 
 
   const sessionToken =
-    localStorage.getItem(
-      "u9_session"
-    );
+    getAvatarSessionToken();
 
 
   if (
@@ -2422,7 +2662,9 @@ async function saveAvatarCrop() {
 
 
     const result =
-      await response.json();
+      await parseAvatarResponse(
+        response
+      );
 
 
     /* =========================
@@ -2443,6 +2685,7 @@ async function saveAvatarCrop() {
 
         u9AvatarCooldownUntil =
           result.cooldown_until ||
+          result.avatar?.cooldown_until ||
           null;
 
 
@@ -2491,7 +2734,11 @@ async function saveAvatarCrop() {
     ========================= */
 
     const avatarUrl =
-      result.avatar?.url ||
+      getAvatarUrlFromObject(
+        result.avatar
+      ) ||
+      result.avatar_url ||
+      result.url ||
       "";
 
 
@@ -2516,6 +2763,7 @@ async function saveAvatarCrop() {
 
     u9AvatarCooldownUntil =
       result.avatar?.cooldown_until ||
+      result.cooldown_until ||
       null;
 
 
@@ -2531,20 +2779,13 @@ async function saveAvatarCrop() {
        UPDATE ACCOUNT AVATAR
     ========================= */
 
-    const accountAvatarImage =
-      document.getElementById(
-        "Account-U9-account-avatar-image"
-      );
-
-
-    if (
-      accountAvatarImage
-    ) {
-
-      accountAvatarImage.src =
-        `${avatarUrl}?v=${Date.now()}`;
-
-    }
+    updateAvatarAccountImage(
+      `${avatarUrl}${
+        avatarUrl.includes("?")
+          ? "&"
+          : "?"
+      }v=${Date.now()}`
+    );
 
 
     /* =========================
@@ -2727,7 +2968,9 @@ async function saveAvatarCrop() {
 
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
       "Failed to upload avatar:",
@@ -2778,7 +3021,9 @@ async function saveAvatarCrop() {
 function createAvatarCropBlob() {
 
   return new Promise(
-    (resolve) => {
+    (
+      resolve
+    ) => {
 
       if (
         !u9AvatarImage ||
@@ -2939,7 +3184,9 @@ function createAvatarCropBlob() {
 
       canvas.toBlob(
 
-        (blob) => {
+        (
+          blob
+        ) => {
 
           resolve(
             blob
@@ -2955,6 +3202,908 @@ function createAvatarCropBlob() {
 
     }
   );
+
+}
+
+
+/* =========================
+   LOAD CURRENT AVATAR
+========================= */
+
+async function loadCurrentAvatar() {
+
+  const sessionToken =
+    getAvatarSessionToken();
+
+
+  if (
+    !sessionToken
+  ) {
+
+    u9AvatarCurrentType =
+      "default";
+
+
+    u9AvatarCurrentId =
+      null;
+
+
+    u9AvatarCustomUrl =
+      null;
+
+
+    updateAvatarAccountImage(
+      u9AvatarDefaultImage
+    );
+
+
+    renderAvatarSources();
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        u9AvatarMeFunction,
+        {
+
+          method:
+            "GET",
+
+          headers:
+            getAvatarHeaders(
+              false
+            )
+
+        }
+      );
+
+
+    const result =
+      await parseAvatarResponse(
+        response
+      );
+
+
+    if (
+      !response.ok ||
+      result.success ===
+        false
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        result.message ||
+        "Failed to load current avatar."
+
+      );
+
+    }
+
+
+    const user =
+      getAvatarUserObject(
+        result
+      );
+
+
+    u9AvatarCurrentType =
+      getAvatarTypeFromUser(
+        user
+      );
+
+
+    u9AvatarCurrentId =
+      getAvatarIdFromUser(
+        user
+      );
+
+
+    u9AvatarCustomUrl =
+      getAvatarCustomUrlFromUser(
+        user
+      ) ||
+      getAvatarUrlFromObject(
+        user.avatar
+      ) ||
+      null;
+
+
+    updateCurrentAvatarImage();
+
+
+    renderAvatarSources();
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Failed to load current avatar:",
+      error
+    );
+
+
+    u9AvatarCurrentType =
+      "default";
+
+
+    u9AvatarCurrentId =
+      null;
+
+
+    u9AvatarCustomUrl =
+      null;
+
+
+    updateAvatarAccountImage(
+      u9AvatarDefaultImage
+    );
+
+
+    renderAvatarSources();
+
+  }
+
+}
+
+
+/* =========================
+   UPDATE CURRENT AVATAR IMAGE
+========================= */
+
+function updateCurrentAvatarImage() {
+
+  /* =========================
+     CUSTOM
+  ========================= */
+
+  if (
+    u9AvatarCurrentType ===
+      "custom" &&
+    u9AvatarCustomUrl
+  ) {
+
+    updateAvatarAccountImage(
+      u9AvatarCustomUrl
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     FREE
+  ========================= */
+
+  if (
+    u9AvatarCurrentType ===
+      "free" &&
+    u9AvatarCurrentId !== null
+  ) {
+
+    const currentFree =
+      u9AvatarFreeAvatars.find(
+        (
+          avatar
+        ) =>
+          String(
+            avatar.id
+          ) ===
+          String(
+            u9AvatarCurrentId
+          )
+      );
+
+
+    if (
+      currentFree
+    ) {
+
+      updateAvatarAccountImage(
+        currentFree.url
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  /* =========================
+     DEFAULT
+  ========================= */
+
+  updateAvatarAccountImage(
+    u9AvatarDefaultImage
+  );
+
+}
+
+
+/* =========================
+   UPDATE ACCOUNT AVATAR IMAGE
+========================= */
+
+function updateAvatarAccountImage(
+  url
+) {
+
+  const accountAvatarImage =
+    document.getElementById(
+      "Account-U9-account-avatar-image"
+    );
+
+
+  if (
+    !accountAvatarImage
+  ) {
+
+    return;
+
+  }
+
+
+  accountAvatarImage.src =
+    url ||
+    u9AvatarDefaultImage;
+
+}
+
+
+/* =========================
+   LOAD FREE AVATARS
+========================= */
+
+async function loadFreeAvatars() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarFreeList.innerHTML =
+    "";
+
+
+  const loading =
+    document.createElement(
+      "div"
+    );
+
+
+  loading.className =
+    "Account-U9-avatar-editor-free-loading";
+
+
+  loading.textContent =
+    "Loading...";
+
+
+  u9AvatarFreeList.appendChild(
+    loading
+  );
+
+
+  try {
+
+    const response =
+      await fetch(
+        u9AvatarFreeFunction,
+        {
+
+          method:
+            "GET",
+
+          headers:
+            getAvatarHeaders(
+              false
+            )
+
+        }
+      );
+
+
+    const result =
+      await parseAvatarResponse(
+        response
+      );
+
+
+    if (
+      !response.ok ||
+      result.success ===
+        false
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        result.message ||
+        "Failed to load free avatars."
+
+      );
+
+    }
+
+
+    const list =
+      getAvatarListFromResult(
+        result
+      )
+      .map(
+        normalizeAvatarItem
+      )
+      .filter(
+        Boolean
+      )
+      .filter(
+        (
+          avatar
+        ) =>
+          avatar.is_active !==
+          false
+      );
+
+
+    u9AvatarFreeAvatars =
+      list;
+
+
+    updateCurrentAvatarImage();
+
+
+    renderAvatarSources();
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Failed to load free avatars:",
+      error
+    );
+
+
+    u9AvatarFreeAvatars =
+      [];
+
+
+    u9AvatarFreeList.innerHTML =
+      "";
+
+
+    const errorElement =
+      document.createElement(
+        "div"
+      );
+
+
+    errorElement.className =
+      "Account-U9-avatar-editor-free-error";
+
+
+    errorElement.textContent =
+      "Failed to load avatars.";
+
+
+    u9AvatarFreeList.appendChild(
+      errorElement
+    );
+
+  }
+
+}
+
+
+/* =========================
+   RENDER AVATAR SOURCES
+========================= */
+
+function renderAvatarSources() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarFreeList.innerHTML =
+    "";
+
+
+  const hasCurrentCustom =
+    Boolean(
+      u9AvatarCustomUrl
+    );
+
+
+  /* =========================
+     CUSTOM
+  ========================= */
+
+  if (
+    hasCurrentCustom
+  ) {
+
+    const customCard =
+      createAvatarSourceCard({
+
+        id:
+          null,
+
+        name:
+          "Database URL",
+
+        url:
+          u9AvatarCustomUrl,
+
+        type:
+          "custom"
+
+      });
+
+
+    u9AvatarFreeList.appendChild(
+      customCard
+    );
+
+  }
+
+
+  /* =========================
+     EMPTY
+  ========================= */
+
+  if (
+    u9AvatarFreeAvatars.length ===
+      0 &&
+    !hasCurrentCustom
+  ) {
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+
+    empty.className =
+      "Account-U9-avatar-editor-free-empty";
+
+
+    empty.textContent =
+      "No free avatars.";
+
+
+    u9AvatarFreeList.appendChild(
+      empty
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     FREE AVATARS
+  ========================= */
+
+  u9AvatarFreeAvatars.forEach(
+    (
+      avatar
+    ) => {
+
+      const card =
+        createAvatarSourceCard({
+
+          id:
+            avatar.id,
+
+          name:
+            avatar.name,
+
+          url:
+            avatar.url,
+
+          type:
+            "free"
+
+        });
+
+
+      u9AvatarFreeList.appendChild(
+        card
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   CREATE AVATAR SOURCE CARD
+========================= */
+
+function createAvatarSourceCard(
+  source
+) {
+
+  const card =
+    document.createElement(
+      "button"
+    );
+
+
+  card.type =
+    "button";
+
+
+  card.className =
+    "Account-U9-free-avatar-card";
+
+
+  /* =========================
+     SELECTED
+  ========================= */
+
+  const isSelected =
+    source.type ===
+      "custom"
+
+      ? (
+          u9AvatarCurrentType ===
+          "custom"
+        )
+
+      : (
+          u9AvatarCurrentType ===
+            "free" &&
+
+          String(
+            u9AvatarCurrentId
+          ) ===
+          String(
+            source.id
+          )
+        );
+
+
+  if (
+    isSelected
+  ) {
+
+    card.classList.add(
+      "selected"
+    );
+
+  }
+
+
+  /* =========================
+     IMAGE
+  ========================= */
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.className =
+    "Account-U9-free-avatar-image";
+
+
+  image.src =
+    source.url;
+
+
+  image.alt =
+    source.name;
+
+
+  image.draggable =
+    false;
+
+
+  /* =========================
+     NAME
+  ========================= */
+
+  const name =
+    document.createElement(
+      "span"
+    );
+
+
+  name.className =
+    "Account-U9-free-avatar-name";
+
+
+  name.textContent =
+    source.name;
+
+
+  /* =========================
+     APPEND
+  ========================= */
+
+  card.appendChild(
+    image
+  );
+
+
+  card.appendChild(
+    name
+  );
+
+
+  /* =========================
+     EVENT
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    () => {
+
+      setAvatarSource(
+        source
+      );
+
+    }
+  );
+
+
+  return card;
+
+}
+
+
+/* =========================
+   SET AVATAR SOURCE
+========================= */
+
+async function setAvatarSource(
+  source
+) {
+
+  if (
+    !source
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    getAvatarSessionToken();
+
+
+  if (
+    !sessionToken
+  ) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     ALREADY SELECTED
+  ========================= */
+
+  if (
+    source.type ===
+      "custom" &&
+    u9AvatarCurrentType ===
+      "custom"
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    source.type ===
+      "free" &&
+    u9AvatarCurrentType ===
+      "free" &&
+    String(
+      u9AvatarCurrentId
+    ) ===
+    String(
+      source.id
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  /* =========================
+     LOADING
+  ========================= */
+
+  const cards =
+    u9AvatarFreeList.querySelectorAll(
+      ".Account-U9-free-avatar-card"
+    );
+
+
+  cards.forEach(
+    (
+      card
+    ) => {
+
+      card.disabled =
+        true;
+
+
+      card.classList.add(
+        "loading"
+      );
+
+    }
+  );
+
+
+  try {
+
+    const response =
+      await fetch(
+        u9AvatarSetFunction,
+        {
+
+          method:
+            "POST",
+
+          headers:
+            getAvatarHeaders(
+              true
+            ),
+
+          body:
+            JSON.stringify({
+
+              avatar_type:
+                source.type,
+
+              avatar_id:
+                source.id,
+
+              avatar_url:
+                source.type ===
+                  "custom"
+                  ? source.url
+                  : null
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await parseAvatarResponse(
+        response
+      );
+
+
+    if (
+      !response.ok ||
+      result.success ===
+        false
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        result.message ||
+        "Failed to update avatar."
+
+      );
+
+    }
+
+
+    /* =========================
+       UPDATE STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      source.type;
+
+
+    u9AvatarCurrentId =
+      source.type ===
+        "free"
+        ? source.id
+        : null;
+
+
+    if (
+      source.type ===
+        "custom"
+    ) {
+
+      u9AvatarCustomUrl =
+        source.url;
+
+    }
+
+
+    /* =========================
+       UPDATE ACCOUNT
+    ========================= */
+
+    updateAvatarAccountImage(
+      source.url
+    );
+
+
+    /* =========================
+       RENDER
+    ========================= */
+
+    renderAvatarSources();
+
+
+    setAvatarStatus(
+      "Avatar updated successfully."
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Failed to set avatar:",
+      error
+    );
+
+
+    setAvatarStatus(
+
+      error instanceof Error
+        ? error.message
+        : "Network error. Please try again.",
+
+      true
+
+    );
+
+
+    renderAvatarSources();
+
+  }
 
 }
 
@@ -2991,7 +4140,8 @@ function setAvatarStatus(
 
 
   u9AvatarStatus.textContent =
-    message || "";
+    message ||
+    "";
 
 
   u9AvatarStatus.classList.toggle(
