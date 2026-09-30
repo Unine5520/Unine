@@ -25,10 +25,6 @@ const u9AvatarOutputSize =
   300;
 
 
-const u9AvatarMoveStep =
-  5;
-
-
 /* =========================
    API
 ========================= */
@@ -56,26 +52,35 @@ const u9AvatarUploadFunction =
 let u9AvatarSelectedImage =
   null;
 
-
 let u9AvatarObjectUrl =
   null;
-
 
 let u9AvatarImageLoaded =
   false;
 
+let u9AvatarDragging =
+  false;
+
+let u9AvatarDragStartX =
+  0;
+
+let u9AvatarDragStartY =
+  0;
+
+let u9AvatarStartOffsetX =
+  0;
+
+let u9AvatarStartOffsetY =
+  0;
 
 let u9AvatarOffsetX =
   0;
 
-
 let u9AvatarOffsetY =
   0;
 
-
 let u9AvatarBaseScale =
   1;
-
 
 let u9AvatarZoom =
   1;
@@ -88,10 +93,8 @@ let u9AvatarZoom =
 let u9AvatarCurrentType =
   "default";
 
-
 let u9AvatarCurrentId =
   null;
-
 
 let u9AvatarCustomUrl =
   null;
@@ -103,7 +106,6 @@ let u9AvatarCustomUrl =
 
 let u9AvatarCooldownUntil =
   null;
-
 
 let u9AvatarCooldownTimer =
   null;
@@ -121,88 +123,35 @@ let u9AvatarFreeAvatars =
    ELEMENTS
 ========================= */
 
-let u9AvatarPreview =
-  null;
+let u9AvatarPreview = null;
 
+let u9AvatarImage = null;
 
-let u9AvatarImage =
-  null;
+let u9AvatarCropGuide = null;
 
+let u9AvatarFileInput = null;
 
-let u9AvatarCropGuide =
-  null;
+let u9AvatarChooseButton = null;
 
+let u9AvatarZoomWrapper = null;
 
-let u9AvatarFileInput =
-  null;
+let u9AvatarZoomLabel = null;
 
+let u9AvatarZoomInput = null;
 
-let u9AvatarChooseButton =
-  null;
+let u9AvatarZoomValue = null;
 
+let u9AvatarSaveButton = null;
 
-let u9AvatarCancelButton =
-  null;
+let u9AvatarStatus = null;
 
+let u9AvatarMySection = null;
 
-let u9AvatarZoomWrapper =
-  null;
+let u9AvatarMyList = null;
 
+let u9AvatarFreeList = null;
 
-let u9AvatarZoomLabel =
-  null;
-
-
-let u9AvatarZoomInput =
-  null;
-
-
-let u9AvatarZoomValue =
-  null;
-
-
-let u9AvatarSaveButton =
-  null;
-
-
-let u9AvatarStatus =
-  null;
-
-
-let u9AvatarFreeSection =
-  null;
-
-
-let u9AvatarFreeList =
-  null;
-
-
-let u9AvatarPreviewArea =
-  null;
-
-
-let u9AvatarPreviewMiddle =
-  null;
-
-
-let u9AvatarActionRow =
-  null;
-
-
-let u9AvatarMoveUpButton =
-  null;
-
-
-let u9AvatarMoveDownButton =
-  null;
-
-
-let u9AvatarMoveLeftButton =
-  null;
-
-
-let u9AvatarMoveRightButton =
-  null;
+let u9AvatarDragHint = null;
 
 
 /* =========================
@@ -222,352 +171,6 @@ function clamp(
     ),
     max
   );
-
-}
-
-
-/* =========================
-   SESSION
-========================= */
-
-function getAvatarSessionToken() {
-
-  return localStorage.getItem(
-    "u9_session"
-  );
-
-}
-
-
-/* =========================
-   HEADERS
-========================= */
-
-function getAvatarHeaders(
-  includeJson = false
-) {
-
-  const headers = {};
-
-
-  const sessionToken =
-    getAvatarSessionToken();
-
-
-  if (
-    sessionToken
-  ) {
-
-    headers.Authorization =
-      `Bearer ${sessionToken}`;
-
-  }
-
-
-  if (
-    includeJson
-  ) {
-
-    headers[
-      "Content-Type"
-    ] =
-      "application/json";
-
-  }
-
-
-  return headers;
-
-}
-
-
-/* =========================
-   PARSE RESPONSE
-========================= */
-
-async function parseAvatarResponse(
-  response
-) {
-
-  const text =
-    await response.text();
-
-
-  if (
-    !text
-  ) {
-
-    return {};
-
-  }
-
-
-  try {
-
-    return JSON.parse(
-      text
-    );
-
-  }
-
-  catch {
-
-    return {
-      error:
-        text
-    };
-
-  }
-
-}
-
-
-/* =========================
-   GET USER OBJECT
-========================= */
-
-function getAvatarUserObject(
-  result
-) {
-
-  if (
-    result &&
-    typeof result.user ===
-      "object" &&
-    result.user !== null
-  ) {
-
-    return result.user;
-
-  }
-
-
-  if (
-    result &&
-    typeof result.data?.user ===
-      "object" &&
-    result.data.user !== null
-  ) {
-
-    return result.data.user;
-
-  }
-
-
-  return result || {};
-
-}
-
-
-/* =========================
-   GET AVATAR URL
-========================= */
-
-function getAvatarUrlFromObject(
-  value
-) {
-
-  if (
-    !value
-  ) {
-
-    return "";
-
-  }
-
-
-  if (
-    typeof value ===
-      "string"
-  ) {
-
-    return value;
-
-  }
-
-
-  return (
-    value.url ||
-    value.avatar_url ||
-    value.image_url ||
-    value.svg ||
-    ""
-  );
-
-}
-
-
-/* =========================
-   GET AVATAR TYPE
-========================= */
-
-function getAvatarTypeFromUser(
-  user
-) {
-
-  return (
-    user.avatar_type ||
-    user.avatarType ||
-    "default"
-  );
-
-}
-
-
-/* =========================
-   GET AVATAR ID
-========================= */
-
-function getAvatarIdFromUser(
-  user
-) {
-
-  return (
-    user.avatar_id ??
-    user.avatarId ??
-    null
-  );
-
-}
-
-
-/* =========================
-   GET CUSTOM URL
-========================= */
-
-function getAvatarCustomUrlFromUser(
-  user
-) {
-
-  return (
-    user.avatar_url ||
-    user.custom_avatar_url ||
-    user.avatar?.url ||
-    user.avatar?.avatar_url ||
-    ""
-  );
-
-}
-
-
-/* =========================
-   GET AVATAR LIST
-========================= */
-
-function getAvatarListFromResult(
-  result
-) {
-
-  if (
-    Array.isArray(result)
-  ) {
-
-    return result;
-
-  }
-
-
-  if (
-    Array.isArray(
-      result?.avatars
-    )
-  ) {
-
-    return result.avatars;
-
-  }
-
-
-  if (
-    Array.isArray(
-      result?.data
-    )
-  ) {
-
-    return result.data;
-
-  }
-
-
-  if (
-    Array.isArray(
-      result?.data?.avatars
-    )
-  ) {
-
-    return result.data.avatars;
-
-  }
-
-
-  return [];
-
-}
-
-
-/* =========================
-   NORMALIZE AVATAR
-========================= */
-
-function normalizeAvatarItem(
-  item
-) {
-
-  if (
-    !item
-  ) {
-
-    return null;
-
-  }
-
-
-  const id =
-    item.id ??
-    item.avatar_id ??
-    item.avatarId ??
-    null;
-
-
-  const name =
-    item.name ||
-    item.title ||
-    "Avatar";
-
-
-  const url =
-    item.svg ||
-    item.url ||
-    item.image_url ||
-    item.avatar_url ||
-    "";
-
-
-  if (
-    !url
-  ) {
-
-    return null;
-
-  }
-
-
-  return {
-
-    id:
-      id,
-
-    name:
-      name,
-
-    url:
-      url,
-
-    is_active:
-      item.is_active ??
-      true
-
-  };
 
 }
 
@@ -661,9 +264,7 @@ function formatAvatarCooldown(
     days > 0
   ) {
 
-    return (
-      `${days}d ${hours}h`
-    );
+    return `${days}d ${hours}h`;
 
   }
 
@@ -672,56 +273,12 @@ function formatAvatarCooldown(
     hours > 0
   ) {
 
-    return (
-      `${hours}h ${minutes}m`
-    );
+    return `${hours}h ${minutes}m`;
 
   }
 
 
   return `${minutes}m`;
-
-}
-
-
-/* =========================
-   UPDATE MOVE BUTTONS
-========================= */
-
-function updateAvatarMoveButtons() {
-
-  const disabled =
-    !u9AvatarImageLoaded ||
-    !u9AvatarSelectedImage ||
-    isAvatarCooldownActive();
-
-
-  const buttons = [
-
-    u9AvatarMoveUpButton,
-    u9AvatarMoveDownButton,
-    u9AvatarMoveLeftButton,
-    u9AvatarMoveRightButton
-
-  ];
-
-
-  buttons.forEach(
-    (
-      button
-    ) => {
-
-      if (
-        button
-      ) {
-
-        button.disabled =
-          disabled;
-
-      }
-
-    }
-  );
 
 }
 
@@ -734,22 +291,6 @@ function updateAvatarUploadVisibility() {
 
   const cooldownActive =
     isAvatarCooldownActive();
-
-
-  /* =========================
-     PREVIEW AREA
-  ========================= */
-
-  if (
-    u9AvatarPreviewArea
-  ) {
-
-    u9AvatarPreviewArea.style.display =
-      cooldownActive
-        ? "none"
-        : "";
-
-  }
 
 
   /* =========================
@@ -769,37 +310,19 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     DIRECTION BUTTONS
+     DRAG HINT
   ========================= */
 
-  const directionButtons = [
+  if (
+    u9AvatarDragHint
+  ) {
 
-    u9AvatarMoveUpButton,
-    u9AvatarMoveDownButton,
-    u9AvatarMoveLeftButton,
-    u9AvatarMoveRightButton
+    u9AvatarDragHint.style.display =
+      cooldownActive
+        ? "none"
+        : "";
 
-  ];
-
-
-  directionButtons.forEach(
-    (
-      button
-    ) => {
-
-      if (
-        button
-      ) {
-
-        button.style.display =
-          cooldownActive
-            ? "none"
-            : "";
-
-      }
-
-    }
-  );
+  }
 
 
   /* =========================
@@ -818,6 +341,42 @@ function updateAvatarUploadVisibility() {
   }
 
 
+  if (
+    u9AvatarZoomLabel
+  ) {
+
+    u9AvatarZoomLabel.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  if (
+    u9AvatarZoomInput
+  ) {
+
+    u9AvatarZoomInput.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  if (
+    u9AvatarZoomValue
+  ) {
+
+    u9AvatarZoomValue.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
   /* =========================
      CHOOSE
   ========================= */
@@ -829,31 +388,7 @@ function updateAvatarUploadVisibility() {
     u9AvatarChooseButton.style.display =
       cooldownActive
         ? "none"
-        : (
-            u9AvatarSelectedImage
-              ? "none"
-              : "flex"
-          );
-
-  }
-
-
-  /* =========================
-     CANCEL
-  ========================= */
-
-  if (
-    u9AvatarCancelButton
-  ) {
-
-    u9AvatarCancelButton.style.display =
-      cooldownActive
-        ? "none"
-        : (
-            u9AvatarSelectedImage
-              ? "flex"
-              : "none"
-          );
+        : "";
 
   }
 
@@ -869,28 +404,24 @@ function updateAvatarUploadVisibility() {
     u9AvatarSaveButton.style.display =
       cooldownActive
         ? "none"
-        : "flex";
+        : "";
 
 
-    u9AvatarSaveButton.disabled =
-      cooldownActive ||
-      !u9AvatarSelectedImage;
-
-  }
-
-
-  /* =========================
-     ACTION ROW
-  ========================= */
-
-  if (
-    u9AvatarActionRow
-  ) {
-
-    u9AvatarActionRow.style.display =
+    if (
       cooldownActive
-        ? "none"
-        : "flex";
+    ) {
+
+      u9AvatarSaveButton.disabled =
+        true;
+
+    }
+
+    else {
+
+      u9AvatarSaveButton.disabled =
+        !u9AvatarSelectedImage;
+
+    }
 
   }
 
@@ -912,33 +443,40 @@ function updateAvatarUploadVisibility() {
 
     }
 
-    else if (
-      u9AvatarStatus.dataset.cooldown ===
-      "true"
-    ) {
+    else {
 
-      u9AvatarStatus.style.display =
-        "none";
+      /*
+       * Only hide status automatically
+       * when it is currently showing
+       * cooldown text.
+       */
+
+      if (
+        u9AvatarStatus.dataset.cooldown ===
+        "true"
+      ) {
+
+        u9AvatarStatus.style.display =
+          "none";
 
 
-      u9AvatarStatus.textContent =
-        "";
+        u9AvatarStatus.textContent =
+          "";
 
 
-      u9AvatarStatus.classList.remove(
-        "error"
-      );
+        u9AvatarStatus.classList.remove(
+          "error"
+        );
 
 
-      u9AvatarStatus.dataset.cooldown =
-        "false";
+        u9AvatarStatus.dataset.cooldown =
+          "false";
+
+      }
 
     }
 
   }
-
-
-  updateAvatarMoveButtons();
 
 }
 
@@ -987,6 +525,7 @@ function updateAvatarCooldownDisplay() {
 
 
     updateAvatarUploadVisibility();
+
 
     return;
 
@@ -1080,7 +619,6 @@ function stopAvatarCooldownTimer() {
       u9AvatarCooldownTimer
     );
 
-
     u9AvatarCooldownTimer =
       null;
 
@@ -1125,7 +663,6 @@ function createU9AvatarEditor() {
       "div"
     );
 
-
   wrapper.id =
     "Account-U9-avatar-editor";
 
@@ -1139,27 +676,103 @@ function createU9AvatarEditor() {
       "div"
     );
 
-
   title.id =
     "Account-U9-avatar-editor-title";
-
 
   title.textContent =
     "Avatar";
 
 
   /* =========================
-     PREVIEW AREA
+     MY AVATAR SECTION
   ========================= */
 
-  u9AvatarPreviewArea =
+  u9AvatarMySection =
     document.createElement(
       "div"
     );
 
+  u9AvatarMySection.id =
+    "Account-U9-avatar-editor-my-section";
 
-  u9AvatarPreviewArea.id =
-    "Account-U9-avatar-editor-preview-area";
+
+  const myTitle =
+    document.createElement(
+      "div"
+    );
+
+  myTitle.id =
+    "Account-U9-avatar-editor-my-title";
+
+  myTitle.textContent =
+    "My Avatar";
+
+
+  u9AvatarMyList =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarMyList.id =
+    "Account-U9-avatar-editor-my-list";
+
+
+  u9AvatarMySection.appendChild(
+    myTitle
+  );
+
+
+  u9AvatarMySection.appendChild(
+    u9AvatarMyList
+  );
+
+
+  u9AvatarMySection.style.display =
+    "none";
+
+
+  /* =========================
+     FREE AVATAR SECTION
+  ========================= */
+
+  const freeSection =
+    document.createElement(
+      "div"
+    );
+
+  freeSection.id =
+    "Account-U9-avatar-editor-free-section";
+
+
+  const freeTitle =
+    document.createElement(
+      "div"
+    );
+
+  freeTitle.id =
+    "Account-U9-avatar-editor-free-title";
+
+  freeTitle.textContent =
+    "Free Avatar";
+
+
+  u9AvatarFreeList =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarFreeList.id =
+    "Account-U9-avatar-editor-free-list";
+
+
+  freeSection.appendChild(
+    freeTitle
+  );
+
+
+  freeSection.appendChild(
+    u9AvatarFreeList
+  );
 
 
   /* =========================
@@ -1170,7 +783,6 @@ function createU9AvatarEditor() {
     document.createElement(
       "div"
     );
-
 
   u9AvatarPreview.id =
     "Account-U9-avatar-editor-preview";
@@ -1185,18 +797,14 @@ function createU9AvatarEditor() {
       "img"
     );
 
-
   u9AvatarImage.id =
     "Account-U9-avatar-editor-image";
-
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
 
-
   u9AvatarImage.alt =
     "Avatar Preview";
-
 
   u9AvatarImage.draggable =
     false;
@@ -1210,7 +818,6 @@ function createU9AvatarEditor() {
     document.createElement(
       "div"
     );
-
 
   u9AvatarCropGuide.id =
     "Account-U9-avatar-editor-crop-guide";
@@ -1231,178 +838,29 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     PREVIEW MIDDLE
+     DRAG HINT
   ========================= */
 
-  u9AvatarPreviewMiddle =
+  u9AvatarDragHint =
     document.createElement(
       "div"
     );
 
+  u9AvatarDragHint.id =
+    "Account-U9-avatar-editor-drag-hint";
 
-  u9AvatarPreviewMiddle.id =
-    "Account-U9-avatar-editor-preview-middle";
-
-
-  /* =========================
-     MOVE UP
-  ========================= */
-
-  u9AvatarMoveUpButton =
-    document.createElement(
-      "button"
-    );
-
-
-  u9AvatarMoveUpButton.id =
-    "Account-U9-avatar-editor-move-up";
-
-
-  u9AvatarMoveUpButton.type =
-    "button";
-
-
-  u9AvatarMoveUpButton.setAttribute(
-    "aria-label",
-    "Move avatar up"
-  );
-
-
-  u9AvatarMoveUpButton.textContent =
-    "↑";
+  u9AvatarDragHint.textContent =
+    "Drag to move";
 
 
   /* =========================
-     MOVE DOWN
-  ========================= */
-
-  u9AvatarMoveDownButton =
-    document.createElement(
-      "button"
-    );
-
-
-  u9AvatarMoveDownButton.id =
-    "Account-U9-avatar-editor-move-down";
-
-
-  u9AvatarMoveDownButton.type =
-    "button";
-
-
-  u9AvatarMoveDownButton.setAttribute(
-    "aria-label",
-    "Move avatar down"
-  );
-
-
-  u9AvatarMoveDownButton.textContent =
-    "↓";
-
-
-  /* =========================
-     MOVE LEFT
-  ========================= */
-
-  u9AvatarMoveLeftButton =
-    document.createElement(
-      "button"
-    );
-
-
-  u9AvatarMoveLeftButton.id =
-    "Account-U9-avatar-editor-move-left";
-
-
-  u9AvatarMoveLeftButton.type =
-    "button";
-
-
-  u9AvatarMoveLeftButton.setAttribute(
-    "aria-label",
-    "Move avatar left"
-  );
-
-
-  u9AvatarMoveLeftButton.textContent =
-    "←";
-
-
-  /* =========================
-     MOVE RIGHT
-  ========================= */
-
-  u9AvatarMoveRightButton =
-    document.createElement(
-      "button"
-    );
-
-
-  u9AvatarMoveRightButton.id =
-    "Account-U9-avatar-editor-move-right";
-
-
-  u9AvatarMoveRightButton.type =
-    "button";
-
-
-  u9AvatarMoveRightButton.setAttribute(
-    "aria-label",
-    "Move avatar right"
-  );
-
-
-  u9AvatarMoveRightButton.textContent =
-    "→";
-
-
-  /* =========================
-     APPEND MOVE BUTTONS
-  ========================= */
-
-  u9AvatarPreviewMiddle.appendChild(
-    u9AvatarMoveUpButton
-  );
-
-
-  u9AvatarPreviewMiddle.appendChild(
-    u9AvatarMoveDownButton
-  );
-
-
-  u9AvatarPreviewMiddle.appendChild(
-    u9AvatarMoveLeftButton
-  );
-
-
-  u9AvatarPreviewMiddle.appendChild(
-    u9AvatarMoveRightButton
-  );
-
-
-  /* =========================
-     APPEND PREVIEW AREA
-  ========================= */
-
-  u9AvatarPreviewArea.appendChild(
-    u9AvatarPreview
-  );
-
-
-  u9AvatarPreviewArea.appendChild(
-    u9AvatarPreviewMiddle
-  );
-
-
-  /* =========================
-     ZOOM
+     ZOOM WRAPPER
   ========================= */
 
   u9AvatarZoomWrapper =
     document.createElement(
       "div"
     );
-
 
   u9AvatarZoomWrapper.id =
     "Account-U9-avatar-editor-zoom";
@@ -1417,10 +875,8 @@ function createU9AvatarEditor() {
       "div"
     );
 
-
   u9AvatarZoomLabel.id =
     "Account-U9-avatar-editor-zoom-label";
-
 
   u9AvatarZoomLabel.textContent =
     "Zoom";
@@ -1435,26 +891,20 @@ function createU9AvatarEditor() {
       "input"
     );
 
-
   u9AvatarZoomInput.id =
     "Account-U9-avatar-editor-zoom-input";
-
 
   u9AvatarZoomInput.type =
     "range";
 
-
   u9AvatarZoomInput.min =
     "1";
-
 
   u9AvatarZoomInput.max =
     "3";
 
-
   u9AvatarZoomInput.step =
     "0.01";
-
 
   u9AvatarZoomInput.value =
     "1";
@@ -1469,17 +919,15 @@ function createU9AvatarEditor() {
       "span"
     );
 
-
   u9AvatarZoomValue.id =
     "Account-U9-avatar-editor-zoom-value";
-
 
   u9AvatarZoomValue.textContent =
     "100%";
 
 
   /* =========================
-     APPEND ZOOM
+     ZOOM APPEND
   ========================= */
 
   u9AvatarZoomWrapper.appendChild(
@@ -1498,21 +946,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     ACTION ROW
-  ========================= */
-
-  u9AvatarActionRow =
-    document.createElement(
-      "div"
-    );
-
-
-  u9AvatarActionRow.id =
-    "Account-U9-avatar-editor-action-row";
-
-
-  /* =========================
-     CHOOSE AREA
+     CHOOSE IMAGE
   ========================= */
 
   const chooseArea =
@@ -1520,92 +954,45 @@ function createU9AvatarEditor() {
       "div"
     );
 
-
   chooseArea.id =
     "Account-U9-avatar-editor-choose-area";
 
-
-  /* =========================
-     CHOOSE BUTTON
-  ========================= */
 
   u9AvatarChooseButton =
     document.createElement(
       "button"
     );
 
-
   u9AvatarChooseButton.id =
     "Account-U9-avatar-editor-choose";
-
 
   u9AvatarChooseButton.type =
     "button";
 
-
   u9AvatarChooseButton.textContent =
     "Choose Image";
 
-
-  /* =========================
-     CANCEL BUTTON
-  ========================= */
-
-  u9AvatarCancelButton =
-    document.createElement(
-      "button"
-    );
-
-
-  u9AvatarCancelButton.id =
-    "Account-U9-avatar-editor-cancel";
-
-
-  u9AvatarCancelButton.type =
-    "button";
-
-
-  u9AvatarCancelButton.textContent =
-    "Cancel";
-
-
-  /* =========================
-     FILE INPUT
-  ========================= */
 
   u9AvatarFileInput =
     document.createElement(
       "input"
     );
 
-
   u9AvatarFileInput.id =
     "Account-U9-avatar-editor-file";
-
 
   u9AvatarFileInput.type =
     "file";
 
-
   u9AvatarFileInput.accept =
     "image/*";
-
 
   u9AvatarFileInput.hidden =
     true;
 
 
-  /* =========================
-     APPEND CHOOSE AREA
-  ========================= */
-
   chooseArea.appendChild(
     u9AvatarChooseButton
-  );
-
-
-  chooseArea.appendChild(
-    u9AvatarCancelButton
   );
 
 
@@ -1615,7 +1002,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     SAVE BUTTON
+     SAVE
   ========================= */
 
   u9AvatarSaveButton =
@@ -1623,35 +1010,17 @@ function createU9AvatarEditor() {
       "button"
     );
 
-
   u9AvatarSaveButton.id =
     "Account-U9-avatar-editor-save";
-
 
   u9AvatarSaveButton.type =
     "button";
 
-
   u9AvatarSaveButton.textContent =
     "Save";
 
-
   u9AvatarSaveButton.disabled =
     true;
-
-
-  /* =========================
-     ACTION ROW APPEND
-  ========================= */
-
-  u9AvatarActionRow.appendChild(
-    chooseArea
-  );
-
-
-  u9AvatarActionRow.appendChild(
-    u9AvatarSaveButton
-  );
 
 
   /* =========================
@@ -1663,81 +1032,18 @@ function createU9AvatarEditor() {
       "div"
     );
 
-
   u9AvatarStatus.id =
     "Account-U9-avatar-editor-status";
 
-
   u9AvatarStatus.dataset.cooldown =
     "false";
-
 
   u9AvatarStatus.style.display =
     "none";
 
 
   /* =========================
-     FREE AVATAR SECTION
-  ========================= */
-
-  u9AvatarFreeSection =
-    document.createElement(
-      "div"
-    );
-
-
-  u9AvatarFreeSection.id =
-    "Account-U9-avatar-editor-free-section";
-
-
-  /* =========================
-     FREE TITLE
-  ========================= */
-
-  const freeTitle =
-    document.createElement(
-      "div"
-    );
-
-
-  freeTitle.id =
-    "Account-U9-avatar-editor-free-title";
-
-
-  freeTitle.textContent =
-    "Free Avatar";
-
-
-  /* =========================
-     FREE LIST
-  ========================= */
-
-  u9AvatarFreeList =
-    document.createElement(
-      "div"
-    );
-
-
-  u9AvatarFreeList.id =
-    "Account-U9-avatar-editor-free-list";
-
-
-  /* =========================
-     FREE SECTION APPEND
-  ========================= */
-
-  u9AvatarFreeSection.appendChild(
-    freeTitle
-  );
-
-
-  u9AvatarFreeSection.appendChild(
-    u9AvatarFreeList
-  );
-
-
-  /* =========================
-     EDITOR APPEND
+     APPEND
   ========================= */
 
   wrapper.appendChild(
@@ -1746,7 +1052,22 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
-    u9AvatarPreviewArea
+    u9AvatarMySection
+  );
+
+
+  wrapper.appendChild(
+    freeSection
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarPreview
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarDragHint
   );
 
 
@@ -1756,17 +1077,17 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
+    chooseArea
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarSaveButton
+  );
+
+
+  wrapper.appendChild(
     u9AvatarStatus
-  );
-
-
-  wrapper.appendChild(
-    u9AvatarActionRow
-  );
-
-
-  wrapper.appendChild(
-    u9AvatarFreeSection
   );
 
 
@@ -1776,7 +1097,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     CHOOSE EVENT
+     EVENTS
   ========================= */
 
   u9AvatarChooseButton.addEventListener(
@@ -1794,34 +1115,11 @@ function createU9AvatarEditor() {
       }
 
 
-      if (
-        u9AvatarSelectedImage
-      ) {
-
-        return;
-
-      }
-
-
       u9AvatarFileInput.click();
 
     }
   );
 
-
-  /* =========================
-     CANCEL EVENT
-  ========================= */
-
-  u9AvatarCancelButton.addEventListener(
-    "click",
-    cancelAvatarSelection
-  );
-
-
-  /* =========================
-     FILE EVENT
-  ========================= */
 
   u9AvatarFileInput.addEventListener(
     "change",
@@ -1829,19 +1127,11 @@ function createU9AvatarEditor() {
   );
 
 
-  /* =========================
-     ZOOM EVENT
-  ========================= */
-
   u9AvatarZoomInput.addEventListener(
     "input",
     handleAvatarZoom
   );
 
-
-  /* =========================
-     SAVE EVENT
-  ========================= */
 
   u9AvatarSaveButton.addEventListener(
     "click",
@@ -1849,72 +1139,7 @@ function createU9AvatarEditor() {
   );
 
 
-  /* =========================
-     MOVE UP
-  ========================= */
-
-  u9AvatarMoveUpButton.addEventListener(
-    "click",
-    () => {
-
-      moveAvatar(
-        0,
-        -u9AvatarMoveStep
-      );
-
-    }
-  );
-
-
-  /* =========================
-     MOVE DOWN
-  ========================= */
-
-  u9AvatarMoveDownButton.addEventListener(
-    "click",
-    () => {
-
-      moveAvatar(
-        0,
-        u9AvatarMoveStep
-      );
-
-    }
-  );
-
-
-  /* =========================
-     MOVE LEFT
-  ========================= */
-
-  u9AvatarMoveLeftButton.addEventListener(
-    "click",
-    () => {
-
-      moveAvatar(
-        -u9AvatarMoveStep,
-        0
-      );
-
-    }
-  );
-
-
-  /* =========================
-     MOVE RIGHT
-  ========================= */
-
-  u9AvatarMoveRightButton.addEventListener(
-    "click",
-    () => {
-
-      moveAvatar(
-        u9AvatarMoveStep,
-        0
-      );
-
-    }
-  );
+  setupAvatarDrag();
 
 
   /* =========================
@@ -1938,30 +1163,23 @@ function createU9AvatarEditor() {
       updateAvatarImage();
 
 
-      updateAvatarMoveButtons();
+      if (
+        u9AvatarSaveButton &&
+        !isAvatarCooldownActive()
+      ) {
 
+        u9AvatarSaveButton.disabled =
+          !u9AvatarSelectedImage;
 
-      updateAvatarUploadVisibility();
+      }
 
     }
   );
 
 
   /* =========================
-     INITIAL STATE
+     INITIAL IMAGE
   ========================= */
-
-  u9AvatarChooseButton.style.display =
-    "flex";
-
-
-  u9AvatarCancelButton.style.display =
-    "none";
-
-
-  u9AvatarSaveButton.disabled =
-    true;
-
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
@@ -1980,188 +1198,1358 @@ function createU9AvatarEditor() {
 
 
 /* =========================
-   MOVE AVATAR
+   LOAD CURRENT AVATAR
 ========================= */
 
-function moveAvatar(
-  deltaX,
-  deltaY
-) {
+async function loadCurrentAvatar() {
+
+  /* =========================
+     RESET
+  ========================= */
+
+  u9AvatarCurrentType =
+    "default";
+
+
+  u9AvatarCurrentId =
+    null;
+
+
+  u9AvatarCustomUrl =
+    null;
+
+
+  u9AvatarCooldownUntil =
+    null;
+
+
+  stopAvatarCooldownTimer();
+
+
+  hideMyAvatar();
+
+
+  updateAvatarUploadVisibility();
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
 
   if (
-    isAvatarCooldownActive()
+    !sessionToken
   ) {
 
-    updateAvatarCooldownDisplay();
+    updateFreeAvatarSelection();
 
     return;
 
   }
 
 
-  if (
-    !u9AvatarImageLoaded ||
-    !u9AvatarSelectedImage
-  ) {
+  try {
 
-    return;
+    const response =
+      await fetch(
+        u9AvatarMeFunction,
+        {
+
+          method:
+            "GET",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`
+
+          }
+
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      updateFreeAvatarSelection();
+
+      return;
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    const avatar =
+      result.user?.avatar ||
+      null;
+
+
+    if (
+      !avatar
+    ) {
+
+      u9AvatarCurrentType =
+        "default";
+
+      u9AvatarCurrentId =
+        null;
+
+      u9AvatarCustomUrl =
+        null;
+
+      u9AvatarCooldownUntil =
+        null;
+
+      hideMyAvatar();
+
+    }
+
+    else {
+
+      u9AvatarCurrentType =
+        avatar.type ||
+        "default";
+
+
+      u9AvatarCurrentId =
+        avatar.id ||
+        null;
+
+
+      u9AvatarCustomUrl =
+        avatar.custom_url ||
+        null;
+
+
+      u9AvatarCooldownUntil =
+        avatar.cooldown_until ||
+        null;
+
+
+      renderMyAvatar();
+
+
+      /* =========================
+         CURRENT AVATAR IMAGE
+      ========================= */
+
+      const accountAvatarImage =
+        document.getElementById(
+          "Account-U9-account-avatar-image"
+        );
+
+
+      if (
+        accountAvatarImage &&
+        avatar.url
+      ) {
+
+        accountAvatarImage.src =
+          `${avatar.url}?v=${Date.now()}`;
+
+      }
+
+    }
+
+
+    updateFreeAvatarSelection();
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      u9AvatarCooldownUntil =
+        null;
+
+      updateAvatarUploadVisibility();
+
+    }
+
+
+    console.log(
+      "Current avatar:",
+      {
+        type:
+          u9AvatarCurrentType,
+
+        id:
+          u9AvatarCurrentId,
+
+        custom_url:
+          u9AvatarCustomUrl,
+
+        cooldown_until:
+          u9AvatarCooldownUntil
+      }
+    );
 
   }
 
+  catch (error) {
 
-  u9AvatarOffsetX +=
-    deltaX;
+    console.error(
+      "Failed to load current avatar:",
+      error
+    );
 
-
-  u9AvatarOffsetY +=
-    deltaY;
-
-
-  clampAvatarPosition();
-
-
-  updateAvatarImage();
+  }
 
 }
 
 
 /* =========================
-   CANCEL AVATAR SELECTION
+   RENDER MY AVATAR
 ========================= */
 
-function cancelAvatarSelection() {
+function renderMyAvatar() {
 
   if (
-    isAvatarCooldownActive()
+    !u9AvatarMySection ||
+    !u9AvatarMyList
   ) {
-
-    updateAvatarCooldownDisplay();
 
     return;
 
   }
 
 
+  u9AvatarMyList.innerHTML =
+    "";
+
+
   if (
-    u9AvatarObjectUrl
+    !u9AvatarCustomUrl
   ) {
 
-    URL.revokeObjectURL(
-      u9AvatarObjectUrl
+    hideMyAvatar();
+
+    return;
+
+  }
+
+
+  u9AvatarMySection.style.display =
+    "";
+
+
+  const card =
+    document.createElement(
+      "button"
     );
 
 
-    u9AvatarObjectUrl =
-      null;
-
-  }
+  card.type =
+    "button";
 
 
-  u9AvatarSelectedImage =
-    null;
+  card.className =
+    "Account-U9-free-avatar-card";
 
 
-  u9AvatarOffsetX =
-    0;
+  card.dataset.avatarType =
+    "custom";
 
 
-  u9AvatarOffsetY =
-    0;
+  /* =========================
+     IMAGE
+  ========================= */
+
+  const image =
+    document.createElement(
+      "img"
+    );
 
 
-  u9AvatarZoom =
-    1;
+  image.className =
+    "Account-U9-free-avatar-image";
 
 
-  u9AvatarImageLoaded =
+  image.src =
+    `${u9AvatarCustomUrl}?v=${Date.now()}`;
+
+
+  image.alt =
+    "My Avatar";
+
+
+  image.draggable =
     false;
 
 
+  /* =========================
+     NAME
+  ========================= */
+
+  const name =
+    document.createElement(
+      "span"
+    );
+
+
+  name.className =
+    "Account-U9-free-avatar-name";
+
+
+  name.textContent =
+    "My Avatar";
+
+
+  /* =========================
+     APPEND
+  ========================= */
+
+  card.appendChild(
+    image
+  );
+
+
+  card.appendChild(
+    name
+  );
+
+
+  /* =========================
+     CLICK
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    () => {
+
+      selectCustomAvatar(
+        card
+      );
+
+    }
+  );
+
+
+  u9AvatarMyList.appendChild(
+    card
+  );
+
+
+  updateFreeAvatarSelection();
+
+}
+
+
+/* =========================
+   HIDE MY AVATAR
+========================= */
+
+function hideMyAvatar() {
+
   if (
-    u9AvatarZoomInput
+    u9AvatarMySection
   ) {
 
-    u9AvatarZoomInput.value =
-      "1";
-
-  }
-
-
-  if (
-    u9AvatarZoomValue
-  ) {
-
-    u9AvatarZoomValue.textContent =
-      "100%";
-
-  }
-
-
-  if (
-    u9AvatarFileInput
-  ) {
-
-    u9AvatarFileInput.value =
-      "";
-
-  }
-
-
-  if (
-    u9AvatarChooseButton
-  ) {
-
-    u9AvatarChooseButton.style.display =
-      "flex";
-
-  }
-
-
-  if (
-    u9AvatarCancelButton
-  ) {
-
-    u9AvatarCancelButton.style.display =
+    u9AvatarMySection.style.display =
       "none";
 
   }
 
 
   if (
-    u9AvatarSaveButton
+    u9AvatarMyList
   ) {
 
-    u9AvatarSaveButton.disabled =
-      true;
+    u9AvatarMyList.innerHTML =
+      "";
 
   }
-
-
-  if (
-    u9AvatarImage
-  ) {
-
-    u9AvatarImage.src =
-      u9AvatarDefaultImage;
-
-  }
-
-
-  setAvatarStatus(
-    ""
-  );
-
-
-  updateAvatarMoveButtons();
-
-
-  updateAvatarUploadVisibility();
 
 }
 
 
 /* =========================
-   HANDLE FILE CHANGE
+   LOAD FREE AVATARS
+========================= */
+
+async function loadFreeAvatars() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    u9AvatarFreeList.innerHTML =
+      `
+      <div class="Account-U9-avatar-editor-free-loading">
+        Loading...
+      </div>
+      `;
+
+
+    const response =
+      await fetch(
+        u9AvatarFreeFunction,
+        {
+
+          method:
+            "GET"
+
+        }
+      );
+
+
+    if (
+      !response.ok
+    ) {
+
+      throw new Error(
+        "Failed to load free avatars."
+      );
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    u9AvatarFreeAvatars =
+      result.avatars ||
+      [];
+
+
+    renderFreeAvatars();
+
+
+    console.log(
+      "Free avatars loaded:",
+      u9AvatarFreeAvatars
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to load free avatars:",
+      error
+    );
+
+
+    if (
+      u9AvatarFreeList
+    ) {
+
+      u9AvatarFreeList.innerHTML =
+        `
+        <div class="Account-U9-avatar-editor-free-error">
+          Failed to load free avatars.
+        </div>
+        `;
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   RENDER FREE AVATARS
+========================= */
+
+function renderFreeAvatars() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarFreeList.innerHTML =
+    "";
+
+
+  if (
+    !Array.isArray(
+      u9AvatarFreeAvatars
+    ) ||
+    u9AvatarFreeAvatars.length === 0
+  ) {
+
+    u9AvatarFreeList.innerHTML =
+      `
+      <div class="Account-U9-avatar-editor-free-empty">
+        No free avatars.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  u9AvatarFreeAvatars.forEach(
+    (avatar) => {
+
+      const card =
+        document.createElement(
+          "button"
+        );
+
+
+      card.type =
+        "button";
+
+
+      card.className =
+        "Account-U9-free-avatar-card";
+
+
+      card.dataset.avatarId =
+        avatar.id;
+
+
+      card.dataset.avatarType =
+        "free";
+
+
+      /* =========================
+         IMAGE
+      ========================= */
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+
+      image.className =
+        "Account-U9-free-avatar-image";
+
+
+      image.src =
+        avatar.svg;
+
+
+      image.alt =
+        avatar.name ||
+        "Free Avatar";
+
+
+      image.draggable =
+        false;
+
+
+      /* =========================
+         NAME
+      ========================= */
+
+      const name =
+        document.createElement(
+          "span"
+        );
+
+
+      name.className =
+        "Account-U9-free-avatar-name";
+
+
+      name.textContent =
+        avatar.name ||
+        "Avatar";
+
+
+      /* =========================
+         APPEND
+      ========================= */
+
+      card.appendChild(
+        image
+      );
+
+
+      card.appendChild(
+        name
+      );
+
+
+      /* =========================
+         CLICK
+      ========================= */
+
+      card.addEventListener(
+        "click",
+        () => {
+
+          selectFreeAvatar(
+            avatar,
+            card
+          );
+
+        }
+      );
+
+
+      u9AvatarFreeList.appendChild(
+        card
+      );
+
+    }
+  );
+
+
+  updateFreeAvatarSelection();
+
+}
+
+
+/* =========================
+   UPDATE AVATAR SELECTED UI
+========================= */
+
+function updateFreeAvatarSelection() {
+
+  /* =========================
+     FREE
+  ========================= */
+
+  if (
+    u9AvatarFreeList
+  ) {
+
+    const cards =
+      u9AvatarFreeList.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      );
+
+
+    cards.forEach(
+      (card) => {
+
+        const isSelected =
+
+          u9AvatarCurrentType ===
+            "free" &&
+
+          card.dataset.avatarType ===
+            "free" &&
+
+          card.dataset.avatarId ===
+            String(
+              u9AvatarCurrentId
+            );
+
+
+        if (
+          isSelected
+        ) {
+
+          card.classList.add(
+            "selected"
+          );
+
+        }
+
+        else {
+
+          card.classList.remove(
+            "selected"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =========================
+     MY AVATAR
+  ========================= */
+
+  if (
+    u9AvatarMyList
+  ) {
+
+    const myCard =
+      u9AvatarMyList.querySelector(
+        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
+      );
+
+
+    if (
+      myCard
+    ) {
+
+      if (
+        u9AvatarCurrentType ===
+        "custom"
+      ) {
+
+        myCard.classList.add(
+          "selected"
+        );
+
+      }
+
+      else {
+
+        myCard.classList.remove(
+          "selected"
+        );
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   SELECT FREE AVATAR
+========================= */
+
+async function selectFreeAvatar(
+  avatar,
+  card
+) {
+
+  if (
+    !avatar ||
+    !avatar.id
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (
+    !sessionToken
+  ) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     SAME AVATAR
+  ========================= */
+
+  if (
+
+    u9AvatarCurrentType ===
+      "free" &&
+
+    u9AvatarCurrentId ===
+      avatar.id
+
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList
+      ?.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      ) ||
+    [];
+
+
+  const myCard =
+    u9AvatarMyList
+      ?.querySelector(
+        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
+      );
+
+
+  /* =========================
+     DISABLE
+  ========================= */
+
+  cards.forEach(
+    (item) => {
+
+      item.disabled =
+        true;
+
+    }
+  );
+
+
+  if (
+    myCard
+  ) {
+
+    myCard.disabled =
+      true;
+
+  }
+
+
+  try {
+
+    card.classList.add(
+      "loading"
+    );
+
+
+    const response =
+      await fetch(
+        u9AvatarSetFunction,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              type:
+                "free",
+
+              avatar_id:
+                avatar.id
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        "Failed to select free avatar."
+
+      );
+
+    }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      "free";
+
+
+    u9AvatarCurrentId =
+      avatar.id;
+
+
+    /* =========================
+       PRESERVE CUSTOM DATA
+    ========================= */
+
+    if (
+      result.avatar?.custom_url
+    ) {
+
+      u9AvatarCustomUrl =
+        result.avatar.custom_url;
+
+    }
+
+
+    if (
+      result.avatar?.cooldown_until
+    ) {
+
+      u9AvatarCooldownUntil =
+        result.avatar.cooldown_until;
+
+    }
+
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage
+    ) {
+
+      accountAvatarImage.src =
+        `${avatar.svg}?v=${Date.now()}`;
+
+    }
+
+
+    /* =========================
+       UPDATE MY AVATAR
+    ========================= */
+
+    renderMyAvatar();
+
+
+    /* =========================
+       SELECTED
+    ========================= */
+
+    updateFreeAvatarSelection();
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+        "Free avatar updated successfully."
+      );
+
+    }
+
+
+    console.log(
+      "Free avatar selected:",
+      result
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to select free avatar:",
+      error
+    );
+
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      updateAvatarCooldownDisplay();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+
+        error instanceof Error
+          ? error.message
+          : "Failed to select free avatar.",
+
+        true
+
+      );
+
+    }
+
+  }
+
+  finally {
+
+    cards.forEach(
+      (item) => {
+
+        item.disabled =
+          false;
+
+      }
+    );
+
+
+    if (
+      myCard
+    ) {
+
+      myCard.disabled =
+        false;
+
+    }
+
+
+    card.classList.remove(
+      "loading"
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SELECT CUSTOM AVATAR
+========================= */
+
+async function selectCustomAvatar(
+  card
+) {
+
+  if (
+    !u9AvatarCustomUrl
+  ) {
+
+    return;
+
+  }
+
+
+  const sessionToken =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (
+    !sessionToken
+  ) {
+
+    setAvatarStatus(
+      "Please log in first.",
+      true
+    );
+
+    return;
+
+  }
+
+
+  /* =========================
+     SAME AVATAR
+  ========================= */
+
+  if (
+    u9AvatarCurrentType ===
+    "custom"
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList
+      ?.querySelectorAll(
+        ".Account-U9-free-avatar-card"
+      ) ||
+    [];
+
+
+  const myCard =
+    card;
+
+
+  /* =========================
+     DISABLE
+  ========================= */
+
+  cards.forEach(
+    (item) => {
+
+      item.disabled =
+        true;
+
+    }
+  );
+
+
+  if (
+    myCard
+  ) {
+
+    myCard.disabled =
+      true;
+
+  }
+
+
+  try {
+
+    myCard.classList.add(
+      "loading"
+    );
+
+
+    const response =
+      await fetch(
+        u9AvatarSetFunction,
+        {
+
+          method:
+            "POST",
+
+          headers: {
+
+            "Authorization":
+              `Bearer ${sessionToken}`,
+
+            "Content-Type":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              type:
+                "custom"
+
+            })
+
+        }
+      );
+
+
+    const result =
+      await response.json();
+
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result.error ||
+        "Failed to select custom avatar."
+
+      );
+
+    }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
+
+    u9AvatarCurrentType =
+      "custom";
+
+
+    u9AvatarCurrentId =
+      null;
+
+
+    if (
+      result.avatar?.custom_url
+    ) {
+
+      u9AvatarCustomUrl =
+        result.avatar.custom_url;
+
+    }
+
+
+    if (
+      result.avatar?.cooldown_until
+    ) {
+
+      u9AvatarCooldownUntil =
+        result.avatar.cooldown_until;
+
+    }
+
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage &&
+      u9AvatarCustomUrl
+    ) {
+
+      accountAvatarImage.src =
+        `${u9AvatarCustomUrl}?v=${Date.now()}`;
+
+    }
+
+
+    /* =========================
+       UPDATE MY AVATAR
+    ========================= */
+
+    renderMyAvatar();
+
+
+    /* =========================
+       SELECTED
+    ========================= */
+
+    updateFreeAvatarSelection();
+
+
+    /* =========================
+       COOLDOWN
+    ========================= */
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      startAvatarCooldownTimer();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+        "Custom avatar selected successfully."
+      );
+
+    }
+
+
+    console.log(
+      "Custom avatar selected:",
+      result
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Failed to select custom avatar:",
+      error
+    );
+
+
+    if (
+      isAvatarCooldownActive()
+    ) {
+
+      updateAvatarCooldownDisplay();
+
+    }
+
+    else {
+
+      setAvatarStatus(
+
+        error instanceof Error
+          ? error.message
+          : "Failed to select custom avatar.",
+
+        true
+
+      );
+
+    }
+
+  }
+
+  finally {
+
+    cards.forEach(
+      (item) => {
+
+        item.disabled =
+          false;
+
+      }
+    );
+
+
+    if (
+      myCard
+    ) {
+
+      myCard.disabled =
+        false;
+
+
+      myCard.classList.remove(
+        "loading"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   FILE CHANGE
 ========================= */
 
 function handleAvatarFileChange(
@@ -2202,15 +2590,10 @@ function handleAvatarFileChange(
     )
   ) {
 
-    event.target.value =
-      "";
-
-
     setAvatarStatus(
       "Please choose an image.",
       true
     );
-
 
     return;
 
@@ -2218,7 +2601,7 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     REVOKE OLD OBJECT URL
+     REVOKE OLD URL
   ========================= */
 
   if (
@@ -2233,7 +2616,7 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     CREATE OBJECT URL
+     CREATE URL
   ========================= */
 
   u9AvatarObjectUrl =
@@ -2247,7 +2630,7 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     RESET POSITION
+     RESET
   ========================= */
 
   u9AvatarOffsetX =
@@ -2275,31 +2658,6 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     BUTTONS
-  ========================= */
-
-  u9AvatarChooseButton.style.display =
-    "none";
-
-
-  u9AvatarCancelButton.style.display =
-    "flex";
-
-
-  u9AvatarSaveButton.disabled =
-    true;
-
-
-  /* =========================
-     STATUS
-  ========================= */
-
-  setAvatarStatus(
-    ""
-  );
-
-
-  /* =========================
      IMAGE
   ========================= */
 
@@ -2307,13 +2665,23 @@ function handleAvatarFileChange(
     u9AvatarObjectUrl;
 
 
-  updateAvatarMoveButtons();
+  /* =========================
+     BUTTON
+  ========================= */
+
+  u9AvatarSaveButton.disabled =
+    true;
+
+
+  setAvatarStatus(
+    ""
+  );
 
 }
 
 
 /* =========================
-   CALCULATE BASE SCALE
+   BASE SCALE
 ========================= */
 
 function calculateBaseScale() {
@@ -2348,6 +2716,10 @@ function calculateBaseScale() {
     u9AvatarImage.naturalHeight;
 
 
+  /* =========================
+     COVER
+  ========================= */
+
   u9AvatarBaseScale =
     Math.max(
       scaleX,
@@ -2358,7 +2730,7 @@ function calculateBaseScale() {
 
 
 /* =========================
-   HANDLE ZOOM
+   ZOOM
 ========================= */
 
 function handleAvatarZoom() {
@@ -2383,15 +2755,6 @@ function handleAvatarZoom() {
   }
 
 
-  if (
-    !u9AvatarSelectedImage
-  ) {
-
-    return;
-
-  }
-
-
   u9AvatarZoom =
     Number(
       u9AvatarZoomInput.value
@@ -2400,8 +2763,7 @@ function handleAvatarZoom() {
 
   const percentage =
     Math.round(
-      u9AvatarZoom *
-      100
+      u9AvatarZoom * 100
     );
 
 
@@ -2439,6 +2801,7 @@ function updateAvatarImage() {
 
 
   u9AvatarImage.style.transform =
+
     `translate(-50%, -50%) translate(${u9AvatarOffsetX}px, ${u9AvatarOffsetY}px) scale(${scale})`;
 
 }
@@ -2487,44 +2850,320 @@ function clampAvatarPosition() {
 
   const maxOffsetX =
     Math.max(
+
       0,
+
       (
         imageWidth -
         previewWidth
       ) / 2
+
     );
 
 
   const maxOffsetY =
     Math.max(
+
       0,
+
       (
         imageHeight -
         previewHeight
       ) / 2
+
     );
 
 
   u9AvatarOffsetX =
     clamp(
+
       u9AvatarOffsetX,
+
       -maxOffsetX,
+
       maxOffsetX
+
     );
 
 
   u9AvatarOffsetY =
     clamp(
+
       u9AvatarOffsetY,
+
       -maxOffsetY,
+
       maxOffsetY
+
     );
 
 }
 
 
 /* =========================
-   SAVE AVATAR
+   DRAG
+========================= */
+
+function setupAvatarDrag() {
+
+  if (
+    !u9AvatarPreview
+  ) {
+
+    return;
+
+  }
+
+
+  /* =========================
+     POINTER DOWN
+  ========================= */
+
+  u9AvatarPreview.addEventListener(
+    "pointerdown",
+    (event) => {
+
+      if (
+        isAvatarCooldownActive()
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        !u9AvatarImageLoaded
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        event.target ===
+        u9AvatarCropGuide
+      ) {
+
+        return;
+
+      }
+
+
+      u9AvatarDragging =
+        true;
+
+
+      u9AvatarPreview.setPointerCapture(
+        event.pointerId
+      );
+
+
+      u9AvatarDragStartX =
+        event.clientX;
+
+
+      u9AvatarDragStartY =
+        event.clientY;
+
+
+      u9AvatarStartOffsetX =
+        u9AvatarOffsetX;
+
+
+      u9AvatarStartOffsetY =
+        u9AvatarOffsetY;
+
+
+      u9AvatarPreview.classList.add(
+        "dragging"
+      );
+
+    }
+  );
+
+
+  /* =========================
+     POINTER MOVE
+  ========================= */
+
+  u9AvatarPreview.addEventListener(
+    "pointermove",
+    (event) => {
+
+      if (
+        !u9AvatarDragging
+      ) {
+
+        return;
+
+      }
+
+
+      const deltaX =
+        event.clientX -
+        u9AvatarDragStartX;
+
+
+      const deltaY =
+        event.clientY -
+        u9AvatarDragStartY;
+
+
+      u9AvatarOffsetX =
+        u9AvatarStartOffsetX +
+        deltaX;
+
+
+      u9AvatarOffsetY =
+        u9AvatarStartOffsetY +
+        deltaY;
+
+
+      clampAvatarPosition();
+
+
+      updateAvatarImage();
+
+    }
+  );
+
+
+  /* =========================
+     POINTER UP
+  ========================= */
+
+  const stopDragging =
+    (event) => {
+
+      if (
+        !u9AvatarDragging
+      ) {
+
+        return;
+
+      }
+
+
+      u9AvatarDragging =
+        false;
+
+
+      try {
+
+        u9AvatarPreview.releasePointerCapture(
+          event.pointerId
+        );
+
+      }
+      catch {
+
+      }
+
+
+      u9AvatarPreview.classList.remove(
+        "dragging"
+      );
+
+    };
+
+
+  u9AvatarPreview.addEventListener(
+    "pointerup",
+    stopDragging
+  );
+
+
+  u9AvatarPreview.addEventListener(
+    "pointercancel",
+    stopDragging
+  );
+
+
+  /* =========================
+     MOUSE WHEEL ZOOM
+  ========================= */
+
+  u9AvatarPreview.addEventListener(
+    "wheel",
+    (event) => {
+
+      if (
+        isAvatarCooldownActive()
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        !u9AvatarImageLoaded
+      ) {
+
+        return;
+
+      }
+
+
+      event.preventDefault();
+
+
+      const step =
+        event.deltaY < 0
+          ? 0.05
+          : -0.05;
+
+
+      const nextZoom =
+        clamp(
+
+          u9AvatarZoom +
+            step,
+
+          1,
+
+          3
+
+        );
+
+
+      u9AvatarZoom =
+        Number(
+          nextZoom.toFixed(2)
+        );
+
+
+      u9AvatarZoomInput.value =
+        String(
+          u9AvatarZoom
+        );
+
+
+      u9AvatarZoomValue.textContent =
+        `${Math.round(
+          u9AvatarZoom *
+          100
+        )}%`;
+
+
+      clampAvatarPosition();
+
+
+      updateAvatarImage();
+
+    },
+    {
+      passive: false
+    }
+  );
+
+}
+
+
+/* =========================
+   SAVE CROP / UPLOAD
 ========================= */
 
 async function saveAvatarCrop() {
@@ -2551,7 +3190,9 @@ async function saveAvatarCrop() {
 
 
   const sessionToken =
-    getAvatarSessionToken();
+    localStorage.getItem(
+      "u9_session"
+    );
 
 
   if (
@@ -2612,12 +3253,16 @@ async function saveAvatarCrop() {
 
     const avatarFile =
       new File(
+
         [blob],
+
         "avatar.webp",
+
         {
           type:
             "image/webp"
         }
+
       );
 
 
@@ -2641,7 +3286,9 @@ async function saveAvatarCrop() {
 
     const response =
       await fetch(
+
         u9AvatarUploadFunction,
+
         {
 
           method:
@@ -2649,7 +3296,7 @@ async function saveAvatarCrop() {
 
           headers: {
 
-            Authorization:
+            "Authorization":
               `Bearer ${sessionToken}`
 
           },
@@ -2658,13 +3305,16 @@ async function saveAvatarCrop() {
             formData
 
         }
+
       );
 
+
+    /* =========================
+       RESPONSE
+    ========================= */
 
     const result =
-      await parseAvatarResponse(
-        response
-      );
+      await response.json();
 
 
     /* =========================
@@ -2676,6 +3326,10 @@ async function saveAvatarCrop() {
       !result.success
     ) {
 
+      /* =========================
+         COOLDOWN
+      ========================= */
+
       if (
         response.status ===
           429 ||
@@ -2685,7 +3339,6 @@ async function saveAvatarCrop() {
 
         u9AvatarCooldownUntil =
           result.cooldown_until ||
-          result.avatar?.cooldown_until ||
           null;
 
 
@@ -2718,27 +3371,37 @@ async function saveAvatarCrop() {
       }
 
 
-      throw new Error(
+      /* =========================
+         OTHER ERROR
+      ========================= */
+
+      setAvatarStatus(
 
         result.error ||
-        result.message ||
-        "Avatar upload failed."
+        "Avatar upload failed.",
+
+        true
 
       );
+
+
+      console.error(
+        "Avatar upload failed:",
+        result
+      );
+
+
+      return;
 
     }
 
 
     /* =========================
-       AVATAR URL
+       SUCCESS
     ========================= */
 
     const avatarUrl =
-      getAvatarUrlFromObject(
-        result.avatar
-      ) ||
-      result.avatar_url ||
-      result.url ||
+      result.avatar?.url ||
       "";
 
 
@@ -2754,7 +3417,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       UPDATE STATE
+       SAVE CUSTOM AVATAR
     ========================= */
 
     u9AvatarCustomUrl =
@@ -2763,9 +3426,32 @@ async function saveAvatarCrop() {
 
     u9AvatarCooldownUntil =
       result.avatar?.cooldown_until ||
-      result.cooldown_until ||
       null;
 
+
+    /* =========================
+       UPDATE ACCOUNT AVATAR
+    ========================= */
+
+    const accountAvatarImage =
+      document.getElementById(
+        "Account-U9-account-avatar-image"
+      );
+
+
+    if (
+      accountAvatarImage
+    ) {
+
+      accountAvatarImage.src =
+        `${avatarUrl}?v=${Date.now()}`;
+
+    }
+
+
+    /* =========================
+       UPDATE CURRENT STATE
+    ========================= */
 
     u9AvatarCurrentType =
       "custom";
@@ -2776,37 +3462,22 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       UPDATE ACCOUNT AVATAR
+       UPDATE MY AVATAR
     ========================= */
 
-    updateAvatarAccountImage(
-      `${avatarUrl}${
-        avatarUrl.includes("?")
-          ? "&"
-          : "?"
-      }v=${Date.now()}`
-    );
+    renderMyAvatar();
 
 
     /* =========================
-       UPDATE SOURCE LIST
+       CLEAR FREE SELECTION
     ========================= */
 
-    renderAvatarSources();
+    updateFreeAvatarSelection();
 
 
     /* =========================
-       SAVE GLOBAL RESULT
+       SAVE STATE
     ========================= */
-
-    if (
-      !window.U9AvatarEditor
-    ) {
-
-      window.U9AvatarEditor = {};
-
-    }
-
 
     window.U9AvatarEditor.lastBlob =
       blob;
@@ -2817,26 +3488,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       REVOKE OBJECT URL
-    ========================= */
-
-    if (
-      u9AvatarObjectUrl
-    ) {
-
-      URL.revokeObjectURL(
-        u9AvatarObjectUrl
-      );
-
-
-      u9AvatarObjectUrl =
-        null;
-
-    }
-
-
-    /* =========================
-       RESET SELECTION
+       RESET CHOICE
     ========================= */
 
     u9AvatarSelectedImage =
@@ -2847,16 +3499,18 @@ async function saveAvatarCrop() {
       false;
 
 
-    u9AvatarOffsetX =
-      0;
+    if (
+      u9AvatarObjectUrl
+    ) {
 
+      URL.revokeObjectURL(
+        u9AvatarObjectUrl
+      );
 
-    u9AvatarOffsetY =
-      0;
+      u9AvatarObjectUrl =
+        null;
 
-
-    u9AvatarZoom =
-      1;
+    }
 
 
     if (
@@ -2869,75 +3523,12 @@ async function saveAvatarCrop() {
     }
 
 
-    if (
-      u9AvatarZoomInput
-    ) {
-
-      u9AvatarZoomInput.value =
-        "1";
-
-    }
-
-
-    if (
-      u9AvatarZoomValue
-    ) {
-
-      u9AvatarZoomValue.textContent =
-        "100%";
-
-    }
-
-
-    /* =========================
-       RESET CHOOSE / CANCEL
-    ========================= */
-
-    if (
-      u9AvatarChooseButton
-    ) {
-
-      u9AvatarChooseButton.style.display =
-        "flex";
-
-    }
-
-
-    if (
-      u9AvatarCancelButton
-    ) {
-
-      u9AvatarCancelButton.style.display =
-        "none";
-
-    }
-
-
-    if (
-      u9AvatarSaveButton
-    ) {
-
-      u9AvatarSaveButton.disabled =
-        true;
-
-    }
-
-
     /* =========================
        RESET PREVIEW
     ========================= */
 
-    if (
-      u9AvatarImage
-    ) {
-
-      u9AvatarImage.src =
-        u9AvatarDefaultImage;
-
-    }
-
-
-    updateAvatarMoveButtons();
+    u9AvatarImage.src =
+      u9AvatarDefaultImage;
 
 
     /* =========================
@@ -2968,9 +3559,7 @@ async function saveAvatarCrop() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
       "Failed to upload avatar:",
@@ -2979,35 +3568,31 @@ async function saveAvatarCrop() {
 
 
     setAvatarStatus(
-
-      error instanceof Error
-        ? error.message
-        : "Network error. Please try again.",
-
+      "Network error. Please try again.",
       true
-
     );
 
   }
 
   finally {
 
+    u9AvatarSaveButton.classList.remove(
+      "loading"
+    );
+
+
+    u9AvatarSaveButton.textContent =
+      "Save";
+
+
     if (
-      u9AvatarSaveButton
+      !isAvatarCooldownActive()
     ) {
 
-      u9AvatarSaveButton.classList.remove(
-        "loading"
-      );
-
-
-      u9AvatarSaveButton.textContent =
-        "Save";
+      u9AvatarSaveButton.disabled =
+        !u9AvatarSelectedImage;
 
     }
-
-
-    updateAvatarUploadVisibility();
 
   }
 
@@ -3021,9 +3606,7 @@ async function saveAvatarCrop() {
 function createAvatarCropBlob() {
 
   return new Promise(
-    (
-      resolve
-    ) => {
+    (resolve) => {
 
       if (
         !u9AvatarImage ||
@@ -3184,9 +3767,7 @@ function createAvatarCropBlob() {
 
       canvas.toBlob(
 
-        (
-          blob
-        ) => {
+        (blob) => {
 
           resolve(
             blob
@@ -3202,908 +3783,6 @@ function createAvatarCropBlob() {
 
     }
   );
-
-}
-
-
-/* =========================
-   LOAD CURRENT AVATAR
-========================= */
-
-async function loadCurrentAvatar() {
-
-  const sessionToken =
-    getAvatarSessionToken();
-
-
-  if (
-    !sessionToken
-  ) {
-
-    u9AvatarCurrentType =
-      "default";
-
-
-    u9AvatarCurrentId =
-      null;
-
-
-    u9AvatarCustomUrl =
-      null;
-
-
-    updateAvatarAccountImage(
-      u9AvatarDefaultImage
-    );
-
-
-    renderAvatarSources();
-
-    return;
-
-  }
-
-
-  try {
-
-    const response =
-      await fetch(
-        u9AvatarMeFunction,
-        {
-
-          method:
-            "GET",
-
-          headers:
-            getAvatarHeaders(
-              false
-            )
-
-        }
-      );
-
-
-    const result =
-      await parseAvatarResponse(
-        response
-      );
-
-
-    if (
-      !response.ok ||
-      result.success ===
-        false
-    ) {
-
-      throw new Error(
-
-        result.error ||
-        result.message ||
-        "Failed to load current avatar."
-
-      );
-
-    }
-
-
-    const user =
-      getAvatarUserObject(
-        result
-      );
-
-
-    u9AvatarCurrentType =
-      getAvatarTypeFromUser(
-        user
-      );
-
-
-    u9AvatarCurrentId =
-      getAvatarIdFromUser(
-        user
-      );
-
-
-    u9AvatarCustomUrl =
-      getAvatarCustomUrlFromUser(
-        user
-      ) ||
-      getAvatarUrlFromObject(
-        user.avatar
-      ) ||
-      null;
-
-
-    updateCurrentAvatarImage();
-
-
-    renderAvatarSources();
-
-  }
-
-  catch (
-    error
-  ) {
-
-    console.error(
-      "Failed to load current avatar:",
-      error
-    );
-
-
-    u9AvatarCurrentType =
-      "default";
-
-
-    u9AvatarCurrentId =
-      null;
-
-
-    u9AvatarCustomUrl =
-      null;
-
-
-    updateAvatarAccountImage(
-      u9AvatarDefaultImage
-    );
-
-
-    renderAvatarSources();
-
-  }
-
-}
-
-
-/* =========================
-   UPDATE CURRENT AVATAR IMAGE
-========================= */
-
-function updateCurrentAvatarImage() {
-
-  /* =========================
-     CUSTOM
-  ========================= */
-
-  if (
-    u9AvatarCurrentType ===
-      "custom" &&
-    u9AvatarCustomUrl
-  ) {
-
-    updateAvatarAccountImage(
-      u9AvatarCustomUrl
-    );
-
-    return;
-
-  }
-
-
-  /* =========================
-     FREE
-  ========================= */
-
-  if (
-    u9AvatarCurrentType ===
-      "free" &&
-    u9AvatarCurrentId !== null
-  ) {
-
-    const currentFree =
-      u9AvatarFreeAvatars.find(
-        (
-          avatar
-        ) =>
-          String(
-            avatar.id
-          ) ===
-          String(
-            u9AvatarCurrentId
-          )
-      );
-
-
-    if (
-      currentFree
-    ) {
-
-      updateAvatarAccountImage(
-        currentFree.url
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  /* =========================
-     DEFAULT
-  ========================= */
-
-  updateAvatarAccountImage(
-    u9AvatarDefaultImage
-  );
-
-}
-
-
-/* =========================
-   UPDATE ACCOUNT AVATAR IMAGE
-========================= */
-
-function updateAvatarAccountImage(
-  url
-) {
-
-  const accountAvatarImage =
-    document.getElementById(
-      "Account-U9-account-avatar-image"
-    );
-
-
-  if (
-    !accountAvatarImage
-  ) {
-
-    return;
-
-  }
-
-
-  accountAvatarImage.src =
-    url ||
-    u9AvatarDefaultImage;
-
-}
-
-
-/* =========================
-   LOAD FREE AVATARS
-========================= */
-
-async function loadFreeAvatars() {
-
-  if (
-    !u9AvatarFreeList
-  ) {
-
-    return;
-
-  }
-
-
-  u9AvatarFreeList.innerHTML =
-    "";
-
-
-  const loading =
-    document.createElement(
-      "div"
-    );
-
-
-  loading.className =
-    "Account-U9-avatar-editor-free-loading";
-
-
-  loading.textContent =
-    "Loading...";
-
-
-  u9AvatarFreeList.appendChild(
-    loading
-  );
-
-
-  try {
-
-    const response =
-      await fetch(
-        u9AvatarFreeFunction,
-        {
-
-          method:
-            "GET",
-
-          headers:
-            getAvatarHeaders(
-              false
-            )
-
-        }
-      );
-
-
-    const result =
-      await parseAvatarResponse(
-        response
-      );
-
-
-    if (
-      !response.ok ||
-      result.success ===
-        false
-    ) {
-
-      throw new Error(
-
-        result.error ||
-        result.message ||
-        "Failed to load free avatars."
-
-      );
-
-    }
-
-
-    const list =
-      getAvatarListFromResult(
-        result
-      )
-      .map(
-        normalizeAvatarItem
-      )
-      .filter(
-        Boolean
-      )
-      .filter(
-        (
-          avatar
-        ) =>
-          avatar.is_active !==
-          false
-      );
-
-
-    u9AvatarFreeAvatars =
-      list;
-
-
-    updateCurrentAvatarImage();
-
-
-    renderAvatarSources();
-
-  }
-
-  catch (
-    error
-  ) {
-
-    console.error(
-      "Failed to load free avatars:",
-      error
-    );
-
-
-    u9AvatarFreeAvatars =
-      [];
-
-
-    u9AvatarFreeList.innerHTML =
-      "";
-
-
-    const errorElement =
-      document.createElement(
-        "div"
-      );
-
-
-    errorElement.className =
-      "Account-U9-avatar-editor-free-error";
-
-
-    errorElement.textContent =
-      "Failed to load avatars.";
-
-
-    u9AvatarFreeList.appendChild(
-      errorElement
-    );
-
-  }
-
-}
-
-
-/* =========================
-   RENDER AVATAR SOURCES
-========================= */
-
-function renderAvatarSources() {
-
-  if (
-    !u9AvatarFreeList
-  ) {
-
-    return;
-
-  }
-
-
-  u9AvatarFreeList.innerHTML =
-    "";
-
-
-  const hasCurrentCustom =
-    Boolean(
-      u9AvatarCustomUrl
-    );
-
-
-  /* =========================
-     CUSTOM
-  ========================= */
-
-  if (
-    hasCurrentCustom
-  ) {
-
-    const customCard =
-      createAvatarSourceCard({
-
-        id:
-          null,
-
-        name:
-          "Database URL",
-
-        url:
-          u9AvatarCustomUrl,
-
-        type:
-          "custom"
-
-      });
-
-
-    u9AvatarFreeList.appendChild(
-      customCard
-    );
-
-  }
-
-
-  /* =========================
-     EMPTY
-  ========================= */
-
-  if (
-    u9AvatarFreeAvatars.length ===
-      0 &&
-    !hasCurrentCustom
-  ) {
-
-    const empty =
-      document.createElement(
-        "div"
-      );
-
-
-    empty.className =
-      "Account-U9-avatar-editor-free-empty";
-
-
-    empty.textContent =
-      "No free avatars.";
-
-
-    u9AvatarFreeList.appendChild(
-      empty
-    );
-
-    return;
-
-  }
-
-
-  /* =========================
-     FREE AVATARS
-  ========================= */
-
-  u9AvatarFreeAvatars.forEach(
-    (
-      avatar
-    ) => {
-
-      const card =
-        createAvatarSourceCard({
-
-          id:
-            avatar.id,
-
-          name:
-            avatar.name,
-
-          url:
-            avatar.url,
-
-          type:
-            "free"
-
-        });
-
-
-      u9AvatarFreeList.appendChild(
-        card
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================
-   CREATE AVATAR SOURCE CARD
-========================= */
-
-function createAvatarSourceCard(
-  source
-) {
-
-  const card =
-    document.createElement(
-      "button"
-    );
-
-
-  card.type =
-    "button";
-
-
-  card.className =
-    "Account-U9-free-avatar-card";
-
-
-  /* =========================
-     SELECTED
-  ========================= */
-
-  const isSelected =
-    source.type ===
-      "custom"
-
-      ? (
-          u9AvatarCurrentType ===
-          "custom"
-        )
-
-      : (
-          u9AvatarCurrentType ===
-            "free" &&
-
-          String(
-            u9AvatarCurrentId
-          ) ===
-          String(
-            source.id
-          )
-        );
-
-
-  if (
-    isSelected
-  ) {
-
-    card.classList.add(
-      "selected"
-    );
-
-  }
-
-
-  /* =========================
-     IMAGE
-  ========================= */
-
-  const image =
-    document.createElement(
-      "img"
-    );
-
-
-  image.className =
-    "Account-U9-free-avatar-image";
-
-
-  image.src =
-    source.url;
-
-
-  image.alt =
-    source.name;
-
-
-  image.draggable =
-    false;
-
-
-  /* =========================
-     NAME
-  ========================= */
-
-  const name =
-    document.createElement(
-      "span"
-    );
-
-
-  name.className =
-    "Account-U9-free-avatar-name";
-
-
-  name.textContent =
-    source.name;
-
-
-  /* =========================
-     APPEND
-  ========================= */
-
-  card.appendChild(
-    image
-  );
-
-
-  card.appendChild(
-    name
-  );
-
-
-  /* =========================
-     EVENT
-  ========================= */
-
-  card.addEventListener(
-    "click",
-    () => {
-
-      setAvatarSource(
-        source
-      );
-
-    }
-  );
-
-
-  return card;
-
-}
-
-
-/* =========================
-   SET AVATAR SOURCE
-========================= */
-
-async function setAvatarSource(
-  source
-) {
-
-  if (
-    !source
-  ) {
-
-    return;
-
-  }
-
-
-  const sessionToken =
-    getAvatarSessionToken();
-
-
-  if (
-    !sessionToken
-  ) {
-
-    setAvatarStatus(
-      "Please log in first.",
-      true
-    );
-
-    return;
-
-  }
-
-
-  /* =========================
-     ALREADY SELECTED
-  ========================= */
-
-  if (
-    source.type ===
-      "custom" &&
-    u9AvatarCurrentType ===
-      "custom"
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    source.type ===
-      "free" &&
-    u9AvatarCurrentType ===
-      "free" &&
-    String(
-      u9AvatarCurrentId
-    ) ===
-    String(
-      source.id
-    )
-  ) {
-
-    return;
-
-  }
-
-
-  /* =========================
-     LOADING
-  ========================= */
-
-  const cards =
-    u9AvatarFreeList.querySelectorAll(
-      ".Account-U9-free-avatar-card"
-    );
-
-
-  cards.forEach(
-    (
-      card
-    ) => {
-
-      card.disabled =
-        true;
-
-
-      card.classList.add(
-        "loading"
-      );
-
-    }
-  );
-
-
-  try {
-
-    const response =
-      await fetch(
-        u9AvatarSetFunction,
-        {
-
-          method:
-            "POST",
-
-          headers:
-            getAvatarHeaders(
-              true
-            ),
-
-          body:
-            JSON.stringify({
-
-              avatar_type:
-                source.type,
-
-              avatar_id:
-                source.id,
-
-              avatar_url:
-                source.type ===
-                  "custom"
-                  ? source.url
-                  : null
-
-            })
-
-        }
-      );
-
-
-    const result =
-      await parseAvatarResponse(
-        response
-      );
-
-
-    if (
-      !response.ok ||
-      result.success ===
-        false
-    ) {
-
-      throw new Error(
-
-        result.error ||
-        result.message ||
-        "Failed to update avatar."
-
-      );
-
-    }
-
-
-    /* =========================
-       UPDATE STATE
-    ========================= */
-
-    u9AvatarCurrentType =
-      source.type;
-
-
-    u9AvatarCurrentId =
-      source.type ===
-        "free"
-        ? source.id
-        : null;
-
-
-    if (
-      source.type ===
-        "custom"
-    ) {
-
-      u9AvatarCustomUrl =
-        source.url;
-
-    }
-
-
-    /* =========================
-       UPDATE ACCOUNT
-    ========================= */
-
-    updateAvatarAccountImage(
-      source.url
-    );
-
-
-    /* =========================
-       RENDER
-    ========================= */
-
-    renderAvatarSources();
-
-
-    setAvatarStatus(
-      "Avatar updated successfully."
-    );
-
-  }
-
-  catch (
-    error
-  ) {
-
-    console.error(
-      "Failed to set avatar:",
-      error
-    );
-
-
-    setAvatarStatus(
-
-      error instanceof Error
-        ? error.message
-        : "Network error. Please try again.",
-
-      true
-
-    );
-
-
-    renderAvatarSources();
-
-  }
 
 }
 
@@ -4126,6 +3805,11 @@ function setAvatarStatus(
   }
 
 
+  /*
+   * Do not overwrite cooldown
+   * message with normal status.
+   */
+
   if (
     isAvatarCooldownActive() &&
     u9AvatarStatus.dataset.cooldown ===
@@ -4140,8 +3824,7 @@ function setAvatarStatus(
 
 
   u9AvatarStatus.textContent =
-    message ||
-    "";
+    message || "";
 
 
   u9AvatarStatus.classList.toggle(
