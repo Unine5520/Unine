@@ -1,3 +1,4 @@
+
 /* =========================
    U9 ACCOUNT AVATAR EDIT
 ========================= */
@@ -23,6 +24,10 @@ const u9AvatarDefaultImage =
 
 const u9AvatarOutputSize =
   300;
+
+
+const u9AvatarMoveStep =
+  5;
 
 
 /* =========================
@@ -57,21 +62,6 @@ let u9AvatarObjectUrl =
 
 let u9AvatarImageLoaded =
   false;
-
-let u9AvatarDragging =
-  false;
-
-let u9AvatarDragStartX =
-  0;
-
-let u9AvatarDragStartY =
-  0;
-
-let u9AvatarStartOffsetX =
-  0;
-
-let u9AvatarStartOffsetY =
-  0;
 
 let u9AvatarOffsetX =
   0;
@@ -152,6 +142,14 @@ let u9AvatarMyList = null;
 let u9AvatarFreeList = null;
 
 let u9AvatarDragHint = null;
+
+let u9AvatarMoveUpButton = null;
+
+let u9AvatarMoveDownButton = null;
+
+let u9AvatarMoveLeftButton = null;
+
+let u9AvatarMoveRightButton = null;
 
 
 /* =========================
@@ -284,6 +282,49 @@ function formatAvatarCooldown(
 
 
 /* =========================
+   UPDATE MOVE BUTTONS
+========================= */
+
+function updateAvatarMoveButtons() {
+
+  const disabled =
+    !u9AvatarImageLoaded ||
+    isAvatarCooldownActive() ||
+    !u9AvatarSelectedImage;
+
+
+  const buttons = [
+
+    u9AvatarMoveUpButton,
+
+    u9AvatarMoveDownButton,
+
+    u9AvatarMoveLeftButton,
+
+    u9AvatarMoveRightButton
+
+  ];
+
+
+  buttons.forEach(
+    function (button) {
+
+      if (
+        button
+      ) {
+
+        button.disabled =
+          disabled;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
    UPDATE UPLOAD VISIBILITY
 ========================= */
 
@@ -323,6 +364,41 @@ function updateAvatarUploadVisibility() {
         : "";
 
   }
+
+
+  /* =========================
+     DIRECTION BUTTONS
+  ========================= */
+
+  const directionButtons = [
+
+    u9AvatarMoveUpButton,
+
+    u9AvatarMoveDownButton,
+
+    u9AvatarMoveLeftButton,
+
+    u9AvatarMoveRightButton
+
+  ];
+
+
+  directionButtons.forEach(
+    function (button) {
+
+      if (
+        button
+      ) {
+
+        button.style.display =
+          cooldownActive
+            ? "none"
+            : "";
+
+      }
+
+    }
+  );
 
 
   /* =========================
@@ -445,12 +521,6 @@ function updateAvatarUploadVisibility() {
 
     else {
 
-      /*
-       * Only hide status automatically
-       * when it is currently showing
-       * cooldown text.
-       */
-
       if (
         u9AvatarStatus.dataset.cooldown ===
         "true"
@@ -477,6 +547,9 @@ function updateAvatarUploadVisibility() {
     }
 
   }
+
+
+  updateAvatarMoveButtons();
 
 }
 
@@ -776,6 +849,104 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     PREVIEW AREA
+  ========================= */
+
+  const previewArea =
+    document.createElement(
+      "div"
+    );
+
+  previewArea.id =
+    "Account-U9-avatar-editor-preview-area";
+
+
+  /* =========================
+     UP BUTTON
+  ========================= */
+
+  u9AvatarMoveUpButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveUpButton.id =
+    "Account-U9-avatar-editor-move-up";
+
+  u9AvatarMoveUpButton.type =
+    "button";
+
+  u9AvatarMoveUpButton.setAttribute(
+    "aria-label",
+    "Move avatar up"
+  );
+
+  u9AvatarMoveUpButton.textContent =
+    "↑";
+
+
+  /* =========================
+     MIDDLE ROW
+  ========================= */
+
+  const previewMiddle =
+    document.createElement(
+      "div"
+    );
+
+  previewMiddle.id =
+    "Account-U9-avatar-editor-preview-middle";
+
+
+  /* =========================
+     LEFT BUTTON
+  ========================= */
+
+  u9AvatarMoveLeftButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveLeftButton.id =
+    "Account-U9-avatar-editor-move-left";
+
+  u9AvatarMoveLeftButton.type =
+    "button";
+
+  u9AvatarMoveLeftButton.setAttribute(
+    "aria-label",
+    "Move avatar left"
+  );
+
+  u9AvatarMoveLeftButton.textContent =
+    "←";
+
+
+  /* =========================
+     RIGHT BUTTON
+  ========================= */
+
+  u9AvatarMoveRightButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveRightButton.id =
+    "Account-U9-avatar-editor-move-right";
+
+  u9AvatarMoveRightButton.type =
+    "button";
+
+  u9AvatarMoveRightButton.setAttribute(
+    "aria-label",
+    "Move avatar right"
+  );
+
+  u9AvatarMoveRightButton.textContent =
+    "→";
+
+
+  /* =========================
      PREVIEW
   ========================= */
 
@@ -838,6 +1009,68 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     MIDDLE APPEND
+  ========================= */
+
+  previewMiddle.appendChild(
+    u9AvatarMoveLeftButton
+  );
+
+
+  previewMiddle.appendChild(
+    u9AvatarPreview
+  );
+
+
+  previewMiddle.appendChild(
+    u9AvatarMoveRightButton
+  );
+
+
+  /* =========================
+     DOWN BUTTON
+  ========================= */
+
+  u9AvatarMoveDownButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveDownButton.id =
+    "Account-U9-avatar-editor-move-down";
+
+  u9AvatarMoveDownButton.type =
+    "button";
+
+  u9AvatarMoveDownButton.setAttribute(
+    "aria-label",
+    "Move avatar down"
+  );
+
+  u9AvatarMoveDownButton.textContent =
+    "↓";
+
+
+  /* =========================
+     PREVIEW AREA APPEND
+  ========================= */
+
+  previewArea.appendChild(
+    u9AvatarMoveUpButton
+  );
+
+
+  previewArea.appendChild(
+    previewMiddle
+  );
+
+
+  previewArea.appendChild(
+    u9AvatarMoveDownButton
+  );
+
+
+  /* =========================
      DRAG HINT
   ========================= */
 
@@ -850,7 +1083,7 @@ function createU9AvatarEditor() {
     "Account-U9-avatar-editor-drag-hint";
 
   u9AvatarDragHint.textContent =
-    "Drag to move";
+    "Use the arrows to move";
 
 
   /* =========================
@@ -946,7 +1179,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     CHOOSE IMAGE
+     CHOOSE AREA
   ========================= */
 
   const chooseArea =
@@ -1043,7 +1276,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     APPEND
+     APPEND EDITOR
   ========================= */
 
   wrapper.appendChild(
@@ -1062,7 +1295,7 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
-    u9AvatarPreview
+    previewArea
   );
 
 
@@ -1097,7 +1330,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     EVENTS
+     CHOOSE EVENT
   ========================= */
 
   u9AvatarChooseButton.addEventListener(
@@ -1121,11 +1354,19 @@ function createU9AvatarEditor() {
   );
 
 
+  /* =========================
+     FILE EVENT
+  ========================= */
+
   u9AvatarFileInput.addEventListener(
     "change",
     handleAvatarFileChange
   );
 
+
+  /* =========================
+     ZOOM EVENT
+  ========================= */
 
   u9AvatarZoomInput.addEventListener(
     "input",
@@ -1133,13 +1374,70 @@ function createU9AvatarEditor() {
   );
 
 
+  /* =========================
+     SAVE EVENT
+  ========================= */
+
   u9AvatarSaveButton.addEventListener(
     "click",
     saveAvatarCrop
   );
 
 
-  setupAvatarDrag();
+  /* =========================
+     MOVE EVENTS
+  ========================= */
+
+  u9AvatarMoveUpButton.addEventListener(
+    "click",
+    () => {
+
+      moveAvatar(
+        0,
+        -u9AvatarMoveStep
+      );
+
+    }
+  );
+
+
+  u9AvatarMoveDownButton.addEventListener(
+    "click",
+    () => {
+
+      moveAvatar(
+        0,
+        u9AvatarMoveStep
+      );
+
+    }
+  );
+
+
+  u9AvatarMoveLeftButton.addEventListener(
+    "click",
+    () => {
+
+      moveAvatar(
+        -u9AvatarMoveStep,
+        0
+      );
+
+    }
+  );
+
+
+  u9AvatarMoveRightButton.addEventListener(
+    "click",
+    () => {
+
+      moveAvatar(
+        u9AvatarMoveStep,
+        0
+      );
+
+    }
+  );
 
 
   /* =========================
@@ -1173,6 +1471,9 @@ function createU9AvatarEditor() {
 
       }
 
+
+      updateAvatarMoveButtons();
+
     }
   );
 
@@ -1198,6 +1499,52 @@ function createU9AvatarEditor() {
 
 
 /* =========================
+   MOVE AVATAR
+========================= */
+
+function moveAvatar(
+  deltaX,
+  deltaY
+) {
+
+  if (
+    isAvatarCooldownActive()
+  ) {
+
+    updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
+
+  if (
+    !u9AvatarImageLoaded ||
+    !u9AvatarSelectedImage
+  ) {
+
+    return;
+
+  }
+
+
+  u9AvatarOffsetX +=
+    deltaX;
+
+
+  u9AvatarOffsetY +=
+    deltaY;
+
+
+  clampAvatarPosition();
+
+
+  updateAvatarImage();
+
+}
+
+
+/* =========================
    LOAD CURRENT AVATAR
 ========================= */
 
@@ -1210,14 +1557,11 @@ async function loadCurrentAvatar() {
   u9AvatarCurrentType =
     "default";
 
-
   u9AvatarCurrentId =
     null;
 
-
   u9AvatarCustomUrl =
     null;
-
 
   u9AvatarCooldownUntil =
     null;
@@ -1386,6 +1730,7 @@ async function loadCurrentAvatar() {
     console.log(
       "Current avatar:",
       {
+
         type:
           u9AvatarCurrentType,
 
@@ -1397,6 +1742,7 @@ async function loadCurrentAvatar() {
 
         cooldown_until:
           u9AvatarCooldownUntil
+
       }
     );
 
@@ -2673,6 +3019,9 @@ function handleAvatarFileChange(
     true;
 
 
+  updateAvatarMoveButtons();
+
+
   setAvatarStatus(
     ""
   );
@@ -2763,7 +3112,8 @@ function handleAvatarZoom() {
 
   const percentage =
     Math.round(
-      u9AvatarZoom * 100
+      u9AvatarZoom *
+      100
     );
 
 
@@ -2901,10 +3251,10 @@ function clampAvatarPosition() {
 
 
 /* =========================
-   DRAG
+   MOUSE WHEEL ZOOM
 ========================= */
 
-function setupAvatarDrag() {
+function setupAvatarWheelZoom() {
 
   if (
     !u9AvatarPreview
@@ -2914,176 +3264,6 @@ function setupAvatarDrag() {
 
   }
 
-
-  /* =========================
-     POINTER DOWN
-  ========================= */
-
-  u9AvatarPreview.addEventListener(
-    "pointerdown",
-    (event) => {
-
-      if (
-        isAvatarCooldownActive()
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        !u9AvatarImageLoaded
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        event.target ===
-        u9AvatarCropGuide
-      ) {
-
-        return;
-
-      }
-
-
-      u9AvatarDragging =
-        true;
-
-
-      u9AvatarPreview.setPointerCapture(
-        event.pointerId
-      );
-
-
-      u9AvatarDragStartX =
-        event.clientX;
-
-
-      u9AvatarDragStartY =
-        event.clientY;
-
-
-      u9AvatarStartOffsetX =
-        u9AvatarOffsetX;
-
-
-      u9AvatarStartOffsetY =
-        u9AvatarOffsetY;
-
-
-      u9AvatarPreview.classList.add(
-        "dragging"
-      );
-
-    }
-  );
-
-
-  /* =========================
-     POINTER MOVE
-  ========================= */
-
-  u9AvatarPreview.addEventListener(
-    "pointermove",
-    (event) => {
-
-      if (
-        !u9AvatarDragging
-      ) {
-
-        return;
-
-      }
-
-
-      const deltaX =
-        event.clientX -
-        u9AvatarDragStartX;
-
-
-      const deltaY =
-        event.clientY -
-        u9AvatarDragStartY;
-
-
-      u9AvatarOffsetX =
-        u9AvatarStartOffsetX +
-        deltaX;
-
-
-      u9AvatarOffsetY =
-        u9AvatarStartOffsetY +
-        deltaY;
-
-
-      clampAvatarPosition();
-
-
-      updateAvatarImage();
-
-    }
-  );
-
-
-  /* =========================
-     POINTER UP
-  ========================= */
-
-  const stopDragging =
-    (event) => {
-
-      if (
-        !u9AvatarDragging
-      ) {
-
-        return;
-
-      }
-
-
-      u9AvatarDragging =
-        false;
-
-
-      try {
-
-        u9AvatarPreview.releasePointerCapture(
-          event.pointerId
-        );
-
-      }
-      catch {
-
-      }
-
-
-      u9AvatarPreview.classList.remove(
-        "dragging"
-      );
-
-    };
-
-
-  u9AvatarPreview.addEventListener(
-    "pointerup",
-    stopDragging
-  );
-
-
-  u9AvatarPreview.addEventListener(
-    "pointercancel",
-    stopDragging
-  );
-
-
-  /* =========================
-     MOUSE WHEEL ZOOM
-  ========================= */
 
   u9AvatarPreview.addEventListener(
     "wheel",
@@ -3099,7 +3279,8 @@ function setupAvatarDrag() {
 
 
       if (
-        !u9AvatarImageLoaded
+        !u9AvatarImageLoaded ||
+        !u9AvatarSelectedImage
       ) {
 
         return;
@@ -3326,10 +3507,6 @@ async function saveAvatarCrop() {
       !result.success
     ) {
 
-      /* =========================
-         COOLDOWN
-      ========================= */
-
       if (
         response.status ===
           429 ||
@@ -3370,10 +3547,6 @@ async function saveAvatarCrop() {
 
       }
 
-
-      /* =========================
-         OTHER ERROR
-      ========================= */
 
       setAvatarStatus(
 
@@ -3469,7 +3642,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       CLEAR FREE SELECTION
+       SELECTED
     ========================= */
 
     updateFreeAvatarSelection();
@@ -3478,6 +3651,15 @@ async function saveAvatarCrop() {
     /* =========================
        SAVE STATE
     ========================= */
+
+    if (
+      !window.U9AvatarEditor
+    ) {
+
+      window.U9AvatarEditor = {};
+
+    }
+
 
     window.U9AvatarEditor.lastBlob =
       blob;
@@ -3529,6 +3711,13 @@ async function saveAvatarCrop() {
 
     u9AvatarImage.src =
       u9AvatarDefaultImage;
+
+
+    /* =========================
+       UPDATE MOVE BUTTONS
+    ========================= */
+
+    updateAvatarMoveButtons();
 
 
     /* =========================
@@ -3593,6 +3782,9 @@ async function saveAvatarCrop() {
         !u9AvatarSelectedImage;
 
     }
+
+
+    updateAvatarMoveButtons();
 
   }
 
@@ -3918,5 +4110,7 @@ if (
 ) {
 
   createU9AvatarEditor();
+
+  setupAvatarWheelZoom();
 
 }
