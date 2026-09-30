@@ -970,7 +970,7 @@
 
   outline: none;
 
-  border-radius: 15%;
+  border-radius: 5%;
 
   background-color: white;
 
@@ -1162,6 +1162,69 @@
     max-width: 16px;
 
     max-height: 16px;
+
+  }
+
+}
+
+/* =========== PAGE WINDOW SLIDE =========== */
+
+#U9-page-container-tool-pages.page-slide-left {
+
+  animation:
+    page-slide-left 0.28s ease;
+
+}
+
+
+#U9-page-container-tool-pages.page-slide-right {
+
+  animation:
+    page-slide-right 0.28s ease;
+
+}
+
+
+@keyframes page-slide-left {
+
+  0% {
+
+    transform:
+      translateX(0);
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform:
+      translateX(-35px);
+
+    opacity: 0.35;
+
+  }
+
+}
+
+
+@keyframes page-slide-right {
+
+  0% {
+
+    transform:
+      translateX(0);
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform:
+      translateX(35px);
+
+    opacity: 0.35;
 
   }
 
