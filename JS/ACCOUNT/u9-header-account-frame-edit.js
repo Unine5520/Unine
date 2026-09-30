@@ -1789,37 +1789,49 @@ function openPurchaseModal(
     "Account-U9-frame-purchase-actions";
 
 
+
   /* =========================
-     CANCEL
+    CANCEL BUTTON EVENT
   ========================= */
 
-  const cancelButton =
-    document.createElement(
-      "button"
+  cancelButton.onclick = function(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    console.log(
+      "Purchase cancel clicked"
     );
 
 
-  cancelButton.id =
-    "Account-U9-frame-purchase-cancel";
+    closePurchaseModal();
 
+  };
 
-  cancelButton.type =
-    "button";
-
-
-  cancelButton.textContent =
-    "Cancel";
 
 
   /* =========================
-     CONFIRM
+    CONFIRM BUTTON EVENT
   ========================= */
 
-  const confirmButton =
-    document.createElement(
-      "button"
+  confirmButton.onclick = function(event) {
+
+    event.preventDefault();
+
+    event.stopPropagation();
+
+    console.log(
+      "Purchase confirm clicked"
     );
 
+
+    purchasePaidFrame(
+      frame,
+      confirmButton
+    );
+
+  };
 
   confirmButton.id =
     "Account-U9-frame-purchase-confirm";
