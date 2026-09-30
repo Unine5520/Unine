@@ -2,7 +2,6 @@
    U9 HEADER ACCOUNT SETTING
 ========================= */
 
-
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -74,7 +73,6 @@
 
 }
 
-
 /* =========================
    ACCOUNT SETTING HEADER
 ========================= */
@@ -139,12 +137,20 @@
 }
 
 
+/* =========================
+   ADD FRIEND HEADER ACTIVE
+========================= */
+
 #Account-U9-account-add-friend-page-header.active {
 
   transform: translateX(0);
 
 }
 
+
+/* =========================
+   ADD FRIEND HEADER HIDDEN
+========================= */
 
 #Account-U9-account-add-friend-page-header.hidden {
 
@@ -164,12 +170,20 @@
 }
 
 
+/* =========================
+   ACCOUNT HEADER ACTIVE
+========================= */
+
 #Account-U9-account-header.active {
 
   transform: translateX(0);
 
 }
 
+
+/* =========================
+   ACCOUNT HEADER HIDDEN
+========================= */
 
 #Account-U9-account-header.hidden {
 
@@ -189,12 +203,20 @@
 }
 
 
+/* =========================
+   SETTING / EDIT HEADER ACTIVE
+========================= */
+
 #Account-U9-account-setting-page-header.active {
 
   transform: translateX(0);
 
 }
 
+
+/* =========================
+   SETTING / EDIT HEADER HIDDEN
+========================= */
 
 #Account-U9-account-setting-page-header.hidden {
 
@@ -204,7 +226,7 @@
 
 
 /* =========================
-   HEADER BUTTON
+   HEADER BACK BUTTON
 ========================= */
 
 #Account-U9-account-add-friend-page-header button,
@@ -212,6 +234,12 @@
 #Account-U9-account-header button,
 
 #Account-U9-account-setting-page-header button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
 
   width: 42px;
 
@@ -227,19 +255,13 @@
 
   color: rgb(249 249 249);
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   cursor: pointer;
 
 }
 
 
 /* =========================
-   HEADER BUTTON SVG
+   HEADER BACK BUTTON SVG
 ========================= */
 
 #Account-U9-account-add-friend-page-header button svg,
@@ -304,8 +326,6 @@
 
   overflow-y: auto;
 
-  overflow-x: hidden;
-
 }
 
 
@@ -353,7 +373,7 @@
 
 
 /* =========================
-   LOGOUT HOVER
+   LOGOUT BUTTON HOVER
 ========================= */
 
 #Account-U9-account-logout:hover {
@@ -364,7 +384,7 @@
 
 
 /* =========================
-   LOGOUT ACTIVE
+   LOGOUT BUTTON ACTIVE
 ========================= */
 
 #Account-U9-account-logout:active {
@@ -375,7 +395,7 @@
 
 
 /* =========================
-   LOGOUT IMAGE
+   LOGOUT SVG / IMG
 ========================= */
 
 #Account-U9-account-logout img {
@@ -406,7 +426,9 @@
    MOBILE
 ========================= */
 
-@media (max-width: 480px) {
+@media (
+  max-width: 480px
+) {
 
   #Account-U9-account-logout {
 
