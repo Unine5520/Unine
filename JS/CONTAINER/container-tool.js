@@ -1,3 +1,4 @@
+
 /* =========================
    CONTAINER TOOL
 ========================= */
@@ -218,12 +219,40 @@ const pageItems = [
 
 
 /* =========================
+   PAGE BUTTON LIST
+========================= */
+
+const pageButtons = [
+
+  homeButton,
+
+  shopButton,
+
+  auctionButton,
+
+  test1Button,
+
+  test2Button
+
+];
+
+
+/* =========================
    PAGE WINDOW
 ========================= */
 
 let pageWindowStart = 0;
 
 const pageWindowSize = 3;
+
+
+/* =========================
+   PAGE ANIMATION
+========================= */
+
+let pageWindowAnimating = false;
+
+const pageAnimationDuration = 280;
 
 
 /* =========================
@@ -241,13 +270,309 @@ function renderPageWindow() {
           pageWindowStart +
           pageWindowSize;
 
+
       item.button.style.display =
         visible
           ? "flex"
           : "none";
 
+
+      item.button.style.transform =
+        "translateX(0)";
+
+      item.button.style.opacity =
+        "1";
+
     }
   );
+
+}
+
+
+/* =========================
+   GET VISIBLE BUTTONS
+========================= */
+
+function getVisibleButtons() {
+
+  return pageButtons.filter(
+    function (button, index) {
+
+      return (
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   SLIDE PAGE WINDOW
+========================= */
+
+function slidePageWindow(
+  direction
+) {
+
+  if (
+    pageWindowAnimating
+  ) {
+
+    return;
+
+  }
+
+
+  const maxStart =
+    pageItems.length -
+    pageWindowSize;
+
+
+  if (
+    direction === "left" &&
+    pageWindowStart >= maxStart
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    direction === "right" &&
+    pageWindowStart <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  pageWindowAnimating =
+    true;
+
+
+  const oldStart =
+    pageWindowStart;
+
+
+  const newStart =
+    direction === "left"
+      ? oldStart + 1
+      : oldStart - 1;
+
+
+  const oldButtons =
+    pageButtons.slice(
+      oldStart,
+      oldStart +
+        pageWindowSize
+    );
+
+
+  const newButtons =
+    pageButtons.slice(
+      newStart,
+      newStart +
+        pageWindowSize
+    );
+
+
+  /* =========================
+     PREPARE NEW BUTTONS
+  ========================= */
+
+  newButtons.forEach(
+    function (button) {
+
+      button.style.display =
+        "flex";
+
+      button.style.opacity =
+        "0";
+
+      button.style.transform =
+        direction === "left"
+          ? "translateX(35px)"
+          : "translateX(-35px)";
+
+    }
+  );
+
+
+  /* =========================
+     OLD BUTTONS
+  ========================= */
+
+  const oldAnimations =
+    oldButtons.map(
+      function (button) {
+
+        return button.animate(
+          [
+            {
+              transform:
+                "translateX(0)",
+              opacity: 1
+            },
+
+            {
+              transform:
+                direction === "left"
+                  ? "translateX(-35px)"
+                  : "translateX(35px)",
+              opacity: 0
+            }
+
+          ],
+          {
+            duration:
+              pageAnimationDuration,
+
+            easing:
+              "ease",
+
+            fill:
+              "forwards"
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     NEW BUTTONS
+  ========================= */
+
+  const newAnimations =
+    newButtons.map(
+      function (button) {
+
+        return button.animate(
+          [
+            {
+              transform:
+                direction === "left"
+                  ? "translateX(35px)"
+                  : "translateX(-35px)",
+
+              opacity: 0
+            },
+
+            {
+              transform:
+                "translateX(0)",
+
+              opacity: 1
+            }
+
+          ],
+          {
+            duration:
+              pageAnimationDuration,
+
+            easing:
+              "ease",
+
+            fill:
+              "forwards",
+
+            delay: 0
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     WAIT ANIMATION
+  ========================= */
+
+  Promise.all(
+    [
+      ...oldAnimations.map(
+        function (animation) {
+          return animation.finished;
+        }
+      ),
+
+      ...newAnimations.map(
+        function (animation) {
+          return animation.finished;
+        }
+      )
+    ]
+  )
+    .then(
+      function () {
+
+        pageWindowStart =
+          newStart;
+
+
+        /* =========================
+           FINAL STATE
+        ========================= */
+
+        pageItems.forEach(
+          function (item, index) {
+
+            const visible =
+              index >= pageWindowStart &&
+              index <
+                pageWindowStart +
+                pageWindowSize;
+
+
+            item.button.style.display =
+              visible
+                ? "flex"
+                : "none";
+
+
+            item.button.style.transform =
+              "translateX(0)";
+
+            item.button.style.opacity =
+              "1";
+
+          }
+        );
+
+
+        pageWindowAnimating =
+          false;
+
+      }
+    )
+    .catch(
+      function (error) {
+
+        console.error(
+          "Page window animation failed:",
+          error
+        );
+
+
+        pageWindowStart =
+          newStart;
+
+
+        renderPageWindow();
+
+
+        pageWindowAnimating =
+          false;
+
+      }
+    );
 
 }
 
@@ -265,6 +590,7 @@ function showPage(
 
       item.page.style.display =
         "none";
+
 
       item.button.classList.remove(
         "active"
@@ -361,17 +687,9 @@ pageNextButton.addEventListener(
   "click",
   function () {
 
-    if (
-      pageWindowStart <
-      pageItems.length -
-      pageWindowSize
-    ) {
-
-      pageWindowStart++;
-
-      renderPageWindow();
-
-    }
+    slidePageWindow(
+      "left"
+    );
 
   }
 );
@@ -385,16 +703,9 @@ pagePrevButton.addEventListener(
   "click",
   function () {
 
-    if (
-      pageWindowStart >
-      0
-    ) {
-
-      pageWindowStart--;
-
-      renderPageWindow();
-
-    }
+    slidePageWindow(
+      "right"
+    );
 
   }
 );
