@@ -1,3 +1,4 @@
+
 /* =========== CONTAINER TOOL =========== */
 
 #U9-page-container-tool {
@@ -123,6 +124,8 @@
   object-fit: contain;
 
   flex: 0 0 18px;
+
+  pointer-events: none;
 
 }
 
@@ -295,6 +298,8 @@
 
   flex: 0 0 16px;
 
+  pointer-events: none;
+
 }
 
 
@@ -364,6 +369,8 @@
   object-fit: contain;
 
   flex: 0 0 18px;
+
+  pointer-events: none;
 
 }
 
@@ -470,6 +477,8 @@
 
   flex: 0 0 18px;
 
+  pointer-events: none;
+
 }
 
 
@@ -573,6 +582,8 @@
 
   flex: 0 0 auto;
 
+  pointer-events: none;
+
 }
 
 
@@ -667,6 +678,8 @@
   object-fit: contain;
 
   flex: 0 0 21px;
+
+  pointer-events: none;
 
 }
 
@@ -772,6 +785,8 @@
 
   flex: 0 0 40px;
 
+  box-sizing: border-box;
+
 }
 
 
@@ -788,6 +803,8 @@
   max-height: 17px;
 
   object-fit: contain;
+
+  pointer-events: none;
 
 }
 
@@ -814,8 +831,6 @@
 
   background-color: white;
 
-  color: #111111;
-
   cursor: pointer;
 
   display: flex;
@@ -826,11 +841,28 @@
 
   flex: 0 0 40px;
 
-  font-size: 18px;
+  box-sizing: border-box;
 
-  font-weight: 600;
+}
 
-  line-height: 1;
+
+#U9-page-container-tool-pages-prev img,
+
+#U9-page-container-tool-pages-next img {
+
+  display: block;
+
+  width: 18px;
+
+  height: 18px;
+
+  max-width: 18px;
+
+  max-height: 18px;
+
+  object-fit: contain;
+
+  pointer-events: none;
 
 }
 
@@ -917,15 +949,22 @@
 }
 
 
-/* =========== PAGE BUTTON =========== */
+/* =========== PAGE BUTTONS =========== */
 
-#U9-page-container-tool-pages
-button[id^="U9-page-container-tool-"] {
+#U9-page-container-tool-home,
+
+#U9-page-container-tool-shop-page,
+
+#U9-page-container-tool-auction,
+
+#U9-page-container-tool-test1,
+
+#U9-page-container-tool-test2 {
 
   height: 40px;
 
   padding:
-    0px 10px;
+    0 10px;
 
   border: none;
 
@@ -953,6 +992,8 @@ button[id^="U9-page-container-tool-"] {
 
   flex: 0 0 auto;
 
+  box-sizing: border-box;
+
   font-size: 15px;
 
   font-weight: 600;
@@ -964,28 +1005,61 @@ button[id^="U9-page-container-tool-"] {
 
 /* =========== PAGE ACTIVE =========== */
 
-#U9-page-container-tool-pages
-button.active {
+#U9-page-container-tool-home.active,
+
+#U9-page-container-tool-shop-page.active,
+
+#U9-page-container-tool-auction.active,
+
+#U9-page-container-tool-test1.active,
+
+#U9-page-container-tool-test2.active {
 
   color: #1b67ea;
 
 }
 
 
-/* =========== BUTTON HOVER =========== */
+/* =========== PAGE BUTTON HOVER =========== */
 
-#U9-page-container-tool-pages
-button:hover {
+#U9-page-container-tool-home:hover,
+
+#U9-page-container-tool-shop-page:hover,
+
+#U9-page-container-tool-auction:hover,
+
+#U9-page-container-tool-test1:hover,
+
+#U9-page-container-tool-test2:hover,
+
+#U9-page-container-tool-new:hover,
+
+#U9-page-container-tool-pages-prev:hover,
+
+#U9-page-container-tool-pages-next:hover {
 
   background-color: #f7f7f7;
 
 }
 
 
-/* =========== BUTTON ACTIVE PRESS =========== */
+/* =========== PAGE BUTTON ACTIVE PRESS =========== */
 
-#U9-page-container-tool-pages
-button:active {
+#U9-page-container-tool-home:active,
+
+#U9-page-container-tool-shop-page:active,
+
+#U9-page-container-tool-auction:active,
+
+#U9-page-container-tool-test1:active,
+
+#U9-page-container-tool-test2:active,
+
+#U9-page-container-tool-new:active,
+
+#U9-page-container-tool-pages-prev:active,
+
+#U9-page-container-tool-pages-next:active {
 
   transform:
     scale(0.96);
@@ -1046,11 +1120,18 @@ button:active {
   }
 
 
-  #U9-page-container-tool-pages
-  button[id^="U9-page-container-tool-"] {
+  #U9-page-container-tool-home,
+
+  #U9-page-container-tool-shop-page,
+
+  #U9-page-container-tool-auction,
+
+  #U9-page-container-tool-test1,
+
+  #U9-page-container-tool-test2 {
 
     padding:
-      0px 8px;
+      0 8px;
 
     font-size: 14px;
 
@@ -1063,14 +1144,24 @@ button:active {
 
     height: 16px;
 
+    max-width: 16px;
+
+    max-height: 16px;
+
   }
 
 
-  #U9-page-container-tool-pages-prev,
+  #U9-page-container-tool-pages-prev img,
 
-  #U9-page-container-tool-pages-next {
+  #U9-page-container-tool-pages-next img {
 
-    font-size: 17px;
+    width: 16px;
+
+    height: 16px;
+
+    max-width: 16px;
+
+    max-height: 16px;
 
   }
 
