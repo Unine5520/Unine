@@ -180,385 +180,399 @@ const historyButton =
 
 
 /* =========================
-   PAGE VIEWPORT / TRACK
-========================= */
-
-const pageViewport =
-  document.getElementById(
-    "U9-page-container-tool-page-viewport"
-  );
-
-
-const pageTrack =
-  document.getElementById(
-    "U9-page-container-tool-page-track"
-  );
-
-
-/* =========================
    PAGE MAP
 ========================= */
 
 const pageItems = [
 
   {
-    page:
-      homePage,
-
-    button:
-      homeButton,
-
-    name:
-      "Home"
+    page: homePage,
+    button: homeButton,
+    name: "Home"
   },
 
   {
-    page:
-      shopPage,
-
-    button:
-      shopButton,
-
-    name:
-      "Shop"
+    page: shopPage,
+    button: shopButton,
+    name: "Shop"
   },
 
   {
-    page:
-      auctionPage,
-
-    button:
-      auctionButton,
-
-    name:
-      "Auction"
+    page: auctionPage,
+    button: auctionButton,
+    name: "Auction"
   },
 
   {
-    page:
-      test1Page,
-
-    button:
-      test1Button,
-
-    name:
-      "Test1"
+    page: test1Page,
+    button: test1Button,
+    name: "Test1"
   },
 
   {
-    page:
-      test2Page,
-
-    button:
-      test2Button,
-
-    name:
-      "Test2"
+    page: test2Page,
+    button: test2Button,
+    name: "Test2"
   }
 
 ];
 
 
 /* =========================
-   PAGE SETTINGS
+   PAGE BUTTON LIST
 ========================= */
 
-const pageWindowSize =
-  3;
+const pageButtons = [
 
+  homeButton,
 
-let pageWindowStart =
-  0;
+  shopButton,
 
+  auctionButton,
 
-let pageWindowAnimating =
-  false;
+  test1Button,
 
+  test2Button
 
-const pageWindowAnimationDuration =
-  450;
+];
 
 
 /* =========================
-   GET CURRENT GAP
+   PAGE WINDOW
 ========================= */
 
-function getPageGap() {
+let pageWindowStart = 0;
 
-  return window.matchMedia(
-    "(max-width: 480px)"
-  ).matches
-    ? 4
-    : 6;
-
-}
+const pageWindowSize = 3;
 
 
 /* =========================
-   GET BUTTON WIDTH
+   PAGE ANIMATION
 ========================= */
 
-function getButtonWidth(
-  button
-) {
+let pageWindowAnimating = false;
 
-  if (
-    !button
-  ) {
-
-    return 0;
-
-  }
-
-
-  return button.offsetWidth;
-
-}
-
-
-/* =========================
-   GET WINDOW WIDTH
-========================= */
-
-function getPageWindowWidth() {
-
-  const gap =
-    getPageGap();
-
-
-  let width =
-    0;
-
-
-  for (
-    let index = 0;
-    index < pageWindowSize;
-    index++
-  ) {
-
-    const pageIndex =
-      pageWindowStart +
-      index;
-
-
-    const button =
-      pageItems[pageIndex]?.button;
-
-
-    if (!button) {
-
-      continue;
-
-    }
-
-
-    width +=
-      getButtonWidth(
-        button
-      );
-
-  }
-
-
-  width +=
-    gap *
-    (
-      pageWindowSize -
-      1
-    );
-
-
-  return width;
-
-}
-
-
-/* =========================
-   UPDATE VIEWPORT WIDTH
-========================= */
-
-function updatePageViewport() {
-
-  if (
-    !pageViewport ||
-    !pageMenu
-  ) {
-
-    return;
-
-  }
-
-
-  const gap =
-    getPageGap();
-
-
-  const isMobile =
-    window.matchMedia(
-      "(max-width: 480px)"
-    ).matches;
-
-
-  const newButtonWidth =
-    isMobile
-      ? 36
-      : 40;
-
-
-  const arrowButtonWidth =
-    isMobile
-      ? 36
-      : 40;
-
-
-  const menuWidth =
-    pageMenu.clientWidth;
-
-
-  const availableWidth =
-    menuWidth -
-    newButtonWidth -
-    arrowButtonWidth -
-    (
-      gap * 3
-    );
-
-
-  const windowWidth =
-    getPageWindowWidth();
-
-
-  const finalWidth =
-    Math.min(
-      windowWidth,
-      Math.max(
-        0,
-        availableWidth
-      )
-    );
-
-
-  pageViewport.style.width =
-    `${finalWidth}px`;
-
-}
-
-
-/* =========================
-   GET TRACK OFFSET
-========================= */
-
-function getPageTrackOffset(
-  startIndex
-) {
-
-  const gap =
-    getPageGap();
-
-
-  let offset =
-    0;
-
-
-  for (
-    let index = 0;
-    index < startIndex;
-    index++
-  ) {
-
-    const button =
-      pageItems[index]?.button;
-
-
-    if (!button) {
-
-      continue;
-
-    }
-
-
-    offset +=
-      getButtonWidth(
-        button
-      );
-
-
-    offset +=
-      gap;
-
-  }
-
-
-  return offset;
-
-}
-
-
-/* =========================
-   SET TRACK POSITION
-========================= */
-
-function setPageTrackPosition(
-  animate = true
-) {
-
-  if (
-    !pageTrack
-  ) {
-
-    return;
-
-  }
-
-
-  const offset =
-    getPageTrackOffset(
-      pageWindowStart
-    );
-
-
-  pageTrack.style.transition =
-    animate
-      ? "transform 0.45s ease"
-      : "none";
-
-
-  pageTrack.style.transform =
-    `translate3d(-${offset}px, 0, 0)`;
-
-
-  if (
-    !animate
-  ) {
-
-    requestAnimationFrame(
-      function () {
-
-        pageTrack.style.transition =
-          "transform 0.45s ease";
-
-      }
-    );
-
-  }
-
-}
+const pageAnimationDuration = 280;
 
 
 /* =========================
    RENDER PAGE WINDOW
 ========================= */
 
-function renderPageWindow(
-  animate = false
+function renderPageWindow() {
+
+  pageItems.forEach(
+    function (item, index) {
+
+      const visible =
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize;
+
+
+      item.button.style.display =
+        visible
+          ? "flex"
+          : "none";
+
+
+      item.button.style.transform =
+        "translateX(0)";
+
+      item.button.style.opacity =
+        "1";
+
+    }
+  );
+
+}
+
+
+/* =========================
+   GET VISIBLE BUTTONS
+========================= */
+
+function getVisibleButtons() {
+
+  return pageButtons.filter(
+    function (button, index) {
+
+      return (
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   SLIDE PAGE WINDOW
+========================= */
+
+function slidePageWindow(
+  direction
 ) {
 
-  updatePageViewport();
+  if (
+    pageWindowAnimating
+  ) {
+
+    return;
+
+  }
 
 
-  setPageTrackPosition(
-    animate
+  const maxStart =
+    pageItems.length -
+    pageWindowSize;
+
+
+  if (
+    direction === "left" &&
+    pageWindowStart >= maxStart
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    direction === "right" &&
+    pageWindowStart <= 0
+  ) {
+
+    return;
+
+  }
+
+
+  pageWindowAnimating =
+    true;
+
+
+  const oldStart =
+    pageWindowStart;
+
+
+  const newStart =
+    direction === "left"
+      ? oldStart + 1
+      : oldStart - 1;
+
+
+  const oldButtons =
+    pageButtons.slice(
+      oldStart,
+      oldStart +
+        pageWindowSize
+    );
+
+
+  const newButtons =
+    pageButtons.slice(
+      newStart,
+      newStart +
+        pageWindowSize
+    );
+
+
+  /* =========================
+     PREPARE NEW BUTTONS
+  ========================= */
+
+  newButtons.forEach(
+    function (button) {
+
+      button.style.display =
+        "flex";
+
+      button.style.opacity =
+        "0";
+
+      button.style.transform =
+        direction === "left"
+          ? "translateX(35px)"
+          : "translateX(-35px)";
+
+    }
   );
+
+
+  /* =========================
+     OLD BUTTONS
+  ========================= */
+
+  const oldAnimations =
+    oldButtons.map(
+      function (button) {
+
+        return button.animate(
+          [
+            {
+              transform:
+                "translateX(0)",
+              opacity: 1
+            },
+
+            {
+              transform:
+                direction === "left"
+                  ? "translateX(-35px)"
+                  : "translateX(35px)",
+              opacity: 0
+            }
+
+          ],
+          {
+            duration:
+              pageAnimationDuration,
+
+            easing:
+              "ease",
+
+            fill:
+              "forwards"
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     NEW BUTTONS
+  ========================= */
+
+  const newAnimations =
+    newButtons.map(
+      function (button) {
+
+        return button.animate(
+          [
+            {
+              transform:
+                direction === "left"
+                  ? "translateX(35px)"
+                  : "translateX(-35px)",
+
+              opacity: 0
+            },
+
+            {
+              transform:
+                "translateX(0)",
+
+              opacity: 1
+            }
+
+          ],
+          {
+            duration:
+              pageAnimationDuration,
+
+            easing:
+              "ease",
+
+            fill:
+              "forwards",
+
+            delay: 0
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     WAIT ANIMATION
+  ========================= */
+
+  Promise.all(
+    [
+      ...oldAnimations.map(
+        function (animation) {
+          return animation.finished;
+        }
+      ),
+
+      ...newAnimations.map(
+        function (animation) {
+          return animation.finished;
+        }
+      )
+    ]
+  )
+    .then(
+      function () {
+
+        pageWindowStart =
+          newStart;
+
+
+        /* =========================
+           FINAL STATE
+        ========================= */
+
+        pageItems.forEach(
+          function (item, index) {
+
+            const visible =
+              index >= pageWindowStart &&
+              index <
+                pageWindowStart +
+                pageWindowSize;
+
+
+            item.button.style.display =
+              visible
+                ? "flex"
+                : "none";
+
+
+            item.button.style.transform =
+              "translateX(0)";
+
+            item.button.style.opacity =
+              "1";
+
+          }
+        );
+
+
+        pageWindowAnimating =
+          false;
+
+      }
+    )
+    .catch(
+      function (error) {
+
+        console.error(
+          "Page window animation failed:",
+          error
+        );
+
+
+        pageWindowStart =
+          newStart;
+
+
+        renderPageWindow();
+
+
+        pageWindowAnimating =
+          false;
+
+      }
+    );
 
 }
 
@@ -574,25 +588,13 @@ function showPage(
   pageItems.forEach(
     function (item) {
 
-      if (
-        item.page
-      ) {
-
-        item.page.style.display =
-          "none";
-
-      }
+      item.page.style.display =
+        "none";
 
 
-      if (
-        item.button
-      ) {
-
-        item.button.classList.remove(
-          "active"
-        );
-
-      }
+      item.button.classList.remove(
+        "active"
+      );
 
     }
   );
@@ -602,18 +604,14 @@ function showPage(
     pageItems.find(
       function (item) {
 
-        return (
-          item.page ===
-          page
-        );
+        return item.page ===
+          page;
 
       }
     );
 
 
-  if (
-    !activeItem
-  ) {
+  if (!activeItem) {
 
     console.error(
       "Page not found:",
@@ -649,21 +647,7 @@ showPage(
    INITIAL PAGE WINDOW
 ========================= */
 
-requestAnimationFrame(
-  function () {
-
-    requestAnimationFrame(
-      function () {
-
-        renderPageWindow(
-          false
-        );
-
-      }
-    );
-
-  }
-);
+renderPageWindow();
 
 
 /* =========================
@@ -703,50 +687,8 @@ pageNextButton.addEventListener(
   "click",
   function () {
 
-    if (
-      pageWindowAnimating
-    ) {
-
-      return;
-
-    }
-
-
-    const maxStart =
-      pageItems.length -
-      pageWindowSize;
-
-
-    if (
-      pageWindowStart >=
-      maxStart
-    ) {
-
-      return;
-
-    }
-
-
-    pageWindowAnimating =
-      true;
-
-
-    pageWindowStart++;
-
-
-    renderPageWindow(
-      true
-    );
-
-
-    window.setTimeout(
-      function () {
-
-        pageWindowAnimating =
-          false;
-
-      },
-      pageWindowAnimationDuration
+    slidePageWindow(
+      "left"
     );
 
   }
@@ -761,45 +703,8 @@ pagePrevButton.addEventListener(
   "click",
   function () {
 
-    if (
-      pageWindowAnimating
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      pageWindowStart <=
-      0
-    ) {
-
-      return;
-
-    }
-
-
-    pageWindowAnimating =
-      true;
-
-
-    pageWindowStart--;
-
-
-    renderPageWindow(
-      true
-    );
-
-
-    window.setTimeout(
-      function () {
-
-        pageWindowAnimating =
-          false;
-
-      },
-      pageWindowAnimationDuration
+    slidePageWindow(
+      "right"
     );
 
   }
@@ -807,7 +712,7 @@ pagePrevButton.addEventListener(
 
 
 /* =========================
-   HOME
+   PAGE BUTTON EVENTS
 ========================= */
 
 homeButton.addEventListener(
@@ -822,10 +727,6 @@ homeButton.addEventListener(
 );
 
 
-/* =========================
-   SHOP
-========================= */
-
 shopButton.addEventListener(
   "click",
   function () {
@@ -837,10 +738,6 @@ shopButton.addEventListener(
   }
 );
 
-
-/* =========================
-   AUCTION
-========================= */
 
 auctionButton.addEventListener(
   "click",
@@ -854,10 +751,6 @@ auctionButton.addEventListener(
 );
 
 
-/* =========================
-   TEST 1
-========================= */
-
 test1Button.addEventListener(
   "click",
   function () {
@@ -869,10 +762,6 @@ test1Button.addEventListener(
   }
 );
 
-
-/* =========================
-   TEST 2
-========================= */
 
 test2Button.addEventListener(
   "click",
@@ -1037,38 +926,6 @@ historyModalClose.addEventListener(
 
     historyModal.style.display =
       "none";
-
-  }
-);
-
-
-/* =========================
-   WINDOW LOAD
-========================= */
-
-window.addEventListener(
-  "load",
-  function () {
-
-    renderPageWindow(
-      false
-    );
-
-  }
-);
-
-
-/* =========================
-   WINDOW RESIZE
-========================= */
-
-window.addEventListener(
-  "resize",
-  function () {
-
-    renderPageWindow(
-      false
-    );
 
   }
 );
