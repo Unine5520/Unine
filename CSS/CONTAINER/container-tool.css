@@ -29,10 +29,12 @@
 
   overflow: hidden;
 
+  box-sizing: border-box;
+
 }
 
 
-/* =========== NORMAL-PAGE =========== */
+/* =========== NORMAL PAGE =========== */
 
 #U9-page-container-tool-normal {
 
@@ -52,12 +54,15 @@
 
   gap: 10px;
 
-  transform: translateX(0);
+  transform:
+    translateX(0);
 
   transition:
     transform 0.45s ease;
 
   z-index: 2;
+
+  box-sizing: border-box;
 
 }
 
@@ -86,12 +91,15 @@
 
   overflow: hidden;
 
-  transform: translateX(-100%);
+  transform:
+    translateX(-100%);
 
   transition:
     transform 0.45s ease;
 
   z-index: 1;
+
+  box-sizing: border-box;
 
 }
 
@@ -105,6 +113,9 @@
   align-items: center;
 
   justify-content: center;
+
+  flex:
+    0 0 40px;
 
 }
 
@@ -123,7 +134,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 18px;
+  flex:
+    0 0 18px;
 
   pointer-events: none;
 
@@ -209,7 +221,7 @@
 
   align-items: center;
 
-  flex: 1;
+  flex: 1 1 auto;
 
   min-width: 0;
 
@@ -223,6 +235,8 @@
 
   overflow: hidden;
 
+  box-sizing: border-box;
+
 }
 
 
@@ -230,7 +244,7 @@
 
 #U9-page-container-tool-search-input {
 
-  flex: 1;
+  flex: 1 1 auto;
 
   min-width: 0;
 
@@ -243,6 +257,8 @@
   outline: none;
 
   background-color: white;
+
+  box-sizing: border-box;
 
 }
 
@@ -275,7 +291,10 @@
 
   cursor: pointer;
 
-  flex-shrink: 0;
+  flex:
+    0 0 30px;
+
+  box-sizing: border-box;
 
 }
 
@@ -296,7 +315,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 16px;
+  flex:
+    0 0 16px;
 
   pointer-events: none;
 
@@ -312,8 +332,6 @@
 
 }
 
-
-/* =========== SEARCH EFFECT ANIMATION =========== */
 
 @keyframes search-effect {
 
@@ -341,7 +359,7 @@
 }
 
 
-/* =========== MESSAGE ICON =========== */
+/* =========== MESSAGE BUTTON =========== */
 
 #U9-page-container-tool-message {
 
@@ -368,7 +386,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 18px;
+  flex:
+    0 0 18px;
 
   pointer-events: none;
 
@@ -384,8 +403,6 @@
 
 }
 
-
-/* =========== MESSAGE BOUNCE ANIMATION =========== */
 
 @keyframes message-bounce {
 
@@ -448,7 +465,7 @@
 }
 
 
-/* =========== INBOX ICON =========== */
+/* =========== INBOX BUTTON =========== */
 
 #U9-page-container-tool-inbox {
 
@@ -475,7 +492,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 18px;
+  flex:
+    0 0 18px;
 
   pointer-events: none;
 
@@ -553,7 +571,7 @@
 }
 
 
-/* =========== GIFT ICON =========== */
+/* =========== GIFT BUTTON =========== */
 
 #U9-page-container-tool-gift {
 
@@ -580,7 +598,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 auto;
+  flex:
+    0 0 auto;
 
   pointer-events: none;
 
@@ -650,7 +669,7 @@
 }
 
 
-/* =========== HISTORY ICON =========== */
+/* =========== HISTORY BUTTON =========== */
 
 #U9-page-container-tool-history {
 
@@ -677,7 +696,8 @@
 
   object-fit: contain;
 
-  flex: 0 0 21px;
+  flex:
+    0 0 21px;
 
   pointer-events: none;
 
@@ -783,7 +803,8 @@
 
   justify-content: center;
 
-  flex: 0 0 40px;
+  flex:
+    0 0 40px;
 
   box-sizing: border-box;
 
@@ -809,7 +830,7 @@
 }
 
 
-/* =========== PAGE ARROWS =========== */
+/* =========== PAGE PREVIOUS / NEXT =========== */
 
 #U9-page-container-tool-pages-prev,
 
@@ -839,9 +860,16 @@
 
   justify-content: center;
 
-  flex: 0 0 40px;
+  flex:
+    0 0 40px;
+
+  flex-shrink: 0;
 
   box-sizing: border-box;
+
+  position: relative;
+
+  z-index: 10;
 
 }
 
@@ -863,6 +891,149 @@
   object-fit: contain;
 
   pointer-events: none;
+
+}
+
+
+/* =========== PAGE VIEWPORT =========== */
+
+#U9-page-container-tool-page-viewport {
+
+  flex:
+    1 1 auto;
+
+  min-width: 0;
+
+  height: 40px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========== PAGE TRACK =========== */
+
+#U9-page-container-tool-page-track {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  width: max-content;
+
+  min-width: max-content;
+
+  height: 40px;
+
+  transform:
+    translateX(0);
+
+  transition:
+    transform 0.45s ease;
+
+  will-change:
+    transform;
+
+  box-sizing: border-box;
+
+}
+
+
+/* =========== PAGE BUTTONS =========== */
+
+#U9-page-container-tool-home,
+
+#U9-page-container-tool-shop-page,
+
+#U9-page-container-tool-auction,
+
+#U9-page-container-tool-test1,
+
+#U9-page-container-tool-test2 {
+
+  height: 40px;
+
+  padding:
+    0 10px;
+
+  border: none;
+
+  outline: none;
+
+  border-radius: 30%;
+
+  background-color: white;
+
+  box-shadow: none;
+
+  appearance: none;
+
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex:
+    0 0 auto;
+
+  flex-shrink: 0;
+
+  box-sizing: border-box;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  color: #111111;
+
+}
+
+
+/* =========== PAGE ACTIVE =========== */
+
+#U9-page-container-tool-home.active,
+
+#U9-page-container-tool-shop-page.active,
+
+#U9-page-container-tool-auction.active,
+
+#U9-page-container-tool-test1.active,
+
+#U9-page-container-tool-test2.active {
+
+  color: #1b67ea;
+
+}
+
+
+/* =========== BUTTON HOVER =========== */
+
+#U9-page-container-tool-pages
+button:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========== BUTTON PRESS =========== */
+
+#U9-page-container-tool-pages
+button:active {
+
+  transform:
+    scale(0.96);
 
 }
 
@@ -917,6 +1088,8 @@
 
   cursor: pointer;
 
+  box-sizing: border-box;
+
 }
 
 
@@ -945,124 +1118,6 @@
 #U9-page-test2 {
 
   display: none;
-
-}
-
-
-/* =========== PAGE BUTTONS =========== */
-
-#U9-page-container-tool-home,
-
-#U9-page-container-tool-shop-page,
-
-#U9-page-container-tool-auction,
-
-#U9-page-container-tool-test1,
-
-#U9-page-container-tool-test2 {
-
-  height: 40px;
-
-  padding:
-    0 10px;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 5%;
-
-  background-color: white;
-
-  box-shadow: none;
-
-  appearance: none;
-
-  -webkit-appearance: none;
-
-  cursor: pointer;
-
-  white-space: nowrap;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  box-sizing: border-box;
-
-  font-size: 15px;
-
-  font-weight: 600;
-
-  color: #111111;
-
-}
-
-
-/* =========== PAGE ACTIVE =========== */
-
-#U9-page-container-tool-home.active,
-
-#U9-page-container-tool-shop-page.active,
-
-#U9-page-container-tool-auction.active,
-
-#U9-page-container-tool-test1.active,
-
-#U9-page-container-tool-test2.active {
-
-  color: #1b67ea;
-
-}
-
-
-/* =========== PAGE BUTTON HOVER =========== */
-
-#U9-page-container-tool-home:hover,
-
-#U9-page-container-tool-shop-page:hover,
-
-#U9-page-container-tool-auction:hover,
-
-#U9-page-container-tool-test1:hover,
-
-#U9-page-container-tool-test2:hover,
-
-#U9-page-container-tool-new:hover,
-
-#U9-page-container-tool-pages-prev:hover,
-
-#U9-page-container-tool-pages-next:hover {
-
-  background-color: #f7f7f7;
-
-}
-
-
-/* =========== PAGE BUTTON ACTIVE PRESS =========== */
-
-#U9-page-container-tool-home:active,
-
-#U9-page-container-tool-shop-page:active,
-
-#U9-page-container-tool-auction:active,
-
-#U9-page-container-tool-test1:active,
-
-#U9-page-container-tool-test2:active,
-
-#U9-page-container-tool-new:active,
-
-#U9-page-container-tool-pages-prev:active,
-
-#U9-page-container-tool-pages-next:active {
-
-  transform:
-    scale(0.96);
 
 }
 
@@ -1115,7 +1170,25 @@
 
     height: 40px;
 
-    flex: 0 0 36px;
+    flex:
+      0 0 36px;
+
+  }
+
+
+  #U9-page-container-tool-page-viewport {
+
+    min-width: 0;
+
+    flex:
+      1 1 auto;
+
+  }
+
+
+  #U9-page-container-tool-page-track {
+
+    gap: 4px;
 
   }
 
@@ -1162,69 +1235,6 @@
     max-width: 16px;
 
     max-height: 16px;
-
-  }
-
-}
-
-/* =========== PAGE WINDOW SLIDE =========== */
-
-#U9-page-container-tool-pages.page-slide-left {
-
-  animation:
-    page-slide-left 0.28s ease;
-
-}
-
-
-#U9-page-container-tool-pages.page-slide-right {
-
-  animation:
-    page-slide-right 0.28s ease;
-
-}
-
-
-@keyframes page-slide-left {
-
-  0% {
-
-    transform:
-      translateX(0);
-
-    opacity: 1;
-
-  }
-
-  100% {
-
-    transform:
-      translateX(-35px);
-
-    opacity: 0.35;
-
-  }
-
-}
-
-
-@keyframes page-slide-right {
-
-  0% {
-
-    transform:
-      translateX(0);
-
-    opacity: 1;
-
-  }
-
-  100% {
-
-    transform:
-      translateX(35px);
-
-    opacity: 0.35;
 
   }
 
