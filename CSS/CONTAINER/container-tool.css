@@ -51,8 +51,7 @@
 
   gap: 10px;
 
-  transform:
-    translateX(0);
+  transform: translateX(0);
 
   transition:
     transform 0.45s ease;
@@ -82,12 +81,11 @@
 
   justify-content: flex-start;
 
-  gap: 1px;
+  gap: 6px;
 
   overflow: hidden;
 
-  transform:
-    translateX(-100%);
+  transform: translateX(-100%);
 
   transition:
     transform 0.45s ease;
@@ -485,8 +483,6 @@
 }
 
 
-/* =========== INBOX SHAKE ANIMATION =========== */
-
 @keyframes inbox-shake {
 
   0% {
@@ -590,8 +586,6 @@
 }
 
 
-/* =========== GIFT BOUNCE ANIMATION =========== */
-
 @keyframes gift-bounce {
 
   0% {
@@ -687,8 +681,6 @@
 }
 
 
-/* =========== HISTORY SHAKE ANIMATION =========== */
-
 @keyframes history-shake {
 
   0% {
@@ -766,7 +758,11 @@
 
   outline: none;
 
-  background: transparent;
+  border-radius: 30%;
+
+  background-color: white;
+
+  cursor: pointer;
 
   display: flex;
 
@@ -775,8 +771,6 @@
   justify-content: center;
 
   flex: 0 0 40px;
-
-  cursor: pointer;
 
 }
 
@@ -798,52 +792,15 @@
 }
 
 
-/* =========== PAGE PREVIOUS =========== */
+/* =========== PAGE ARROWS =========== */
 
-#U9-page-container-tool-pages-prev {
-
-  width: 34px;
-
-  min-width: 34px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  outline: none;
-
-  background: transparent;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 34px;
-
-  font-size: 18px;
-
-  font-weight: 500;
-
-  line-height: 1;
-
-  color: #ffffff;
-
-  cursor: pointer;
-
-}
-
-
-/* =========== PAGE NEXT =========== */
+#U9-page-container-tool-pages-prev,
 
 #U9-page-container-tool-pages-next {
 
-  width: 34px;
+  width: 40px;
 
-  min-width: 34px;
+  min-width: 40px;
 
   height: 40px;
 
@@ -853,7 +810,13 @@
 
   outline: none;
 
-  background: transparent;
+  border-radius: 30%;
+
+  background-color: white;
+
+  color: #111111;
+
+  cursor: pointer;
 
   display: flex;
 
@@ -861,17 +824,13 @@
 
   justify-content: center;
 
-  flex: 0 0 34px;
+  flex: 0 0 40px;
 
   font-size: 18px;
 
-  font-weight: 500;
+  font-weight: 600;
 
   line-height: 1;
-
-  color: #ffffff;
-
-  cursor: pointer;
 
 }
 
@@ -958,33 +917,23 @@
 }
 
 
-/* =========== PAGE BUTTONS =========== */
+/* =========== PAGE BUTTON =========== */
 
 #U9-page-container-tool-pages
-#U9-page-container-tool-home,
-
-#U9-page-container-tool-pages
-#U9-page-container-tool-shop-page,
-
-#U9-page-container-tool-pages
-#U9-page-container-tool-auction,
-
-#U9-page-container-tool-pages
-#U9-page-container-tool-test1,
-
-#U9-page-container-tool-pages
-#U9-page-container-tool-test2 {
+button[id^="U9-page-container-tool-"] {
 
   height: 40px;
 
   padding:
-    0 10px;
+    0px 10px;
 
   border: none;
 
   outline: none;
 
-  background: transparent;
+  border-radius: 30%;
+
+  background-color: white;
 
   box-shadow: none;
 
@@ -1008,9 +957,7 @@
 
   font-weight: 600;
 
-  line-height: 1;
-
-  color: #ffffff;
+  color: #111111;
 
 }
 
@@ -1025,7 +972,17 @@ button.active {
 }
 
 
-/* =========== BUTTON INTERACTION =========== */
+/* =========== BUTTON HOVER =========== */
+
+#U9-page-container-tool-pages
+button:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========== BUTTON ACTIVE PRESS =========== */
 
 #U9-page-container-tool-pages
 button:active {
@@ -1042,9 +999,6 @@ button:active {
   max-width: 480px
 ) {
 
-
-  /* =========== CONTAINER =========== */
-
   #U9-page-container-tool {
 
     padding:
@@ -1053,77 +1007,70 @@ button:active {
   }
 
 
-  /* =========== NORMAL PAGE =========== */
-
   #U9-page-container-tool-normal {
 
     left: 8px;
 
-    width: calc(100% - 16px);
+    width:
+      calc(100% - 16px);
 
   }
 
-
-  /* =========== PAGE MENU =========== */
 
   #U9-page-container-tool-pages {
 
     left: 8px;
 
-    width: calc(100% - 16px);
+    width:
+      calc(100% - 16px);
+
+    gap: 4px;
 
   }
 
 
-  /* =========== NEW BUTTON =========== */
+  #U9-page-container-tool-new,
 
-  #U9-page-container-tool-new {
+  #U9-page-container-tool-pages-prev,
+
+  #U9-page-container-tool-pages-next {
 
     width: 36px;
 
     min-width: 36px;
+
+    height: 40px;
 
     flex: 0 0 36px;
 
   }
 
 
-  /* =========== ARROW BUTTONS =========== */
+  #U9-page-container-tool-pages
+  button[id^="U9-page-container-tool-"] {
+
+    padding:
+      0px 8px;
+
+    font-size: 14px;
+
+  }
+
+
+  #U9-page-container-tool-new img {
+
+    width: 16px;
+
+    height: 16px;
+
+  }
+
 
   #U9-page-container-tool-pages-prev,
 
   #U9-page-container-tool-pages-next {
 
-    width: 34px;
-
-    min-width: 34px;
-
-    flex: 0 0 34px;
-
-  }
-
-
-  /* =========== PAGE BUTTONS =========== */
-
-  #U9-page-container-tool-pages
-  #U9-page-container-tool-home,
-
-  #U9-page-container-tool-pages
-  #U9-page-container-tool-shop-page,
-
-  #U9-page-container-tool-pages
-  #U9-page-container-tool-auction,
-
-  #U9-page-container-tool-pages
-  #U9-page-container-tool-test1,
-
-  #U9-page-container-tool-pages
-  #U9-page-container-tool-test2 {
-
-    padding:
-      0 8px;
-
-    font-size: 14px;
+    font-size: 17px;
 
   }
 
