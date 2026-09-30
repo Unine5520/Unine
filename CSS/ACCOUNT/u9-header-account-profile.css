@@ -11,19 +11,9 @@
 
   width: 500%;
 
-  height: 100%;
-
-  min-height: 0;
-
-  flex: 1 1 auto;
+  height: calc(100% - 52px);
 
   display: flex;
-
-  flex-direction: row;
-
-  box-sizing: border-box;
-
-  overflow: hidden;
 
   transition:
     transform 0.35s ease;
@@ -32,7 +22,7 @@
 
 
 /* =========================
-   ALL ACCOUNT PAGES
+   ALL PAGES
 ========================= */
 
 #Account-U9-account-add-friend-page,
@@ -49,23 +39,9 @@
 
   min-width: 20%;
 
-  flex: 0 0 20%;
-
   height: 100%;
 
-  min-height: 0;
-
   box-sizing: border-box;
-
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  overscroll-behavior-y: contain;
-
-  overscroll-behavior-x: none;
-
-  -webkit-overflow-scrolling: touch;
 
 }
 
@@ -80,6 +56,8 @@
 
   flex-direction: column;
 
+  overflow-y: auto;
+
 }
 
 
@@ -92,6 +70,8 @@
   display: flex;
 
   flex-direction: column;
+
+  overflow-y: auto;
 
 }
 
@@ -106,6 +86,8 @@
 
   flex-direction: column;
 
+  overflow-y: auto;
+
 }
 
 
@@ -118,6 +100,8 @@
   display: flex;
 
   flex-direction: column;
+
+  overflow-y: auto;
 
 }
 
@@ -132,6 +116,8 @@
 
   flex-direction: column;
 
+  overflow-y: auto;
+
 }
 
 
@@ -141,6 +127,12 @@
 
 #Account-U9-account-actions {
 
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
   width: 100%;
 
   height: auto;
@@ -148,15 +140,10 @@
   padding:
     10px
     10px
-    0;
+    0px
+    10px;
 
   box-sizing: border-box;
-
-  display: flex;
-
-  align-items: flex-start;
-
-  justify-content: space-between;
 
 }
 
@@ -166,6 +153,12 @@
 ========================= */
 
 #Account-U9-account-add-friend {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
 
   width: 40px;
 
@@ -178,12 +171,6 @@
   outline: none;
 
   background: none;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 
   cursor: pointer;
 
@@ -213,6 +200,12 @@
 
 #Account-U9-account-setting-button {
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   width: 40px;
 
   height: 40px;
@@ -224,12 +217,6 @@
   outline: none;
 
   background: none;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 
   cursor: pointer;
 
@@ -242,6 +229,12 @@
 
 #Account-U9-account-edit-profile {
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   width: 40px;
 
   height: 40px;
@@ -254,19 +247,13 @@
 
   background: none;
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   cursor: pointer;
 
 }
 
 
 /* =========================
-   ACTION IMAGES
+   ACTION SVG / IMG
 ========================= */
 
 #Account-U9-account-add-friend img,
@@ -275,17 +262,17 @@
 
 #Account-U9-account-edit-profile img {
 
+  display: block;
+
   width: 22px;
 
   height: 22px;
-
-  display: block;
 
 }
 
 
 /* =========================
-   BUTTON ACTIVE
+   BUTTON INTERACTION
 ========================= */
 
 #Account-U9-account-add-friend:active,
@@ -305,20 +292,21 @@
 
 #Account-U9-account-profile {
 
-  width: 100%;
-
-  padding:
-    0
-    10px
-    24px;
-
-  box-sizing: border-box;
-
   display: flex;
 
   flex-direction: column;
 
   align-items: center;
+
+  width: 100%;
+
+  padding:
+    0px
+    10px
+    0px
+    10px;
+
+  box-sizing: border-box;
 
 }
 
@@ -364,11 +352,11 @@
       -50%
     );
 
-  display: block;
-
   object-fit: cover;
 
   border-radius: 50%;
+
+  display: block;
 
 }
 
@@ -397,9 +385,9 @@
 
   display: block;
 
-  object-fit: contain;
-
   pointer-events: none;
+
+  object-fit: contain;
 
 }
 
@@ -421,8 +409,6 @@
   color: #111111;
 
   text-align: center;
-
-  overflow-wrap: anywhere;
 
 }
 
@@ -452,7 +438,7 @@
 
 #Account-U9-account-setting-future {
 
-  flex: 0 0 auto;
+  flex: 1;
 
 }
 
@@ -461,7 +447,9 @@
    MOBILE
 ========================= */
 
-@media (max-width: 480px) {
+@media (
+  max-width: 480px
+) {
 
   #Account-U9-account-actions {
 
@@ -474,49 +462,10 @@
   #Account-U9-account-profile {
 
     padding:
-      0
+      0px
       8px
       24px;
 
   }
-
-}
-
-#Account-U9-account-frame-edit {
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-
-width:42px;
-
-height:42px;
-
-
-padding:0;
-
-border:none;
-
-background:none;
-
-
-cursor:pointer;
-
-}
-
-
-#Account-U9-account-frame-edit img {
-
-
-width:22px;
-
-height:22px;
-
-
-display:block;
 
 }
