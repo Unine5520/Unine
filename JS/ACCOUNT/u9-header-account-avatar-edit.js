@@ -123,6 +123,8 @@ let u9AvatarFileInput = null;
 
 let u9AvatarChooseButton = null;
 
+let u9AvatarCancelButton = null;
+
 let u9AvatarZoomWrapper = null;
 
 let u9AvatarZoomLabel = null;
@@ -135,13 +137,15 @@ let u9AvatarSaveButton = null;
 
 let u9AvatarStatus = null;
 
-let u9AvatarMySection = null;
-
-let u9AvatarMyList = null;
+let u9AvatarFreeSection = null;
 
 let u9AvatarFreeList = null;
 
-let u9AvatarDragHint = null;
+let u9AvatarPreviewArea = null;
+
+let u9AvatarPreviewMiddle = null;
+
+let u9AvatarActionRow = null;
 
 let u9AvatarMoveUpButton = null;
 
@@ -289,8 +293,8 @@ function updateAvatarMoveButtons() {
 
   const disabled =
     !u9AvatarImageLoaded ||
-    isAvatarCooldownActive() ||
-    !u9AvatarSelectedImage;
+    !u9AvatarSelectedImage ||
+    isAvatarCooldownActive();
 
 
   const buttons = [
@@ -339,10 +343,10 @@ function updateAvatarUploadVisibility() {
   ========================= */
 
   if (
-    u9AvatarPreview
+    u9AvatarPreviewArea
   ) {
 
-    u9AvatarPreview.style.display =
+    u9AvatarPreviewArea.style.display =
       cooldownActive
         ? "none"
         : "";
@@ -351,14 +355,14 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     DRAG HINT
+     PREVIEW
   ========================= */
 
   if (
-    u9AvatarDragHint
+    u9AvatarPreview
   ) {
 
-    u9AvatarDragHint.style.display =
+    u9AvatarPreview.style.display =
       cooldownActive
         ? "none"
         : "";
@@ -417,42 +421,6 @@ function updateAvatarUploadVisibility() {
   }
 
 
-  if (
-    u9AvatarZoomLabel
-  ) {
-
-    u9AvatarZoomLabel.style.display =
-      cooldownActive
-        ? "none"
-        : "";
-
-  }
-
-
-  if (
-    u9AvatarZoomInput
-  ) {
-
-    u9AvatarZoomInput.style.display =
-      cooldownActive
-        ? "none"
-        : "";
-
-  }
-
-
-  if (
-    u9AvatarZoomValue
-  ) {
-
-    u9AvatarZoomValue.style.display =
-      cooldownActive
-        ? "none"
-        : "";
-
-  }
-
-
   /* =========================
      CHOOSE
   ========================= */
@@ -462,6 +430,42 @@ function updateAvatarUploadVisibility() {
   ) {
 
     u9AvatarChooseButton.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
+     CANCEL
+  ========================= */
+
+  if (
+    u9AvatarCancelButton
+  ) {
+
+    u9AvatarCancelButton.style.display =
+      cooldownActive
+        ? "none"
+        : (
+            u9AvatarSelectedImage
+              ? "flex"
+              : "none"
+          );
+
+  }
+
+
+  /* =========================
+     ACTION ROW
+  ========================= */
+
+  if (
+    u9AvatarActionRow
+  ) {
+
+    u9AvatarActionRow.style.display =
       cooldownActive
         ? "none"
         : "";
@@ -598,7 +602,6 @@ function updateAvatarCooldownDisplay() {
 
 
     updateAvatarUploadVisibility();
-
 
     return;
 
@@ -757,193 +760,16 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     MY AVATAR SECTION
-  ========================= */
-
-  u9AvatarMySection =
-    document.createElement(
-      "div"
-    );
-
-  u9AvatarMySection.id =
-    "Account-U9-avatar-editor-my-section";
-
-
-  const myTitle =
-    document.createElement(
-      "div"
-    );
-
-  myTitle.id =
-    "Account-U9-avatar-editor-my-title";
-
-  myTitle.textContent =
-    "My Avatar";
-
-
-  u9AvatarMyList =
-    document.createElement(
-      "div"
-    );
-
-  u9AvatarMyList.id =
-    "Account-U9-avatar-editor-my-list";
-
-
-  u9AvatarMySection.appendChild(
-    myTitle
-  );
-
-
-  u9AvatarMySection.appendChild(
-    u9AvatarMyList
-  );
-
-
-  u9AvatarMySection.style.display =
-    "none";
-
-
-  /* =========================
-     FREE AVATAR SECTION
-  ========================= */
-
-  const freeSection =
-    document.createElement(
-      "div"
-    );
-
-  freeSection.id =
-    "Account-U9-avatar-editor-free-section";
-
-
-  const freeTitle =
-    document.createElement(
-      "div"
-    );
-
-  freeTitle.id =
-    "Account-U9-avatar-editor-free-title";
-
-  freeTitle.textContent =
-    "Free Avatar";
-
-
-  u9AvatarFreeList =
-    document.createElement(
-      "div"
-    );
-
-  u9AvatarFreeList.id =
-    "Account-U9-avatar-editor-free-list";
-
-
-  freeSection.appendChild(
-    freeTitle
-  );
-
-
-  freeSection.appendChild(
-    u9AvatarFreeList
-  );
-
-
-  /* =========================
      PREVIEW AREA
   ========================= */
 
-  const previewArea =
+  u9AvatarPreviewArea =
     document.createElement(
       "div"
     );
 
-  previewArea.id =
+  u9AvatarPreviewArea.id =
     "Account-U9-avatar-editor-preview-area";
-
-
-  /* =========================
-     UP BUTTON
-  ========================= */
-
-  u9AvatarMoveUpButton =
-    document.createElement(
-      "button"
-    );
-
-  u9AvatarMoveUpButton.id =
-    "Account-U9-avatar-editor-move-up";
-
-  u9AvatarMoveUpButton.type =
-    "button";
-
-  u9AvatarMoveUpButton.setAttribute(
-    "aria-label",
-    "Move avatar up"
-  );
-
-  u9AvatarMoveUpButton.textContent =
-    "↑";
-
-
-  /* =========================
-     MIDDLE ROW
-  ========================= */
-
-  const previewMiddle =
-    document.createElement(
-      "div"
-    );
-
-  previewMiddle.id =
-    "Account-U9-avatar-editor-preview-middle";
-
-
-  /* =========================
-     LEFT BUTTON
-  ========================= */
-
-  u9AvatarMoveLeftButton =
-    document.createElement(
-      "button"
-    );
-
-  u9AvatarMoveLeftButton.id =
-    "Account-U9-avatar-editor-move-left";
-
-  u9AvatarMoveLeftButton.type =
-    "button";
-
-  u9AvatarMoveLeftButton.setAttribute(
-    "aria-label",
-    "Move avatar left"
-  );
-
-  u9AvatarMoveLeftButton.textContent =
-    "←";
-
-
-  /* =========================
-     RIGHT BUTTON
-  ========================= */
-
-  u9AvatarMoveRightButton =
-    document.createElement(
-      "button"
-    );
-
-  u9AvatarMoveRightButton.id =
-    "Account-U9-avatar-editor-move-right";
-
-  u9AvatarMoveRightButton.type =
-    "button";
-
-  u9AvatarMoveRightButton.setAttribute(
-    "aria-label",
-    "Move avatar right"
-  );
-
-  u9AvatarMoveRightButton.textContent =
-    "→";
 
 
   /* =========================
@@ -1009,26 +835,44 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     MIDDLE APPEND
+     PREVIEW MIDDLE
   ========================= */
 
-  previewMiddle.appendChild(
-    u9AvatarMoveLeftButton
-  );
+  u9AvatarPreviewMiddle =
+    document.createElement(
+      "div"
+    );
 
-
-  previewMiddle.appendChild(
-    u9AvatarPreview
-  );
-
-
-  previewMiddle.appendChild(
-    u9AvatarMoveRightButton
-  );
+  u9AvatarPreviewMiddle.id =
+    "Account-U9-avatar-editor-preview-middle";
 
 
   /* =========================
-     DOWN BUTTON
+     MOVE UP
+  ========================= */
+
+  u9AvatarMoveUpButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveUpButton.id =
+    "Account-U9-avatar-editor-move-up";
+
+  u9AvatarMoveUpButton.type =
+    "button";
+
+  u9AvatarMoveUpButton.setAttribute(
+    "aria-label",
+    "Move avatar up"
+  );
+
+  u9AvatarMoveUpButton.textContent =
+    "↑";
+
+
+  /* =========================
+     MOVE DOWN
   ========================= */
 
   u9AvatarMoveDownButton =
@@ -1052,42 +896,93 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     PREVIEW AREA APPEND
+     MOVE LEFT
   ========================= */
 
-  previewArea.appendChild(
+  u9AvatarMoveLeftButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveLeftButton.id =
+    "Account-U9-avatar-editor-move-left";
+
+  u9AvatarMoveLeftButton.type =
+    "button";
+
+  u9AvatarMoveLeftButton.setAttribute(
+    "aria-label",
+    "Move avatar left"
+  );
+
+  u9AvatarMoveLeftButton.textContent =
+    "←";
+
+
+  /* =========================
+     MOVE RIGHT
+  ========================= */
+
+  u9AvatarMoveRightButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarMoveRightButton.id =
+    "Account-U9-avatar-editor-move-right";
+
+  u9AvatarMoveRightButton.type =
+    "button";
+
+  u9AvatarMoveRightButton.setAttribute(
+    "aria-label",
+    "Move avatar right"
+  );
+
+  u9AvatarMoveRightButton.textContent =
+    "→";
+
+
+  /* =========================
+     APPEND MOVE BUTTONS
+  ========================= */
+
+  u9AvatarPreviewMiddle.appendChild(
     u9AvatarMoveUpButton
   );
 
 
-  previewArea.appendChild(
-    previewMiddle
-  );
-
-
-  previewArea.appendChild(
+  u9AvatarPreviewMiddle.appendChild(
     u9AvatarMoveDownButton
   );
 
 
+  u9AvatarPreviewMiddle.appendChild(
+    u9AvatarMoveLeftButton
+  );
+
+
+  u9AvatarPreviewMiddle.appendChild(
+    u9AvatarMoveRightButton
+  );
+
+
   /* =========================
-     DRAG HINT
+     APPEND PREVIEW AREA
   ========================= */
 
-  u9AvatarDragHint =
-    document.createElement(
-      "div"
-    );
+  u9AvatarPreviewArea.appendChild(
+    u9AvatarPreview
+  );
 
-  u9AvatarDragHint.id =
-    "Account-U9-avatar-editor-drag-hint";
 
-  u9AvatarDragHint.textContent =
-    "Use the arrows to move";
+  u9AvatarPreviewArea.appendChild(
+    u9AvatarPreviewMiddle
+  );
 
 
   /* =========================
-     ZOOM WRAPPER
+     ZOOM
   ========================= */
 
   u9AvatarZoomWrapper =
@@ -1179,6 +1074,19 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     ACTION ROW
+  ========================= */
+
+  u9AvatarActionRow =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarActionRow.id =
+    "Account-U9-avatar-editor-action-row";
+
+
+  /* =========================
      CHOOSE AREA
   ========================= */
 
@@ -1190,6 +1098,10 @@ function createU9AvatarEditor() {
   chooseArea.id =
     "Account-U9-avatar-editor-choose-area";
 
+
+  /* =========================
+     CHOOSE BUTTON
+  ========================= */
 
   u9AvatarChooseButton =
     document.createElement(
@@ -1205,6 +1117,29 @@ function createU9AvatarEditor() {
   u9AvatarChooseButton.textContent =
     "Choose Image";
 
+
+  /* =========================
+     CANCEL BUTTON
+  ========================= */
+
+  u9AvatarCancelButton =
+    document.createElement(
+      "button"
+    );
+
+  u9AvatarCancelButton.id =
+    "Account-U9-avatar-editor-cancel";
+
+  u9AvatarCancelButton.type =
+    "button";
+
+  u9AvatarCancelButton.textContent =
+    "Cancel";
+
+
+  /* =========================
+     FILE INPUT
+  ========================= */
 
   u9AvatarFileInput =
     document.createElement(
@@ -1224,8 +1159,17 @@ function createU9AvatarEditor() {
     true;
 
 
+  /* =========================
+     APPEND CHOOSE AREA
+  ========================= */
+
   chooseArea.appendChild(
     u9AvatarChooseButton
+  );
+
+
+  chooseArea.appendChild(
+    u9AvatarCancelButton
   );
 
 
@@ -1257,6 +1201,20 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     APPEND ACTION ROW
+  ========================= */
+
+  u9AvatarActionRow.appendChild(
+    chooseArea
+  );
+
+
+  u9AvatarActionRow.appendChild(
+    u9AvatarSaveButton
+  );
+
+
+  /* =========================
      STATUS
   ========================= */
 
@@ -1276,7 +1234,63 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     APPEND EDITOR
+     FREE AVATAR SECTION
+  ========================= */
+
+  u9AvatarFreeSection =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarFreeSection.id =
+    "Account-U9-avatar-editor-free-section";
+
+
+  /* =========================
+     FREE TITLE
+  ========================= */
+
+  const freeTitle =
+    document.createElement(
+      "div"
+    );
+
+  freeTitle.id =
+    "Account-U9-avatar-editor-free-title";
+
+  freeTitle.textContent =
+    "Free Avatar";
+
+
+  /* =========================
+     FREE LIST
+  ========================= */
+
+  u9AvatarFreeList =
+    document.createElement(
+      "div"
+    );
+
+  u9AvatarFreeList.id =
+    "Account-U9-avatar-editor-free-list";
+
+
+  /* =========================
+     FREE SECTION APPEND
+  ========================= */
+
+  u9AvatarFreeSection.appendChild(
+    freeTitle
+  );
+
+
+  u9AvatarFreeSection.appendChild(
+    u9AvatarFreeList
+  );
+
+
+  /* =========================
+     EDITOR APPEND
   ========================= */
 
   wrapper.appendChild(
@@ -1285,22 +1299,7 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
-    u9AvatarMySection
-  );
-
-
-  wrapper.appendChild(
-    freeSection
-  );
-
-
-  wrapper.appendChild(
-    previewArea
-  );
-
-
-  wrapper.appendChild(
-    u9AvatarDragHint
+    u9AvatarPreviewArea
   );
 
 
@@ -1310,17 +1309,17 @@ function createU9AvatarEditor() {
 
 
   wrapper.appendChild(
-    chooseArea
-  );
-
-
-  wrapper.appendChild(
-    u9AvatarSaveButton
-  );
-
-
-  wrapper.appendChild(
     u9AvatarStatus
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarActionRow
+  );
+
+
+  wrapper.appendChild(
+    u9AvatarFreeSection
   );
 
 
@@ -1348,9 +1347,30 @@ function createU9AvatarEditor() {
       }
 
 
+      if (
+        u9AvatarSelectedImage
+      ) {
+
+        cancelAvatarSelection();
+
+        return;
+
+      }
+
+
       u9AvatarFileInput.click();
 
     }
+  );
+
+
+  /* =========================
+     CANCEL EVENT
+  ========================= */
+
+  u9AvatarCancelButton.addEventListener(
+    "click",
+    cancelAvatarSelection
   );
 
 
@@ -1479,6 +1499,18 @@ function createU9AvatarEditor() {
 
 
   /* =========================
+     INITIAL VISIBILITY
+  ========================= */
+
+  u9AvatarChooseButton.style.display =
+    "";
+
+
+  u9AvatarCancelButton.style.display =
+    "none";
+
+
+  /* =========================
      INITIAL IMAGE
   ========================= */
 
@@ -1545,6 +1577,140 @@ function moveAvatar(
 
 
 /* =========================
+   CANCEL AVATAR SELECTION
+========================= */
+
+function cancelAvatarSelection() {
+
+  if (
+    isAvatarCooldownActive()
+  ) {
+
+    updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
+
+  if (
+    u9AvatarObjectUrl
+  ) {
+
+    URL.revokeObjectURL(
+      u9AvatarObjectUrl
+    );
+
+    u9AvatarObjectUrl =
+      null;
+
+  }
+
+
+  u9AvatarSelectedImage =
+    null;
+
+
+  u9AvatarOffsetX =
+    0;
+
+
+  u9AvatarOffsetY =
+    0;
+
+
+  u9AvatarZoom =
+    1;
+
+
+  u9AvatarImageLoaded =
+    false;
+
+
+  if (
+    u9AvatarZoomInput
+  ) {
+
+    u9AvatarZoomInput.value =
+      "1";
+
+  }
+
+
+  if (
+    u9AvatarZoomValue
+  ) {
+
+    u9AvatarZoomValue.textContent =
+      "100%";
+
+  }
+
+
+  if (
+    u9AvatarFileInput
+  ) {
+
+    u9AvatarFileInput.value =
+      "";
+
+  }
+
+
+  if (
+    u9AvatarChooseButton
+  ) {
+
+    u9AvatarChooseButton.textContent =
+      "Choose Image";
+
+    u9AvatarChooseButton.style.display =
+      "";
+
+  }
+
+
+  if (
+    u9AvatarCancelButton
+  ) {
+
+    u9AvatarCancelButton.style.display =
+      "none";
+
+  }
+
+
+  if (
+    u9AvatarSaveButton
+  ) {
+
+    u9AvatarSaveButton.disabled =
+      true;
+
+  }
+
+
+  setAvatarStatus(
+    ""
+  );
+
+
+  if (
+    u9AvatarImage
+  ) {
+
+    u9AvatarImage.src =
+      u9AvatarDefaultImage;
+
+  }
+
+
+  updateAvatarMoveButtons();
+
+}
+
+
+/* =========================
    LOAD CURRENT AVATAR
 ========================= */
 
@@ -1570,9 +1736,6 @@ async function loadCurrentAvatar() {
   stopAvatarCooldownTimer();
 
 
-  hideMyAvatar();
-
-
   updateAvatarUploadVisibility();
 
 
@@ -1586,7 +1749,7 @@ async function loadCurrentAvatar() {
     !sessionToken
   ) {
 
-    updateFreeAvatarSelection();
+    updateAvatarSourceSelection();
 
     return;
 
@@ -1618,7 +1781,7 @@ async function loadCurrentAvatar() {
       !response.ok
     ) {
 
-      updateFreeAvatarSelection();
+      updateAvatarSourceSelection();
 
       return;
 
@@ -1650,8 +1813,6 @@ async function loadCurrentAvatar() {
       u9AvatarCooldownUntil =
         null;
 
-      hideMyAvatar();
-
     }
 
     else {
@@ -1674,9 +1835,6 @@ async function loadCurrentAvatar() {
       u9AvatarCooldownUntil =
         avatar.cooldown_until ||
         null;
-
-
-      renderMyAvatar();
 
 
       /* =========================
@@ -1702,7 +1860,7 @@ async function loadCurrentAvatar() {
     }
 
 
-    updateFreeAvatarSelection();
+    updateAvatarSourceSelection();
 
 
     /* =========================
@@ -1754,171 +1912,6 @@ async function loadCurrentAvatar() {
       "Failed to load current avatar:",
       error
     );
-
-  }
-
-}
-
-
-/* =========================
-   RENDER MY AVATAR
-========================= */
-
-function renderMyAvatar() {
-
-  if (
-    !u9AvatarMySection ||
-    !u9AvatarMyList
-  ) {
-
-    return;
-
-  }
-
-
-  u9AvatarMyList.innerHTML =
-    "";
-
-
-  if (
-    !u9AvatarCustomUrl
-  ) {
-
-    hideMyAvatar();
-
-    return;
-
-  }
-
-
-  u9AvatarMySection.style.display =
-    "";
-
-
-  const card =
-    document.createElement(
-      "button"
-    );
-
-
-  card.type =
-    "button";
-
-
-  card.className =
-    "Account-U9-free-avatar-card";
-
-
-  card.dataset.avatarType =
-    "custom";
-
-
-  /* =========================
-     IMAGE
-  ========================= */
-
-  const image =
-    document.createElement(
-      "img"
-    );
-
-
-  image.className =
-    "Account-U9-free-avatar-image";
-
-
-  image.src =
-    `${u9AvatarCustomUrl}?v=${Date.now()}`;
-
-
-  image.alt =
-    "My Avatar";
-
-
-  image.draggable =
-    false;
-
-
-  /* =========================
-     NAME
-  ========================= */
-
-  const name =
-    document.createElement(
-      "span"
-    );
-
-
-  name.className =
-    "Account-U9-free-avatar-name";
-
-
-  name.textContent =
-    "My Avatar";
-
-
-  /* =========================
-     APPEND
-  ========================= */
-
-  card.appendChild(
-    image
-  );
-
-
-  card.appendChild(
-    name
-  );
-
-
-  /* =========================
-     CLICK
-  ========================= */
-
-  card.addEventListener(
-    "click",
-    () => {
-
-      selectCustomAvatar(
-        card
-      );
-
-    }
-  );
-
-
-  u9AvatarMyList.appendChild(
-    card
-  );
-
-
-  updateFreeAvatarSelection();
-
-}
-
-
-/* =========================
-   HIDE MY AVATAR
-========================= */
-
-function hideMyAvatar() {
-
-  if (
-    u9AvatarMySection
-  ) {
-
-    u9AvatarMySection.style.display =
-      "none";
-
-  }
-
-
-  if (
-    u9AvatarMyList
-  ) {
-
-    u9AvatarMyList.innerHTML =
-      "";
 
   }
 
@@ -1978,11 +1971,14 @@ async function loadFreeAvatars() {
 
 
     u9AvatarFreeAvatars =
-      result.avatars ||
-      [];
+      Array.isArray(
+        result.avatars
+      )
+        ? result.avatars
+        : [];
 
 
-    renderFreeAvatars();
+    renderAvatarSources();
 
 
     console.log(
@@ -2019,10 +2015,10 @@ async function loadFreeAvatars() {
 
 
 /* =========================
-   RENDER FREE AVATARS
+   RENDER AVATAR SOURCES
 ========================= */
 
-function renderFreeAvatars() {
+function renderAvatarSources() {
 
   if (
     !u9AvatarFreeList
@@ -2037,11 +2033,48 @@ function renderFreeAvatars() {
     "";
 
 
+  /* =========================
+     DATABASE URL
+  ========================= */
+
   if (
-    !Array.isArray(
-      u9AvatarFreeAvatars
-    ) ||
-    u9AvatarFreeAvatars.length === 0
+    u9AvatarCustomUrl
+  ) {
+
+    const customCard =
+      createAvatarSourceCard(
+        {
+          id:
+            "custom-avatar",
+
+          type:
+            "custom",
+
+          name:
+            "Database URL",
+
+          url:
+            u9AvatarCustomUrl
+
+        }
+      );
+
+
+    u9AvatarFreeList.appendChild(
+      customCard
+    );
+
+  }
+
+
+  /* =========================
+     FREE AVATARS
+  ========================= */
+
+  if (
+    u9AvatarFreeAvatars.length ===
+      0 &&
+    !u9AvatarCustomUrl
   ) {
 
     u9AvatarFreeList.innerHTML =
@@ -2057,105 +2090,26 @@ function renderFreeAvatars() {
 
 
   u9AvatarFreeAvatars.forEach(
-    (avatar) => {
+    function (avatar) {
 
       const card =
-        document.createElement(
-          "button"
+        createAvatarSourceCard(
+          {
+            id:
+              avatar.id,
+
+            type:
+              "free",
+
+            name:
+              avatar.name ||
+              "Avatar",
+
+            url:
+              avatar.svg
+
+          }
         );
-
-
-      card.type =
-        "button";
-
-
-      card.className =
-        "Account-U9-free-avatar-card";
-
-
-      card.dataset.avatarId =
-        avatar.id;
-
-
-      card.dataset.avatarType =
-        "free";
-
-
-      /* =========================
-         IMAGE
-      ========================= */
-
-      const image =
-        document.createElement(
-          "img"
-        );
-
-
-      image.className =
-        "Account-U9-free-avatar-image";
-
-
-      image.src =
-        avatar.svg;
-
-
-      image.alt =
-        avatar.name ||
-        "Free Avatar";
-
-
-      image.draggable =
-        false;
-
-
-      /* =========================
-         NAME
-      ========================= */
-
-      const name =
-        document.createElement(
-          "span"
-        );
-
-
-      name.className =
-        "Account-U9-free-avatar-name";
-
-
-      name.textContent =
-        avatar.name ||
-        "Avatar";
-
-
-      /* =========================
-         APPEND
-      ========================= */
-
-      card.appendChild(
-        image
-      );
-
-
-      card.appendChild(
-        name
-      );
-
-
-      /* =========================
-         CLICK
-      ========================= */
-
-      card.addEventListener(
-        "click",
-        () => {
-
-          selectFreeAvatar(
-            avatar,
-            card
-          );
-
-        }
-      );
 
 
       u9AvatarFreeList.appendChild(
@@ -2166,40 +2120,199 @@ function renderFreeAvatars() {
   );
 
 
-  updateFreeAvatarSelection();
+  updateAvatarSourceSelection();
 
 }
 
 
 /* =========================
-   UPDATE AVATAR SELECTED UI
+   CREATE SOURCE CARD
 ========================= */
 
-function updateFreeAvatarSelection() {
+function createAvatarSourceCard(
+  source
+) {
 
-  /* =========================
-     FREE
-  ========================= */
+  const card =
+    document.createElement(
+      "button"
+    );
+
+
+  card.type =
+    "button";
+
+
+  card.className =
+    "Account-U9-free-avatar-card";
+
+
+  card.dataset.avatarType =
+    source.type;
+
 
   if (
-    u9AvatarFreeList
+    source.id
   ) {
 
-    const cards =
-      u9AvatarFreeList.querySelectorAll(
-        ".Account-U9-free-avatar-card"
+    card.dataset.avatarId =
+      String(
+        source.id
       );
 
+  }
 
-    cards.forEach(
-      (card) => {
 
-        const isSelected =
+  /* =========================
+     IMAGE
+  ========================= */
+
+  const image =
+    document.createElement(
+      "img"
+    );
+
+
+  image.className =
+    "Account-U9-free-avatar-image";
+
+
+  image.src =
+    source.type ===
+      "custom"
+
+      ? `${source.url}?v=${Date.now()}`
+      : source.url;
+
+
+  image.alt =
+    source.name;
+
+
+  image.draggable =
+    false;
+
+
+  /* =========================
+     NAME
+  ========================= */
+
+  const name =
+    document.createElement(
+      "span"
+    );
+
+
+  name.className =
+    "Account-U9-free-avatar-name";
+
+
+  name.textContent =
+    source.name;
+
+
+  /* =========================
+     APPEND
+  ========================= */
+
+  card.appendChild(
+    image
+  );
+
+
+  card.appendChild(
+    name
+  );
+
+
+  /* =========================
+     CLICK
+  ========================= */
+
+  card.addEventListener(
+    "click",
+    function () {
+
+      if (
+        source.type ===
+        "custom"
+      ) {
+
+        selectCustomAvatar(
+          card
+        );
+
+      }
+
+      else {
+
+        selectFreeAvatar(
+          source,
+          card
+        );
+
+      }
+
+    }
+  );
+
+
+  return card;
+
+}
+
+
+/* =========================
+   UPDATE SOURCE SELECTION
+========================= */
+
+function updateAvatarSourceSelection() {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
+
+  }
+
+
+  const cards =
+    u9AvatarFreeList.querySelectorAll(
+      ".Account-U9-free-avatar-card"
+    );
+
+
+  cards.forEach(
+    function (card) {
+
+      const type =
+        card.dataset.avatarType;
+
+
+      let selected =
+        false;
+
+
+      if (
+        type ===
+        "custom"
+      ) {
+
+        selected =
+          u9AvatarCurrentType ===
+          "custom";
+
+      }
+
+      else if (
+        type ===
+        "free"
+      ) {
+
+        selected =
 
           u9AvatarCurrentType ===
-            "free" &&
-
-          card.dataset.avatarType ===
             "free" &&
 
           card.dataset.avatarId ===
@@ -2207,71 +2320,51 @@ function updateFreeAvatarSelection() {
               u9AvatarCurrentId
             );
 
-
-        if (
-          isSelected
-        ) {
-
-          card.classList.add(
-            "selected"
-          );
-
-        }
-
-        else {
-
-          card.classList.remove(
-            "selected"
-          );
-
-        }
-
       }
-    );
-
-  }
 
 
-  /* =========================
-     MY AVATAR
-  ========================= */
-
-  if (
-    u9AvatarMyList
-  ) {
-
-    const myCard =
-      u9AvatarMyList.querySelector(
-        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
+      card.classList.toggle(
+        "selected",
+        selected
       );
 
-
-    if (
-      myCard
-    ) {
-
-      if (
-        u9AvatarCurrentType ===
-        "custom"
-      ) {
-
-        myCard.classList.add(
-          "selected"
-        );
-
-      }
-
-      else {
-
-        myCard.classList.remove(
-          "selected"
-        );
-
-      }
-
     }
+  );
+
+}
+
+
+/* =========================
+   DISABLE SOURCE CARDS
+========================= */
+
+function setAvatarSourceCardsDisabled(
+  disabled
+) {
+
+  if (
+    !u9AvatarFreeList
+  ) {
+
+    return;
 
   }
+
+
+  const cards =
+    u9AvatarFreeList.querySelectorAll(
+      ".Account-U9-free-avatar-card"
+    );
+
+
+  cards.forEach(
+    function (card) {
+
+      card.disabled =
+        disabled;
+
+    }
+  );
 
 }
 
@@ -2315,10 +2408,6 @@ async function selectFreeAvatar(
   }
 
 
-  /* =========================
-     SAME AVATAR
-  ========================= */
-
   if (
 
     u9AvatarCurrentType ===
@@ -2334,43 +2423,9 @@ async function selectFreeAvatar(
   }
 
 
-  const cards =
-    u9AvatarFreeList
-      ?.querySelectorAll(
-        ".Account-U9-free-avatar-card"
-      ) ||
-    [];
-
-
-  const myCard =
-    u9AvatarMyList
-      ?.querySelector(
-        '.Account-U9-free-avatar-card[data-avatar-type="custom"]'
-      );
-
-
-  /* =========================
-     DISABLE
-  ========================= */
-
-  cards.forEach(
-    (item) => {
-
-      item.disabled =
-        true;
-
-    }
+  setAvatarSourceCardsDisabled(
+    true
   );
-
-
-  if (
-    myCard
-  ) {
-
-    myCard.disabled =
-      true;
-
-  }
 
 
   try {
@@ -2425,6 +2480,7 @@ async function selectFreeAvatar(
       throw new Error(
 
         result.error ||
+        result.message ||
         "Failed to select free avatar."
 
       );
@@ -2449,21 +2505,31 @@ async function selectFreeAvatar(
     ========================= */
 
     if (
-      result.avatar?.custom_url
+      result.avatar &&
+      Object.prototype.hasOwnProperty.call(
+        result.avatar,
+        "custom_url"
+      )
     ) {
 
       u9AvatarCustomUrl =
-        result.avatar.custom_url;
+        result.avatar.custom_url ||
+        null;
 
     }
 
 
     if (
-      result.avatar?.cooldown_until
+      result.avatar &&
+      Object.prototype.hasOwnProperty.call(
+        result.avatar,
+        "cooldown_until"
+      )
     ) {
 
       u9AvatarCooldownUntil =
-        result.avatar.cooldown_until;
+        result.avatar.cooldown_until ||
+        null;
 
     }
 
@@ -2489,21 +2555,14 @@ async function selectFreeAvatar(
 
 
     /* =========================
-       UPDATE MY AVATAR
+       UPDATE SOURCE LIST
     ========================= */
 
-    renderMyAvatar();
+    renderAvatarSources();
 
 
     /* =========================
-       SELECTED
-    ========================= */
-
-    updateFreeAvatarSelection();
-
-
-    /* =========================
-       COOLDOWN
+       STATUS
     ========================= */
 
     if (
@@ -2564,28 +2623,13 @@ async function selectFreeAvatar(
 
   finally {
 
-    cards.forEach(
-      (item) => {
-
-        item.disabled =
-          false;
-
-      }
+    card.classList.remove(
+      "loading"
     );
 
 
-    if (
-      myCard
-    ) {
-
-      myCard.disabled =
-        false;
-
-    }
-
-
-    card.classList.remove(
-      "loading"
+    setAvatarSourceCardsDisabled(
+      false
     );
 
   }
@@ -2630,10 +2674,6 @@ async function selectCustomAvatar(
   }
 
 
-  /* =========================
-     SAME AVATAR
-  ========================= */
-
   if (
     u9AvatarCurrentType ===
     "custom"
@@ -2644,45 +2684,14 @@ async function selectCustomAvatar(
   }
 
 
-  const cards =
-    u9AvatarFreeList
-      ?.querySelectorAll(
-        ".Account-U9-free-avatar-card"
-      ) ||
-    [];
-
-
-  const myCard =
-    card;
-
-
-  /* =========================
-     DISABLE
-  ========================= */
-
-  cards.forEach(
-    (item) => {
-
-      item.disabled =
-        true;
-
-    }
+  setAvatarSourceCardsDisabled(
+    true
   );
-
-
-  if (
-    myCard
-  ) {
-
-    myCard.disabled =
-      true;
-
-  }
 
 
   try {
 
-    myCard.classList.add(
+    card.classList.add(
       "loading"
     );
 
@@ -2729,6 +2738,7 @@ async function selectCustomAvatar(
       throw new Error(
 
         result.error ||
+        result.message ||
         "Failed to select custom avatar."
 
       );
@@ -2749,21 +2759,31 @@ async function selectCustomAvatar(
 
 
     if (
-      result.avatar?.custom_url
+      result.avatar &&
+      Object.prototype.hasOwnProperty.call(
+        result.avatar,
+        "custom_url"
+      )
     ) {
 
       u9AvatarCustomUrl =
-        result.avatar.custom_url;
+        result.avatar.custom_url ||
+        u9AvatarCustomUrl;
 
     }
 
 
     if (
-      result.avatar?.cooldown_until
+      result.avatar &&
+      Object.prototype.hasOwnProperty.call(
+        result.avatar,
+        "cooldown_until"
+      )
     ) {
 
       u9AvatarCooldownUntil =
-        result.avatar.cooldown_until;
+        result.avatar.cooldown_until ||
+        null;
 
     }
 
@@ -2790,21 +2810,14 @@ async function selectCustomAvatar(
 
 
     /* =========================
-       UPDATE MY AVATAR
+       UPDATE SOURCE LIST
     ========================= */
 
-    renderMyAvatar();
+    renderAvatarSources();
 
 
     /* =========================
-       SELECTED
-    ========================= */
-
-    updateFreeAvatarSelection();
-
-
-    /* =========================
-       COOLDOWN
+       STATUS
     ========================= */
 
     if (
@@ -2865,29 +2878,14 @@ async function selectCustomAvatar(
 
   finally {
 
-    cards.forEach(
-      (item) => {
-
-        item.disabled =
-          false;
-
-      }
+    card.classList.remove(
+      "loading"
     );
 
 
-    if (
-      myCard
-    ) {
-
-      myCard.disabled =
-        false;
-
-
-      myCard.classList.remove(
-        "loading"
-      );
-
-    }
+    setAvatarSourceCardsDisabled(
+      false
+    );
 
   }
 
@@ -2908,7 +2906,6 @@ function handleAvatarFileChange(
 
     event.target.value =
       "";
-
 
     updateAvatarCooldownDisplay();
 
@@ -2935,6 +2932,9 @@ function handleAvatarFileChange(
       "image/"
     )
   ) {
+
+    event.target.value =
+      "";
 
     setAvatarStatus(
       "Please choose an image.",
@@ -3004,6 +3004,31 @@ function handleAvatarFileChange(
 
 
   /* =========================
+     BUTTON STATE
+  ========================= */
+
+  u9AvatarChooseButton.style.display =
+    "none";
+
+
+  u9AvatarCancelButton.style.display =
+    "flex";
+
+
+  u9AvatarSaveButton.disabled =
+    true;
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  setAvatarStatus(
+    ""
+  );
+
+
+  /* =========================
      IMAGE
   ========================= */
 
@@ -3011,20 +3036,7 @@ function handleAvatarFileChange(
     u9AvatarObjectUrl;
 
 
-  /* =========================
-     BUTTON
-  ========================= */
-
-  u9AvatarSaveButton.disabled =
-    true;
-
-
   updateAvatarMoveButtons();
-
-
-  setAvatarStatus(
-    ""
-  );
 
 }
 
@@ -3065,10 +3077,6 @@ function calculateBaseScale() {
     u9AvatarImage.naturalHeight;
 
 
-  /* =========================
-     COVER
-  ========================= */
-
   u9AvatarBaseScale =
     Math.max(
       scaleX,
@@ -3098,6 +3106,15 @@ function handleAvatarZoom() {
   ) {
 
     updateAvatarCooldownDisplay();
+
+    return;
+
+  }
+
+
+  if (
+    !u9AvatarSelectedImage
+  ) {
 
     return;
 
@@ -3251,99 +3268,6 @@ function clampAvatarPosition() {
 
 
 /* =========================
-   MOUSE WHEEL ZOOM
-========================= */
-
-function setupAvatarWheelZoom() {
-
-  if (
-    !u9AvatarPreview
-  ) {
-
-    return;
-
-  }
-
-
-  u9AvatarPreview.addEventListener(
-    "wheel",
-    (event) => {
-
-      if (
-        isAvatarCooldownActive()
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        !u9AvatarImageLoaded ||
-        !u9AvatarSelectedImage
-      ) {
-
-        return;
-
-      }
-
-
-      event.preventDefault();
-
-
-      const step =
-        event.deltaY < 0
-          ? 0.05
-          : -0.05;
-
-
-      const nextZoom =
-        clamp(
-
-          u9AvatarZoom +
-            step,
-
-          1,
-
-          3
-
-        );
-
-
-      u9AvatarZoom =
-        Number(
-          nextZoom.toFixed(2)
-        );
-
-
-      u9AvatarZoomInput.value =
-        String(
-          u9AvatarZoom
-        );
-
-
-      u9AvatarZoomValue.textContent =
-        `${Math.round(
-          u9AvatarZoom *
-          100
-        )}%`;
-
-
-      clampAvatarPosition();
-
-
-      updateAvatarImage();
-
-    },
-    {
-      passive: false
-    }
-  );
-
-}
-
-
-/* =========================
    SAVE CROP / UPLOAD
 ========================= */
 
@@ -3490,10 +3414,6 @@ async function saveAvatarCrop() {
       );
 
 
-    /* =========================
-       RESPONSE
-    ========================= */
-
     const result =
       await response.json();
 
@@ -3551,6 +3471,7 @@ async function saveAvatarCrop() {
       setAvatarStatus(
 
         result.error ||
+        result.message ||
         "Avatar upload failed.",
 
         true
@@ -3570,7 +3491,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       SUCCESS
+       SUCCESS URL
     ========================= */
 
     const avatarUrl =
@@ -3590,7 +3511,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       SAVE CUSTOM AVATAR
+       SAVE CUSTOM DATA
     ========================= */
 
     u9AvatarCustomUrl =
@@ -3599,6 +3520,14 @@ async function saveAvatarCrop() {
 
     u9AvatarCooldownUntil =
       result.avatar?.cooldown_until ||
+      null;
+
+
+    u9AvatarCurrentType =
+      "custom";
+
+
+    u9AvatarCurrentId =
       null;
 
 
@@ -3623,29 +3552,10 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       UPDATE CURRENT STATE
+       UPDATE SOURCE LIST
     ========================= */
 
-    u9AvatarCurrentType =
-      "custom";
-
-
-    u9AvatarCurrentId =
-      null;
-
-
-    /* =========================
-       UPDATE MY AVATAR
-    ========================= */
-
-    renderMyAvatar();
-
-
-    /* =========================
-       SELECTED
-    ========================= */
-
-    updateFreeAvatarSelection();
+    renderAvatarSources();
 
 
     /* =========================
@@ -3670,16 +3580,8 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       RESET CHOICE
+       RESET SELECTION
     ========================= */
-
-    u9AvatarSelectedImage =
-      null;
-
-
-    u9AvatarImageLoaded =
-      false;
-
 
     if (
       u9AvatarObjectUrl
@@ -3695,6 +3597,26 @@ async function saveAvatarCrop() {
     }
 
 
+    u9AvatarSelectedImage =
+      null;
+
+
+    u9AvatarImageLoaded =
+      false;
+
+
+    u9AvatarOffsetX =
+      0;
+
+
+    u9AvatarOffsetY =
+      0;
+
+
+    u9AvatarZoom =
+      1;
+
+
     if (
       u9AvatarFileInput
     ) {
@@ -3705,17 +3627,76 @@ async function saveAvatarCrop() {
     }
 
 
+    if (
+      u9AvatarZoomInput
+    ) {
+
+      u9AvatarZoomInput.value =
+        "1";
+
+    }
+
+
+    if (
+      u9AvatarZoomValue
+    ) {
+
+      u9AvatarZoomValue.textContent =
+        "100%";
+
+    }
+
+
+    /* =========================
+       RESET BUTTONS
+    ========================= */
+
+    if (
+      u9AvatarChooseButton
+    ) {
+
+      u9AvatarChooseButton.textContent =
+        "Choose Image";
+
+      u9AvatarChooseButton.style.display =
+        "";
+
+    }
+
+
+    if (
+      u9AvatarCancelButton
+    ) {
+
+      u9AvatarCancelButton.style.display =
+        "none";
+
+    }
+
+
+    if (
+      u9AvatarSaveButton
+    ) {
+
+      u9AvatarSaveButton.disabled =
+        true;
+
+    }
+
+
     /* =========================
        RESET PREVIEW
     ========================= */
 
-    u9AvatarImage.src =
-      u9AvatarDefaultImage;
+    if (
+      u9AvatarImage
+    ) {
 
+      u9AvatarImage.src =
+        u9AvatarDefaultImage;
 
-    /* =========================
-       UPDATE MOVE BUTTONS
-    ========================= */
+    }
+
 
     updateAvatarMoveButtons();
 
@@ -3757,7 +3738,9 @@ async function saveAvatarCrop() {
 
 
     setAvatarStatus(
-      "Network error. Please try again.",
+      error instanceof Error
+        ? error.message
+        : "Network error. Please try again.",
       true
     );
 
@@ -3959,7 +3942,7 @@ function createAvatarCropBlob() {
 
       canvas.toBlob(
 
-        (blob) => {
+        function (blob) {
 
           resolve(
             blob
@@ -3996,11 +3979,6 @@ function setAvatarStatus(
 
   }
 
-
-  /*
-   * Do not overwrite cooldown
-   * message with normal status.
-   */
 
   if (
     isAvatarCooldownActive() &&
@@ -4110,7 +4088,5 @@ if (
 ) {
 
   createU9AvatarEditor();
-
-  setupAvatarWheelZoom();
 
 }
