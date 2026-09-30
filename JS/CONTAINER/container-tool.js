@@ -1,1168 +1,620 @@
+/* =========================
+   CONTAINER TOOL
+========================= */
 
-/* =========== CONTAINER TOOL =========== */
+const tool =
+  document.getElementById(
+    "U9-page-container-tool"
+  );
 
-#U9-page-container-tool {
 
-  position: fixed;
+const menuButton =
+  document.getElementById(
+    "U9-page-container-tool-menu"
+  );
 
-  top: 60px;
 
-  left: 0;
+/* =========================
+   PAGE ELEMENTS
+========================= */
 
-  width: 100%;
+const homePage =
+  document.getElementById(
+    "U9-page-home"
+  );
 
-  height: 55px;
 
-  display: flex;
+const shopPage =
+  document.getElementById(
+    "U9-page-shop"
+  );
 
-  align-items: center;
 
-  padding: 0 10px;
+const auctionPage =
+  document.getElementById(
+    "U9-page-auction"
+  );
 
-  background-color: rgba(113, 165, 255, 0);
 
-  backdrop-filter: blur(10px);
+const test1Page =
+  document.getElementById(
+    "U9-page-test1"
+  );
 
-  -webkit-backdrop-filter: blur(10px);
 
-  z-index: 900;
+const test2Page =
+  document.getElementById(
+    "U9-page-test2"
+  );
 
-  overflow: hidden;
 
-}
+/* =========================
+   MODAL ELEMENTS
+========================= */
 
+const messageModal =
+  document.getElementById(
+    "U9-message-normal-modal"
+  );
 
-/* =========== NORMAL-PAGE =========== */
 
-#U9-page-container-tool-normal {
+const messageModalClose =
+  document.getElementById(
+    "U9-message-normal-modal-close"
+  );
 
-  position: absolute;
 
-  top: 7.5px;
+const inboxModal =
+  document.getElementById(
+    "U9-inbox-normal-modal"
+  );
 
-  left: 10px;
 
-  width: calc(100% - 20px);
+const inboxModalClose =
+  document.getElementById(
+    "U9-inbox-normal-modal-close"
+  );
 
-  height: 40px;
 
-  display: flex;
+const giftModal =
+  document.getElementById(
+    "U9-gift-normal-modal"
+  );
 
-  align-items: center;
 
-  gap: 10px;
+const giftModalClose =
+  document.getElementById(
+    "U9-gift-normal-modal-close"
+  );
 
-  transform: translateX(0);
 
-  transition:
-    transform 0.45s ease;
+const historyModal =
+  document.getElementById(
+    "U9-history-normal-modal"
+  );
 
-  z-index: 2;
 
-}
+const historyModalClose =
+  document.getElementById(
+    "U9-history-normal-modal-close"
+  );
 
 
-/* =========== PAGE MENU =========== */
+/* =========================
+   PAGE BUTTONS
+========================= */
 
-#U9-page-container-tool-pages {
+const homeButton =
+  document.getElementById(
+    "U9-page-container-tool-home"
+  );
 
-  position: absolute;
 
-  top: 7.5px;
+const shopButton =
+  document.getElementById(
+    "U9-page-container-tool-shop-page"
+  );
 
-  left: 10px;
 
-  width: calc(100% - 20px);
+const auctionButton =
+  document.getElementById(
+    "U9-page-container-tool-auction"
+  );
 
-  height: 40px;
 
-  display: flex;
+const test1Button =
+  document.getElementById(
+    "U9-page-container-tool-test1"
+  );
 
-  align-items: center;
 
-  justify-content: flex-start;
+const test2Button =
+  document.getElementById(
+    "U9-page-container-tool-test2"
+  );
 
-  gap: 6px;
 
-  overflow: hidden;
+/* =========================
+   PAGE ARROWS
+========================= */
 
-  transform: translateX(-100%);
+const pagePrevButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-prev"
+  );
 
-  transition:
-    transform 0.45s ease;
 
-  z-index: 1;
+const pageNextButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-next"
+  );
 
-}
 
+/* =========================
+   NORMAL TOOL BUTTONS
+========================= */
 
-/* =========== MENU ICON =========== */
+const messageButton =
+  document.getElementById(
+    "U9-page-container-tool-message"
+  );
 
-#U9-page-container-tool-menu {
 
-  display: flex;
+const inboxButton =
+  document.getElementById(
+    "U9-page-container-tool-inbox"
+  );
 
-  align-items: center;
 
-  justify-content: center;
+const giftButton =
+  document.getElementById(
+    "U9-page-container-tool-gift"
+  );
 
-}
 
+const historyButton =
+  document.getElementById(
+    "U9-page-container-tool-history"
+  );
 
-#U9-page-container-tool-menu img {
 
-  display: block;
+/* =========================
+   PAGE MAP
+========================= */
 
-  width: 18px;
+const pageItems = [
 
-  height: 18px;
+  {
+    page: homePage,
+    button: homeButton,
+    name: "Home"
+  },
 
-  max-width: 18px;
+  {
+    page: shopPage,
+    button: shopButton,
+    name: "Shop"
+  },
 
-  max-height: 18px;
+  {
+    page: auctionPage,
+    button: auctionButton,
+    name: "Auction"
+  },
 
-  object-fit: contain;
+  {
+    page: test1Page,
+    button: test1Button,
+    name: "Test1"
+  },
 
-  flex: 0 0 18px;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== MENU HEARTBEAT =========== */
-
-#U9-page-container-tool-menu.menu-heartbeat img {
-
-  animation:
-    menu-heartbeat 2.2s ease-in-out 1;
-
-}
-
-
-@keyframes menu-heartbeat {
-
-  0% {
-
-    transform:
-      scale(1);
-
+  {
+    page: test2Page,
+    button: test2Button,
+    name: "Test2"
   }
 
-  10% {
+];
 
-    transform:
-      scale(1.2);
 
-  }
+/* =========================
+   PAGE WINDOW
+========================= */
 
-  20% {
+let pageWindowStart = 0;
 
-    transform:
-      scale(1);
+const pageWindowSize = 3;
 
-  }
 
-  30% {
+/* =========================
+   RENDER PAGE WINDOW
+========================= */
 
-    transform:
-      scale(1.2);
+function renderPageWindow() {
 
-  }
+  pageItems.forEach(
+    function (item, index) {
 
-  40% {
+      const visible =
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize;
 
-    transform:
-      scale(1);
+      item.button.style.display =
+        visible
+          ? "flex"
+          : "none";
 
-  }
-
-  50% {
-
-    transform:
-      scale(1.2);
-
-  }
-
-  60% {
-
-    transform:
-      scale(1);
-
-  }
-
-  100% {
-
-    transform:
-      scale(1);
-
-  }
+    }
+  );
 
 }
 
 
-/* =========== SEARCH CONTAINER =========== */
-
-#U9-page-container-tool-search {
-
-  display: flex;
-
-  align-items: center;
-
-  flex: 1;
-
-  min-width: 0;
-
-  height: 40px;
-
-  padding: 8px;
-
-  background-color: white;
-
-  border-radius: 50px;
-
-  overflow: hidden;
-
-}
-
-
-/* =========== SEARCH INPUT =========== */
-
-#U9-page-container-tool-search-input {
-
-  flex: 1;
-
-  min-width: 0;
-
-  height: 100%;
-
-  padding: 0 10px;
-
-  border: none;
-
-  outline: none;
-
-  background-color: white;
-
-}
-
-
-/* =========== SEARCH BUTTON =========== */
-
-#U9-page-container-tool-search-button {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  width: 30px;
-
-  min-width: 24px;
-
-  height: 30px;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background-color: #abacb2;
-
-  color: white;
-
-  cursor: pointer;
-
-  flex-shrink: 0;
-
-}
-
-
-/* =========== SEARCH ICON =========== */
-
-#U9-page-container-tool-search-button img {
-
-  display: block;
-
-  width: 16px;
-
-  height: 16px;
-
-  max-width: 16px;
-
-  max-height: 16px;
-
-  object-fit: contain;
-
-  flex: 0 0 16px;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== SEARCH EFFECT =========== */
-
-#U9-page-container-tool-search-button.search-effect img {
-
-  animation:
-    search-effect 1.2s ease-in-out 1;
-
-}
-
-
-/* =========== SEARCH EFFECT ANIMATION =========== */
-
-@keyframes search-effect {
-
-  0% {
-
-    transform:
-      scale(1);
-
-  }
-
-  35% {
-
-    transform:
-      scale(1.35);
-
-  }
-
-  100% {
-
-    transform:
-      scale(1);
-
-  }
-
-}
-
-
-/* =========== MESSAGE ICON =========== */
-
-#U9-page-container-tool-message {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-#U9-page-container-tool-message img {
-
-  display: block;
-
-  width: 18px;
-
-  height: 18px;
-
-  max-width: 18px;
-
-  max-height: 18px;
-
-  object-fit: contain;
-
-  flex: 0 0 18px;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== MESSAGE BOUNCE =========== */
-
-#U9-page-container-tool-message.message-bounce img {
-
-  animation:
-    message-bounce 0.7s ease-in-out 1;
-
-}
-
-
-/* =========== MESSAGE BOUNCE ANIMATION =========== */
-
-@keyframes message-bounce {
-
-  0% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-  }
-
-  25% {
-
-    transform:
-      translateY(-6px)
-      rotate(0deg);
-
-  }
-
-  45% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-  }
-
-  60% {
-
-    transform:
-      translateY(0)
-      rotate(-8deg);
-
-  }
-
-  75% {
-
-    transform:
-      translateY(0)
-      rotate(8deg);
-
-  }
-
-  90% {
-
-    transform:
-      translateY(0)
-      rotate(-4deg);
-
-  }
-
-  100% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-  }
-
-}
-
-
-/* =========== INBOX ICON =========== */
-
-#U9-page-container-tool-inbox {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-#U9-page-container-tool-inbox img {
-
-  display: block;
-
-  width: 18px;
-
-  height: 18px;
-
-  max-width: 18px;
-
-  max-height: 18px;
-
-  object-fit: contain;
-
-  flex: 0 0 18px;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== INBOX SHAKE =========== */
-
-#U9-page-container-tool-inbox.inbox-shake img {
-
-  animation:
-    inbox-shake 0.8s ease-in-out 1;
-
-}
-
-
-@keyframes inbox-shake {
-
-  0% {
-
-    transform:
-      rotate(0deg);
-
-  }
-
-  15% {
-
-    transform:
-      rotate(-15deg);
-
-  }
-
-  30% {
-
-    transform:
-      rotate(15deg);
-
-  }
-
-  45% {
-
-    transform:
-      rotate(-12deg);
-
-  }
-
-  60% {
-
-    transform:
-      rotate(12deg);
-
-  }
-
-  75% {
-
-    transform:
-      rotate(-6deg);
-
-  }
-
-  90% {
-
-    transform:
-      rotate(4deg);
-
-  }
-
-  100% {
-
-    transform:
-      rotate(0deg);
-
-  }
-
-}
-
-
-/* =========== GIFT ICON =========== */
-
-#U9-page-container-tool-gift {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-#U9-page-container-tool-gift img {
-
-  display: block;
-
-  width: 18px;
-
-  height: 17px;
-
-  max-width: 18px;
-
-  max-height: 17px;
-
-  object-fit: contain;
-
-  flex: 0 0 auto;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== GIFT BOUNCE =========== */
-
-#U9-page-container-tool-gift.gift-bounce img {
-
-  animation:
-    gift-bounce 0.8s ease-in-out 1;
-
-}
-
-
-@keyframes gift-bounce {
-
-  0% {
-
-    transform:
-      translateY(0)
-      scale(1);
-
-  }
-
-  20% {
-
-    transform:
-      translateY(3px)
-      scale(0.95);
-
-  }
-
-  45% {
-
-    transform:
-      translateY(-6px)
-      scale(1.12);
-
-  }
-
-  60% {
-
-    transform:
-      translateY(0)
-      scale(1.05);
-
-  }
-
-  75% {
-
-    transform:
-      translateY(-3px)
-      scale(1.02);
-
-  }
-
-  100% {
-
-    transform:
-      translateY(0)
-      scale(1);
-
-  }
-
-}
-
-
-/* =========== HISTORY ICON =========== */
-
-#U9-page-container-tool-history {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-#U9-page-container-tool-history img {
-
-  display: block;
-
-  width: 21px;
-
-  height: 21px;
-
-  max-width: 21px;
-
-  max-height: 21px;
-
-  object-fit: contain;
-
-  flex: 0 0 21px;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== HISTORY SHAKE =========== */
-
-#U9-page-container-tool-history.history-shake img {
-
-  animation:
-    history-shake 0.8s ease-in-out 1;
-
-}
-
-
-@keyframes history-shake {
-
-  0% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-  }
-
-  15% {
-
-    transform:
-      translateY(2px)
-      rotate(-12deg);
-
-  }
-
-  30% {
-
-    transform:
-      translateY(0)
-      rotate(12deg);
-
-  }
-
-  45% {
-
-    transform:
-      translateY(1px)
-      rotate(-10deg);
-
-  }
-
-  60% {
-
-    transform:
-      translateY(0)
-      rotate(8deg);
-
-  }
-
-  75% {
-
-    transform:
-      translateY(0)
-      rotate(-5deg);
-
-  }
-
-  100% {
-
-    transform:
-      translateY(0)
-      rotate(0deg);
-
-  }
-
-}
-
-
-/* =========== NEW BUTTON =========== */
-
-#U9-page-container-tool-new {
-
-  width: 40px;
-
-  min-width: 40px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  cursor: pointer;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 40px;
-
-  box-sizing: border-box;
-
-}
-
-
-#U9-page-container-tool-new img {
-
-  display: block;
-
-  width: 17px;
-
-  height: 17px;
-
-  max-width: 17px;
-
-  max-height: 17px;
-
-  object-fit: contain;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== PAGE ARROWS =========== */
-
-#U9-page-container-tool-pages-prev,
-
-#U9-page-container-tool-pages-next {
-
-  width: 40px;
-
-  min-width: 40px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  cursor: pointer;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 40px;
-
-  box-sizing: border-box;
-
-}
-
-
-#U9-page-container-tool-pages-prev img,
-
-#U9-page-container-tool-pages-next img {
-
-  display: block;
-
-  width: 18px;
-
-  height: 18px;
-
-  max-width: 18px;
-
-  max-height: 18px;
-
-  object-fit: contain;
-
-  pointer-events: none;
-
-}
-
-
-/* =========== MENU OPEN =========== */
-
-#U9-page-container-tool.menu-open
-#U9-page-container-tool-normal {
-
-  transform:
-    translateX(
-      calc(100% - 40px)
-    );
-
-}
-
-
-#U9-page-container-tool.menu-open
-#U9-page-container-tool-pages {
-
-  transform:
-    translateX(0);
-
-}
-
-
-/* =========== TOOL BUTTON =========== */
-
-#U9-page-container-tool-menu,
-
-#U9-page-container-tool-message,
-
-#U9-page-container-tool-inbox,
-
-#U9-page-container-tool-gift,
-
-#U9-page-container-tool-history {
-
-  width: 40px;
-
-  min-width: 40px;
-
-  height: 40px;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  cursor: pointer;
-
-}
-
-
-/* =========== PAGE CONTENT =========== */
-
-#U9-page-pages {
-
-  position: relative;
-
-  margin-top: 115px;
-
-  width: 100%;
-
-  min-height:
-    calc(100vh - 115px);
-
-}
-
-
-#U9-page-shop,
-
-#U9-page-auction,
-
-#U9-page-test1,
-
-#U9-page-test2 {
-
-  display: none;
-
-}
-
-
-/* =========== PAGE BUTTONS =========== */
-
-#U9-page-container-tool-home,
-
-#U9-page-container-tool-shop-page,
-
-#U9-page-container-tool-auction,
-
-#U9-page-container-tool-test1,
-
-#U9-page-container-tool-test2 {
-
-  height: 40px;
-
-  padding:
-    0 10px;
-
-  border: none;
-
-  outline: none;
-
-  border-radius: 30%;
-
-  background-color: white;
-
-  box-shadow: none;
-
-  appearance: none;
-
-  -webkit-appearance: none;
-
-  cursor: pointer;
-
-  white-space: nowrap;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex: 0 0 auto;
-
-  box-sizing: border-box;
-
-  font-size: 15px;
-
-  font-weight: 600;
-
-  color: #111111;
-
-}
-
-
-/* =========== PAGE ACTIVE =========== */
-
-#U9-page-container-tool-home.active,
-
-#U9-page-container-tool-shop-page.active,
-
-#U9-page-container-tool-auction.active,
-
-#U9-page-container-tool-test1.active,
-
-#U9-page-container-tool-test2.active {
-
-  color: #1b67ea;
-
-}
-
-
-/* =========== PAGE BUTTON HOVER =========== */
-
-#U9-page-container-tool-home:hover,
-
-#U9-page-container-tool-shop-page:hover,
-
-#U9-page-container-tool-auction:hover,
-
-#U9-page-container-tool-test1:hover,
-
-#U9-page-container-tool-test2:hover,
-
-#U9-page-container-tool-new:hover,
-
-#U9-page-container-tool-pages-prev:hover,
-
-#U9-page-container-tool-pages-next:hover {
-
-  background-color: #f7f7f7;
-
-}
-
-
-/* =========== PAGE BUTTON ACTIVE PRESS =========== */
-
-#U9-page-container-tool-home:active,
-
-#U9-page-container-tool-shop-page:active,
-
-#U9-page-container-tool-auction:active,
-
-#U9-page-container-tool-test1:active,
-
-#U9-page-container-tool-test2:active,
-
-#U9-page-container-tool-new:active,
-
-#U9-page-container-tool-pages-prev:active,
-
-#U9-page-container-tool-pages-next:active {
-
-  transform:
-    scale(0.96);
-
-}
-
-
-/* =========== MOBILE =========== */
-
-@media (
-  max-width: 480px
+/* =========================
+   SHOW PAGE
+========================= */
+
+function showPage(
+  page
 ) {
 
-  #U9-page-container-tool {
+  pageItems.forEach(
+    function (item) {
 
-    padding:
-      0 8px;
+      item.page.style.display =
+        "none";
 
-  }
+      item.button.classList.remove(
+        "active"
+      );
 
-
-  #U9-page-container-tool-normal {
-
-    left: 8px;
-
-    width:
-      calc(100% - 16px);
-
-  }
+    }
+  );
 
 
-  #U9-page-container-tool-pages {
+  const activeItem =
+    pageItems.find(
+      function (item) {
 
-    left: 8px;
+        return item.page ===
+          page;
 
-    width:
-      calc(100% - 16px);
-
-    gap: 4px;
-
-  }
+      }
+    );
 
 
-  #U9-page-container-tool-new,
+  if (!activeItem) {
 
-  #U9-page-container-tool-pages-prev,
+    console.error(
+      "Page not found:",
+      page
+    );
 
-  #U9-page-container-tool-pages-next {
-
-    width: 36px;
-
-    min-width: 36px;
-
-    height: 40px;
-
-    flex: 0 0 36px;
+    return;
 
   }
 
 
-  #U9-page-container-tool-home,
-
-  #U9-page-container-tool-shop-page,
-
-  #U9-page-container-tool-auction,
-
-  #U9-page-container-tool-test1,
-
-  #U9-page-container-tool-test2 {
-
-    padding:
-      0 8px;
-
-    font-size: 14px;
-
-  }
+  activeItem.page.style.display =
+    "block";
 
 
-  #U9-page-container-tool-new img {
-
-    width: 16px;
-
-    height: 16px;
-
-    max-width: 16px;
-
-    max-height: 16px;
-
-  }
-
-
-  #U9-page-container-tool-pages-prev img,
-
-  #U9-page-container-tool-pages-next img {
-
-    width: 16px;
-
-    height: 16px;
-
-    max-width: 16px;
-
-    max-height: 16px;
-
-  }
+  activeItem.button.classList.add(
+    "active"
+  );
 
 }
+
+
+/* =========================
+   DEFAULT PAGE
+========================= */
+
+showPage(
+  homePage
+);
+
+
+/* =========================
+   INITIAL PAGE WINDOW
+========================= */
+
+renderPageWindow();
+
+
+/* =========================
+   MENU
+========================= */
+
+menuButton.addEventListener(
+  "click",
+  function () {
+
+    tool.classList.toggle(
+      "menu-open"
+    );
+
+
+    menuButton.classList.remove(
+      "menu-heartbeat"
+    );
+
+
+    void menuButton.offsetWidth;
+
+
+    menuButton.classList.add(
+      "menu-heartbeat"
+    );
+
+  }
+);
+
+
+/* =========================
+   NEXT PAGE WINDOW
+========================= */
+
+pageNextButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart <
+      pageItems.length -
+      pageWindowSize
+    ) {
+
+      pageWindowStart++;
+
+      renderPageWindow();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PREVIOUS PAGE WINDOW
+========================= */
+
+pagePrevButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart >
+      0
+    ) {
+
+      pageWindowStart--;
+
+      renderPageWindow();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PAGE BUTTON EVENTS
+========================= */
+
+homeButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      homePage
+    );
+
+  }
+);
+
+
+shopButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      shopPage
+    );
+
+  }
+);
+
+
+auctionButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      auctionPage
+    );
+
+  }
+);
+
+
+test1Button.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      test1Page
+    );
+
+  }
+);
+
+
+test2Button.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      test2Page
+    );
+
+  }
+);
+
+
+/* =========================
+   MESSAGE MODAL
+========================= */
+
+messageButton.addEventListener(
+  "click",
+  function () {
+
+    messageButton.classList.remove(
+      "message-bounce"
+    );
+
+
+    void messageButton.offsetWidth;
+
+
+    messageButton.classList.add(
+      "message-bounce"
+    );
+
+
+    messageModal.style.display =
+      "flex";
+
+  }
+);
+
+
+messageModalClose.addEventListener(
+  "click",
+  function () {
+
+    messageModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   INBOX MODAL
+========================= */
+
+inboxButton.addEventListener(
+  "click",
+  function () {
+
+    inboxButton.classList.remove(
+      "inbox-shake"
+    );
+
+
+    void inboxButton.offsetWidth;
+
+
+    inboxButton.classList.add(
+      "inbox-shake"
+    );
+
+
+    inboxModal.style.display =
+      "flex";
+
+  }
+);
+
+
+inboxModalClose.addEventListener(
+  "click",
+  function () {
+
+    inboxModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   GIFT MODAL
+========================= */
+
+giftButton.addEventListener(
+  "click",
+  function () {
+
+    giftButton.classList.remove(
+      "gift-bounce"
+    );
+
+
+    void giftButton.offsetWidth;
+
+
+    giftButton.classList.add(
+      "gift-bounce"
+    );
+
+
+    giftModal.style.display =
+      "flex";
+
+  }
+);
+
+
+giftModalClose.addEventListener(
+  "click",
+  function () {
+
+    giftModal.style.display =
+      "none";
+
+  }
+);
+
+
+/* =========================
+   HISTORY MODAL
+========================= */
+
+historyButton.addEventListener(
+  "click",
+  function () {
+
+    historyButton.classList.remove(
+      "history-shake"
+    );
+
+
+    void historyButton.offsetWidth;
+
+
+    historyButton.classList.add(
+      "history-shake"
+    );
+
+
+    historyModal.style.display =
+      "flex";
+
+  }
+);
+
+
+historyModalClose.addEventListener(
+  "click",
+  function () {
+
+    historyModal.style.display =
+      "none";
+
+  }
+);
