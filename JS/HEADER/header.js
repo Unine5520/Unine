@@ -308,6 +308,42 @@ async function getCurrentUser() {
 
 
 /* =========================
+   LOCK HOME PAGE
+========================= */
+
+function lockHomePageScroll() {
+
+  document.documentElement.classList.add(
+    "u9-account-setting-open"
+  );
+
+
+  document.body.classList.add(
+    "u9-account-setting-open"
+  );
+
+}
+
+
+/* =========================
+   UNLOCK HOME PAGE
+========================= */
+
+function unlockHomePageScroll() {
+
+  document.documentElement.classList.remove(
+    "u9-account-setting-open"
+  );
+
+
+  document.body.classList.remove(
+    "u9-account-setting-open"
+  );
+
+}
+
+
+/* =========================
    OPEN ACCOUNT SETTING
 ========================= */
 
@@ -321,6 +357,9 @@ function openAccountSetting() {
   userButton.classList.add(
     "account-open"
   );
+
+
+  lockHomePageScroll();
 
 }
 
@@ -339,6 +378,9 @@ function closeAccountSetting() {
   userButton.classList.remove(
     "account-open"
   );
+
+
+  unlockHomePageScroll();
 
 }
 
