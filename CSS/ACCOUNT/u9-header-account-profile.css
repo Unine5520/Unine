@@ -11,13 +11,15 @@
 
   width: 500%;
 
-  height: auto;
+  height: 100%;
 
   min-height: 0;
 
   flex: 1 1 auto;
 
   display: flex;
+
+  flex-direction: row;
 
   box-sizing: border-box;
 
@@ -47,11 +49,21 @@
 
   min-width: 20%;
 
+  flex: 0 0 20%;
+
   height: 100%;
 
   min-height: 0;
 
   box-sizing: border-box;
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  overscroll-behavior-y: contain;
+
+  -webkit-overflow-scrolling: touch;
 
 }
 
@@ -66,12 +78,6 @@
 
   flex-direction: column;
 
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  min-height: 0;
-
 }
 
 
@@ -84,12 +90,6 @@
   display: flex;
 
   flex-direction: column;
-
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  min-height: 0;
 
 }
 
@@ -104,16 +104,6 @@
 
   flex-direction: column;
 
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  min-height: 0;
-
-  overscroll-behavior-y: contain;
-
-  -webkit-overflow-scrolling: touch;
-
 }
 
 
@@ -127,12 +117,6 @@
 
   flex-direction: column;
 
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  min-height: 0;
-
 }
 
 
@@ -145,12 +129,6 @@
   display: flex;
 
   flex-direction: column;
-
-  overflow-y: auto;
-
-  overflow-x: hidden;
-
-  min-height: 0;
 
 }
 
@@ -167,17 +145,16 @@
 
   justify-content: space-between;
 
-  width: 100%;
+  width:100%;
 
-  height: auto;
+  height:auto;
 
   padding:
     10px
     10px
-    0px
-    10px;
+    0;
 
-  box-sizing: border-box;
+  box-sizing:border-box;
 
 }
 
@@ -188,25 +165,25 @@
 
 #Account-U9-account-add-friend {
 
-  display: flex;
+  display:flex;
 
-  align-items: center;
+  align-items:center;
 
-  justify-content: center;
+  justify-content:center;
 
-  width: 40px;
+  width:40px;
 
-  height: 40px;
+  height:40px;
 
-  padding: 0;
+  padding:0;
 
-  border: none;
+  border:none;
 
-  outline: none;
+  outline:none;
 
-  background: none;
+  background:none;
 
-  cursor: pointer;
+  cursor:pointer;
 
 }
 
@@ -217,13 +194,13 @@
 
 #Account-U9-account-right-actions {
 
-  display: flex;
+  display:flex;
 
-  flex-direction: column;
+  flex-direction:column;
 
-  align-items: center;
+  align-items:center;
 
-  gap: 2px;
+  gap:2px;
 
 }
 
@@ -234,25 +211,28 @@
 
 #Account-U9-account-setting-button {
 
-  display: flex;
 
-  align-items: center;
+  display:flex;
 
-  justify-content: center;
+  align-items:center;
 
-  width: 40px;
+  justify-content:center;
 
-  height: 40px;
 
-  padding: 0;
+  width:40px;
 
-  border: none;
+  height:40px;
 
-  outline: none;
 
-  background: none;
+  padding:0;
 
-  cursor: pointer;
+  border:none;
+
+  outline:none;
+
+  background:none;
+
+  cursor:pointer;
 
 }
 
@@ -263,25 +243,28 @@
 
 #Account-U9-account-edit-profile {
 
-  display: flex;
 
-  align-items: center;
+  display:flex;
 
-  justify-content: center;
+  align-items:center;
 
-  width: 40px;
+  justify-content:center;
 
-  height: 40px;
 
-  padding: 0;
+  width:40px;
 
-  border: none;
+  height:40px;
 
-  outline: none;
 
-  background: none;
+  padding:0;
 
-  cursor: pointer;
+  border:none;
+
+  outline:none;
+
+  background:none;
+
+  cursor:pointer;
 
 }
 
@@ -296,17 +279,19 @@
 
 #Account-U9-account-edit-profile img {
 
-  display: block;
 
-  width: 22px;
+  display:block;
 
-  height: 22px;
+  width:22px;
+
+  height:22px;
+
 
 }
 
 
 /* =========================
-   BUTTON INTERACTION
+   BUTTON ACTIVE
 ========================= */
 
 #Account-U9-account-add-friend:active,
@@ -315,7 +300,9 @@
 
 #Account-U9-account-edit-profile:active {
 
-  transform: scale(0.94);
+
+  transform:scale(0.94);
+
 
 }
 
@@ -326,21 +313,24 @@
 
 #Account-U9-account-profile {
 
-  display: flex;
 
-  flex-direction: column;
+  display:flex;
 
-  align-items: center;
+  flex-direction:column;
 
-  width: 100%;
+  align-items:center;
+
+
+  width:100%;
+
 
   padding:
-    0px
-    10px
-    0px
+    0
     10px;
 
-  box-sizing: border-box;
+
+  box-sizing:border-box;
+
 
 }
 
@@ -351,15 +341,20 @@
 
 #Account-U9-account-avatar {
 
-  position: relative;
 
-  width: 130px;
+  position:relative;
 
-  height: 130px;
 
-  margin: 0 auto;
+  width:130px;
 
-  flex: 0 0 130px;
+  height:130px;
+
+
+  margin:0 auto;
+
+
+  flex:0 0 130px;
+
 
 }
 
@@ -370,15 +365,19 @@
 
 #Account-U9-account-avatar-image {
 
-  position: absolute;
 
-  top: 50%;
+  position:absolute;
 
-  left: 50%;
 
-  width: 105px;
+  top:50%;
 
-  height: 105px;
+  left:50%;
+
+
+  width:105px;
+
+  height:105px;
+
 
   transform:
     translate(
@@ -386,11 +385,15 @@
       -50%
     );
 
-  object-fit: cover;
 
-  border-radius: 50%;
+  object-fit:cover;
 
-  display: block;
+
+  border-radius:50%;
+
+
+  display:block;
+
 
 }
 
@@ -401,15 +404,19 @@
 
 #Account-U9-account-avatar-frame {
 
-  position: absolute;
 
-  top: 50%;
+  position:absolute;
 
-  left: 50%;
 
-  width: 200px;
+  top:50%;
 
-  height: 200px;
+  left:50%;
+
+
+  width:200px;
+
+  height:200px;
+
 
   transform:
     translate(
@@ -417,11 +424,15 @@
       -50%
     );
 
-  display: block;
 
-  pointer-events: none;
+  display:block;
 
-  object-fit: contain;
+
+  pointer-events:none;
+
+
+  object-fit:contain;
+
 
 }
 
@@ -432,17 +443,24 @@
 
 #Account-U9-account-username {
 
-  margin-top: 5px;
 
-  font-size: 26px;
+  margin-top:5px;
 
-  font-weight: 600;
 
-  line-height: 1.2;
+  font-size:26px;
 
-  color: #111111;
 
-  text-align: center;
+  font-weight:600;
+
+
+  line-height:1.2;
+
+
+  color:#111111;
+
+
+  text-align:center;
+
 
 }
 
@@ -453,15 +471,21 @@
 
 #Account-U9-account-account {
 
-  margin-top: 6px;
 
-  font-size: 13px;
+  margin-top:6px;
 
-  line-height: 1.2;
 
-  color: #777777;
+  font-size:13px;
 
-  text-align: center;
+
+  line-height:1.2;
+
+
+  color:#777777;
+
+
+  text-align:center;
+
 
 }
 
@@ -472,7 +496,9 @@
 
 #Account-U9-account-setting-future {
 
-  flex: 1;
+
+  flex:1;
+
 
 }
 
@@ -481,25 +507,29 @@
    MOBILE
 ========================= */
 
-@media (
-  max-width: 480px
-) {
-
-  #Account-U9-account-actions {
-
-    padding:
-      8px;
-
-  }
+@media(max-width:480px){
 
 
-  #Account-U9-account-profile {
+#Account-U9-account-actions{
 
-    padding:
-      0px
-      8px
-      24px;
 
-  }
+padding:
+8px;
+
+
+}
+
+
+#Account-U9-account-profile{
+
+
+padding:
+0
+8px
+24px;
+
+
+}
+
 
 }
