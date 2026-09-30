@@ -486,10 +486,11 @@
 
 
 /* =========================
-   CHOOSE BUTTON
+   CHOOSE / CANCEL BUTTON
 ========================= */
 
-#Account-U9-avatar-editor-choose {
+#Account-U9-avatar-editor-choose,
+#Account-U9-avatar-editor-cancel {
 
   min-width: 140px;
 
@@ -515,6 +516,10 @@
 
   font-weight: 500;
 
+  line-height: 1;
+
+  text-align: center;
+
   cursor: pointer;
 
   transition:
@@ -534,10 +539,59 @@
 
 
 /* =========================
-   CHOOSE HOVER
+   CHOOSE / CANCEL DISPLAY
 ========================= */
 
-#Account-U9-avatar-editor-choose:hover {
+#Account-U9-avatar-editor-choose {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+#Account-U9-avatar-editor-cancel {
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+/* =========================
+   CHOOSE / CANCEL HIDDEN
+========================= */
+
+#Account-U9-avatar-editor-choose.hidden {
+
+  display: none;
+
+}
+
+
+/* =========================
+   CHOOSE / CANCEL VISIBLE
+========================= */
+
+#Account-U9-avatar-editor-cancel.visible {
+
+  display: flex;
+
+}
+
+
+/* =========================
+   CHOOSE / CANCEL HOVER
+========================= */
+
+#Account-U9-avatar-editor-choose:hover,
+#Account-U9-avatar-editor-cancel.visible:hover {
 
   background-color: #f7f9fc;
 
@@ -547,10 +601,11 @@
 
 
 /* =========================
-   CHOOSE ACTIVE
+   CHOOSE / CANCEL ACTIVE
 ========================= */
 
-#Account-U9-avatar-editor-choose:active {
+#Account-U9-avatar-editor-choose:active,
+#Account-U9-avatar-editor-cancel.visible:active {
 
   transform:
     scale(0.98);
