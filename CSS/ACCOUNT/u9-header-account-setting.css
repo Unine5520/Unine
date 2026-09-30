@@ -2,6 +2,7 @@
    U9 HEADER ACCOUNT SETTING
 ========================= */
 
+
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -52,6 +53,12 @@
   transition:
     transform 0.35s ease;
 
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
 }
 
 
@@ -73,6 +80,7 @@
 
 }
 
+
 /* =========================
    ACCOUNT SETTING HEADER
 ========================= */
@@ -84,6 +92,10 @@
   width: 100%;
 
   height: 52px;
+
+  min-height: 52px;
+
+  flex: 0 0 52px;
 
   background-color: #71a6ff;
 
@@ -317,14 +329,47 @@
 
 
 /* =========================
+   ACCOUNT SETTING PAGES
+========================= */
+
+#Account-U9-account-setting-pages {
+
+  width: 100%;
+
+  height: auto;
+
+  min-height: 0;
+
+  flex: 1 1 auto;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================
    SETTING PAGE
 ========================= */
 
 #Account-U9-account-setting-page {
 
+  width: 100%;
+
+  height: 100%;
+
+  min-height: 0;
+
   background-color: rgb(255 255 255);
 
   overflow-y: auto;
+
+  overflow-x: hidden;
+
+  overscroll-behavior-y: contain;
+
+  -webkit-overflow-scrolling: touch;
 
 }
 
@@ -367,6 +412,7 @@
 
   transition:
     background-color 0.2s ease,
+
     transform 0.2s ease;
 
 }
