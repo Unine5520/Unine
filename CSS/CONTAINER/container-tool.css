@@ -30,6 +30,7 @@
 
 }
 
+
 /* =========== NORMAL-PAGE =========== */
 
 #U9-page-container-tool-normal {
@@ -60,6 +61,8 @@
 }
 
 
+/* =========== PAGE MENU =========== */
+
 #U9-page-container-tool-pages {
 
   position: absolute;
@@ -76,7 +79,17 @@
 
   align-items: center;
 
+  justify-content: center;
+
   gap: 1px;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
 
   transform: translateX(-100%);
 
@@ -86,6 +99,16 @@
   z-index: 1;
 
 }
+
+
+/* =========== HIDE SCROLLBAR =========== */
+
+#U9-page-container-tool-pages::-webkit-scrollbar {
+
+  display: none;
+
+}
+
 
 /* =========== MENU ICON =========== */
 
@@ -98,6 +121,7 @@
   justify-content: center;
 
 }
+
 
 #U9-page-container-tool-menu img {
 
@@ -117,6 +141,7 @@
 
 }
 
+
 /* =========== MENU HEARTBEAT =========== */
 
 #U9-page-container-tool-menu.menu-heartbeat img {
@@ -125,6 +150,7 @@
     menu-heartbeat 2.2s ease-in-out 1;
 
 }
+
 
 @keyframes menu-heartbeat {
 
@@ -186,6 +212,7 @@
 
 }
 
+
 /* =========== SEARCH CONTAINER =========== */
 
 #U9-page-container-tool-search {
@@ -210,6 +237,7 @@
 
 }
 
+
 /* =========== SEARCH INPUT =========== */
 
 #U9-page-container-tool-search-input {
@@ -229,6 +257,7 @@
   background-color: white;
 
 }
+
 
 /* =========== SEARCH BUTTON =========== */
 
@@ -262,6 +291,7 @@
 
 }
 
+
 /* =========== SEARCH ICON =========== */
 
 #U9-page-container-tool-search-button img {
@@ -282,6 +312,7 @@
 
 }
 
+
 /* =========== SEARCH EFFECT =========== */
 
 #U9-page-container-tool-search-button.search-effect img {
@@ -290,6 +321,7 @@
     search-effect 1.2s ease-in-out 1;
 
 }
+
 
 /* =========== SEARCH EFFECT ANIMATION =========== */
 
@@ -318,6 +350,7 @@
 
 }
 
+
 /* =========== MESSAGE ICON =========== */
 
 #U9-page-container-tool-message {
@@ -329,6 +362,7 @@
   justify-content: center;
 
 }
+
 
 #U9-page-container-tool-message img {
 
@@ -348,6 +382,7 @@
 
 }
 
+
 /* =========== MESSAGE BOUNCE =========== */
 
 #U9-page-container-tool-message.message-bounce img {
@@ -356,6 +391,7 @@
     message-bounce 0.7s ease-in-out 1;
 
 }
+
 
 /* =========== MESSAGE BOUNCE ANIMATION =========== */
 
@@ -419,6 +455,7 @@
 
 }
 
+
 /* =========== INBOX ICON =========== */
 
 #U9-page-container-tool-inbox {
@@ -430,6 +467,7 @@
   justify-content: center;
 
 }
+
 
 #U9-page-container-tool-inbox img {
 
@@ -449,6 +487,7 @@
 
 }
 
+
 /* =========== INBOX SHAKE =========== */
 
 #U9-page-container-tool-inbox.inbox-shake img {
@@ -457,6 +496,7 @@
     inbox-shake 0.8s ease-in-out 1;
 
 }
+
 
 /* =========== INBOX SHAKE ANIMATION =========== */
 
@@ -520,6 +560,7 @@
 
 }
 
+
 /* =========== GIFT ICON =========== */
 
 #U9-page-container-tool-gift {
@@ -531,6 +572,7 @@
   justify-content: center;
 
 }
+
 
 #U9-page-container-tool-gift img {
 
@@ -550,6 +592,7 @@
 
 }
 
+
 /* =========== GIFT BOUNCE =========== */
 
 #U9-page-container-tool-gift.gift-bounce img {
@@ -558,6 +601,7 @@
     gift-bounce 0.8s ease-in-out 1;
 
 }
+
 
 /* =========== GIFT BOUNCE ANIMATION =========== */
 
@@ -613,6 +657,7 @@
 
 }
 
+
 /* =========== HISTORY ICON =========== */
 
 #U9-page-container-tool-history {
@@ -624,6 +669,7 @@
   justify-content: center;
 
 }
+
 
 #U9-page-container-tool-history img {
 
@@ -643,6 +689,7 @@
 
 }
 
+
 /* =========== HISTORY SHAKE =========== */
 
 #U9-page-container-tool-history.history-shake img {
@@ -651,6 +698,7 @@
     history-shake 0.8s ease-in-out 1;
 
 }
+
 
 /* =========== HISTORY SHAKE ANIMATION =========== */
 
@@ -714,6 +762,7 @@
 
 }
 
+
 /* =========== NEW BUTTON =========== */
 
 #U9-page-container-tool-new img {
@@ -726,9 +775,11 @@
 
 }
 
+
 /* =========== MENU OPEN =========== */
 
-#U9-page-container-tool.menu-open #U9-page-container-tool-normal {
+#U9-page-container-tool.menu-open
+#U9-page-container-tool-normal {
 
   transform: translateX(
     calc(100% - 40px)
@@ -736,11 +787,14 @@
 
 }
 
-#U9-page-container-tool.menu-open #U9-page-container-tool-pages {
+
+#U9-page-container-tool.menu-open
+#U9-page-container-tool-pages {
 
   transform: translateX(0);
 
 }
+
 
 /* =========== TOOL BUTTON =========== */
 
@@ -772,6 +826,7 @@
 
 }
 
+
 /* =========== PAGE CONTENT =========== */
 
 #U9-page-pages {
@@ -787,6 +842,7 @@
 
 }
 
+
 #U9-page-shop,
 
 #U9-page-auction,
@@ -799,13 +855,15 @@
 
 }
 
+
 /* =========== PAGE BUTTON =========== */
 
 #U9-page-container-tool-pages button {
 
   height: 40px;
 
-  padding: 0px 10px 0px 10px;
+  padding:
+    0px 10px 0px 10px;
 
   border: none;
 
@@ -829,6 +887,8 @@
 
   justify-content: center;
 
+  flex: 0 0 auto;
+
   font-size: 15px;
 
   font-weight: 600;
@@ -836,6 +896,7 @@
   color: #ffffff;
 
 }
+
 
 /* =========== PAGE ACTIVE =========== */
 
