@@ -241,18 +241,202 @@ const pageButtons = [
    PAGE WINDOW
 ========================= */
 
-let pageWindowStart = 0;
+let pageWindowStart =
+  0;
 
-const pageWindowSize = 3;
+
+const pageWindowSize =
+  3;
 
 
 /* =========================
-   PAGE ANIMATION
+   PAGE MENU / TRACK
 ========================= */
 
-let pageWindowAnimating = false;
+const pageMenu =
+  document.getElementById(
+    "U9-page-container-tool-pages"
+  );
 
-const pageAnimationDuration = 280;
+
+const pageViewport =
+  document.createElement(
+    "div"
+  );
+
+
+pageViewport.id =
+  "U9-page-container-tool-page-viewport";
+
+
+const pageTrack =
+  document.createElement(
+    "div"
+  );
+
+
+pageTrack.id =
+  "U9-page-container-tool-page-track";
+
+
+/* =========================
+   MOVE PAGE BUTTONS
+   INTO TRACK
+========================= */
+
+pageButtons.forEach(
+  function (button) {
+
+    pageTrack.appendChild(
+      button
+    );
+
+  }
+);
+
+
+/* =========================
+   INSERT VIEWPORT
+========================= */
+
+if (
+  pageMenu &&
+  pageNextButton
+) {
+
+  pageMenu.insertBefore(
+    pageViewport,
+    pageNextButton
+  );
+
+}
+
+
+/* =========================
+   INSERT TRACK
+   INTO VIEWPORT
+========================= */
+
+pageViewport.appendChild(
+  pageTrack
+);
+
+
+/* =========================
+   PAGE WINDOW ANIMATION
+========================= */
+
+const pageWindowAnimationDuration =
+  450;
+
+
+let pageWindowAnimating =
+  false;
+
+
+/* =========================
+   GET PAGE OFFSET
+========================= */
+
+function getPageOffset(
+  startIndex
+) {
+
+  let offset =
+    0;
+
+
+  for (
+    let index = 0;
+    index < startIndex;
+    index++
+  ) {
+
+    const button =
+      pageButtons[index];
+
+
+    if (!button) {
+
+      continue;
+
+    }
+
+
+    offset +=
+      button.offsetWidth;
+
+
+    if (
+      index <
+      startIndex
+    ) {
+
+      offset += 6;
+
+    }
+
+  }
+
+
+  return offset;
+
+}
+
+
+/* =========================
+   SET PAGE TRACK POSITION
+========================= */
+
+function setPageTrackPosition(
+  animate = true
+) {
+
+  const offset =
+    getPageOffset(
+      pageWindowStart
+    );
+
+
+  if (!animate) {
+
+    pageTrack.style.transition =
+      "none";
+
+  }
+
+  else {
+
+    pageTrack.style.transition =
+      "transform 0.45s ease";
+
+  }
+
+
+  pageTrack.style.transform =
+    `translateX(-${offset}px)`;
+
+
+  if (!animate) {
+
+    requestAnimationFrame(
+      function () {
+
+        requestAnimationFrame(
+          function () {
+
+            pageTrack.style.transition =
+              "transform 0.45s ease";
+
+          }
+        );
+
+      }
+    );
+
+  }
+
+}
 
 
 /* =========================
@@ -261,72 +445,20 @@ const pageAnimationDuration = 280;
 
 function renderPageWindow() {
 
-  pageItems.forEach(
-    function (item, index) {
-
-      const visible =
-        index >= pageWindowStart &&
-        index <
-          pageWindowStart +
-          pageWindowSize;
-
-
-      item.button.style.display =
-        visible
-          ? "flex"
-          : "none";
-
-
-      item.button.style.transform =
-        "translateX(0)";
-
-      item.button.style.opacity =
-        "1";
-
-    }
+  setPageTrackPosition(
+    true
   );
 
 }
 
 
 /* =========================
-   GET VISIBLE BUTTONS
+   UPDATE PAGE WINDOW
 ========================= */
 
-function getVisibleButtons() {
-
-  return pageButtons.filter(
-    function (button, index) {
-
-      return (
-        index >= pageWindowStart &&
-        index <
-          pageWindowStart +
-          pageWindowSize
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================
-   SLIDE PAGE WINDOW
-========================= */
-
-function slidePageWindow(
-  direction
+function updatePageWindow(
+  newStart
 ) {
-
-  if (
-    pageWindowAnimating
-  ) {
-
-    return;
-
-  }
-
 
   const maxStart =
     pageItems.length -
@@ -334,245 +466,32 @@ function slidePageWindow(
 
 
   if (
-    direction === "left" &&
-    pageWindowStart >= maxStart
+    newStart < 0
   ) {
 
-    return;
+    newStart =
+      0;
 
   }
 
 
   if (
-    direction === "right" &&
-    pageWindowStart <= 0
+    newStart > maxStart
   ) {
 
-    return;
+    newStart =
+      maxStart;
 
   }
 
 
-  pageWindowAnimating =
-    true;
+  pageWindowStart =
+    newStart;
 
 
-  const oldStart =
-    pageWindowStart;
-
-
-  const newStart =
-    direction === "left"
-      ? oldStart + 1
-      : oldStart - 1;
-
-
-  const oldButtons =
-    pageButtons.slice(
-      oldStart,
-      oldStart +
-        pageWindowSize
-    );
-
-
-  const newButtons =
-    pageButtons.slice(
-      newStart,
-      newStart +
-        pageWindowSize
-    );
-
-
-  /* =========================
-     PREPARE NEW BUTTONS
-  ========================= */
-
-  newButtons.forEach(
-    function (button) {
-
-      button.style.display =
-        "flex";
-
-      button.style.opacity =
-        "0";
-
-      button.style.transform =
-        direction === "left"
-          ? "translateX(35px)"
-          : "translateX(-35px)";
-
-    }
+  setPageTrackPosition(
+    true
   );
-
-
-  /* =========================
-     OLD BUTTONS
-  ========================= */
-
-  const oldAnimations =
-    oldButtons.map(
-      function (button) {
-
-        return button.animate(
-          [
-            {
-              transform:
-                "translateX(0)",
-              opacity: 1
-            },
-
-            {
-              transform:
-                direction === "left"
-                  ? "translateX(-35px)"
-                  : "translateX(35px)",
-              opacity: 0
-            }
-
-          ],
-          {
-            duration:
-              pageAnimationDuration,
-
-            easing:
-              "ease",
-
-            fill:
-              "forwards"
-          }
-        );
-
-      }
-    );
-
-
-  /* =========================
-     NEW BUTTONS
-  ========================= */
-
-  const newAnimations =
-    newButtons.map(
-      function (button) {
-
-        return button.animate(
-          [
-            {
-              transform:
-                direction === "left"
-                  ? "translateX(35px)"
-                  : "translateX(-35px)",
-
-              opacity: 0
-            },
-
-            {
-              transform:
-                "translateX(0)",
-
-              opacity: 1
-            }
-
-          ],
-          {
-            duration:
-              pageAnimationDuration,
-
-            easing:
-              "ease",
-
-            fill:
-              "forwards",
-
-            delay: 0
-          }
-        );
-
-      }
-    );
-
-
-  /* =========================
-     WAIT ANIMATION
-  ========================= */
-
-  Promise.all(
-    [
-      ...oldAnimations.map(
-        function (animation) {
-          return animation.finished;
-        }
-      ),
-
-      ...newAnimations.map(
-        function (animation) {
-          return animation.finished;
-        }
-      )
-    ]
-  )
-    .then(
-      function () {
-
-        pageWindowStart =
-          newStart;
-
-
-        /* =========================
-           FINAL STATE
-        ========================= */
-
-        pageItems.forEach(
-          function (item, index) {
-
-            const visible =
-              index >= pageWindowStart &&
-              index <
-                pageWindowStart +
-                pageWindowSize;
-
-
-            item.button.style.display =
-              visible
-                ? "flex"
-                : "none";
-
-
-            item.button.style.transform =
-              "translateX(0)";
-
-            item.button.style.opacity =
-              "1";
-
-          }
-        );
-
-
-        pageWindowAnimating =
-          false;
-
-      }
-    )
-    .catch(
-      function (error) {
-
-        console.error(
-          "Page window animation failed:",
-          error
-        );
-
-
-        pageWindowStart =
-          newStart;
-
-
-        renderPageWindow();
-
-
-        pageWindowAnimating =
-          false;
-
-      }
-    );
 
 }
 
@@ -647,7 +566,13 @@ showPage(
    INITIAL PAGE WINDOW
 ========================= */
 
-renderPageWindow();
+requestAnimationFrame(
+  function () {
+
+    renderPageWindow();
+
+  }
+);
 
 
 /* =========================
@@ -687,8 +612,50 @@ pageNextButton.addEventListener(
   "click",
   function () {
 
-    slidePageWindow(
-      "left"
+    if (
+      pageWindowAnimating
+    ) {
+
+      return;
+
+    }
+
+
+    const maxStart =
+      pageItems.length -
+      pageWindowSize;
+
+
+    if (
+      pageWindowStart >=
+      maxStart
+    ) {
+
+      return;
+
+    }
+
+
+    pageWindowAnimating =
+      true;
+
+
+    pageWindowStart++;
+
+
+    setPageTrackPosition(
+      true
+    );
+
+
+    window.setTimeout(
+      function () {
+
+        pageWindowAnimating =
+          false;
+
+      },
+      pageWindowAnimationDuration
     );
 
   }
@@ -703,8 +670,45 @@ pagePrevButton.addEventListener(
   "click",
   function () {
 
-    slidePageWindow(
-      "right"
+    if (
+      pageWindowAnimating
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      pageWindowStart <=
+      0
+    ) {
+
+      return;
+
+    }
+
+
+    pageWindowAnimating =
+      true;
+
+
+    pageWindowStart--;
+
+
+    setPageTrackPosition(
+      true
+    );
+
+
+    window.setTimeout(
+      function () {
+
+        pageWindowAnimating =
+          false;
+
+      },
+      pageWindowAnimationDuration
     );
 
   }
@@ -926,6 +930,22 @@ historyModalClose.addEventListener(
 
     historyModal.style.display =
       "none";
+
+  }
+);
+
+
+/* =========================
+   WINDOW RESIZE
+========================= */
+
+window.addEventListener(
+  "resize",
+  function () {
+
+    setPageTrackPosition(
+      false
+    );
 
   }
 );
