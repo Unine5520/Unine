@@ -135,6 +135,22 @@ const test2Button =
 
 
 /* =========================
+   PAGE ARROWS
+========================= */
+
+const pagePrevButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-prev"
+  );
+
+
+const pageNextButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-next"
+  );
+
+
+/* =========================
    NORMAL TOOL BUTTONS
 ========================= */
 
@@ -170,30 +186,70 @@ const pageItems = [
 
   {
     page: homePage,
-    button: homeButton
+    button: homeButton,
+    name: "Home"
   },
 
   {
     page: shopPage,
-    button: shopButton
+    button: shopButton,
+    name: "Shop"
   },
 
   {
     page: auctionPage,
-    button: auctionButton
+    button: auctionButton,
+    name: "Auction"
   },
 
   {
     page: test1Page,
-    button: test1Button
+    button: test1Button,
+    name: "Test1"
   },
 
   {
     page: test2Page,
-    button: test2Button
+    button: test2Button,
+    name: "Test2"
   }
 
 ];
+
+
+/* =========================
+   PAGE WINDOW
+========================= */
+
+let pageWindowStart = 0;
+
+const pageWindowSize = 3;
+
+
+/* =========================
+   RENDER PAGE WINDOW
+========================= */
+
+function renderPageWindow() {
+
+  pageItems.forEach(
+    function (item, index) {
+
+      const visible =
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize;
+
+      item.button.style.display =
+        visible
+          ? "flex"
+          : "none";
+
+    }
+  );
+
+}
 
 
 /* =========================
@@ -209,7 +265,6 @@ function showPage(
 
       item.page.style.display =
         "none";
-
 
       item.button.classList.remove(
         "active"
@@ -263,6 +318,13 @@ showPage(
 
 
 /* =========================
+   INITIAL PAGE WINDOW
+========================= */
+
+renderPageWindow();
+
+
+/* =========================
    MENU
 ========================= */
 
@@ -286,6 +348,53 @@ menuButton.addEventListener(
     menuButton.classList.add(
       "menu-heartbeat"
     );
+
+  }
+);
+
+
+/* =========================
+   NEXT PAGE WINDOW
+========================= */
+
+pageNextButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart <
+      pageItems.length -
+      pageWindowSize
+    ) {
+
+      pageWindowStart++;
+
+      renderPageWindow();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PREVIOUS PAGE WINDOW
+========================= */
+
+pagePrevButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart >
+      0
+    ) {
+
+      pageWindowStart--;
+
+      renderPageWindow();
+
+    }
 
   }
 );
