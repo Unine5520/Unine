@@ -441,17 +441,27 @@
 
   margin-top: 14px;
 
-  display: flex;
+  display: flex !important;
 
   align-items: center;
 
-  justify-content: space-between;
+  justify-content: flex-start;
 
   gap: 10px;
 
   box-sizing: border-box;
 
 }
+
+
+/*
+ * Keep the action row visible
+ * during cooldown.
+ *
+ * JS may set display:none
+ * on this row, but Frame Edit
+ * must remain available.
+ */
 
 
 /* =========================
@@ -464,11 +474,11 @@
 
   min-width: 0;
 
-  margin: 0;
-
   display: flex;
 
   align-items: center;
+
+  margin: 0;
 
 }
 
@@ -482,7 +492,7 @@
 
   width: 100%;
 
-  min-width: 180px;
+  min-width: 0;
 
   height: 42px;
 
@@ -605,11 +615,11 @@
 
 #Account-U9-avatar-editor-save {
 
-  flex: 0 0 180px;
+  flex: 0 0 90px;
 
-  width: 180px;
+  width: 90px;
 
-  min-width: 180px;
+  min-width: 90px;
 
   height: 42px;
 
@@ -617,7 +627,7 @@
 
   padding:
     0
-    18px;
+    12px;
 
   box-sizing: border-box;
 
@@ -689,6 +699,98 @@
 #Account-U9-avatar-editor-save.loading {
 
   cursor: wait;
+
+}
+
+
+/* =========================
+   FRAME EDIT BUTTON
+   INSIDE ACTION ROW
+========================= */
+
+#Account-U9-account-frame-edit {
+
+  flex: 0 0 100px;
+
+  width: 100px;
+
+  min-width: 100px;
+
+  height: 42px;
+
+  margin: 0;
+
+  padding:
+    0
+    10px;
+
+  box-sizing: border-box;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background-color: #71a6ff;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    opacity 0.2s ease;
+
+}
+
+
+/* =========================
+   FRAME EDIT HOVER
+========================= */
+
+#Account-U9-account-frame-edit:hover {
+
+  background-color: #669cff;
+
+}
+
+
+/* =========================
+   FRAME EDIT ACTIVE
+========================= */
+
+#Account-U9-account-frame-edit:active {
+
+  transform: scale(0.98);
+
+}
+
+
+/* =========================
+   FRAME EDIT DISABLED
+========================= */
+
+#Account-U9-account-frame-edit:disabled {
+
+  opacity: 0.5;
+
+  cursor: not-allowed;
+
+  transform: none;
 
 }
 
@@ -1033,97 +1135,6 @@
 
 
 /* =========================
-   FRAME EDIT BUTTON
-   INSIDE ACCOUNT EDIT PAGE
-========================= */
-
-#Account-U9-account-frame-edit {
-
-  width: 40%;
-
-  min-width: 120px;
-
-  min-height: 44px;
-
-  margin:
-    20px
-    auto
-    40px;
-
-  padding:
-    11px
-    18px;
-
-  box-sizing: border-box;
-
-  flex: 0 0 auto;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background-color: #71a6ff;
-
-  color: #ffffff;
-
-  font-size: 14px;
-
-  font-weight: 500;
-
-  line-height: 1;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease,
-    background-color 0.2s ease;
-
-}
-
-
-/* =========================
-   FRAME EDIT HOVER
-========================= */
-
-#Account-U9-account-frame-edit:hover {
-
-  background-color: #669cff;
-
-}
-
-
-/* =========================
-   FRAME EDIT ACTIVE
-========================= */
-
-#Account-U9-account-frame-edit:active {
-
-  transform: scale(0.98);
-
-}
-
-
-/* =========================
-   FRAME EDIT DISABLED
-========================= */
-
-#Account-U9-account-frame-edit:disabled {
-
-  opacity: 0.5;
-
-  cursor: not-allowed;
-
-}
-
-
-/* =========================
    MOBILE
 ========================= */
 
@@ -1136,7 +1147,7 @@
 
   #Account-U9-avatar-editor {
 
-    max-width: 70%;
+    max-width: 90%;
 
     padding:
       12px
@@ -1205,7 +1216,7 @@
 
   /* =========================
      MOVE BUTTONS
-  ========================= */
+========================= */
 
   #Account-U9-avatar-editor-preview-middle {
 
@@ -1251,7 +1262,7 @@
 
   #Account-U9-avatar-editor-action-row {
 
-    gap: 8px;
+    gap: 6px;
 
   }
 
@@ -1263,15 +1274,13 @@
   #Account-U9-avatar-editor-choose,
   #Account-U9-avatar-editor-cancel {
 
-    min-width: 0;
-
     height: 40px;
 
     padding:
       0
-      12px;
+      8px;
 
-    font-size: 13px;
+    font-size: 12px;
 
   }
 
@@ -1282,19 +1291,55 @@
 
   #Account-U9-avatar-editor-save {
 
-    flex-basis: 120px;
+    flex-basis: 60px;
 
-    width: 120px;
+    width: 60px;
 
-    min-width: 120px;
+    min-width: 60px;
 
     height: 40px;
 
     padding:
       0
-      14px;
+      8px;
 
-    font-size: 13px;
+    font-size: 12px;
+
+  }
+
+
+  /* =========================
+     FRAME EDIT
+  ========================= */
+
+  #Account-U9-account-frame-edit {
+
+    flex-basis: 82px;
+
+    width: 82px;
+
+    min-width: 82px;
+
+    height: 40px;
+
+    padding:
+      0
+      6px;
+
+    font-size: 12px;
+
+  }
+
+
+  /* =========================
+     STATUS
+  ========================= */
+
+  #Account-U9-avatar-editor-status {
+
+    margin-top: 8px;
+
+    font-size: 12px;
 
   }
 
@@ -1357,45 +1402,6 @@
   .Account-U9-free-avatar-name {
 
     font-size: 9px;
-
-  }
-
-
-  /* =========================
-     STATUS
-  ========================= */
-
-  #Account-U9-avatar-editor-status {
-
-    margin-top: 8px;
-
-    font-size: 12px;
-
-  }
-
-
-  /* =========================
-     FRAME EDIT
-  ========================= */
-
-  #Account-U9-account-frame-edit {
-
-    width: 40%;
-
-    min-width: 100px;
-
-    min-height: 42px;
-
-    margin:
-      20px
-      auto
-      24px;
-
-    padding:
-      10px
-      14px;
-
-    font-size: 13px;
 
   }
 
