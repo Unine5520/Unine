@@ -51,7 +51,8 @@
 
   gap: 10px;
 
-  transform: translateX(0);
+  transform:
+    translateX(0);
 
   transition:
     transform 0.45s ease;
@@ -79,33 +80,19 @@
 
   align-items: center;
 
-  justify-content: center;
+  justify-content: flex-start;
 
   gap: 1px;
 
-  overflow-x: auto;
+  overflow: hidden;
 
-  overflow-y: hidden;
-
-  scrollbar-width: none;
-
-  -ms-overflow-style: none;
-
-  transform: translateX(-100%);
+  transform:
+    translateX(-100%);
 
   transition:
     transform 0.45s ease;
 
   z-index: 1;
-
-}
-
-
-/* =========== HIDE SCROLLBAR =========== */
-
-#U9-page-container-tool-pages::-webkit-scrollbar {
-
-  display: none;
 
 }
 
@@ -765,6 +752,35 @@
 
 /* =========== NEW BUTTON =========== */
 
+#U9-page-container-tool-new {
+
+  width: 40px;
+
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 0 0 40px;
+
+  cursor: pointer;
+
+}
+
+
 #U9-page-container-tool-new img {
 
   display: block;
@@ -772,6 +788,90 @@
   width: 17px;
 
   height: 17px;
+
+  max-width: 17px;
+
+  max-height: 17px;
+
+  object-fit: contain;
+
+}
+
+
+/* =========== PAGE PREVIOUS =========== */
+
+#U9-page-container-tool-pages-prev {
+
+  width: 34px;
+
+  min-width: 34px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 0 0 34px;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+}
+
+
+/* =========== PAGE NEXT =========== */
+
+#U9-page-container-tool-pages-next {
+
+  width: 34px;
+
+  min-width: 34px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex: 0 0 34px;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  color: #ffffff;
+
+  cursor: pointer;
 
 }
 
@@ -781,9 +881,10 @@
 #U9-page-container-tool.menu-open
 #U9-page-container-tool-normal {
 
-  transform: translateX(
-    calc(100% - 40px)
-  );
+  transform:
+    translateX(
+      calc(100% - 40px)
+    );
 
 }
 
@@ -791,7 +892,8 @@
 #U9-page-container-tool.menu-open
 #U9-page-container-tool-pages {
 
-  transform: translateX(0);
+  transform:
+    translateX(0);
 
 }
 
@@ -856,14 +958,27 @@
 }
 
 
-/* =========== PAGE BUTTON =========== */
+/* =========== PAGE BUTTONS =========== */
 
-#U9-page-container-tool-pages button {
+#U9-page-container-tool-pages
+#U9-page-container-tool-home,
+
+#U9-page-container-tool-pages
+#U9-page-container-tool-shop-page,
+
+#U9-page-container-tool-pages
+#U9-page-container-tool-auction,
+
+#U9-page-container-tool-pages
+#U9-page-container-tool-test1,
+
+#U9-page-container-tool-pages
+#U9-page-container-tool-test2 {
 
   height: 40px;
 
   padding:
-    0px 10px 0px 10px;
+    0 10px;
 
   border: none;
 
@@ -893,6 +1008,8 @@
 
   font-weight: 600;
 
+  line-height: 1;
+
   color: #ffffff;
 
 }
@@ -900,8 +1017,114 @@
 
 /* =========== PAGE ACTIVE =========== */
 
-#U9-page-container-tool-pages button.active {
+#U9-page-container-tool-pages
+button.active {
 
   color: #1b67ea;
+
+}
+
+
+/* =========== BUTTON INTERACTION =========== */
+
+#U9-page-container-tool-pages
+button:active {
+
+  transform:
+    scale(0.96);
+
+}
+
+
+/* =========== MOBILE =========== */
+
+@media (
+  max-width: 480px
+) {
+
+
+  /* =========== CONTAINER =========== */
+
+  #U9-page-container-tool {
+
+    padding:
+      0 8px;
+
+  }
+
+
+  /* =========== NORMAL PAGE =========== */
+
+  #U9-page-container-tool-normal {
+
+    left: 8px;
+
+    width: calc(100% - 16px);
+
+  }
+
+
+  /* =========== PAGE MENU =========== */
+
+  #U9-page-container-tool-pages {
+
+    left: 8px;
+
+    width: calc(100% - 16px);
+
+  }
+
+
+  /* =========== NEW BUTTON =========== */
+
+  #U9-page-container-tool-new {
+
+    width: 36px;
+
+    min-width: 36px;
+
+    flex: 0 0 36px;
+
+  }
+
+
+  /* =========== ARROW BUTTONS =========== */
+
+  #U9-page-container-tool-pages-prev,
+
+  #U9-page-container-tool-pages-next {
+
+    width: 34px;
+
+    min-width: 34px;
+
+    flex: 0 0 34px;
+
+  }
+
+
+  /* =========== PAGE BUTTONS =========== */
+
+  #U9-page-container-tool-pages
+  #U9-page-container-tool-home,
+
+  #U9-page-container-tool-pages
+  #U9-page-container-tool-shop-page,
+
+  #U9-page-container-tool-pages
+  #U9-page-container-tool-auction,
+
+  #U9-page-container-tool-pages
+  #U9-page-container-tool-test1,
+
+  #U9-page-container-tool-pages
+  #U9-page-container-tool-test2 {
+
+    padding:
+      0 8px;
+
+    font-size: 14px;
+
+  }
 
 }
