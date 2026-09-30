@@ -25,12 +25,6 @@ const usernameText =
   );
 
 
-const u9Header =
-  document.getElementById(
-    "U9-page-header"
-  );
-
-
 /* =========================
    ACCOUNT SETTING
 ========================= */
@@ -61,28 +55,6 @@ const u9HeaderLoginButton =
   document.getElementById(
     "U9-page-header-login"
   );
-
-
-/* =========================
-   CHECK ELEMENTS
-========================= */
-
-if (
-  !headerActions ||
-  !userButton ||
-  !usernameText ||
-  !u9Header ||
-  !accountSetting ||
-  !accountSettingBack ||
-  !u9HeaderRegisterButton ||
-  !u9HeaderLoginButton
-) {
-
-  console.error(
-    "U9 Header: required elements are missing."
-  );
-
-}
 
 
 /* =========================
@@ -336,107 +308,6 @@ async function getCurrentUser() {
 
 
 /* =========================
-   ACCOUNT SETTING STATE
-========================= */
-
-function isAccountSettingOpen() {
-
-  return accountSetting.classList.contains(
-    "active"
-  );
-
-}
-
-
-/* =========================
-   CHECK TARGET
-   INSIDE ACCOUNT SETTING
-========================= */
-
-function isInsideAccountSetting(
-  target
-) {
-
-  if (
-    !(target instanceof Node)
-  ) {
-
-    return false;
-
-  }
-
-
-  return accountSetting.contains(
-    target
-  );
-
-}
-
-
-/* =========================
-   CHECK TARGET
-   USER BUTTON
-========================= */
-
-function isUserButtonTarget(
-  target
-) {
-
-  if (
-    !(target instanceof Element)
-  ) {
-
-    return false;
-
-  }
-
-
-  return Boolean(
-    target.closest(
-      "#U9-page-header-user"
-    )
-  );
-
-}
-
-
-/* =========================
-   LOCK BACKGROUND
-========================= */
-
-function lockBackground() {
-
-  document.documentElement.classList.add(
-    "u9-account-setting-open"
-  );
-
-
-  document.body.classList.add(
-    "u9-account-setting-open"
-  );
-
-}
-
-
-/* =========================
-   UNLOCK BACKGROUND
-========================= */
-
-function unlockBackground() {
-
-  document.documentElement.classList.remove(
-    "u9-account-setting-open"
-  );
-
-
-  document.body.classList.remove(
-    "u9-account-setting-open"
-  );
-
-}
-
-
-/* =========================
    OPEN ACCOUNT SETTING
 ========================= */
 
@@ -450,9 +321,6 @@ function openAccountSetting() {
   userButton.classList.add(
     "account-open"
   );
-
-
-  lockBackground();
 
 }
 
@@ -472,212 +340,7 @@ function closeAccountSetting() {
     "account-open"
   );
 
-
-  unlockBackground();
-
 }
-
-
-/* =========================
-   BLOCK BACKGROUND SCROLL
-========================= */
-
-document.addEventListener(
-  "wheel",
-  (event) => {
-
-    if (
-      !isAccountSettingOpen()
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isInsideAccountSetting(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isUserButtonTarget(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    event.preventDefault();
-
-    event.stopPropagation();
-
-  },
-  {
-    capture: true,
-    passive: false
-  }
-);
-
-
-/* =========================
-   BLOCK BACKGROUND TOUCH SCROLL
-========================= */
-
-document.addEventListener(
-  "touchmove",
-  (event) => {
-
-    if (
-      !isAccountSettingOpen()
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isInsideAccountSetting(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isUserButtonTarget(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    event.preventDefault();
-
-    event.stopPropagation();
-
-  },
-  {
-    capture: true,
-    passive: false
-  }
-);
-
-
-/* =========================
-   BLOCK BACKGROUND POINTER
-========================= */
-
-document.addEventListener(
-  "pointerdown",
-  (event) => {
-
-    if (
-      !isAccountSettingOpen()
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isInsideAccountSetting(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isUserButtonTarget(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    event.preventDefault();
-
-    event.stopPropagation();
-
-  },
-  {
-    capture: true
-  }
-);
-
-
-/* =========================
-   BLOCK BACKGROUND CLICK
-========================= */
-
-document.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      !isAccountSettingOpen()
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isInsideAccountSetting(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      isUserButtonTarget(
-        event.target
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    event.preventDefault();
-
-    event.stopPropagation();
-
-  },
-  {
-    capture: true
-  }
-);
 
 
 /* =========================
@@ -688,13 +351,13 @@ userButton.addEventListener(
   "click",
   (event) => {
 
-    event.preventDefault();
-
     event.stopPropagation();
 
 
     if (
-      isAccountSettingOpen()
+      accountSetting.classList.contains(
+        "active"
+      )
     ) {
 
       closeAccountSetting();
@@ -718,10 +381,7 @@ accountSettingBack.addEventListener(
   "click",
   (event) => {
 
-    event.preventDefault();
-
     event.stopPropagation();
-
 
     closeAccountSetting();
 
@@ -748,6 +408,44 @@ accountSetting.addEventListener(
 
   }
 );
+
+
+/* =========================
+   HEADER CLICK
+   CLOSE ACCOUNT SETTING
+========================= */
+
+document
+  .getElementById(
+    "U9-page-header"
+  )
+  .addEventListener(
+    "click",
+    (event) => {
+
+      if (
+        event.target.closest(
+          "#U9-page-header-user"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        accountSetting.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeAccountSetting();
+
+      }
+
+    }
+  );
 
 
 /* =========================
