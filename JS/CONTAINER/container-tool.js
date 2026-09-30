@@ -187,70 +187,47 @@ const pageItems = [
 
   {
     page: homePage,
-    button: homeButton,
-    name: "Home"
+    button: homeButton
   },
 
   {
     page: shopPage,
-    button: shopButton,
-    name: "Shop"
+    button: shopButton
   },
 
   {
     page: auctionPage,
-    button: auctionButton,
-    name: "Auction"
+    button: auctionButton
   },
 
   {
     page: test1Page,
-    button: test1Button,
-    name: "Test1"
+    button: test1Button
   },
 
   {
     page: test2Page,
-    button: test2Button,
-    name: "Test2"
+    button: test2Button
   }
 
 ];
 
 
 /* =========================
-   PAGE BUTTON LIST
+   PAGE SETTINGS
 ========================= */
 
-const pageButtons = [
+const pageWindowSize = 3;
 
-  homeButton,
+let pageWindowStart = 0;
 
-  shopButton,
+let pageWindowAnimating = false;
 
-  auctionButton,
-
-  test1Button,
-
-  test2Button
-
-];
+const pageWindowAnimationDuration = 450;
 
 
 /* =========================
-   PAGE WINDOW
-========================= */
-
-let pageWindowStart =
-  0;
-
-
-const pageWindowSize =
-  3;
-
-
-/* =========================
-   PAGE MENU / TRACK
+   PAGE MENU
 ========================= */
 
 const pageMenu =
@@ -258,6 +235,10 @@ const pageMenu =
     "U9-page-container-tool-pages"
   );
 
+
+/* =========================
+   CREATE VIEWPORT
+========================= */
 
 const pageViewport =
   document.createElement(
@@ -268,6 +249,10 @@ const pageViewport =
 pageViewport.id =
   "U9-page-container-tool-page-viewport";
 
+
+/* =========================
+   CREATE TRACK
+========================= */
 
 const pageTrack =
   document.createElement(
@@ -284,23 +269,30 @@ pageTrack.id =
    INTO TRACK
 ========================= */
 
-pageButtons.forEach(
-  function (button) {
+pageItems.forEach(
+  function (item) {
 
-    pageTrack.appendChild(
-      button
-    );
+    if (
+      item.button
+    ) {
+
+      pageTrack.appendChild(
+        item.button
+      );
+
+    }
 
   }
 );
 
 
 /* =========================
-   INSERT VIEWPORT
+   BUILD PAGE MENU
 ========================= */
 
 if (
   pageMenu &&
+  pagePrevButton &&
   pageNextButton
 ) {
 
@@ -312,26 +304,9 @@ if (
 }
 
 
-/* =========================
-   INSERT TRACK
-   INTO VIEWPORT
-========================= */
-
 pageViewport.appendChild(
   pageTrack
 );
-
-
-/* =========================
-   PAGE WINDOW ANIMATION
-========================= */
-
-const pageWindowAnimationDuration =
-  450;
-
-
-let pageWindowAnimating =
-  false;
 
 
 /* =========================
@@ -342,8 +317,7 @@ function getPageOffset(
   startIndex
 ) {
 
-  let offset =
-    0;
+  let offset = 0;
 
 
   for (
@@ -353,7 +327,7 @@ function getPageOffset(
   ) {
 
     const button =
-      pageButtons[index];
+      pageItems[index]?.button;
 
 
     if (!button) {
@@ -367,14 +341,8 @@ function getPageOffset(
       button.offsetWidth;
 
 
-    if (
-      index <
-      startIndex
-    ) {
-
-      offset += 6;
-
-    }
+    offset +=
+      6;
 
   }
 
@@ -385,12 +353,21 @@ function getPageOffset(
 
 
 /* =========================
-   SET PAGE TRACK POSITION
+   SET TRACK POSITION
 ========================= */
 
 function setPageTrackPosition(
   animate = true
 ) {
+
+  if (
+    !pageTrack
+  ) {
+
+    return;
+
+  }
+
 
   const offset =
     getPageOffset(
@@ -398,56 +375,30 @@ function setPageTrackPosition(
     );
 
 
-  if (!animate) {
-
-    pageTrack.style.transition =
-      "none";
-
-  }
-
-  else {
-
-    pageTrack.style.transition =
-      "transform 0.45s ease";
-
-  }
+  pageTrack.style.transition =
+    animate
+      ? "transform 0.45s ease"
+      : "none";
 
 
   pageTrack.style.transform =
-    `translateX(-${offset}px)`;
+    `translate3d(-${offset}px, 0, 0)`;
 
 
-  if (!animate) {
+  if (
+    !animate
+  ) {
 
     requestAnimationFrame(
       function () {
 
-        requestAnimationFrame(
-          function () {
-
-            pageTrack.style.transition =
-              "transform 0.45s ease";
-
-          }
-        );
+        pageTrack.style.transition =
+          "transform 0.45s ease";
 
       }
     );
 
   }
-
-}
-
-
-/* =========================
-   RENDER PAGE WINDOW
-========================= */
-
-function renderPageWindow() {
-
-  setPageTrackPosition(
-    true
-  );
 
 }
 
@@ -461,16 +412,18 @@ function updatePageWindow(
 ) {
 
   const maxStart =
-    pageItems.length -
-    pageWindowSize;
+    Math.max(
+      0,
+      pageItems.length -
+      pageWindowSize
+    );
 
 
   if (
     newStart < 0
   ) {
 
-    newStart =
-      0;
+    newStart = 0;
 
   }
 
@@ -479,8 +432,7 @@ function updatePageWindow(
     newStart > maxStart
   ) {
 
-    newStart =
-      maxStart;
+    newStart = maxStart;
 
   }
 
@@ -497,6 +449,35 @@ function updatePageWindow(
 
 
 /* =========================
+   INITIAL PAGE WINDOW
+========================= */
+
+function renderPageWindow() {
+
+  pageItems.forEach(
+    function (item) {
+
+      if (
+        item.button
+      ) {
+
+        item.button.style.display =
+          "flex";
+
+      }
+
+    }
+  );
+
+
+  setPageTrackPosition(
+    false
+  );
+
+}
+
+
+/* =========================
    SHOW PAGE
 ========================= */
 
@@ -507,13 +488,25 @@ function showPage(
   pageItems.forEach(
     function (item) {
 
-      item.page.style.display =
-        "none";
+      if (
+        item.page
+      ) {
+
+        item.page.style.display =
+          "none";
+
+      }
 
 
-      item.button.classList.remove(
-        "active"
-      );
+      if (
+        item.button
+      ) {
+
+        item.button.classList.remove(
+          "active"
+        );
+
+      }
 
     }
   );
@@ -530,7 +523,9 @@ function showPage(
     );
 
 
-  if (!activeItem) {
+  if (
+    !activeItem
+  ) {
 
     console.error(
       "Page not found:",
@@ -563,7 +558,7 @@ showPage(
 
 
 /* =========================
-   INITIAL PAGE WINDOW
+   INITIAL RENDER
 ========================= */
 
 requestAnimationFrame(
@@ -622,8 +617,11 @@ pageNextButton.addEventListener(
 
 
     const maxStart =
-      pageItems.length -
-      pageWindowSize;
+      Math.max(
+        0,
+        pageItems.length -
+        pageWindowSize
+      );
 
 
     if (
@@ -640,11 +638,8 @@ pageNextButton.addEventListener(
       true;
 
 
-    pageWindowStart++;
-
-
-    setPageTrackPosition(
-      true
+    updatePageWindow(
+      pageWindowStart + 1
     );
 
 
@@ -693,11 +688,8 @@ pagePrevButton.addEventListener(
       true;
 
 
-    pageWindowStart--;
-
-
-    setPageTrackPosition(
-      true
+    updatePageWindow(
+      pageWindowStart - 1
     );
 
 
@@ -716,7 +708,7 @@ pagePrevButton.addEventListener(
 
 
 /* =========================
-   PAGE BUTTON EVENTS
+   HOME
 ========================= */
 
 homeButton.addEventListener(
@@ -731,6 +723,10 @@ homeButton.addEventListener(
 );
 
 
+/* =========================
+   SHOP
+========================= */
+
 shopButton.addEventListener(
   "click",
   function () {
@@ -742,6 +738,10 @@ shopButton.addEventListener(
   }
 );
 
+
+/* =========================
+   AUCTION
+========================= */
 
 auctionButton.addEventListener(
   "click",
@@ -755,6 +755,10 @@ auctionButton.addEventListener(
 );
 
 
+/* =========================
+   TEST 1
+========================= */
+
 test1Button.addEventListener(
   "click",
   function () {
@@ -766,6 +770,10 @@ test1Button.addEventListener(
   }
 );
 
+
+/* =========================
+   TEST 2
+========================= */
 
 test2Button.addEventListener(
   "click",
