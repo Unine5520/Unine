@@ -481,3 +481,42 @@
   }
 
 }
+
+#Account-U9-account-frame-edit {
+
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+
+width:42px;
+
+height:42px;
+
+
+padding:0;
+
+border:none;
+
+background:none;
+
+
+cursor:pointer;
+
+}
+
+
+#Account-U9-account-frame-edit img {
+
+
+width:22px;
+
+height:22px;
+
+
+display:block;
+
+}
