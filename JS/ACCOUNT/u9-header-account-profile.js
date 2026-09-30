@@ -4,7 +4,7 @@
 
 
 /* =========================
-   MAIN
+   MAIN ELEMENTS
 ========================= */
 
 const u9AccountSetting =
@@ -41,7 +41,7 @@ const u9AccountSettingPageHeader =
   );
 
 
-const u9AccountAddFriendPageHeaderText =
+const u9AddFriendPageHeaderText =
   document.getElementById(
     "Account-U9-account-add-friend-page-header-text"
   );
@@ -98,7 +98,7 @@ const u9AccountEditProfile =
 
 
 /* =========================
-   ACCOUNT EDIT BUTTONS
+   ACCOUNT EDIT BUTTON
 ========================= */
 
 const u9AccountFrameEdit =
@@ -142,7 +142,7 @@ const u9AccountFrameEditPage =
 
 
 /* =========================
-   ACCOUNT INFO
+   ACCOUNT PROFILE ELEMENTS
 ========================= */
 
 const u9AccountAvatarImage =
@@ -178,7 +178,7 @@ let u9AccountCurrentPage =
 
 
 /* =========================
-   FRAME PLACEHOLDER
+   DEFAULT FRAME
 ========================= */
 
 const u9AccountFramePlaceholder =
@@ -206,35 +206,74 @@ const u9AccountPaidFrameUrl =
 
 
 /* =========================
+   REQUIRED ELEMENT CHECK
+========================= */
+
+function u9AccountElementsReady() {
+
+  return Boolean(
+    u9AccountSettingPages &&
+    u9AddFriendPageHeader &&
+    u9AccountHeader &&
+    u9AccountSettingPageHeader &&
+    u9AddFriendPageHeaderText &&
+    u9AccountHeaderText &&
+    u9AccountSettingPageHeaderText
+  );
+
+}
+
+
+/* =========================
    HIDE ALL HEADERS
 ========================= */
 
 function u9AccountHideAllHeaders() {
 
-  u9AddFriendPageHeader.classList.remove(
-    "active"
+  [
+    u9AddFriendPageHeader,
+    u9AccountHeader,
+    u9AccountSettingPageHeader
+  ].forEach(
+    (header) => {
+
+      if (!header) {
+        return;
+      }
+
+      header.classList.remove(
+        "active"
+      );
+
+      header.classList.add(
+        "hidden"
+      );
+
+    }
   );
 
-  u9AddFriendPageHeader.classList.add(
+}
+
+
+/* =========================
+   SHOW HEADER
+========================= */
+
+function u9AccountShowHeader(
+  header
+) {
+
+  if (!header) {
+    return;
+  }
+
+
+  header.classList.remove(
     "hidden"
   );
 
-
-  u9AccountHeader.classList.remove(
+  header.classList.add(
     "active"
-  );
-
-  u9AccountHeader.classList.add(
-    "hidden"
-  );
-
-
-  u9AccountSettingPageHeader.classList.remove(
-    "active"
-  );
-
-  u9AccountSettingPageHeader.classList.add(
-    "hidden"
   );
 
 }
@@ -246,15 +285,10 @@ function u9AccountHideAllHeaders() {
 
 function u9AccountShowAccountPage() {
 
-  /*
-   * 5 pages
-   *
-   * Add Friend  = 0%
-   * Account     = -20%
-   * Setting     = -40%
-   * Account Edit= -60%
-   * Frame Edit  = -80%
-   */
+  if (!u9AccountSettingPages) {
+    return;
+  }
+
 
   u9AccountSettingPages.style.transform =
     "translateX(-20%)";
@@ -263,13 +297,17 @@ function u9AccountShowAccountPage() {
   u9AccountHideAllHeaders();
 
 
-  u9AccountHeader.classList.remove(
-    "hidden"
+  u9AccountShowHeader(
+    u9AccountHeader
   );
 
-  u9AccountHeader.classList.add(
-    "active"
-  );
+
+  if (u9AccountHeaderText) {
+
+    u9AccountHeaderText.textContent =
+      "Account";
+
+  }
 
 
   u9AccountCurrentPage =
@@ -284,6 +322,11 @@ function u9AccountShowAccountPage() {
 
 function u9AccountShowAddFriendPage() {
 
+  if (!u9AccountSettingPages) {
+    return;
+  }
+
+
   u9AccountSettingPages.style.transform =
     "translateX(0)";
 
@@ -291,13 +334,17 @@ function u9AccountShowAddFriendPage() {
   u9AccountHideAllHeaders();
 
 
-  u9AddFriendPageHeader.classList.remove(
-    "hidden"
+  u9AccountShowHeader(
+    u9AddFriendPageHeader
   );
 
-  u9AddFriendPageHeader.classList.add(
-    "active"
-  );
+
+  if (u9AddFriendPageHeaderText) {
+
+    u9AddFriendPageHeaderText.textContent =
+      "Add Friend";
+
+  }
 
 
   u9AccountCurrentPage =
@@ -312,6 +359,11 @@ function u9AccountShowAddFriendPage() {
 
 function u9AccountShowSettingPage() {
 
+  if (!u9AccountSettingPages) {
+    return;
+  }
+
+
   u9AccountSettingPages.style.transform =
     "translateX(-40%)";
 
@@ -319,17 +371,19 @@ function u9AccountShowSettingPage() {
   u9AccountHideAllHeaders();
 
 
-  u9AccountSettingPageHeader.classList.remove(
-    "hidden"
-  );
-
-  u9AccountSettingPageHeader.classList.add(
-    "active"
+  u9AccountShowHeader(
+    u9AccountSettingPageHeader
   );
 
 
-  u9AccountSettingPageHeaderText.textContent =
-    "Setting";
+  if (
+    u9AccountSettingPageHeaderText
+  ) {
+
+    u9AccountSettingPageHeaderText.textContent =
+      "Setting";
+
+  }
 
 
   u9AccountCurrentPage =
@@ -344,6 +398,11 @@ function u9AccountShowSettingPage() {
 
 function u9AccountShowEditPage() {
 
+  if (!u9AccountSettingPages) {
+    return;
+  }
+
+
   u9AccountSettingPages.style.transform =
     "translateX(-60%)";
 
@@ -351,17 +410,19 @@ function u9AccountShowEditPage() {
   u9AccountHideAllHeaders();
 
 
-  u9AccountSettingPageHeader.classList.remove(
-    "hidden"
-  );
-
-  u9AccountSettingPageHeader.classList.add(
-    "active"
+  u9AccountShowHeader(
+    u9AccountSettingPageHeader
   );
 
 
-  u9AccountSettingPageHeaderText.textContent =
-    "Account Edit";
+  if (
+    u9AccountSettingPageHeaderText
+  ) {
+
+    u9AccountSettingPageHeaderText.textContent =
+      "Account Edit";
+
+  }
 
 
   u9AccountCurrentPage =
@@ -376,6 +437,11 @@ function u9AccountShowEditPage() {
 
 function u9AccountShowFrameEditPage() {
 
+  if (!u9AccountSettingPages) {
+    return;
+  }
+
+
   u9AccountSettingPages.style.transform =
     "translateX(-80%)";
 
@@ -383,17 +449,19 @@ function u9AccountShowFrameEditPage() {
   u9AccountHideAllHeaders();
 
 
-  u9AccountSettingPageHeader.classList.remove(
-    "hidden"
-  );
-
-  u9AccountSettingPageHeader.classList.add(
-    "active"
+  u9AccountShowHeader(
+    u9AccountSettingPageHeader
   );
 
 
-  u9AccountSettingPageHeaderText.textContent =
-    "Frame Edit";
+  if (
+    u9AccountSettingPageHeaderText
+  ) {
+
+    u9AccountSettingPageHeaderText.textContent =
+      "Frame Edit";
+
+  }
 
 
   u9AccountCurrentPage =
@@ -403,27 +471,17 @@ function u9AccountShowFrameEditPage() {
 
 
 /* =========================
-   RESET ACCOUNT PAGE
-========================= */
-
-function u9AccountResetToAccountPage() {
-
-  u9AccountShowAccountPage();
-
-}
-
-
-/* =========================
-   FRAME DATA
+   LOAD CURRENT FRAME
 ========================= */
 
 async function u9AccountLoadCurrentFrame(
   user
 ) {
 
-  /*
-   * 先使用普通占位 Frame
-   */
+  if (!u9AccountAvatarFrame) {
+    return;
+  }
+
 
   u9AccountAvatarFrame.src =
     u9AccountFramePlaceholder;
@@ -480,7 +538,7 @@ async function u9AccountLoadCurrentFrame(
       u9AccountDefaultFrameUrl;
 
 
-    let headers = {};
+    const headers = {};
 
 
     /* =========================
@@ -534,32 +592,20 @@ async function u9AccountLoadCurrentFrame(
 
       if (sessionToken) {
 
-        headers = {
-
-          "Authorization":
-            `Bearer ${sessionToken}`
-
-        };
+        headers.Authorization =
+          `Bearer ${sessionToken}`;
 
       }
 
     }
 
 
-    /* =========================
-       REQUEST
-    ========================= */
-
     const response =
       await fetch(
         requestUrl,
         {
-
-          method:
-            "GET",
-
+          method: "GET",
           headers
-
         }
       );
 
@@ -568,10 +614,6 @@ async function u9AccountLoadCurrentFrame(
       return;
     }
 
-
-    /* =========================
-       JSON
-    ========================= */
 
     const result =
       await response.json();
@@ -583,10 +625,6 @@ async function u9AccountLoadCurrentFrame(
       [];
 
 
-    /* =========================
-       FIND CURRENT FRAME
-    ========================= */
-
     const currentFrame =
       frames.find(
         (frame) =>
@@ -594,19 +632,15 @@ async function u9AccountLoadCurrentFrame(
       );
 
 
-    if (!currentFrame) {
+    if (
+      !currentFrame ||
+      !currentFrame.svg
+    ) {
+
       return;
+
     }
 
-
-    if (!currentFrame.svg) {
-      return;
-    }
-
-
-    /* =========================
-       SET FRAME
-    ========================= */
 
     u9AccountAvatarFrame.src =
       currentFrame.svg;
@@ -631,6 +665,17 @@ async function u9AccountLoadCurrentFrame(
 
 async function u9AccountLoadProfile() {
 
+  if (
+    !u9AccountUsername ||
+    !u9AccountAccount ||
+    !u9AccountAvatarImage
+  ) {
+
+    return;
+
+  }
+
+
   const sessionToken =
     localStorage.getItem(
       "u9_session"
@@ -639,7 +684,7 @@ async function u9AccountLoadProfile() {
 
   /* =========================
      NO SESSION
-  ========================= */
+========================= */
 
   if (!sessionToken) {
 
@@ -651,8 +696,16 @@ async function u9AccountLoadProfile() {
       "";
 
 
-    u9AccountAvatarFrame.src =
-      u9AccountFramePlaceholder;
+    u9AccountAvatarImage.src =
+      "SSVG/avatar/profile.svg";
+
+
+    if (u9AccountAvatarFrame) {
+
+      u9AccountAvatarFrame.src =
+        u9AccountFramePlaceholder;
+
+    }
 
 
     return;
@@ -662,21 +715,16 @@ async function u9AccountLoadProfile() {
 
   try {
 
-    /* =========================
-       REQUEST ME
-    ========================= */
-
     const response =
       await fetch(
         u9AccountMeUrl,
         {
 
-          method:
-            "GET",
+          method: "GET",
 
           headers: {
 
-            "Authorization":
+            Authorization:
               `Bearer ${sessionToken}`
 
           }
@@ -684,10 +732,6 @@ async function u9AccountLoadProfile() {
         }
       );
 
-
-    /* =========================
-       REQUEST FAILED
-    ========================= */
 
     if (!response.ok) {
 
@@ -699,18 +743,18 @@ async function u9AccountLoadProfile() {
         "";
 
 
-      u9AccountAvatarFrame.src =
-        u9AccountFramePlaceholder;
+      if (u9AccountAvatarFrame) {
+
+        u9AccountAvatarFrame.src =
+          u9AccountFramePlaceholder;
+
+      }
 
 
       return;
 
     }
 
-
-    /* =========================
-       JSON
-    ========================= */
 
     const result =
       await response.json();
@@ -746,7 +790,7 @@ async function u9AccountLoadProfile() {
 
 
     /* =========================
-      AVATAR
+       AVATAR
     ========================= */
 
     const avatar =
@@ -790,147 +834,199 @@ async function u9AccountLoadProfile() {
    ADD FRIEND
 ========================= */
 
-u9AccountAddFriend.addEventListener(
-  "click",
-  (event) => {
+if (u9AccountAddFriend) {
 
-    event.stopPropagation();
+  u9AccountAddFriend.addEventListener(
+    "click",
+    (event) => {
 
-    u9AccountShowAddFriendPage();
+      event.stopPropagation();
 
-  }
-);
+      u9AccountShowAddFriendPage();
+
+    }
+  );
+
+}
 
 
 /* =========================
    ADD FRIEND BACK
 ========================= */
 
-u9AddFriendPageBack.addEventListener(
-  "click",
-  (event) => {
+if (u9AddFriendPageBack) {
 
-    event.stopPropagation();
+  u9AddFriendPageBack.addEventListener(
+    "click",
+    (event) => {
 
-    u9AccountShowAccountPage();
+      event.stopPropagation();
 
-  }
-);
+      u9AccountShowAccountPage();
+
+    }
+  );
+
+}
 
 
 /* =========================
    SETTING
 ========================= */
 
-u9AccountSettingButton.addEventListener(
-  "click",
-  (event) => {
+if (u9AccountSettingButton) {
 
-    event.stopPropagation();
+  u9AccountSettingButton.addEventListener(
+    "click",
+    (event) => {
 
-    u9AccountShowSettingPage();
+      event.stopPropagation();
 
-  }
-);
+      u9AccountShowSettingPage();
+
+    }
+  );
+
+}
 
 
 /* =========================
    ACCOUNT EDIT
 ========================= */
 
-u9AccountEditProfile.addEventListener(
-  "click",
-  (event) => {
+if (u9AccountEditProfile) {
 
-    event.stopPropagation();
+  u9AccountEditProfile.addEventListener(
+    "click",
+    (event) => {
 
-    u9AccountShowEditPage();
+      event.stopPropagation();
 
-  }
-);
+      u9AccountShowEditPage();
+
+    }
+  );
+
+}
 
 
 /* =========================
    FRAME EDIT
 ========================= */
 
-u9AccountFrameEdit.addEventListener(
-  "click",
-  (event) => {
+if (u9AccountFrameEdit) {
 
-    event.stopPropagation();
+  u9AccountFrameEdit.addEventListener(
+    "click",
+    (event) => {
 
-    u9AccountShowFrameEditPage();
+      event.stopPropagation();
 
-  }
-);
+      u9AccountShowFrameEditPage();
+
+    }
+  );
+
+}
 
 
 /* =========================
    SHARED HEADER BACK
 ========================= */
 
-u9AccountSettingPageBack.addEventListener(
-  "click",
-  (event) => {
+if (u9AccountSettingPageBack) {
 
-    event.stopPropagation();
+  u9AccountSettingPageBack.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
 
 
-    /* =========================
-       FRAME EDIT -> ACCOUNT EDIT
-    ========================= */
+      if (
+        u9AccountCurrentPage ===
+        "frame-edit"
+      ) {
 
-    if (
-      u9AccountCurrentPage ===
-      "frame-edit"
-    ) {
+        u9AccountShowEditPage();
 
-      u9AccountShowEditPage();
+        return;
 
-      return;
+      }
+
+
+      u9AccountShowAccountPage();
 
     }
+  );
 
-
-    /* =========================
-       SETTING / ACCOUNT EDIT
-       -> ACCOUNT
-    ========================= */
-
-    u9AccountShowAccountPage();
-
-  }
-);
+}
 
 
 /* =========================
-   ACCOUNT HEADER TEXT
+   INITIAL HEADER TEXT
 ========================= */
 
-u9AccountHeaderText.textContent =
-  "Account";
+if (u9AccountHeaderText) {
+
+  u9AccountHeaderText.textContent =
+    "Account";
+
+}
 
 
-u9AccountAddFriendPageHeaderText.textContent =
-  "Add Friend";
+if (u9AddFriendPageHeaderText) {
+
+  u9AddFriendPageHeaderText.textContent =
+    "Add Friend";
+
+}
 
 
 /* =========================
-   ACCOUNT SETTING OBSERVER
+   ACCOUNT SETTING OPEN
 ========================= */
 
 if (u9AccountSetting) {
 
   const u9AccountSettingObserver =
     new MutationObserver(
-      () => {
+      (mutations) => {
 
-        if (
-          u9AccountSetting.classList.contains(
-            "active"
-          )
+        for (
+          const mutation of mutations
         ) {
+
+          if (
+            mutation.type !==
+            "attributes"
+          ) {
+
+            continue;
+
+          }
+
+
+          if (
+            mutation.attributeName !==
+            "class"
+          ) {
+
+            continue;
+
+          }
+
+
+          const isOpen =
+            u9AccountSetting.classList.contains(
+              "active"
+            );
+
+
+          if (!isOpen) {
+            continue;
+          }
+
 
           u9AccountShowAccountPage();
 
@@ -956,14 +1052,14 @@ if (u9AccountSetting) {
 
 
 /* =========================
-   INITIAL PROFILE LOAD
+   INITIAL LOAD
 ========================= */
 
 u9AccountLoadProfile();
 
 
 /* =========================
-   GLOBAL PROFILE API
+   GLOBAL API
 ========================= */
 
 window.U9AccountProfile = {
