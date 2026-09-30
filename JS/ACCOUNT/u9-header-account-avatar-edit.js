@@ -1,4 +1,3 @@
-
 /* =========================
    U9 ACCOUNT AVATAR EDIT
 ========================= */
@@ -11,6 +10,12 @@
 const u9AvatarEditContainer =
   document.getElementById(
     "Account-U9-account-avatar-edit"
+  );
+
+
+const u9AccountFrameEditButton =
+  document.getElementById(
+    "Account-U9-account-frame-edit"
   );
 
 
@@ -57,20 +62,26 @@ const u9AvatarUploadFunction =
 let u9AvatarSelectedImage =
   null;
 
+
 let u9AvatarObjectUrl =
   null;
+
 
 let u9AvatarImageLoaded =
   false;
 
+
 let u9AvatarOffsetX =
   0;
+
 
 let u9AvatarOffsetY =
   0;
 
+
 let u9AvatarBaseScale =
   1;
+
 
 let u9AvatarZoom =
   1;
@@ -83,8 +94,10 @@ let u9AvatarZoom =
 let u9AvatarCurrentType =
   "default";
 
+
 let u9AvatarCurrentId =
   null;
+
 
 let u9AvatarCustomUrl =
   null;
@@ -96,6 +109,7 @@ let u9AvatarCustomUrl =
 
 let u9AvatarCooldownUntil =
   null;
+
 
 let u9AvatarCooldownTimer =
   null;
@@ -113,47 +127,88 @@ let u9AvatarFreeAvatars =
    ELEMENTS
 ========================= */
 
-let u9AvatarPreview = null;
+let u9AvatarPreview =
+  null;
 
-let u9AvatarImage = null;
 
-let u9AvatarCropGuide = null;
+let u9AvatarImage =
+  null;
 
-let u9AvatarFileInput = null;
 
-let u9AvatarChooseButton = null;
+let u9AvatarCropGuide =
+  null;
 
-let u9AvatarCancelButton = null;
 
-let u9AvatarZoomWrapper = null;
+let u9AvatarFileInput =
+  null;
 
-let u9AvatarZoomLabel = null;
 
-let u9AvatarZoomInput = null;
+let u9AvatarChooseButton =
+  null;
 
-let u9AvatarZoomValue = null;
 
-let u9AvatarSaveButton = null;
+let u9AvatarCancelButton =
+  null;
 
-let u9AvatarStatus = null;
 
-let u9AvatarFreeSection = null;
+let u9AvatarZoomWrapper =
+  null;
 
-let u9AvatarFreeList = null;
 
-let u9AvatarPreviewArea = null;
+let u9AvatarZoomLabel =
+  null;
 
-let u9AvatarPreviewMiddle = null;
 
-let u9AvatarActionRow = null;
+let u9AvatarZoomInput =
+  null;
 
-let u9AvatarMoveUpButton = null;
 
-let u9AvatarMoveDownButton = null;
+let u9AvatarZoomValue =
+  null;
 
-let u9AvatarMoveLeftButton = null;
 
-let u9AvatarMoveRightButton = null;
+let u9AvatarSaveButton =
+  null;
+
+
+let u9AvatarStatus =
+  null;
+
+
+let u9AvatarFreeSection =
+  null;
+
+
+let u9AvatarFreeList =
+  null;
+
+
+let u9AvatarPreviewArea =
+  null;
+
+
+let u9AvatarPreviewMiddle =
+  null;
+
+
+let u9AvatarActionRow =
+  null;
+
+
+let u9AvatarMoveUpButton =
+  null;
+
+
+let u9AvatarMoveDownButton =
+  null;
+
+
+let u9AvatarMoveLeftButton =
+  null;
+
+
+let u9AvatarMoveRightButton =
+  null;
 
 
 /* =========================
@@ -311,7 +366,7 @@ function updateAvatarMoveButtons() {
 
 
   buttons.forEach(
-    function (button) {
+    (button) => {
 
       if (
         button
@@ -339,7 +394,7 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     PREVIEW
+     PREVIEW AREA
   ========================= */
 
   if (
@@ -371,7 +426,7 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     DIRECTION BUTTONS
+     MOVE BUTTONS
   ========================= */
 
   const directionButtons = [
@@ -388,7 +443,7 @@ function updateAvatarUploadVisibility() {
 
 
   directionButtons.forEach(
-    function (button) {
+    (button) => {
 
       if (
         button
@@ -422,6 +477,22 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
+     ACTION ROW
+  ========================= */
+
+  if (
+    u9AvatarActionRow
+  ) {
+
+    u9AvatarActionRow.style.display =
+      cooldownActive
+        ? "none"
+        : "";
+
+  }
+
+
+  /* =========================
      CHOOSE
   ========================= */
 
@@ -432,7 +503,11 @@ function updateAvatarUploadVisibility() {
     u9AvatarChooseButton.style.display =
       cooldownActive
         ? "none"
-        : "";
+        : (
+            u9AvatarSelectedImage
+              ? "none"
+              : ""
+          );
 
   }
 
@@ -458,22 +533,6 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     ACTION ROW
-  ========================= */
-
-  if (
-    u9AvatarActionRow
-  ) {
-
-    u9AvatarActionRow.style.display =
-      cooldownActive
-        ? "none"
-        : "";
-
-  }
-
-
-  /* =========================
      SAVE
   ========================= */
 
@@ -487,21 +546,9 @@ function updateAvatarUploadVisibility() {
         : "";
 
 
-    if (
-      cooldownActive
-    ) {
-
-      u9AvatarSaveButton.disabled =
-        true;
-
-    }
-
-    else {
-
-      u9AvatarSaveButton.disabled =
-        !u9AvatarSelectedImage;
-
-    }
+    u9AvatarSaveButton.disabled =
+      cooldownActive ||
+      !u9AvatarSelectedImage;
 
   }
 
@@ -523,30 +570,26 @@ function updateAvatarUploadVisibility() {
 
     }
 
-    else {
+    else if (
+      u9AvatarStatus.dataset.cooldown ===
+      "true"
+    ) {
 
-      if (
-        u9AvatarStatus.dataset.cooldown ===
-        "true"
-      ) {
-
-        u9AvatarStatus.style.display =
-          "none";
+      u9AvatarStatus.style.display =
+        "none";
 
 
-        u9AvatarStatus.textContent =
-          "";
+      u9AvatarStatus.textContent =
+        "";
 
 
-        u9AvatarStatus.classList.remove(
-          "error"
-        );
+      u9AvatarStatus.classList.remove(
+        "error"
+      );
 
 
-        u9AvatarStatus.dataset.cooldown =
-          "false";
-
-      }
+      u9AvatarStatus.dataset.cooldown =
+        "false";
 
     }
 
@@ -723,7 +766,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     CLEAR
+     CLEAR CONTAINER
   ========================= */
 
   u9AvatarEditContainer.innerHTML =
@@ -739,6 +782,7 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   wrapper.id =
     "Account-U9-avatar-editor";
 
@@ -752,8 +796,10 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   title.id =
     "Account-U9-avatar-editor-title";
+
 
   title.textContent =
     "Avatar";
@@ -768,6 +814,7 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarPreviewArea.id =
     "Account-U9-avatar-editor-preview-area";
 
@@ -781,12 +828,13 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarPreview.id =
     "Account-U9-avatar-editor-preview";
 
 
   /* =========================
-     IMAGE
+     PREVIEW IMAGE
   ========================= */
 
   u9AvatarImage =
@@ -794,14 +842,18 @@ function createU9AvatarEditor() {
       "img"
     );
 
+
   u9AvatarImage.id =
     "Account-U9-avatar-editor-image";
+
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
 
+
   u9AvatarImage.alt =
     "Avatar Preview";
+
 
   u9AvatarImage.draggable =
     false;
@@ -816,12 +868,13 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarCropGuide.id =
     "Account-U9-avatar-editor-crop-guide";
 
 
   /* =========================
-     PREVIEW APPEND
+     APPEND PREVIEW
   ========================= */
 
   u9AvatarPreview.appendChild(
@@ -835,13 +888,14 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     PREVIEW MIDDLE
+     DIRECTION CONTROLS
   ========================= */
 
   u9AvatarPreviewMiddle =
     document.createElement(
       "div"
     );
+
 
   u9AvatarPreviewMiddle.id =
     "Account-U9-avatar-editor-preview-middle";
@@ -856,16 +910,20 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarMoveUpButton.id =
     "Account-U9-avatar-editor-move-up";
 
+
   u9AvatarMoveUpButton.type =
     "button";
+
 
   u9AvatarMoveUpButton.setAttribute(
     "aria-label",
     "Move avatar up"
   );
+
 
   u9AvatarMoveUpButton.textContent =
     "↑";
@@ -880,16 +938,20 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarMoveDownButton.id =
     "Account-U9-avatar-editor-move-down";
 
+
   u9AvatarMoveDownButton.type =
     "button";
+
 
   u9AvatarMoveDownButton.setAttribute(
     "aria-label",
     "Move avatar down"
   );
+
 
   u9AvatarMoveDownButton.textContent =
     "↓";
@@ -904,16 +966,20 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarMoveLeftButton.id =
     "Account-U9-avatar-editor-move-left";
 
+
   u9AvatarMoveLeftButton.type =
     "button";
+
 
   u9AvatarMoveLeftButton.setAttribute(
     "aria-label",
     "Move avatar left"
   );
+
 
   u9AvatarMoveLeftButton.textContent =
     "←";
@@ -928,23 +994,27 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarMoveRightButton.id =
     "Account-U9-avatar-editor-move-right";
 
+
   u9AvatarMoveRightButton.type =
     "button";
+
 
   u9AvatarMoveRightButton.setAttribute(
     "aria-label",
     "Move avatar right"
   );
 
+
   u9AvatarMoveRightButton.textContent =
     "→";
 
 
   /* =========================
-     APPEND MOVE BUTTONS
+     APPEND DIRECTION BUTTONS
   ========================= */
 
   u9AvatarPreviewMiddle.appendChild(
@@ -990,6 +1060,7 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarZoomWrapper.id =
     "Account-U9-avatar-editor-zoom";
 
@@ -1003,8 +1074,10 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarZoomLabel.id =
     "Account-U9-avatar-editor-zoom-label";
+
 
   u9AvatarZoomLabel.textContent =
     "Zoom";
@@ -1019,20 +1092,26 @@ function createU9AvatarEditor() {
       "input"
     );
 
+
   u9AvatarZoomInput.id =
     "Account-U9-avatar-editor-zoom-input";
+
 
   u9AvatarZoomInput.type =
     "range";
 
+
   u9AvatarZoomInput.min =
     "1";
+
 
   u9AvatarZoomInput.max =
     "3";
 
+
   u9AvatarZoomInput.step =
     "0.01";
+
 
   u9AvatarZoomInput.value =
     "1";
@@ -1047,15 +1126,17 @@ function createU9AvatarEditor() {
       "span"
     );
 
+
   u9AvatarZoomValue.id =
     "Account-U9-avatar-editor-zoom-value";
+
 
   u9AvatarZoomValue.textContent =
     "100%";
 
 
   /* =========================
-     ZOOM APPEND
+     APPEND ZOOM
   ========================= */
 
   u9AvatarZoomWrapper.appendChild(
@@ -1082,6 +1163,7 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarActionRow.id =
     "Account-U9-avatar-editor-action-row";
 
@@ -1094,6 +1176,7 @@ function createU9AvatarEditor() {
     document.createElement(
       "div"
     );
+
 
   chooseArea.id =
     "Account-U9-avatar-editor-choose-area";
@@ -1108,11 +1191,14 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarChooseButton.id =
     "Account-U9-avatar-editor-choose";
 
+
   u9AvatarChooseButton.type =
     "button";
+
 
   u9AvatarChooseButton.textContent =
     "Choose Image";
@@ -1127,11 +1213,14 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarCancelButton.id =
     "Account-U9-avatar-editor-cancel";
 
+
   u9AvatarCancelButton.type =
     "button";
+
 
   u9AvatarCancelButton.textContent =
     "Cancel";
@@ -1146,14 +1235,18 @@ function createU9AvatarEditor() {
       "input"
     );
 
+
   u9AvatarFileInput.id =
     "Account-U9-avatar-editor-file";
+
 
   u9AvatarFileInput.type =
     "file";
 
+
   u9AvatarFileInput.accept =
     "image/*";
+
 
   u9AvatarFileInput.hidden =
     true;
@@ -1179,7 +1272,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     SAVE
+     SAVE BUTTON
   ========================= */
 
   u9AvatarSaveButton =
@@ -1187,14 +1280,18 @@ function createU9AvatarEditor() {
       "button"
     );
 
+
   u9AvatarSaveButton.id =
     "Account-U9-avatar-editor-save";
+
 
   u9AvatarSaveButton.type =
     "button";
 
+
   u9AvatarSaveButton.textContent =
     "Save";
+
 
   u9AvatarSaveButton.disabled =
     true;
@@ -1223,11 +1320,14 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarStatus.id =
     "Account-U9-avatar-editor-status";
 
+
   u9AvatarStatus.dataset.cooldown =
     "false";
+
 
   u9AvatarStatus.style.display =
     "none";
@@ -1242,12 +1342,13 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarFreeSection.id =
     "Account-U9-avatar-editor-free-section";
 
 
   /* =========================
-     FREE TITLE
+     FREE AVATAR TITLE
   ========================= */
 
   const freeTitle =
@@ -1255,15 +1356,17 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   freeTitle.id =
     "Account-U9-avatar-editor-free-title";
+
 
   freeTitle.textContent =
     "Free Avatar";
 
 
   /* =========================
-     FREE LIST
+     FREE AVATAR LIST
   ========================= */
 
   u9AvatarFreeList =
@@ -1271,12 +1374,13 @@ function createU9AvatarEditor() {
       "div"
     );
 
+
   u9AvatarFreeList.id =
     "Account-U9-avatar-editor-free-list";
 
 
   /* =========================
-     FREE SECTION APPEND
+     APPEND FREE SECTION
   ========================= */
 
   u9AvatarFreeSection.appendChild(
@@ -1290,7 +1394,7 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     EDITOR APPEND
+     APPEND EDITOR
   ========================= */
 
   wrapper.appendChild(
@@ -1329,8 +1433,8 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     CHOOSE EVENT
-  ========================= */
+     CHOOSE
+========================= */
 
   u9AvatarChooseButton.addEventListener(
     "click",
@@ -1347,17 +1451,6 @@ function createU9AvatarEditor() {
       }
 
 
-      if (
-        u9AvatarSelectedImage
-      ) {
-
-        cancelAvatarSelection();
-
-        return;
-
-      }
-
-
       u9AvatarFileInput.click();
 
     }
@@ -1365,18 +1458,22 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     CANCEL EVENT
-  ========================= */
+     CANCEL
+========================= */
 
   u9AvatarCancelButton.addEventListener(
     "click",
-    cancelAvatarSelection
+    () => {
+
+      cancelAvatarSelection();
+
+    }
   );
 
 
   /* =========================
-     FILE EVENT
-  ========================= */
+     FILE CHANGE
+========================= */
 
   u9AvatarFileInput.addEventListener(
     "change",
@@ -1385,8 +1482,8 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     ZOOM EVENT
-  ========================= */
+     ZOOM
+========================= */
 
   u9AvatarZoomInput.addEventListener(
     "input",
@@ -1395,8 +1492,8 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     SAVE EVENT
-  ========================= */
+     SAVE
+========================= */
 
   u9AvatarSaveButton.addEventListener(
     "click",
@@ -1405,8 +1502,8 @@ function createU9AvatarEditor() {
 
 
   /* =========================
-     MOVE EVENTS
-  ========================= */
+     MOVE UP
+========================= */
 
   u9AvatarMoveUpButton.addEventListener(
     "click",
@@ -1421,6 +1518,10 @@ function createU9AvatarEditor() {
   );
 
 
+  /* =========================
+     MOVE DOWN
+========================= */
+
   u9AvatarMoveDownButton.addEventListener(
     "click",
     () => {
@@ -1434,6 +1535,10 @@ function createU9AvatarEditor() {
   );
 
 
+  /* =========================
+     MOVE LEFT
+========================= */
+
   u9AvatarMoveLeftButton.addEventListener(
     "click",
     () => {
@@ -1446,6 +1551,10 @@ function createU9AvatarEditor() {
     }
   );
 
+
+  /* =========================
+     MOVE RIGHT
+========================= */
 
   u9AvatarMoveRightButton.addEventListener(
     "click",
@@ -1462,7 +1571,7 @@ function createU9AvatarEditor() {
 
   /* =========================
      IMAGE LOAD
-  ========================= */
+========================= */
 
   u9AvatarImage.addEventListener(
     "load",
@@ -1481,26 +1590,18 @@ function createU9AvatarEditor() {
       updateAvatarImage();
 
 
-      if (
-        u9AvatarSaveButton &&
-        !isAvatarCooldownActive()
-      ) {
-
-        u9AvatarSaveButton.disabled =
-          !u9AvatarSelectedImage;
-
-      }
-
-
       updateAvatarMoveButtons();
+
+
+      updateAvatarUploadVisibility();
 
     }
   );
 
 
   /* =========================
-     INITIAL VISIBILITY
-  ========================= */
+     INITIAL STATE
+========================= */
 
   u9AvatarChooseButton.style.display =
     "";
@@ -1510,9 +1611,13 @@ function createU9AvatarEditor() {
     "none";
 
 
+  u9AvatarSaveButton.disabled =
+    true;
+
+
   /* =========================
      INITIAL IMAGE
-  ========================= */
+========================= */
 
   u9AvatarImage.src =
     u9AvatarDefaultImage;
@@ -1520,12 +1625,54 @@ function createU9AvatarEditor() {
 
   /* =========================
      LOAD DATA
-  ========================= */
+========================= */
 
   loadCurrentAvatar();
 
 
   loadFreeAvatars();
+
+}
+
+
+/* =========================
+   FRAME EDIT BUTTON
+   ACCOUNT EDIT PAGE
+========================= */
+
+if (
+  u9AccountFrameEditButton
+) {
+
+  u9AccountFrameEditButton.addEventListener(
+    "click",
+    (event) => {
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+
+      if (
+        window.U9AccountProfile &&
+        typeof
+          window.U9AccountProfile.showFrameEditPage ===
+          "function"
+      ) {
+
+        window.U9AccountProfile.showFrameEditPage();
+
+        return;
+
+      }
+
+
+      console.error(
+        "U9AccountProfile.showFrameEditPage is not available."
+      );
+
+    }
+  );
 
 }
 
@@ -1661,9 +1808,6 @@ function cancelAvatarSelection() {
     u9AvatarChooseButton
   ) {
 
-    u9AvatarChooseButton.textContent =
-      "Choose Image";
-
     u9AvatarChooseButton.style.display =
       "";
 
@@ -1723,11 +1867,14 @@ async function loadCurrentAvatar() {
   u9AvatarCurrentType =
     "default";
 
+
   u9AvatarCurrentId =
     null;
 
+
   u9AvatarCustomUrl =
     null;
+
 
   u9AvatarCooldownUntil =
     null;
@@ -1768,7 +1915,7 @@ async function loadCurrentAvatar() {
 
           headers: {
 
-            "Authorization":
+            Authorization:
               `Bearer ${sessionToken}`
 
           }
@@ -1804,11 +1951,14 @@ async function loadCurrentAvatar() {
       u9AvatarCurrentType =
         "default";
 
+
       u9AvatarCurrentId =
         null;
 
+
       u9AvatarCustomUrl =
         null;
+
 
       u9AvatarCooldownUntil =
         null;
@@ -1838,7 +1988,7 @@ async function loadCurrentAvatar() {
 
 
       /* =========================
-         CURRENT AVATAR IMAGE
+         ACCOUNT AVATAR
       ========================= */
 
       const accountAvatarImage =
@@ -1996,18 +2146,12 @@ async function loadFreeAvatars() {
     );
 
 
-    if (
-      u9AvatarFreeList
-    ) {
-
-      u9AvatarFreeList.innerHTML =
-        `
-        <div class="Account-U9-avatar-editor-free-error">
-          Failed to load free avatars.
-        </div>
-        `;
-
-    }
+    u9AvatarFreeList.innerHTML =
+      `
+      <div class="Account-U9-avatar-editor-free-error">
+        Failed to load free avatars.
+      </div>
+      `;
 
   }
 
@@ -2044,6 +2188,7 @@ function renderAvatarSources() {
     const customCard =
       createAvatarSourceCard(
         {
+
           id:
             "custom-avatar",
 
@@ -2068,7 +2213,7 @@ function renderAvatarSources() {
 
 
   /* =========================
-     FREE AVATARS
+     EMPTY STATE
   ========================= */
 
   if (
@@ -2089,12 +2234,17 @@ function renderAvatarSources() {
   }
 
 
+  /* =========================
+     FREE AVATARS
+  ========================= */
+
   u9AvatarFreeAvatars.forEach(
-    function (avatar) {
+    (avatar) => {
 
       const card =
         createAvatarSourceCard(
           {
+
             id:
               avatar.id,
 
@@ -2180,7 +2330,6 @@ function createAvatarSourceCard(
   image.src =
     source.type ===
       "custom"
-
       ? `${source.url}?v=${Date.now()}`
       : source.url;
 
@@ -2231,7 +2380,7 @@ function createAvatarSourceCard(
 
   card.addEventListener(
     "click",
-    function () {
+    () => {
 
       if (
         source.type ===
@@ -2242,16 +2391,15 @@ function createAvatarSourceCard(
           card
         );
 
-      }
-
-      else {
-
-        selectFreeAvatar(
-          source,
-          card
-        );
+        return;
 
       }
+
+
+      selectFreeAvatar(
+        source,
+        card
+      );
 
     }
   );
@@ -2284,7 +2432,7 @@ function updateAvatarSourceSelection() {
 
 
   cards.forEach(
-    function (card) {
+    (card) => {
 
       const type =
         card.dataset.avatarType;
@@ -2304,6 +2452,7 @@ function updateAvatarSourceSelection() {
           "custom";
 
       }
+
 
       else if (
         type ===
@@ -2358,7 +2507,7 @@ function setAvatarSourceCardsDisabled(
 
 
   cards.forEach(
-    function (card) {
+    (card) => {
 
       card.disabled =
         disabled;
@@ -2409,13 +2558,11 @@ async function selectFreeAvatar(
 
 
   if (
-
     u9AvatarCurrentType ===
       "free" &&
 
     u9AvatarCurrentId ===
       avatar.id
-
   ) {
 
     return;
@@ -2428,12 +2575,12 @@ async function selectFreeAvatar(
   );
 
 
+  card.classList.add(
+    "loading"
+  );
+
+
   try {
-
-    card.classList.add(
-      "loading"
-    );
-
 
     const response =
       await fetch(
@@ -2445,7 +2592,7 @@ async function selectFreeAvatar(
 
           headers: {
 
-            "Authorization":
+            Authorization:
               `Bearer ${sessionToken}`,
 
             "Content-Type":
@@ -2488,10 +2635,6 @@ async function selectFreeAvatar(
     }
 
 
-    /* =========================
-       UPDATE CURRENT STATE
-    ========================= */
-
     u9AvatarCurrentType =
       "free";
 
@@ -2499,10 +2642,6 @@ async function selectFreeAvatar(
     u9AvatarCurrentId =
       avatar.id;
 
-
-    /* =========================
-       PRESERVE CUSTOM DATA
-    ========================= */
 
     if (
       result.avatar &&
@@ -2554,16 +2693,8 @@ async function selectFreeAvatar(
     }
 
 
-    /* =========================
-       UPDATE SOURCE LIST
-    ========================= */
-
     renderAvatarSources();
 
-
-    /* =========================
-       STATUS
-    ========================= */
 
     if (
       isAvatarCooldownActive()
@@ -2689,12 +2820,12 @@ async function selectCustomAvatar(
   );
 
 
+  card.classList.add(
+    "loading"
+  );
+
+
   try {
-
-    card.classList.add(
-      "loading"
-    );
-
 
     const response =
       await fetch(
@@ -2706,7 +2837,7 @@ async function selectCustomAvatar(
 
           headers: {
 
-            "Authorization":
+            Authorization:
               `Bearer ${sessionToken}`,
 
             "Content-Type":
@@ -2745,10 +2876,6 @@ async function selectCustomAvatar(
 
     }
 
-
-    /* =========================
-       UPDATE CURRENT STATE
-    ========================= */
 
     u9AvatarCurrentType =
       "custom";
@@ -2809,16 +2936,8 @@ async function selectCustomAvatar(
     }
 
 
-    /* =========================
-       UPDATE SOURCE LIST
-    ========================= */
-
     renderAvatarSources();
 
-
-    /* =========================
-       STATUS
-    ========================= */
 
     if (
       isAvatarCooldownActive()
@@ -2976,7 +3095,7 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     RESET
+     RESET POSITION
   ========================= */
 
   u9AvatarOffsetX =
@@ -3042,7 +3161,7 @@ function handleAvatarFileChange(
 
 
 /* =========================
-   BASE SCALE
+   CALCULATE BASE SCALE
 ========================= */
 
 function calculateBaseScale() {
@@ -3087,7 +3206,7 @@ function calculateBaseScale() {
 
 
 /* =========================
-   ZOOM
+   HANDLE ZOOM
 ========================= */
 
 function handleAvatarZoom() {
@@ -3268,7 +3387,7 @@ function clampAvatarPosition() {
 
 
 /* =========================
-   SAVE CROP / UPLOAD
+   SAVE AVATAR
 ========================= */
 
 async function saveAvatarCrop() {
@@ -3391,9 +3510,7 @@ async function saveAvatarCrop() {
 
     const response =
       await fetch(
-
         u9AvatarUploadFunction,
-
         {
 
           method:
@@ -3401,7 +3518,7 @@ async function saveAvatarCrop() {
 
           headers: {
 
-            "Authorization":
+            Authorization:
               `Bearer ${sessionToken}`
 
           },
@@ -3410,7 +3527,6 @@ async function saveAvatarCrop() {
             formData
 
         }
-
       );
 
 
@@ -3468,30 +3584,19 @@ async function saveAvatarCrop() {
       }
 
 
-      setAvatarStatus(
+      throw new Error(
 
         result.error ||
         result.message ||
-        "Avatar upload failed.",
-
-        true
+        "Avatar upload failed."
 
       );
-
-
-      console.error(
-        "Avatar upload failed:",
-        result
-      );
-
-
-      return;
 
     }
 
 
     /* =========================
-       SUCCESS URL
+       AVATAR URL
     ========================= */
 
     const avatarUrl =
@@ -3511,7 +3616,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       SAVE CUSTOM DATA
+       UPDATE STATE
     ========================= */
 
     u9AvatarCustomUrl =
@@ -3552,14 +3657,14 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       UPDATE SOURCE LIST
+       UPDATE FREE SOURCES
     ========================= */
 
     renderAvatarSources();
 
 
     /* =========================
-       SAVE STATE
+       SAVE GLOBAL RESULT
     ========================= */
 
     if (
@@ -3580,7 +3685,7 @@ async function saveAvatarCrop() {
 
 
     /* =========================
-       RESET SELECTION
+       RESET OBJECT URL
     ========================= */
 
     if (
@@ -3596,6 +3701,10 @@ async function saveAvatarCrop() {
 
     }
 
+
+    /* =========================
+       RESET SELECTION
+    ========================= */
 
     u9AvatarSelectedImage =
       null;
@@ -3647,16 +3756,9 @@ async function saveAvatarCrop() {
     }
 
 
-    /* =========================
-       RESET BUTTONS
-    ========================= */
-
     if (
       u9AvatarChooseButton
     ) {
-
-      u9AvatarChooseButton.textContent =
-        "Choose Image";
 
       u9AvatarChooseButton.style.display =
         "";
@@ -3683,10 +3785,6 @@ async function saveAvatarCrop() {
 
     }
 
-
-    /* =========================
-       RESET PREVIEW
-    ========================= */
 
     if (
       u9AvatarImage
@@ -3738,10 +3836,13 @@ async function saveAvatarCrop() {
 
 
     setAvatarStatus(
+
       error instanceof Error
         ? error.message
         : "Network error. Please try again.",
+
       true
+
     );
 
   }
@@ -3942,7 +4043,7 @@ function createAvatarCropBlob() {
 
       canvas.toBlob(
 
-        function (blob) {
+        (blob) => {
 
           resolve(
             blob
