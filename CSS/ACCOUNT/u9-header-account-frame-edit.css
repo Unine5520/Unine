@@ -120,7 +120,8 @@
 
 .Account-U9-frame-card:active {
 
-  transform: scale(0.97);
+  transform:
+    scale(0.97);
 
 }
 
@@ -213,7 +214,8 @@
 
   opacity: 0;
 
-  transform: scale(0.7);
+  transform:
+    scale(0.7);
 
   transition:
     opacity 0.2s ease,
@@ -224,12 +226,13 @@
 
 /* =========== CHECK SELECTED =========== */
 
-.Account-U9-frame-card.selected
+.Account-U9-frame-card.selected 
 .Account-U9-frame-card-check {
 
   opacity: 1;
 
-  transform: scale(1);
+  transform:
+    scale(1);
 
 }
 
@@ -271,7 +274,8 @@
 
 #Account-U9-frame-editor-confirm:active {
 
-  transform: scale(0.98);
+  transform:
+    scale(0.98);
 
 }
 
@@ -292,6 +296,26 @@
 #Account-U9-frame-editor-confirm.loading {
 
   cursor: wait;
+
+}
+
+
+/* =========================
+   FRAME LIST SCROLLBAR
+========================= */
+
+#Account-U9-frame-editor-list::-webkit-scrollbar {
+
+  width: 4px;
+
+}
+
+
+#Account-U9-frame-editor-list::-webkit-scrollbar-thumb {
+
+  background-color: rgba(0,0,0,0.15);
+
+  border-radius: 10px;
 
 }
 
