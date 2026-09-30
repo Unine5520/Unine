@@ -1,3 +1,4 @@
+
 /* =========== CONTAINER TOOL =========== */
 
 #U9-page-container-tool {
@@ -53,7 +54,8 @@
 
   gap: 10px;
 
-  transform: translateX(0);
+  transform:
+    translateX(0);
 
   transition:
     transform 0.45s ease;
@@ -89,7 +91,8 @@
 
   overflow: hidden;
 
-  transform: translateX(-100%);
+  transform:
+    translateX(-100%);
 
   transition:
     transform 0.45s ease;
@@ -113,6 +116,8 @@
 
   flex:
     0 0 40px;
+
+  box-sizing: border-box;
 
 }
 
@@ -832,7 +837,7 @@
 }
 
 
-/* =========== PREVIOUS / NEXT =========== */
+/* =========== PREVIOUS / NEXT BUTTON =========== */
 
 #U9-page-container-tool-pages-prev,
 
@@ -869,10 +874,6 @@
 
   box-sizing: border-box;
 
-  position: relative;
-
-  z-index: 20;
-
 }
 
 
@@ -901,14 +902,12 @@
 
 #U9-page-container-tool-page-viewport {
 
-  width: 0;
-
-  min-width: 0;
-
   height: 40px;
 
   flex:
-    1 1 0;
+    0 0 auto;
+
+  min-width: 0;
 
   overflow: hidden;
 
@@ -936,7 +935,7 @@
   height: 40px;
 
   transform:
-    translateX(0);
+    translate3d(0, 0, 0);
 
   transition:
     transform 0.45s ease;
@@ -965,10 +964,10 @@
 
   height: 40px;
 
+  margin: 0;
+
   padding:
     0 10px;
-
-  margin: 0;
 
   border: none;
 
@@ -1027,7 +1026,7 @@
 }
 
 
-/* =========== BUTTON HOVER =========== */
+/* =========== PAGE HOVER =========== */
 
 #U9-page-container-tool-pages
 button:hover {
@@ -1037,7 +1036,7 @@ button:hover {
 }
 
 
-/* =========== BUTTON PRESS =========== */
+/* =========== PAGE PRESS =========== */
 
 #U9-page-container-tool-pages
 button:active {
@@ -1070,7 +1069,7 @@ button:active {
 }
 
 
-/* =========== TOOL BUTTON =========== */
+/* =========== TOOL BUTTONS =========== */
 
 #U9-page-container-tool-menu,
 
@@ -1118,10 +1117,12 @@ button:active {
   min-height:
     calc(100vh - 115px);
 
+  box-sizing: border-box;
+
 }
 
 
-/* =========== HIDE PAGES =========== */
+/* =========== HIDDEN PAGES =========== */
 
 #U9-page-shop,
 
@@ -1180,8 +1181,6 @@ button:active {
 
     min-width: 36px;
 
-    height: 40px;
-
     flex:
       0 0 36px;
 
@@ -1211,8 +1210,6 @@ button:active {
 
     min-width: 36px;
 
-    height: 40px;
-
     flex:
       0 0 36px;
 
@@ -1238,16 +1235,12 @@ button:active {
 
   #U9-page-container-tool-page-viewport {
 
-    width: 0;
-
-    min-width: 0;
-
-    flex:
-      1 1 0;
-
     height: 40px;
 
-    overflow: hidden;
+    flex:
+      0 0 auto;
+
+    min-width: 0;
 
   }
 
