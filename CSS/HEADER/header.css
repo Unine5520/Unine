@@ -215,3 +215,15 @@
   font-weight: 500;
 
 }
+
+/* =========================
+   LOCK HOME PAGE
+   WHEN ACCOUNT SETTING OPEN
+========================= */
+
+html.u9-account-setting-open,
+body.u9-account-setting-open {
+
+  overflow: hidden;
+
+}
