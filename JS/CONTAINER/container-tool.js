@@ -180,34 +180,80 @@ const historyButton =
 
 
 /* =========================
+   PAGE VIEWPORT / TRACK
+========================= */
+
+const pageViewport =
+  document.getElementById(
+    "U9-page-container-tool-page-viewport"
+  );
+
+
+const pageTrack =
+  document.getElementById(
+    "U9-page-container-tool-page-track"
+  );
+
+
+/* =========================
    PAGE MAP
 ========================= */
 
 const pageItems = [
 
   {
-    page: homePage,
-    button: homeButton
+    page:
+      homePage,
+
+    button:
+      homeButton,
+
+    name:
+      "Home"
   },
 
   {
-    page: shopPage,
-    button: shopButton
+    page:
+      shopPage,
+
+    button:
+      shopButton,
+
+    name:
+      "Shop"
   },
 
   {
-    page: auctionPage,
-    button: auctionButton
+    page:
+      auctionPage,
+
+    button:
+      auctionButton,
+
+    name:
+      "Auction"
   },
 
   {
-    page: test1Page,
-    button: test1Button
+    page:
+      test1Page,
+
+    button:
+      test1Button,
+
+    name:
+      "Test1"
   },
 
   {
-    page: test2Page,
-    button: test2Button
+    page:
+      test2Page,
+
+    button:
+      test2Button,
+
+    name:
+      "Test2"
   }
 
 ];
@@ -217,107 +263,201 @@ const pageItems = [
    PAGE SETTINGS
 ========================= */
 
-const pageWindowSize = 3;
-
-let pageWindowStart = 0;
-
-let pageWindowAnimating = false;
-
-const pageWindowAnimationDuration = 450;
+const pageWindowSize =
+  3;
 
 
-/* =========================
-   PAGE MENU
-========================= */
+let pageWindowStart =
+  0;
 
-const pageMenu =
-  document.getElementById(
-    "U9-page-container-tool-pages"
-  );
+
+let pageWindowAnimating =
+  false;
+
+
+const pageWindowAnimationDuration =
+  450;
 
 
 /* =========================
-   CREATE VIEWPORT
+   GET CURRENT GAP
 ========================= */
 
-const pageViewport =
-  document.createElement(
-    "div"
-  );
+function getPageGap() {
 
-
-pageViewport.id =
-  "U9-page-container-tool-page-viewport";
-
-
-/* =========================
-   CREATE TRACK
-========================= */
-
-const pageTrack =
-  document.createElement(
-    "div"
-  );
-
-
-pageTrack.id =
-  "U9-page-container-tool-page-track";
-
-
-/* =========================
-   MOVE PAGE BUTTONS
-   INTO TRACK
-========================= */
-
-pageItems.forEach(
-  function (item) {
-
-    if (
-      item.button
-    ) {
-
-      pageTrack.appendChild(
-        item.button
-      );
-
-    }
-
-  }
-);
-
-
-/* =========================
-   BUILD PAGE MENU
-========================= */
-
-if (
-  pageMenu &&
-  pagePrevButton &&
-  pageNextButton
-) {
-
-  pageMenu.insertBefore(
-    pageViewport,
-    pageNextButton
-  );
+  return window.matchMedia(
+    "(max-width: 480px)"
+  ).matches
+    ? 4
+    : 6;
 
 }
 
 
-pageViewport.appendChild(
-  pageTrack
-);
+/* =========================
+   GET BUTTON WIDTH
+========================= */
+
+function getButtonWidth(
+  button
+) {
+
+  if (
+    !button
+  ) {
+
+    return 0;
+
+  }
+
+
+  return button.offsetWidth;
+
+}
 
 
 /* =========================
-   GET PAGE OFFSET
+   GET WINDOW WIDTH
 ========================= */
 
-function getPageOffset(
+function getPageWindowWidth() {
+
+  const gap =
+    getPageGap();
+
+
+  let width =
+    0;
+
+
+  for (
+    let index = 0;
+    index < pageWindowSize;
+    index++
+  ) {
+
+    const pageIndex =
+      pageWindowStart +
+      index;
+
+
+    const button =
+      pageItems[pageIndex]?.button;
+
+
+    if (!button) {
+
+      continue;
+
+    }
+
+
+    width +=
+      getButtonWidth(
+        button
+      );
+
+  }
+
+
+  width +=
+    gap *
+    (
+      pageWindowSize -
+      1
+    );
+
+
+  return width;
+
+}
+
+
+/* =========================
+   UPDATE VIEWPORT WIDTH
+========================= */
+
+function updatePageViewport() {
+
+  if (
+    !pageViewport ||
+    !pageMenu
+  ) {
+
+    return;
+
+  }
+
+
+  const gap =
+    getPageGap();
+
+
+  const isMobile =
+    window.matchMedia(
+      "(max-width: 480px)"
+    ).matches;
+
+
+  const newButtonWidth =
+    isMobile
+      ? 36
+      : 40;
+
+
+  const arrowButtonWidth =
+    isMobile
+      ? 36
+      : 40;
+
+
+  const menuWidth =
+    pageMenu.clientWidth;
+
+
+  const availableWidth =
+    menuWidth -
+    newButtonWidth -
+    arrowButtonWidth -
+    (
+      gap * 3
+    );
+
+
+  const windowWidth =
+    getPageWindowWidth();
+
+
+  const finalWidth =
+    Math.min(
+      windowWidth,
+      Math.max(
+        0,
+        availableWidth
+      )
+    );
+
+
+  pageViewport.style.width =
+    `${finalWidth}px`;
+
+}
+
+
+/* =========================
+   GET TRACK OFFSET
+========================= */
+
+function getPageTrackOffset(
   startIndex
 ) {
 
-  let offset = 0;
+  const gap =
+    getPageGap();
+
+
+  let offset =
+    0;
 
 
   for (
@@ -338,11 +478,13 @@ function getPageOffset(
 
 
     offset +=
-      button.offsetWidth;
+      getButtonWidth(
+        button
+      );
 
 
     offset +=
-      6;
+      gap;
 
   }
 
@@ -370,7 +512,7 @@ function setPageTrackPosition(
 
 
   const offset =
-    getPageOffset(
+    getPageTrackOffset(
       pageWindowStart
     );
 
@@ -404,74 +546,18 @@ function setPageTrackPosition(
 
 
 /* =========================
-   UPDATE PAGE WINDOW
+   RENDER PAGE WINDOW
 ========================= */
 
-function updatePageWindow(
-  newStart
+function renderPageWindow(
+  animate = false
 ) {
 
-  const maxStart =
-    Math.max(
-      0,
-      pageItems.length -
-      pageWindowSize
-    );
-
-
-  if (
-    newStart < 0
-  ) {
-
-    newStart = 0;
-
-  }
-
-
-  if (
-    newStart > maxStart
-  ) {
-
-    newStart = maxStart;
-
-  }
-
-
-  pageWindowStart =
-    newStart;
+  updatePageViewport();
 
 
   setPageTrackPosition(
-    true
-  );
-
-}
-
-
-/* =========================
-   INITIAL PAGE WINDOW
-========================= */
-
-function renderPageWindow() {
-
-  pageItems.forEach(
-    function (item) {
-
-      if (
-        item.button
-      ) {
-
-        item.button.style.display =
-          "flex";
-
-      }
-
-    }
-  );
-
-
-  setPageTrackPosition(
-    false
+    animate
   );
 
 }
@@ -516,8 +602,10 @@ function showPage(
     pageItems.find(
       function (item) {
 
-        return item.page ===
-          page;
+        return (
+          item.page ===
+          page
+        );
 
       }
     );
@@ -558,13 +646,21 @@ showPage(
 
 
 /* =========================
-   INITIAL RENDER
+   INITIAL PAGE WINDOW
 ========================= */
 
 requestAnimationFrame(
   function () {
 
-    renderPageWindow();
+    requestAnimationFrame(
+      function () {
+
+        renderPageWindow(
+          false
+        );
+
+      }
+    );
 
   }
 );
@@ -617,11 +713,8 @@ pageNextButton.addEventListener(
 
 
     const maxStart =
-      Math.max(
-        0,
-        pageItems.length -
-        pageWindowSize
-      );
+      pageItems.length -
+      pageWindowSize;
 
 
     if (
@@ -638,8 +731,11 @@ pageNextButton.addEventListener(
       true;
 
 
-    updatePageWindow(
-      pageWindowStart + 1
+    pageWindowStart++;
+
+
+    renderPageWindow(
+      true
     );
 
 
@@ -688,8 +784,11 @@ pagePrevButton.addEventListener(
       true;
 
 
-    updatePageWindow(
-      pageWindowStart - 1
+    pageWindowStart--;
+
+
+    renderPageWindow(
+      true
     );
 
 
@@ -944,6 +1043,22 @@ historyModalClose.addEventListener(
 
 
 /* =========================
+   WINDOW LOAD
+========================= */
+
+window.addEventListener(
+  "load",
+  function () {
+
+    renderPageWindow(
+      false
+    );
+
+  }
+);
+
+
+/* =========================
    WINDOW RESIZE
 ========================= */
 
@@ -951,7 +1066,7 @@ window.addEventListener(
   "resize",
   function () {
 
-    setPageTrackPosition(
+    renderPageWindow(
       false
     );
 
