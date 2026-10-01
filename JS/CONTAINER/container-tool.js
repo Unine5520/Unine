@@ -319,13 +319,17 @@ const headerLoginButton =
 
 async function checkNormalModalLogin() {
 
-  const session =
+  const sessionToken =
     localStorage.getItem(
       "u9_session"
     );
 
 
-  if (!session) {
+  /* =========================
+     NO SESSION
+  ========================= */
+
+  if (!sessionToken) {
 
     return false;
 
@@ -334,19 +338,32 @@ async function checkNormalModalLogin() {
 
   try {
 
+    /* =========================
+       REQUEST
+    ========================= */
+
     const response =
       await fetch(
-        "/functions/v1/me",
+        "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/me",
         {
-          method: "GET",
+
+          method:
+            "GET",
 
           headers: {
+
             "Authorization":
-              `Bearer ${session}`
+              `Bearer ${sessionToken}`
+
           }
+
         }
       );
 
+
+    /* =========================
+       RESPONSE
+    ========================= */
 
     if (!response.ok) {
 
@@ -359,15 +376,29 @@ async function checkNormalModalLogin() {
       await response.json();
 
 
-    return (
-      result &&
-      result.authenticated === true
-    );
+    /* =========================
+       AUTHENTICATED
+    ========================= */
 
-  } catch (error) {
+    if (
+      result &&
+      result.authenticated ===
+        true
+    ) {
+
+      return true;
+
+    }
+
+
+    return false;
+
+  }
+
+  catch (error) {
 
     console.error(
-      "Failed to check login:",
+      "Check normal modal login error:",
       error
     );
 
@@ -407,27 +438,35 @@ async function handleNormalModalAccess(
 ) {
 
 
-  /* STOP NORMAL MODAL JS */
+  /* =========================
+     STOP NORMAL MODAL JS
+  ========================= */
 
   event.preventDefault();
 
   event.stopImmediatePropagation();
 
 
-  /* CLOSE CONTAINER MENU */
+  /* =========================
+     CLOSE CONTAINER MENU
+  ========================= */
 
   tool.classList.remove(
     "menu-open"
   );
 
 
-  /* CHECK LOGIN */
+  /* =========================
+     CHECK LOGIN
+  ========================= */
 
   const authenticated =
     await checkNormalModalLogin();
 
 
-  /* NOT LOGGED IN */
+  /* =========================
+     NOT LOGGED IN
+  ========================= */
 
   if (!authenticated) {
 
@@ -438,7 +477,9 @@ async function handleNormalModalAccess(
   }
 
 
-  /* OPEN NORMAL MODAL */
+  /* =========================
+     OPEN NORMAL MODAL
+  ========================= */
 
   openModal();
 
