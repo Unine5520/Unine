@@ -49,58 +49,6 @@ const test2Page =
 
 
 /* =========================
-   MODAL ELEMENTS
-========================= */
-
-const messageModal =
-  document.getElementById(
-    "U9-message-normal-modal"
-  );
-
-
-const messageModalClose =
-  document.getElementById(
-    "U9-message-normal-modal-close"
-  );
-
-
-const inboxModal =
-  document.getElementById(
-    "U9-inbox-normal-modal"
-  );
-
-
-const inboxModalClose =
-  document.getElementById(
-    "U9-inbox-normal-modal-close"
-  );
-
-
-const giftModal =
-  document.getElementById(
-    "U9-gift-normal-modal"
-  );
-
-
-const giftModalClose =
-  document.getElementById(
-    "U9-gift-normal-modal-close"
-  );
-
-
-const historyModal =
-  document.getElementById(
-    "U9-history-normal-modal"
-  );
-
-
-const historyModalClose =
-  document.getElementById(
-    "U9-history-normal-modal-close"
-  );
-
-
-/* =========================
    PAGE BUTTONS
 ========================= */
 
@@ -147,34 +95,6 @@ const pagePrevButton =
 const pageNextButton =
   document.getElementById(
     "U9-page-container-tool-pages-next"
-  );
-
-
-/* =========================
-   NORMAL TOOL BUTTONS
-========================= */
-
-const messageButton =
-  document.getElementById(
-    "U9-page-container-tool-message"
-  );
-
-
-const inboxButton =
-  document.getElementById(
-    "U9-page-container-tool-inbox"
-  );
-
-
-const giftButton =
-  document.getElementById(
-    "U9-page-container-tool-gift"
-  );
-
-
-const historyButton =
-  document.getElementById(
-    "U9-page-container-tool-history"
   );
 
 
@@ -227,32 +147,6 @@ const pageWindowSize = 3;
 
 
 /* =========================
-   PAGE SCROLL LOCK
-========================= */
-
-function lockPageScroll() {
-
-  document.documentElement.style.overflow =
-    "hidden";
-
-  document.body.style.overflow =
-    "hidden";
-
-}
-
-
-function unlockPageScroll() {
-
-  document.documentElement.style.overflow =
-    "";
-
-  document.body.style.overflow =
-    "";
-
-}
-
-
-/* =========================
    RENDER PAGE WINDOW
 ========================= */
 
@@ -266,6 +160,7 @@ function renderPageWindow() {
         index <
           pageWindowStart +
           pageWindowSize;
+
 
       item.button.style.display =
         visible
@@ -291,6 +186,7 @@ function showPage(
 
       item.page.style.display =
         "none";
+
 
       item.button.classList.remove(
         "active"
@@ -485,186 +381,6 @@ test2Button.addEventListener(
     showPage(
       test2Page
     );
-
-  }
-);
-
-
-/* =========================
-   MESSAGE MODAL
-========================= */
-
-messageButton.addEventListener(
-  "click",
-  function () {
-
-    messageButton.classList.remove(
-      "message-bounce"
-    );
-
-
-    void messageButton.offsetWidth;
-
-
-    messageButton.classList.add(
-      "message-bounce"
-    );
-
-
-    messageModal.style.display =
-      "flex";
-
-
-    lockPageScroll();
-
-  }
-);
-
-
-messageModalClose.addEventListener(
-  "click",
-  function () {
-
-    messageModal.style.display =
-      "none";
-
-
-    unlockPageScroll();
-
-  }
-);
-
-
-/* =========================
-   INBOX MODAL
-========================= */
-
-inboxButton.addEventListener(
-  "click",
-  function () {
-
-    inboxButton.classList.remove(
-      "inbox-shake"
-    );
-
-
-    void inboxButton.offsetWidth;
-
-
-    inboxButton.classList.add(
-      "inbox-shake"
-    );
-
-
-    inboxModal.style.display =
-      "flex";
-
-
-    lockPageScroll();
-
-  }
-);
-
-
-inboxModalClose.addEventListener(
-  "click",
-  function () {
-
-    inboxModal.style.display =
-      "none";
-
-
-    unlockPageScroll();
-
-  }
-);
-
-
-/* =========================
-   GIFT MODAL
-========================= */
-
-giftButton.addEventListener(
-  "click",
-  function () {
-
-    giftButton.classList.remove(
-      "gift-bounce"
-    );
-
-
-    void giftButton.offsetWidth;
-
-
-    giftButton.classList.add(
-      "gift-bounce"
-    );
-
-
-    giftModal.style.display =
-      "flex";
-
-
-    lockPageScroll();
-
-  }
-);
-
-
-giftModalClose.addEventListener(
-  "click",
-  function () {
-
-    giftModal.style.display =
-      "none";
-
-
-    unlockPageScroll();
-
-  }
-);
-
-
-/* =========================
-   HISTORY MODAL
-========================= */
-
-historyButton.addEventListener(
-  "click",
-  function () {
-
-    historyButton.classList.remove(
-      "history-shake"
-    );
-
-
-    void historyButton.offsetWidth;
-
-
-    historyButton.classList.add(
-      "history-shake"
-    );
-
-
-    historyModal.style.display =
-      "flex";
-
-
-    lockPageScroll();
-
-  }
-);
-
-
-historyModalClose.addEventListener(
-  "click",
-  function () {
-
-    historyModal.style.display =
-      "none";
-
-
-    unlockPageScroll();
 
   }
 );
