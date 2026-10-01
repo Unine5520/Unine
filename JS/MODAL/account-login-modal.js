@@ -1,186 +1,307 @@
 /* =========================
-   LOGIN ELEMENTS
+   LOGOUT
 ========================= */
 
-const loginButton =
+
+/* =========================
+   LOGOUT CONFIRM
+========================= */
+
+const logoutModal =
   document.getElementById(
-    "U9-page-header-login"
+    "U9-account-logout"
   );
 
 
-const loginModal =
+const logoutNo =
   document.getElementById(
-    "U9-login-modal"
+    "U9-account-logout-no"
   );
 
 
-const loginClose =
+const logoutYes =
   document.getElementById(
-    "U9-login-modal-close"
+    "U9-account-logout-yes"
   );
 
 
-const loginForm =
+const logoutCountdown =
   document.getElementById(
-    "U9-login-form"
+    "U9-account-logout-countdown"
   );
 
 
 /* =========================
-   OPEN LOGIN
+   SETTING PAGE LOGOUT BUTTON
 ========================= */
 
-loginButton.addEventListener(
-  "click",
-  () => {
+const accountSettingLogout =
+  document.getElementById(
+    "Account-U9-account-logout"
+  );
 
-    loginModal.style.display =
-      "flex";
+
+/* =========================
+   TIMER
+========================= */
+
+let logoutTimer =
+  null;
+
+
+/* =========================
+   LOGOUT PROCESS
+========================= */
+
+let logoutProcessing =
+  false;
+
+
+/* =========================
+   OPEN LOGOUT CONFIRM
+========================= */
+
+function openLogoutConfirm() {
+
+  if (
+    !logoutModal ||
+    !logoutYes ||
+    !logoutCountdown
+  ) {
+
+    return;
 
   }
-);
 
 
-/* =========================
-   CLOSE LOGIN
-========================= */
+  logoutModal.style.display =
+    "flex";
 
-loginClose.addEventListener(
-  "click",
-  () => {
 
-    loginModal.style.display =
-      "none";
+  /* =========================
+     RESET PROCESS
+  ========================= */
+
+  logoutProcessing =
+    false;
+
+
+  logoutYes.disabled =
+    true;
+
+
+  logoutYes.classList.remove(
+    "loading"
+  );
+
+
+  let count =
+    5;
+
+
+  logoutCountdown.textContent =
+    count;
+
+
+  logoutYes.textContent =
+    `Yes (${count})`;
+
+
+  /* =========================
+     CLEAR OLD TIMER
+  ========================= */
+
+  if (
+    logoutTimer
+  ) {
+
+    clearInterval(
+      logoutTimer
+    );
+
+
+    logoutTimer =
+      null;
 
   }
-);
+
+
+  /* =========================
+     COUNTDOWN
+  ========================= */
+
+  logoutTimer =
+    setInterval(
+      () => {
+
+        count--;
+
+
+        /* =========================
+           COUNTDOWN TEXT
+        ========================= */
+
+        if (
+          count > 0
+        ) {
+
+          logoutCountdown.textContent =
+            count;
+
+
+          logoutYes.textContent =
+            `Yes (${count})`;
+
+        }
+
+
+        /* =========================
+           COUNTDOWN FINISHED
+        ========================= */
+
+        if (
+          count <= 0
+        ) {
+
+          clearInterval(
+            logoutTimer
+          );
+
+
+          logoutTimer =
+            null;
+
+
+          logoutYes.textContent =
+            "Yes";
+
+
+          logoutYes.disabled =
+            false;
+
+
+          logoutYes.classList.add(
+            "ready"
+          );
+
+        }
+
+      },
+      1000
+    );
+
+}
 
 
 /* =========================
-   LOGIN PASSWORD
-   SHOW / HIDE
+   SETTING PAGE LOGOUT BUTTON
 ========================= */
 
-const loginPassword =
-  document.getElementById(
-    "U9-login-password"
-  );
+if (
+  accountSettingLogout
+) {
+
+  accountSettingLogout.addEventListener(
+    "click",
+    (event) => {
+
+      event.stopPropagation();
 
 
-const loginPasswordToggle =
-  document.getElementById(
-    "U9-login-password-toggle"
-  );
+      if (
+        typeof closeAccountSetting ===
+        "function"
+      ) {
+
+        closeAccountSetting();
+
+      }
 
 
-loginPasswordToggle.addEventListener(
-  "click",
-  () => {
-
-    if (
-      loginPassword.type ===
-      "password"
-    ) {
-
-      loginPassword.type =
-        "text";
-
-      loginPasswordToggle.textContent =
-        "Hide";
-
-    } else {
-
-      loginPassword.type =
-        "password";
-
-      loginPasswordToggle.textContent =
-        "Show";
+      openLogoutConfirm();
 
     }
+  );
 
-  }
-);
+}
 
 
 /* =========================
-   LOGIN FORM
+   NO
 ========================= */
 
-loginForm.addEventListener(
-  "submit",
-  async (event) => {
+if (
+  logoutNo
+) {
 
-    event.preventDefault();
+  logoutNo.addEventListener(
+    "click",
+    () => {
 
-
-    /* =========================
-       GET FORM DATA
-    ========================= */
-
-    const email =
-      document
-        .getElementById(
-          "U9-login-email"
-        )
-        .value
-        .trim();
+      logoutModal.style.display =
+        "none";
 
 
-    const password =
-      document
-        .getElementById(
-          "U9-login-password"
-        )
-        .value;
+      logoutProcessing =
+        false;
 
 
-    /* =========================
-       LOGIN REQUEST
-    ========================= */
+      if (
+        logoutYes
+      ) {
 
-    try {
+        logoutYes.disabled =
+          true;
 
-      const response =
-        await fetch(
-          "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/login",
-          {
-            method: "POST",
 
-            credentials: "include",
+        logoutYes.classList.remove(
+          "loading",
+          "ready"
+        );
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+      }
 
-            body: JSON.stringify({
 
-              email:
-                email,
+      if (
+        logoutTimer
+      ) {
 
-              password:
-                password
-
-            })
-
-          }
+        clearInterval(
+          logoutTimer
         );
 
 
-      const result =
-        await response.json();
+        logoutTimer =
+          null;
 
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================
+   YES
+========================= */
+
+if (
+  logoutYes
+) {
+
+  logoutYes.addEventListener(
+    "click",
+    async () => {
 
       /* =========================
-         LOGIN ERROR
+         PREVENT REPEAT CLICK
       ========================= */
 
-      if (!response.ok) {
-
-        alert(
-          result.error ||
-          "Login failed."
-        );
+      if (
+        logoutYes.disabled ||
+        logoutProcessing
+      ) {
 
         return;
 
@@ -188,61 +309,260 @@ loginForm.addEventListener(
 
 
       /* =========================
-         LOGIN SUCCESS
+         START LOGOUT
       ========================= */
 
-      alert(
-        "Login successful."
+      logoutProcessing =
+        true;
+
+
+      logoutYes.disabled =
+        true;
+
+
+      logoutYes.classList.remove(
+        "ready"
       );
 
 
-      loginForm.reset();
-
-
-      loginModal.style.display =
-        "none";
-
-
-      /* =========================
-         SAVE SESSION TOKEN
-      ========================= */
-
-      localStorage.setItem(
-        "u9_session",
-        result.session.token
+      logoutYes.classList.add(
+        "loading"
       );
 
 
-      /* =========================
-         UPDATE HEADER
-      ========================= */
-
-      await getCurrentUser();
+      logoutYes.textContent =
+        "Loading...";
 
 
       /* =========================
-         DEBUG
+         GET SESSION TOKEN
       ========================= */
 
-      console.log(
-        "Login session:",
-        result.session
-      );
+      const sessionToken =
+        localStorage.getItem(
+          "u9_session"
+        );
 
 
-    } catch (error) {
+      /* =========================
+         NO SESSION
+      ========================= */
 
-      console.error(
-        "Login error:",
+      if (
+        !sessionToken
+      ) {
+
+        localStorage.removeItem(
+          "u9_session"
+        );
+
+
+        if (
+          logoutTimer
+        ) {
+
+          clearInterval(
+            logoutTimer
+          );
+
+
+          logoutTimer =
+            null;
+
+        }
+
+
+        logoutModal.style.display =
+          "none";
+
+
+        logoutProcessing =
+          false;
+
+
+        window.location.reload();
+
+        return;
+
+      }
+
+
+      /* =========================
+         LOGOUT REQUEST
+      ========================= */
+
+      try {
+
+        const response =
+          await fetch(
+            "https://tvtakmswbzawaweytimx.supabase.co/functions/v1/logout",
+            {
+
+              method:
+                "POST",
+
+              credentials:
+                "include",
+
+              headers: {
+
+                "Authorization":
+                  `Bearer ${sessionToken}`
+
+              }
+
+            }
+          );
+
+
+        const result =
+          await response.json();
+
+
+        /* =========================
+           LOGOUT ERROR
+        ========================= */
+
+        if (
+          !response.ok
+        ) {
+
+          console.error(
+            "Logout failed:",
+            result
+          );
+
+
+          alert(
+            result.error ||
+            "Logout failed."
+          );
+
+
+          logoutProcessing =
+            false;
+
+
+          logoutYes.disabled =
+            false;
+
+
+          logoutYes.classList.remove(
+            "loading"
+          );
+
+
+          logoutYes.classList.add(
+            "ready"
+          );
+
+
+          logoutYes.textContent =
+            "Yes";
+
+
+          return;
+
+        }
+
+
+        /* =========================
+           REMOVE LOCAL SESSION
+        ========================= */
+
+        localStorage.removeItem(
+          "u9_session"
+        );
+
+
+        /* =========================
+           CLEAR TIMER
+        ========================= */
+
+        if (
+          logoutTimer
+        ) {
+
+          clearInterval(
+            logoutTimer
+          );
+
+
+          logoutTimer =
+            null;
+
+        }
+
+
+        /* =========================
+           CLOSE MODAL
+        ========================= */
+
+        logoutModal.style.display =
+          "none";
+
+
+        /* =========================
+           DEBUG
+        ========================= */
+
+        console.log(
+          "Logout result:",
+          result
+        );
+
+
+        /* =========================
+           REFRESH PAGE
+        ========================= */
+
+        window.location.reload();
+
+      }
+
+      catch (
         error
-      );
+      ) {
+
+        console.error(
+          "Logout error:",
+          error
+        );
 
 
-      alert(
-        "Unable to connect to the server."
-      );
+        alert(
+          "Unable to connect to the server."
+        );
+
+
+        /* =========================
+           RESTORE BUTTON
+        ========================= */
+
+        logoutProcessing =
+          false;
+
+
+        logoutYes.disabled =
+          false;
+
+
+        logoutYes.classList.remove(
+          "loading"
+        );
+
+
+        logoutYes.classList.add(
+          "ready"
+        );
+
+
+        logoutYes.textContent =
+          "Yes";
+
+      }
 
     }
+  );
 
-  }
-);
+}
