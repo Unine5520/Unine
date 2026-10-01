@@ -1,1 +1,142 @@
+/* =================================================
+   U9 INBOX NORMAL MODAL
+================================================= */
 
+
+#U9-inbox-normal-modal {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: rgba(
+    0,
+    0,
+    0,
+    0.35
+  );
+
+  z-index: 2000;
+
+}
+
+
+
+#U9-inbox-normal-modal-content {
+
+  width: 800px;
+
+  max-width: 100%;
+
+  height: 600px;
+
+  max-height: 90vh;
+
+  background: white;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+}
+
+
+
+#U9-inbox-normal-modal-title {
+
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  font-size: 22px;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid #eee;
+
+}
+
+
+
+#U9-inbox-normal-modal-close {
+
+
+  width: 36px;
+
+  height: 36px;
+
+
+  border: none;
+
+  background: transparent;
+
+
+  font-size: 30px;
+
+  line-height: 1;
+
+
+  cursor: pointer;
+
+
+  color: #6D7693;
+
+
+}
+
+
+
+#U9-inbox-normal-modal-close:hover {
+
+  opacity: .7;
+
+}
+
+
+
+@media(max-width:600px){
+
+
+  #U9-inbox-normal-modal {
+
+    align-items: flex-end;
+
+  }
+
+
+
+  #U9-inbox-normal-modal-content {
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    max-height:none;
+
+
+    border-radius:0;
+
+
+  }
+
+
+}
