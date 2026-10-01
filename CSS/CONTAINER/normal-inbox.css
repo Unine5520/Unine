@@ -14,71 +14,45 @@
   top: 115px;
   left: 0;
 
-
   width: 100%;
-
-  height:
-    calc(100vh - 115px);
-
+  height: calc(100vh - 115px);
 
   box-sizing: border-box;
 
-
   display: flex;
-
   justify-content: center;
-
   align-items: stretch;
 
-
-  background-color:
-    rgba(
-      0,
-      0,
-      0,
-      0.18
-    );
-
+  background-color: rgba(0, 0, 0, 0.18);
 
   z-index: 1000;
 
-
   overflow: hidden;
 
-
   visibility: hidden;
-
   pointer-events: none;
 
 }
 
 
 /* =========================
-   CONTENT
+   MODAL CONTENT
 ========================= */
 
 #U9-inbox-normal-modal-content {
 
   position: relative;
 
-
-  width: 800px;
-
+  width: 100%;
   height: 100%;
-
 
   box-sizing: border-box;
 
-
   background-color: #ffffff;
-
 
   overflow: hidden;
 
-
-  transform:
-    translateY(100%);
-
+  transform: translateY(100%);
 
   transition:
     transform 0.45s ease;
@@ -86,14 +60,11 @@
 }
 
 
-
 /* =========================
    OPEN
 ========================= */
 
-
 #U9-inbox-normal-modal.modal-open {
-
 
   visibility: visible;
 
@@ -102,25 +73,19 @@
 }
 
 
-
 #U9-inbox-normal-modal.modal-open
 #U9-inbox-normal-modal-content {
 
-
-  transform:
-    translateY(0);
+  transform: translateY(0);
 
 }
-
 
 
 /* =========================
    CLOSING
 ========================= */
 
-
 #U9-inbox-normal-modal.modal-closing {
-
 
   visibility: visible;
 
@@ -129,41 +94,29 @@
 }
 
 
-
 #U9-inbox-normal-modal.modal-closing
 #U9-inbox-normal-modal-content {
 
-
-  transform:
-    translateY(100%);
+  transform: translateY(100%);
 
 }
-
 
 
 /* =========================
    TITLE
 ========================= */
 
-
 #U9-inbox-normal-modal-title {
-
 
   position: relative;
 
+  width: 100%;
+  height: 55px;
 
-  width:100%;
+  box-sizing: border-box;
 
-  height:55px;
-
-
-  box-sizing:border-box;
-
-
-  display:flex;
-
-  align-items:center;
-
+  display: flex;
+  align-items: center;
 
   padding:
     0
@@ -171,171 +124,148 @@
     0
     20px;
 
+  font-size: 20px;
+  font-weight: 600;
 
-  font-size:20px;
+  color: #111111;
 
-  font-weight:600;
-
-
-  color:#111111;
-
-
-  background:#ffffff;
-
+  background-color: #ffffff;
 
   border-bottom:
     1px solid #eeeeee;
 
-
 }
 
 
-
 /* =========================
-   CLOSE
+   CLOSE BUTTON
 ========================= */
-
 
 #U9-inbox-normal-modal-close {
 
+  position: absolute;
 
-  position:absolute;
+  top: 50%;
+  right: 15px;
 
+  width: 36px;
+  height: 36px;
 
-  top:50%;
+  padding: 0;
 
-  right:15px;
+  border: none;
+  outline: none;
 
+  border-radius: 50%;
 
-  width:36px;
+  background-color: #f1f1f1;
 
-  height:36px;
+  color: #111111;
 
+  font-size: 24px;
+  font-weight: 400;
 
-  padding:0;
+  line-height: 1;
 
-
-  border:none;
-
-  outline:none;
-
-
-  border-radius:50%;
-
-
-  background:#f1f1f1;
-
-
-  color:#111111;
-
-
-  font-size:24px;
-
-
-  cursor:pointer;
-
+  cursor: pointer;
 
   transform:
     translateY(-50%);
 
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
 
+/* =========================
+   CLOSE HOVER
+========================= */
 
 #U9-inbox-normal-modal-close:hover {
 
-
-  background:#e8e8e8;
-
+  background-color: #e8e8e8;
 
 }
 
 
+/* =========================
+   CLOSE ACTIVE
+========================= */
 
 #U9-inbox-normal-modal-close:active {
 
-
   transform:
     translateY(-50%)
-    scale(.94);
-
+    scale(0.94);
 
 }
-
 
 
 /* =========================
    MOBILE
 ========================= */
 
-
-@media(max-width:480px){
-
-
-#U9-inbox-normal-modal {
+@media (max-width: 480px) {
 
 
- top:115px;
+  /* =========================
+     MODAL
+  ========================= */
 
- height:
- calc(100vh - 115px);
+  #U9-inbox-normal-modal {
 
-}
+    top: 115px;
 
+    height:
+      calc(100vh - 115px);
 
-
-#U9-inbox-normal-modal-content {
-
-
- width:100%;
-
- max-width:100%;
+  }
 
 
-}
+  /* =========================
+     CONTENT
+  ========================= */
+
+  #U9-inbox-normal-modal-content {
+
+    width: 100%;
+    max-width: 100%;
+
+  }
 
 
+  /* =========================
+     TITLE
+  ========================= */
 
-#U9-inbox-normal-modal-title {
+  #U9-inbox-normal-modal-title {
 
+    height: 55px;
 
- height:55px;
+    padding:
+      0
+      55px
+      0
+      15px;
 
+    font-size: 18px;
 
- padding:
- 0
- 55px
- 0
- 15px;
-
-
- font-size:18px;
-
-
-}
-
+  }
 
 
-#U9-inbox-normal-modal-close {
+  /* =========================
+     CLOSE
+  ========================= */
 
+  #U9-inbox-normal-modal-close {
 
- right:10px;
+    right: 10px;
 
+    width: 36px;
+    height: 36px;
 
- width:36px;
-
- height:36px;
-
-
-}
-
+  }
 
 }
