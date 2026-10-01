@@ -1,4 +1,4 @@
-/* =========================
+ /* =========================
    CONTAINER TOOL
 ========================= */
 
@@ -110,6 +110,11 @@ const normalModals = [
         "U9-message-normal-modal"
       ),
 
+    content:
+      document.getElementById(
+        "U9-message-normal-modal-content"
+      ),
+
     close:
       document.getElementById(
         "U9-message-normal-modal-close"
@@ -119,12 +124,18 @@ const normalModals = [
       document.getElementById(
         "U9-page-container-tool-message"
       )
+
   },
 
   {
     modal:
       document.getElementById(
         "U9-inbox-normal-modal"
+      ),
+
+    content:
+      document.getElementById(
+        "U9-inbox-normal-modal-content"
       ),
 
     close:
@@ -136,12 +147,18 @@ const normalModals = [
       document.getElementById(
         "U9-page-container-tool-inbox"
       )
+
   },
 
   {
     modal:
       document.getElementById(
         "U9-gift-normal-modal"
+      ),
+
+    content:
+      document.getElementById(
+        "U9-gift-normal-modal-content"
       ),
 
     close:
@@ -153,12 +170,18 @@ const normalModals = [
       document.getElementById(
         "U9-page-container-tool-gift"
       )
+
   },
 
   {
     modal:
       document.getElementById(
         "U9-history-normal-modal"
+      ),
+
+    content:
+      document.getElementById(
+        "U9-history-normal-modal-content"
       ),
 
     close:
@@ -170,16 +193,29 @@ const normalModals = [
       document.getElementById(
         "U9-page-container-tool-history"
       )
+
   }
 
 ];
 
 
 /* =========================
-   NORMAL MODAL CHECK
+   NORMAL MODAL STATE
 ========================= */
 
-function getOpenNormalModal() {
+let normalModalActionRunning =
+  false;
+
+
+let allowNormalModalClick =
+  false;
+
+
+/* =========================
+   GET ACTIVE NORMAL MODAL
+========================= */
+
+function getActiveNormalModal() {
 
   return normalModals.find(
     function (item) {
@@ -204,28 +240,154 @@ function getOpenNormalModal() {
 
 
 /* =========================
-   CLOSE NORMAL MODAL
+   WAIT FOR MODAL CLOSE
 ========================= */
 
-function closeOpenNormalModal() {
+function waitForNormalModalClose(
+  item,
+  callback
+) {
+
+  if (
+    !item ||
+    !item.content
+  ) {
+
+    callback();
+
+    return;
+
+  }
+
+
+  let finished =
+    false;
+
+
+  function finish() {
+
+    if (finished) {
+
+      return;
+
+    }
+
+
+    finished = true;
+
+
+    item.content.removeEventListener(
+      "transitionend",
+      handleTransitionEnd
+    );
+
+
+    callback();
+
+  }
+
+
+  function handleTransitionEnd(
+    event
+  ) {
+
+    if (
+      event.propertyName !==
+      "transform"
+    ) {
+
+      return;
+
+    }
+
+
+    finish();
+
+  }
+
+
+  item.content.addEventListener(
+    "transitionend",
+    handleTransitionEnd
+  );
+
+
+  /*
+     SAFETY FALLBACK
+
+     In case transitionend is
+     not fired by the browser.
+  */
+
+  setTimeout(
+    function () {
+
+      finish();
+
+    },
+    500
+  );
+
+}
+
+
+/* =========================
+   CLOSE ACTIVE MODAL
+========================= */
+
+function closeActiveNormalModal(
+  callback
+) {
 
   const activeModal =
-    getOpenNormalModal();
+    getActiveNormalModal();
 
 
   if (
     !activeModal
   ) {
 
-    return false;
+    callback();
+
+    return;
 
   }
 
 
+  /*
+     ALREADY CLOSING
+
+     Wait for the existing
+     closing animation.
+  */
+
   if (
     activeModal.modal.classList.contains(
-      "modal-open"
-    ) &&
+      "modal-closing"
+    )
+  ) {
+
+    waitForNormalModalClose(
+      activeModal,
+      callback
+    );
+
+    return;
+
+  }
+
+
+  /*
+     CLOSE USING THE MODAL'S
+     OWN CLOSE BUTTON
+
+     This keeps each normal
+     modal's own JS responsible
+     for its close animation
+     and scroll unlock.
+  */
+
+  if (
     activeModal.close
   ) {
 
@@ -234,19 +396,110 @@ function closeOpenNormalModal() {
   }
 
 
-  return true;
+  waitForNormalModalClose(
+    activeModal,
+    callback
+  );
 
 }
 
 
 /* =========================
-   NORMAL MODAL BUTTON LOCK
+   OPEN NORMAL MODAL
+========================= */
+
+function openNormalModal(
+  target
+) {
+
+  if (
+    !target ||
+    !target.button
+  ) {
+
+    return;
+
+  }
+
+
+  /*
+     Allow the normal modal's
+     own JS to receive this click.
+  */
+
+  allowNormalModalClick =
+    true;
+
+
+  target.button.click();
+
+
+  /*
+     Reset after the click
+     finishes propagating.
+  */
+
+  setTimeout(
+    function () {
+
+      allowNormalModalClick =
+        false;
+
+    },
+    0
+  );
+
+}
+
+
+/* =========================
+   SWITCH NORMAL MODAL
+========================= */
+
+function switchNormalModal(
+  target
+) {
+
+  if (
+    normalModalActionRunning
+  ) {
+
+    return;
+
+  }
+
+
+  normalModalActionRunning =
+    true;
+
+
+  closeActiveNormalModal(
+    function () {
+
+      openNormalModal(
+        target
+      );
+
+
+      normalModalActionRunning =
+        false;
+
+    }
+  );
+
+}
+
+
+/* =========================
+   NORMAL MODAL BUTTONS
 ========================= */
 
 normalModals.forEach(
   function (item) {
 
-    if (!item.button) {
+    if (
+      !item.button
+    ) {
 
       return;
 
@@ -257,13 +510,51 @@ normalModals.forEach(
       "click",
       function (event) {
 
-        const activeModal =
-          getOpenNormalModal();
 
+        /*
+           This click was generated
+           internally after the previous
+           modal finished closing.
+        */
 
         if (
-          activeModal &&
-          activeModal.button !==
+          allowNormalModalClick
+        ) {
+
+          return;
+
+        }
+
+
+        const activeModal =
+          getActiveNormalModal();
+
+
+        /*
+           No modal is open.
+
+           Let the modal's own JS
+           handle the click normally.
+        */
+
+        if (
+          !activeModal
+        ) {
+
+          return;
+
+        }
+
+
+        /*
+           The current modal is already
+           the requested modal.
+
+           Do nothing.
+        */
+
+        if (
+          activeModal.button ===
           item.button
         ) {
 
@@ -271,13 +562,140 @@ normalModals.forEach(
 
           event.stopImmediatePropagation();
 
+          return;
+
         }
+
+
+        /*
+           Another modal is open.
+
+           Close current modal first,
+           then open the clicked modal.
+        */
+
+        event.preventDefault();
+
+        event.stopImmediatePropagation();
+
+
+        switchNormalModal(
+          item
+        );
 
       },
       true
     );
 
   }
+);
+
+
+/* =========================
+   MENU
+========================= */
+
+menuButton.addEventListener(
+  "click",
+  function (event) {
+
+
+    /*
+       If a normal modal is open,
+       close it first.
+
+       Then open the menu.
+    */
+
+    const activeModal =
+      getActiveNormalModal();
+
+
+    if (
+      activeModal &&
+      !normalModalActionRunning
+    ) {
+
+      event.preventDefault();
+
+      event.stopImmediatePropagation();
+
+
+      normalModalActionRunning =
+        true;
+
+
+      closeActiveNormalModal(
+        function () {
+
+
+          /*
+             Automatically open
+             the Container Tool menu.
+
+             Home / Shop and the
+             other page buttons will
+             be available normally.
+          */
+
+          tool.classList.add(
+            "menu-open"
+          );
+
+
+          /*
+             MENU ANIMATION
+          */
+
+          menuButton.classList.remove(
+            "menu-heartbeat"
+          );
+
+
+          void menuButton.offsetWidth;
+
+
+          menuButton.classList.add(
+            "menu-heartbeat"
+          );
+
+
+          normalModalActionRunning =
+            false;
+
+        }
+      );
+
+
+      return;
+
+    }
+
+
+    /*
+       Normal menu behavior
+       when no modal is open.
+    */
+
+    tool.classList.toggle(
+      "menu-open"
+    );
+
+
+    menuButton.classList.remove(
+      "menu-heartbeat"
+    );
+
+
+    void menuButton.offsetWidth;
+
+
+    menuButton.classList.add(
+      "menu-heartbeat"
+    );
+
+  },
+  true
 );
 
 
@@ -427,55 +845,6 @@ showPage(
 ========================= */
 
 renderPageWindow();
-
-
-/* =========================
-   MENU
-========================= */
-
-menuButton.addEventListener(
-  "click",
-  function () {
-
-
-    /* CLOSE NORMAL MODAL */
-
-    const normalModalWasOpen =
-      closeOpenNormalModal();
-
-
-    if (
-      normalModalWasOpen
-    ) {
-
-      return;
-
-    }
-
-
-    /* TOGGLE MENU */
-
-    tool.classList.toggle(
-      "menu-open"
-    );
-
-
-    /* MENU ANIMATION */
-
-    menuButton.classList.remove(
-      "menu-heartbeat"
-    );
-
-
-    void menuButton.offsetWidth;
-
-
-    menuButton.classList.add(
-      "menu-heartbeat"
-    );
-
-  }
-);
 
 
 /* =========================
