@@ -1,23 +1,21 @@
-/* =========================================================
-   U9 PAGE CONTAINER TOOL
-========================================================= */
+
+/* =========================
+   CONTAINER TOOL
+========================= */
 
 #U9-page-container-tool {
 
   position: fixed;
 
   top: 60px;
-
   left: 0;
 
   width: 100%;
-
   height: 55px;
 
   box-sizing: border-box;
 
   display: flex;
-
   align-items: center;
 
   padding: 0 10px;
@@ -25,7 +23,6 @@
   background-color: rgba(113, 165, 255, 0);
 
   backdrop-filter: blur(10px);
-
   -webkit-backdrop-filter: blur(10px);
 
   z-index: 900;
@@ -35,253 +32,442 @@
 }
 
 
-/* =========================================================
-   CONTAINER TOOL INNER
-========================================================= */
+/* =========================
+   NORMAL PAGE TOOL
+========================= */
 
-#U9-page-container-tool-inner {
+#U9-page-container-tool-normal {
 
-  width: 100%;
+  position: absolute;
 
-  height: 100%;
+  top: 7.5px;
+  left: 10px;
+
+  width: calc(100% - 20px);
+  height: 40px;
 
   display: flex;
-
   align-items: center;
 
-  justify-content: space-between;
+  gap: 10px;
 
-  box-sizing: border-box;
+  transform: translateX(0);
+
+  transition:
+    transform 0.45s ease;
+
+  z-index: 2;
 
 }
 
 
-/* =========================================================
-   CONTAINER TOOL LEFT
-========================================================= */
+/* =========================
+   PAGE MENU
+========================= */
 
-#U9-page-container-tool-left {
+#U9-page-container-tool-pages {
+
+  position: absolute;
+
+  top: 7.5px;
+  left: 10px;
+
+  width: calc(100% - 20px);
+  height: 40px;
 
   display: flex;
-
   align-items: center;
+  justify-content: flex-start;
 
-  gap: 8px;
+  gap: 6px;
 
-  height: 100%;
+  overflow: hidden;
+
+  transform: translateX(-100%);
+
+  transition:
+    transform 0.45s ease;
+
+  z-index: 1;
 
 }
 
 
-/* =========================================================
-   CONTAINER TOOL RIGHT
-========================================================= */
+/* =========================
+   MENU BUTTON
+========================= */
 
-#U9-page-container-tool-right {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  height: 100%;
-
-}
-
-
-/* =========================================================
-   CONTAINER TOOL BUTTON
-========================================================= */
-
-.U9-page-container-tool-button {
-
-  position: relative;
-
-  width: 42px;
-
-  height: 42px;
-
-  padding: 0;
-
-  margin: 0;
-
-  border: none;
-
-  outline: none;
-
-  background: transparent;
+#U9-page-container-tool-menu {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  cursor: pointer;
-
-  box-sizing: border-box;
-
-  -webkit-tap-highlight-color: transparent;
-
 }
 
 
-/* =========================================================
-   CONTAINER TOOL BUTTON SVG
-========================================================= */
-
-.U9-page-container-tool-button svg {
-
-  width: 24px;
-
-  height: 24px;
+#U9-page-container-tool-menu img {
 
   display: block;
 
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  width: 18px;
+  height: 18px;
+
+  max-width: 18px;
+  max-height: 18px;
+
+  object-fit: contain;
+
+  flex: 0 0 18px;
 
 }
 
 
-/* =========================================================
-   CONTAINER TOOL BUTTON HOVER
-========================================================= */
+/* =========================
+   MENU HEARTBEAT
+========================= */
 
-.U9-page-container-tool-button:hover svg {
+#U9-page-container-tool-menu.menu-heartbeat img {
 
-  transform: scale(1.08);
-
-}
-
-
-/* =========================================================
-   CONTAINER TOOL BUTTON ACTIVE
-========================================================= */
-
-.U9-page-container-tool-button:active svg {
-
-  transform: scale(0.92);
+  animation:
+    menu-heartbeat 2.2s ease-in-out 1;
 
 }
 
 
-/* =========================================================
+@keyframes menu-heartbeat {
+
+  0% {
+
+    transform: scale(1);
+
+  }
+
+  10% {
+
+    transform: scale(1.2);
+
+  }
+
+  20% {
+
+    transform: scale(1);
+
+  }
+
+  30% {
+
+    transform: scale(1.2);
+
+  }
+
+  40% {
+
+    transform: scale(1);
+
+  }
+
+  50% {
+
+    transform: scale(1.2);
+
+  }
+
+  60% {
+
+    transform: scale(1);
+
+  }
+
+  100% {
+
+    transform: scale(1);
+
+  }
+
+}
+
+
+/* =========================
+   SEARCH CONTAINER
+========================= */
+
+#U9-page-container-tool-search {
+
+  display: flex;
+  align-items: center;
+
+  flex: 1;
+  min-width: 0;
+
+  height: 40px;
+
+  padding: 8px;
+
+  box-sizing: border-box;
+
+  background-color: white;
+
+  border-radius: 50px;
+
+  overflow: hidden;
+
+}
+
+
+/* =========================
+   SEARCH INPUT
+========================= */
+
+#U9-page-container-tool-search-input {
+
+  flex: 1;
+  min-width: 0;
+
+  height: 100%;
+
+  padding: 0 10px;
+
+  border: none;
+  outline: none;
+
+  background-color: white;
+
+}
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+#U9-page-container-tool-search-button {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  min-width: 24px;
+  height: 30px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #abacb2;
+
+  color: white;
+
+  cursor: pointer;
+
+  flex-shrink: 0;
+
+}
+
+
+/* =========================
+   SEARCH ICON
+========================= */
+
+#U9-page-container-tool-search-button img {
+
+  display: block;
+
+  width: 16px;
+  height: 16px;
+
+  max-width: 16px;
+  max-height: 16px;
+
+  object-fit: contain;
+
+  flex: 0 0 16px;
+
+}
+
+
+/* =========================
+   SEARCH EFFECT
+========================= */
+
+#U9-page-container-tool-search-button.search-effect img {
+
+  animation:
+    search-effect 1.2s ease-in-out 1;
+
+}
+
+
+@keyframes search-effect {
+
+  0% {
+
+    transform: scale(1);
+
+  }
+
+  35% {
+
+    transform: scale(1.35);
+
+  }
+
+  100% {
+
+    transform: scale(1);
+
+  }
+
+}
+
+
+/* =========================
    MESSAGE BUTTON
-========================================================= */
+========================= */
 
 #U9-page-container-tool-message {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
 
 
-/* =========================================================
+#U9-page-container-tool-message img {
+
+  display: block;
+
+  width: 18px;
+  height: 18px;
+
+  max-width: 18px;
+  max-height: 18px;
+
+  object-fit: contain;
+
+  flex: 0 0 18px;
+
+}
+
+
+/* =========================
+   MESSAGE BOUNCE
+========================= */
+
+#U9-page-container-tool-message.message-bounce img {
+
+  animation:
+    message-bounce 0.7s ease-in-out 1;
+
+}
+
+
+@keyframes message-bounce {
+
+  0% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+  25% {
+
+    transform:
+      translateY(-6px)
+      rotate(0deg);
+
+  }
+
+  45% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+  60% {
+
+    transform:
+      translateY(0)
+      rotate(-8deg);
+
+  }
+
+  75% {
+
+    transform:
+      translateY(0)
+      rotate(8deg);
+
+  }
+
+  90% {
+
+    transform:
+      translateY(0)
+      rotate(-4deg);
+
+  }
+
+  100% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+}
+
+
+/* =========================
    INBOX BUTTON
-========================================================= */
+========================= */
 
 #U9-page-container-tool-inbox {
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
 
 
-/* =========================================================
-   GIFT BUTTON
-========================================================= */
+#U9-page-container-tool-inbox img {
 
-#U9-page-container-tool-gift {
+  display: block;
 
-  display: flex;
+  width: 18px;
+  height: 18px;
 
-  align-items: center;
+  max-width: 18px;
+  max-height: 18px;
 
-  justify-content: center;
+  object-fit: contain;
 
-}
-
-
-/* =========================================================
-   HISTORY BUTTON
-========================================================= */
-
-#U9-page-container-tool-history {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
+  flex: 0 0 18px;
 
 }
 
 
-/* =========================================================
-   MESSAGE BOUNCE
-========================================================= */
-
-.message-bounce {
-
-  animation:
-    messageBounce 0.45s ease;
-
-}
-
-
-@keyframes messageBounce {
-
-  0% {
-
-    transform: scale(1);
-
-  }
-
-  35% {
-
-    transform: scale(1.18);
-
-  }
-
-  65% {
-
-    transform: scale(0.92);
-
-  }
-
-  100% {
-
-    transform: scale(1);
-
-  }
-
-}
-
-
-/* =========================================================
+/* =========================
    INBOX SHAKE
-========================================================= */
+========================= */
 
-.inbox-shake {
+#U9-page-container-tool-inbox.inbox-shake img {
 
   animation:
-    inboxShake 0.45s ease;
+    inbox-shake 0.8s ease-in-out 1;
 
 }
 
 
-@keyframes inboxShake {
+@keyframes inbox-shake {
 
   0% {
 
@@ -289,121 +475,39 @@
 
   }
 
-  20% {
+  15% {
 
-    transform: rotate(-10deg);
+    transform: rotate(-15deg);
 
   }
 
-  40% {
+  30% {
 
-    transform: rotate(10deg);
+    transform: rotate(15deg);
+
+  }
+
+  45% {
+
+    transform: rotate(-12deg);
 
   }
 
   60% {
 
-    transform: rotate(-7deg);
+    transform: rotate(12deg);
 
   }
 
-  80% {
-
-    transform: rotate(7deg);
-
-  }
-
-  100% {
-
-    transform: rotate(0deg);
-
-  }
-
-}
-
-
-/* =========================================================
-   GIFT BOUNCE
-========================================================= */
-
-.gift-bounce {
-
-  animation:
-    giftBounce 0.45s ease;
-
-}
-
-
-@keyframes giftBounce {
-
-  0% {
-
-    transform: translateY(0);
-
-  }
-
-  35% {
-
-    transform: translateY(-5px);
-
-  }
-
-  65% {
-
-    transform: translateY(2px);
-
-  }
-
-  100% {
-
-    transform: translateY(0);
-
-  }
-
-}
-
-
-/* =========================================================
-   HISTORY SHAKE
-========================================================= */
-
-.history-shake {
-
-  animation:
-    historyShake 0.45s ease;
-
-}
-
-
-@keyframes historyShake {
-
-  0% {
-
-    transform: rotate(0deg);
-
-  }
-
-  20% {
-
-    transform: rotate(-8deg);
-
-  }
-
-  40% {
-
-    transform: rotate(8deg);
-
-  }
-
-  60% {
+  75% {
 
     transform: rotate(-6deg);
 
   }
 
-  80% {
+  90% {
 
-    transform: rotate(6deg);
+    transform: rotate(4deg);
 
   }
 
@@ -416,9 +520,457 @@
 }
 
 
-/* =========================================================
-   PAGE POSITION
-========================================================= */
+/* =========================
+   GIFT BUTTON
+========================= */
+
+#U9-page-container-tool-gift {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+#U9-page-container-tool-gift img {
+
+  display: block;
+
+  width: 18px;
+  height: 17px;
+
+  max-width: 18px;
+  max-height: 17px;
+
+  object-fit: contain;
+
+  flex: 0 0 auto;
+
+}
+
+
+/* =========================
+   GIFT BOUNCE
+========================= */
+
+#U9-page-container-tool-gift.gift-bounce img {
+
+  animation:
+    gift-bounce 0.8s ease-in-out 1;
+
+}
+
+
+@keyframes gift-bounce {
+
+  0% {
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+  20% {
+
+    transform:
+      translateY(3px)
+      scale(0.95);
+
+  }
+
+  45% {
+
+    transform:
+      translateY(-6px)
+      scale(1.12);
+
+  }
+
+  60% {
+
+    transform:
+      translateY(0)
+      scale(1.05);
+
+  }
+
+  75% {
+
+    transform:
+      translateY(-3px)
+      scale(1.02);
+
+  }
+
+  100% {
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+
+/* =========================
+   HISTORY BUTTON
+========================= */
+
+#U9-page-container-tool-history {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
+#U9-page-container-tool-history img {
+
+  display: block;
+
+  width: 21px;
+  height: 21px;
+
+  max-width: 21px;
+  max-height: 21px;
+
+  object-fit: contain;
+
+  flex: 0 0 21px;
+
+}
+
+
+/* =========================
+   HISTORY SHAKE
+========================= */
+
+#U9-page-container-tool-history.history-shake img {
+
+  animation:
+    history-shake 0.8s ease-in-out 1;
+
+}
+
+
+@keyframes history-shake {
+
+  0% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+  15% {
+
+    transform:
+      translateY(2px)
+      rotate(-12deg);
+
+  }
+
+  30% {
+
+    transform:
+      translateY(0)
+      rotate(12deg);
+
+  }
+
+  45% {
+
+    transform:
+      translateY(1px)
+      rotate(-10deg);
+
+  }
+
+  60% {
+
+    transform:
+      translateY(0)
+      rotate(8deg);
+
+  }
+
+  75% {
+
+    transform:
+      translateY(0)
+      rotate(-5deg);
+
+  }
+
+  100% {
+
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+  }
+
+}
+
+
+/* =========================
+   COMMON TOOL BUTTONS
+========================= */
+
+#U9-page-container-tool-menu,
+#U9-page-container-tool-message,
+#U9-page-container-tool-inbox,
+#U9-page-container-tool-gift,
+#U9-page-container-tool-history {
+
+  width: 40px;
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 30%;
+
+  background-color: white;
+
+  cursor: pointer;
+
+  flex: 0 0 40px;
+
+}
+
+
+/* =========================
+   NEW BUTTON
+========================= */
+
+#U9-page-container-tool-new {
+
+  width: 40px;
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 30%;
+
+  background-color: white;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 40px;
+
+}
+
+
+#U9-page-container-tool-new img {
+
+  display: block;
+
+  width: 17px;
+  height: 17px;
+
+  max-width: 17px;
+  max-height: 17px;
+
+  object-fit: contain;
+
+}
+
+
+/* =========================
+   PAGE ARROWS
+========================= */
+
+#U9-page-container-tool-pages-prev,
+#U9-page-container-tool-pages-next {
+
+  width: 40px;
+  min-width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 30%;
+
+  background-color: white;
+
+  color: #111111;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 40px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  line-height: 1;
+
+}
+
+
+/* =========================
+   PAGE BUTTONS
+========================= */
+
+#U9-page-container-tool-home,
+#U9-page-container-tool-shop-page,
+#U9-page-container-tool-auction,
+#U9-page-container-tool-test1,
+#U9-page-container-tool-test2 {
+
+  height: 40px;
+
+  padding:
+    0 10px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 10%;
+
+  background-color: white;
+
+  box-shadow: none;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 auto;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #111111;
+
+}
+
+
+/* =========================
+   PAGE ACTIVE
+========================= */
+
+#U9-page-container-tool-home.active,
+#U9-page-container-tool-shop-page.active,
+#U9-page-container-tool-auction.active,
+#U9-page-container-tool-test1.active,
+#U9-page-container-tool-test2.active {
+
+  color: #1b67ea;
+
+}
+
+
+/* =========================
+   PAGE BUTTON HOVER
+========================= */
+
+#U9-page-container-tool-home:hover,
+#U9-page-container-tool-shop-page:hover,
+#U9-page-container-tool-auction:hover,
+#U9-page-container-tool-test1:hover,
+#U9-page-container-tool-test2:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========================
+   NEW / ARROW HOVER
+========================= */
+
+#U9-page-container-tool-new:hover,
+#U9-page-container-tool-pages-prev:hover,
+#U9-page-container-tool-pages-next:hover {
+
+  background-color: #f7f7f7;
+
+}
+
+
+/* =========================
+   BUTTON PRESS
+========================= */
+
+#U9-page-container-tool-menu:active,
+#U9-page-container-tool-message:active,
+#U9-page-container-tool-inbox:active,
+#U9-page-container-tool-gift:active,
+#U9-page-container-tool-history:active,
+#U9-page-container-tool-new:active,
+#U9-page-container-tool-pages-prev:active,
+#U9-page-container-tool-pages-next:active,
+#U9-page-container-tool-home:active,
+#U9-page-container-tool-shop-page:active,
+#U9-page-container-tool-auction:active,
+#U9-page-container-tool-test1:active,
+#U9-page-container-tool-test2:active {
+
+  transform: scale(0.96);
+
+}
+
+
+/* =========================
+   MENU OPEN
+========================= */
+
+#U9-page-container-tool.menu-open
+#U9-page-container-tool-normal {
+
+  transform:
+    translateX(
+      calc(100% - 40px)
+    );
+
+}
+
+
+#U9-page-container-tool.menu-open
+#U9-page-container-tool-pages {
+
+  transform: translateX(0);
+
+}
+
+
+/* =========================
+   PAGE CONTENT
+========================= */
 
 #U9-page-pages {
 
@@ -428,109 +980,112 @@
 
   width: 100%;
 
-  min-height: calc(100vh - 115px);
+  min-height:
+    calc(100vh - 115px);
 
 }
 
 
-/* =========================================================
+#U9-page-shop,
+#U9-page-auction,
+#U9-page-test1,
+#U9-page-test2 {
+
+  display: none;
+
+}
+
+
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media (max-width: 480px) {
 
   #U9-page-container-tool {
 
-    top: 60px;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 55px;
-
-    padding: 0 8px;
+    padding:
+      0 8px;
 
   }
 
 
-  #U9-page-container-tool-inner {
+  #U9-page-container-tool-normal {
 
-    width: 100%;
+    left: 8px;
+
+    width:
+      calc(100% - 16px);
 
   }
 
 
-  #U9-page-container-tool-left {
+  #U9-page-container-tool-pages {
+
+    left: 8px;
+
+    width:
+      calc(100% - 16px);
 
     gap: 4px;
 
   }
 
 
-  #U9-page-container-tool-right {
+  #U9-page-container-tool-menu,
+  #U9-page-container-tool-message,
+  #U9-page-container-tool-inbox,
+  #U9-page-container-tool-gift,
+  #U9-page-container-tool-history {
 
-    gap: 4px;
+    width: 36px;
+    min-width: 36px;
+
+    flex: 0 0 36px;
 
   }
 
 
-  .U9-page-container-tool-button {
+  #U9-page-container-tool-new,
+  #U9-page-container-tool-pages-prev,
+  #U9-page-container-tool-pages-next {
 
-    width: 40px;
+    width: 36px;
+    min-width: 36px;
 
     height: 40px;
 
-  }
-
-
-  .U9-page-container-tool-button svg {
-
-    width: 23px;
-
-    height: 23px;
+    flex: 0 0 36px;
 
   }
 
 
-  #U9-page-pages {
+  #U9-page-container-tool-new img {
 
-    margin-top: 115px;
-
-    min-height: calc(100vh - 115px);
-
-  }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 360px) {
-
-  #U9-page-container-tool {
-
-    padding: 0 5px;
+    width: 16px;
+    height: 16px;
 
   }
 
 
-  .U9-page-container-tool-button {
+  #U9-page-container-tool-pages-prev,
+  #U9-page-container-tool-pages-next {
 
-    width: 38px;
-
-    height: 38px;
+    font-size: 17px;
 
   }
 
 
-  .U9-page-container-tool-button svg {
+  #U9-page-container-tool-home,
+  #U9-page-container-tool-shop-page,
+  #U9-page-container-tool-auction,
+  #U9-page-container-tool-test1,
+  #U9-page-container-tool-test2 {
 
-    width: 22px;
+    padding:
+      0 8px;
 
-    height: 22px;
+    font-size: 14px;
 
   }
 
