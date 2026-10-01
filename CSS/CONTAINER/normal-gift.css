@@ -3,6 +3,10 @@
 ========================= */
 
 
+/* =========================
+   MODAL
+========================= */
+
 #U9-gift-normal-modal {
 
   position: fixed;
@@ -32,7 +36,7 @@
 
 
 /* =========================
-   CONTENT
+   MODAL CONTENT
 ========================= */
 
 #U9-gift-normal-modal-content {
@@ -121,7 +125,6 @@
     20px;
 
   font-size: 20px;
-
   font-weight: 600;
 
   color: #111111;
@@ -143,56 +146,42 @@
   position: absolute;
 
   top: 50%;
-
   right: 15px;
 
-
   width: 36px;
-
   height: 36px;
-
 
   padding: 0;
 
-
   border: none;
-
   outline: none;
-
 
   border-radius: 50%;
 
-
   background-color: #f1f1f1;
-
 
   color: #111111;
 
-
   font-size: 24px;
-
   font-weight: 400;
-
 
   line-height: 1;
 
-
   cursor: pointer;
-
 
   transform:
     translateY(-50%);
 
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
 }
 
 
+/* =========================
+   CLOSE HOVER
+========================= */
 
 #U9-gift-normal-modal-close:hover {
 
@@ -201,6 +190,9 @@
 }
 
 
+/* =========================
+   CLOSE ACTIVE
+========================= */
 
 #U9-gift-normal-modal-close:active {
 
@@ -218,35 +210,39 @@
 @media (max-width: 480px) {
 
 
+  /* =========================
+     MODAL
+  ========================= */
+
   #U9-gift-normal-modal {
 
-
     top: 115px;
-
 
     height:
       calc(100vh - 115px);
 
-
   }
 
 
+  /* =========================
+     CONTENT
+  ========================= */
 
   #U9-gift-normal-modal-content {
 
-
     width: 100%;
-
+    max-width: 100%;
 
   }
 
 
+  /* =========================
+     TITLE
+  ========================= */
 
   #U9-gift-normal-modal-title {
 
-
     height: 55px;
-
 
     padding:
       0
@@ -254,27 +250,22 @@
       0
       15px;
 
-
-
     font-size: 18px;
-
 
   }
 
 
+  /* =========================
+     CLOSE
+  ========================= */
 
   #U9-gift-normal-modal-close {
 
-
     right: 10px;
 
-
     width: 36px;
-
     height: 36px;
 
-
   }
-
 
 }
