@@ -1,174 +1,204 @@
- /* =========================
-    MESSAGE NORMAL MODAL
- ========================= */
+/* =========================
+   MESSAGE NORMAL MODAL
+========================= */
 
- const messageButton =
-   document.getElementById(
-     "U9-page-container-tool-message"
-   );
 
+/* =========================
+   ELEMENTS
+========================= */
 
- const messageModal =
-   document.getElementById(
-     "U9-message-normal-modal"
-   );
+const messageButton =
+  document.getElementById(
+    "U9-page-container-tool-message"
+  );
 
 
- const messageModalClose =
-   document.getElementById(
-     "U9-message-normal-modal-close"
-   );
+const messageModal =
+  document.getElementById(
+    "U9-message-normal-modal"
+  );
 
 
- const messageModalContent =
-   document.getElementById(
-     "U9-message-normal-modal-content"
-   );
+const messageModalContent =
+  document.getElementById(
+    "U9-message-normal-modal-content"
+  );
 
 
- /* =========================
-    PAGE SCROLL LOCK
- ========================= */
+const messageModalClose =
+  document.getElementById(
+    "U9-message-normal-modal-close"
+  );
 
- function lockMessagePageScroll() {
 
-   document.documentElement.style.overflow =
-     "hidden";
+/* =========================
+   PAGE SCROLL LOCK
+========================= */
 
-   document.body.style.overflow =
-     "hidden";
+function lockMessagePageScroll() {
 
- }
+  document.documentElement.style.overflow =
+    "hidden";
 
+  document.body.style.overflow =
+    "hidden";
 
- function unlockMessagePageScroll() {
+}
 
-   document.documentElement.style.overflow =
-     "";
 
-   document.body.style.overflow =
-     "";
+function unlockMessagePageScroll() {
 
- }
+  document.documentElement.style.overflow =
+    "";
 
+  document.body.style.overflow =
+    "";
 
- /* =========================
-    OPEN MESSAGE MODAL
- ========================= */
+}
 
- function openMessageModal() {
 
-   messageButton.classList.remove(
-     "message-bounce"
-   );
+/* =========================
+   OPEN MESSAGE MODAL
+========================= */
 
+function openMessageModal() {
 
-   void messageButton.offsetWidth;
 
+  /* MESSAGE BUTTON ANIMATION */
 
-   messageButton.classList.add(
-     "message-bounce"
-   );
+  messageButton.classList.remove(
+    "message-bounce"
+  );
 
+  void messageButton.offsetWidth;
 
-   messageModal.classList.remove(
-     "modal-closing"
-   );
+  messageButton.classList.add(
+    "message-bounce"
+  );
 
 
-   messageModal.classList.add(
-     "modal-open"
-   );
+  /* REMOVE CLOSING */
 
+  messageModal.classList.remove(
+    "modal-closing"
+  );
 
-   lockMessagePageScroll();
 
- }
+  /* OPEN */
 
+  messageModal.classList.add(
+    "modal-open"
+  );
 
- /* =========================
-    CLOSE MESSAGE MODAL
- ========================= */
 
- function closeMessageModal() {
+  /* LOCK PAGE SCROLL */
 
-   if (
-     !messageModal.classList.contains(
-       "modal-open"
-     )
-   ) {
+  lockMessagePageScroll();
 
-     return;
+}
 
-   }
 
+/* =========================
+   CLOSE MESSAGE MODAL
+========================= */
 
-   messageModal.classList.remove(
-     "modal-open"
-   );
+function closeMessageModal() {
 
 
-   messageModal.classList.add(
-     "modal-closing"
-   );
+  /* ALREADY CLOSED */
 
+  if (
+    !messageModal.classList.contains(
+      "modal-open"
+    )
+  ) {
 
-   messageModalContent.addEventListener(
-     "transitionend",
-     function handleCloseAnimation(event) {
+    return;
 
-       if (
-         event.propertyName !==
-         "transform"
-       ) {
+  }
 
-         return;
 
-       }
+  /* REMOVE OPEN */
 
+  messageModal.classList.remove(
+    "modal-open"
+  );
 
-       messageModal.classList.remove(
-         "modal-closing"
-       );
 
+  /* START CLOSING */
 
-       unlockMessagePageScroll();
+  messageModal.classList.add(
+    "modal-closing"
+  );
 
 
-       messageModalContent.removeEventListener(
-         "transitionend",
-         handleCloseAnimation
-       );
+  /* WAIT FOR ANIMATION */
 
-     }
-   );
+  messageModalContent.addEventListener(
+    "transitionend",
+    function handleCloseAnimation(event) {
 
- }
 
+      /* ONLY TRANSFORM */
 
- /* =========================
-    MESSAGE BUTTON
- ========================= */
+      if (
+        event.propertyName !==
+        "transform"
+      ) {
 
- messageButton.addEventListener(
-   "click",
-   function () {
+        return;
 
-     openMessageModal();
+      }
 
-   }
- );
 
+      /* REMOVE CLOSING */
 
- /* =========================
-    CLOSE BUTTON
- ========================= */
+      messageModal.classList.remove(
+        "modal-closing"
+      );
 
- messageModalClose.addEventListener(
-   "click",
-   function () {
 
-     closeMessageModal();
+      /* UNLOCK PAGE SCROLL */
 
-   }
- );
+      unlockMessagePageScroll();
+
+
+      /* REMOVE EVENT */
+
+      messageModalContent.removeEventListener(
+        "transitionend",
+        handleCloseAnimation
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   MESSAGE BUTTON
+========================= */
+
+messageButton.addEventListener(
+  "click",
+  function () {
+
+    openMessageModal();
+
+  }
+);
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+messageModalClose.addEventListener(
+  "click",
+  function () {
+
+    closeMessageModal();
+
+  }
+);
