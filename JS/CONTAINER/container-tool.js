@@ -1,13 +1,8 @@
-/* =========================================================
-   U9 CONTAINER TOOL
-========================================================= */
+/* =========================
+   CONTAINER TOOL
+========================= */
 
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const containerTool =
+const tool =
   document.getElementById(
     "U9-page-container-tool"
   );
@@ -15,13 +10,13 @@ const containerTool =
 
 const menuButton =
   document.getElementById(
-    "Menu-button"
+    "U9-page-container-tool-menu"
   );
 
 
-/* =========================================================
+/* =========================
    PAGE ELEMENTS
-========================================================= */
+========================= */
 
 const homePage =
   document.getElementById(
@@ -53,43 +48,111 @@ const test2Page =
   );
 
 
-/* =========================================================
+/* =========================
+   MODAL ELEMENTS
+========================= */
+
+const messageModal =
+  document.getElementById(
+    "U9-message-normal-modal"
+  );
+
+
+const messageModalClose =
+  document.getElementById(
+    "U9-message-normal-modal-close"
+  );
+
+
+const inboxModal =
+  document.getElementById(
+    "U9-inbox-normal-modal"
+  );
+
+
+const inboxModalClose =
+  document.getElementById(
+    "U9-inbox-normal-modal-close"
+  );
+
+
+const giftModal =
+  document.getElementById(
+    "U9-gift-normal-modal"
+  );
+
+
+const giftModalClose =
+  document.getElementById(
+    "U9-gift-normal-modal-close"
+  );
+
+
+const historyModal =
+  document.getElementById(
+    "U9-history-normal-modal"
+  );
+
+
+const historyModalClose =
+  document.getElementById(
+    "U9-history-normal-modal-close"
+  );
+
+
+/* =========================
    PAGE BUTTONS
-========================================================= */
+========================= */
 
 const homeButton =
   document.getElementById(
-    "homeButton"
+    "U9-page-container-tool-home"
   );
 
 
 const shopButton =
   document.getElementById(
-    "shopButton"
+    "U9-page-container-tool-shop-page"
   );
 
 
 const auctionButton =
   document.getElementById(
-    "auctionButton"
+    "U9-page-container-tool-auction"
   );
 
 
 const test1Button =
   document.getElementById(
-    "test1Button"
+    "U9-page-container-tool-test1"
   );
 
 
 const test2Button =
   document.getElementById(
-    "test2Button"
+    "U9-page-container-tool-test2"
   );
 
 
-/* =========================================================
+/* =========================
+   PAGE ARROWS
+========================= */
+
+const pagePrevButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-prev"
+  );
+
+
+const pageNextButton =
+  document.getElementById(
+    "U9-page-container-tool-pages-next"
+  );
+
+
+/* =========================
    NORMAL TOOL BUTTONS
-========================================================= */
+========================= */
 
 const messageButton =
   document.getElementById(
@@ -115,291 +178,493 @@ const historyButton =
   );
 
 
-/* =========================================================
-   NORMAL MODALS
-========================================================= */
+/* =========================
+   PAGE MAP
+========================= */
 
-const messageModal =
-  document.getElementById(
-    "U9-message-normal-modal"
-  );
+const pageItems = [
 
+  {
+    page: homePage,
+    button: homeButton,
+    name: "Home"
+  },
 
-const inboxModal =
-  document.getElementById(
-    "U9-inbox-normal-modal"
-  );
+  {
+    page: shopPage,
+    button: shopButton,
+    name: "Shop"
+  },
 
+  {
+    page: auctionPage,
+    button: auctionButton,
+    name: "Auction"
+  },
 
-const giftModal =
-  document.getElementById(
-    "U9-gift-normal-modal"
-  );
+  {
+    page: test1Page,
+    button: test1Button,
+    name: "Test1"
+  },
 
-
-const historyModal =
-  document.getElementById(
-    "U9-history-normal-modal"
-  );
-
-
-/* =========================================================
-   PAGE LIST
-========================================================= */
-
-const pages = [
-
-  homePage,
-
-  shopPage,
-
-  auctionPage,
-
-  test1Page,
-
-  test2Page
-
-].filter(Boolean);
-
-
-/* =========================================================
-   SHOW PAGE
-========================================================= */
-
-function showPage(page) {
-
-  if (!page) {
-
-    return;
-
+  {
+    page: test2Page,
+    button: test2Button,
+    name: "Test2"
   }
 
+];
 
-  pages.forEach(
+
+/* =========================
+   PAGE WINDOW
+========================= */
+
+let pageWindowStart = 0;
+
+const pageWindowSize = 3;
+
+
+/* =========================
+   PAGE SCROLL LOCK
+========================= */
+
+function lockPageScroll() {
+
+  document.documentElement.style.overflow =
+    "hidden";
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function unlockPageScroll() {
+
+  document.documentElement.style.overflow =
+    "";
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================
+   RENDER PAGE WINDOW
+========================= */
+
+function renderPageWindow() {
+
+  pageItems.forEach(
+    function (item, index) {
+
+      const visible =
+        index >= pageWindowStart &&
+        index <
+          pageWindowStart +
+          pageWindowSize;
+
+      item.button.style.display =
+        visible
+          ? "flex"
+          : "none";
+
+    }
+  );
+
+}
+
+
+/* =========================
+   SHOW PAGE
+========================= */
+
+function showPage(
+  page
+) {
+
+  pageItems.forEach(
     function (item) {
 
-      item.style.display =
+      item.page.style.display =
         "none";
 
-    }
-  );
-
-
-  page.style.display =
-    "block";
-
-}
-
-
-/* =========================================================
-   HOME
-========================================================= */
-
-if (homeButton) {
-
-  homeButton.addEventListener(
-    "click",
-    function () {
-
-      showPage(homePage);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SHOP
-========================================================= */
-
-if (shopButton) {
-
-  shopButton.addEventListener(
-    "click",
-    function () {
-
-      showPage(shopPage);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   AUCTION
-========================================================= */
-
-if (auctionButton) {
-
-  auctionButton.addEventListener(
-    "click",
-    function () {
-
-      showPage(auctionPage);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   TEST 1
-========================================================= */
-
-if (test1Button) {
-
-  test1Button.addEventListener(
-    "click",
-    function () {
-
-      showPage(test1Page);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   TEST 2
-========================================================= */
-
-if (test2Button) {
-
-  test2Button.addEventListener(
-    "click",
-    function () {
-
-      showPage(test2Page);
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   NORMAL MODAL CONNECTION
-========================================================= */
-
-
-/* =========================================================
-   MESSAGE
-========================================================= */
-
-if (
-  messageButton &&
-  messageModal
-) {
-
-  messageButton.addEventListener(
-    "click",
-    function () {
-
-      messageModal.dispatchEvent(
-        new Event("U9:open")
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   INBOX
-========================================================= */
-
-if (
-  inboxButton &&
-  inboxModal
-) {
-
-  inboxButton.addEventListener(
-    "click",
-    function () {
-
-      inboxModal.dispatchEvent(
-        new Event("U9:open")
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   GIFT
-========================================================= */
-
-if (
-  giftButton &&
-  giftModal
-) {
-
-  giftButton.addEventListener(
-    "click",
-    function () {
-
-      giftModal.dispatchEvent(
-        new Event("U9:open")
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-if (
-  historyButton &&
-  historyModal
-) {
-
-  historyButton.addEventListener(
-    "click",
-    function () {
-
-      historyModal.dispatchEvent(
-        new Event("U9:open")
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   MENU BUTTON
-========================================================= */
-
-if (menuButton) {
-
-  menuButton.addEventListener(
-    "click",
-    function () {
-
-      menuButton.classList.toggle(
+      item.button.classList.remove(
         "active"
       );
 
     }
   );
 
+
+  const activeItem =
+    pageItems.find(
+      function (item) {
+
+        return item.page ===
+          page;
+
+      }
+    );
+
+
+  if (!activeItem) {
+
+    console.error(
+      "Page not found:",
+      page
+    );
+
+    return;
+
+  }
+
+
+  activeItem.page.style.display =
+    "block";
+
+
+  activeItem.button.classList.add(
+    "active"
+  );
+
 }
 
 
-/* =========================================================
-   INITIAL PAGE
-========================================================= */
+/* =========================
+   DEFAULT PAGE
+========================= */
 
-showPage(homePage);
+showPage(
+  homePage
+);
+
+
+/* =========================
+   INITIAL PAGE WINDOW
+========================= */
+
+renderPageWindow();
+
+
+/* =========================
+   MENU
+========================= */
+
+menuButton.addEventListener(
+  "click",
+  function () {
+
+    tool.classList.toggle(
+      "menu-open"
+    );
+
+
+    menuButton.classList.remove(
+      "menu-heartbeat"
+    );
+
+
+    void menuButton.offsetWidth;
+
+
+    menuButton.classList.add(
+      "menu-heartbeat"
+    );
+
+  }
+);
+
+
+/* =========================
+   NEXT PAGE WINDOW
+========================= */
+
+pageNextButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart <
+      pageItems.length -
+      pageWindowSize
+    ) {
+
+      pageWindowStart++;
+
+      renderPageWindow();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PREVIOUS PAGE WINDOW
+========================= */
+
+pagePrevButton.addEventListener(
+  "click",
+  function () {
+
+    if (
+      pageWindowStart >
+      0
+    ) {
+
+      pageWindowStart--;
+
+      renderPageWindow();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   PAGE BUTTON EVENTS
+========================= */
+
+homeButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      homePage
+    );
+
+  }
+);
+
+
+shopButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      shopPage
+    );
+
+  }
+);
+
+
+auctionButton.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      auctionPage
+    );
+
+  }
+);
+
+
+test1Button.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      test1Page
+    );
+
+  }
+);
+
+
+test2Button.addEventListener(
+  "click",
+  function () {
+
+    showPage(
+      test2Page
+    );
+
+  }
+);
+
+
+/* =========================
+   MESSAGE MODAL
+========================= */
+
+messageButton.addEventListener(
+  "click",
+  function () {
+
+    messageButton.classList.remove(
+      "message-bounce"
+    );
+
+
+    void messageButton.offsetWidth;
+
+
+    messageButton.classList.add(
+      "message-bounce"
+    );
+
+
+    messageModal.style.display =
+      "flex";
+
+
+    lockPageScroll();
+
+  }
+);
+
+
+messageModalClose.addEventListener(
+  "click",
+  function () {
+
+    messageModal.style.display =
+      "none";
+
+
+    unlockPageScroll();
+
+  }
+);
+
+
+/* =========================
+   INBOX MODAL
+========================= */
+
+inboxButton.addEventListener(
+  "click",
+  function () {
+
+    inboxButton.classList.remove(
+      "inbox-shake"
+    );
+
+
+    void inboxButton.offsetWidth;
+
+
+    inboxButton.classList.add(
+      "inbox-shake"
+    );
+
+
+    inboxModal.style.display =
+      "flex";
+
+
+    lockPageScroll();
+
+  }
+);
+
+
+inboxModalClose.addEventListener(
+  "click",
+  function () {
+
+    inboxModal.style.display =
+      "none";
+
+
+    unlockPageScroll();
+
+  }
+);
+
+
+/* =========================
+   GIFT MODAL
+========================= */
+
+giftButton.addEventListener(
+  "click",
+  function () {
+
+    giftButton.classList.remove(
+      "gift-bounce"
+    );
+
+
+    void giftButton.offsetWidth;
+
+
+    giftButton.classList.add(
+      "gift-bounce"
+    );
+
+
+    giftModal.style.display =
+      "flex";
+
+
+    lockPageScroll();
+
+  }
+);
+
+
+giftModalClose.addEventListener(
+  "click",
+  function () {
+
+    giftModal.style.display =
+      "none";
+
+
+    unlockPageScroll();
+
+  }
+);
+
+
+/* =========================
+   HISTORY MODAL
+========================= */
+
+historyButton.addEventListener(
+  "click",
+  function () {
+
+    historyButton.classList.remove(
+      "history-shake"
+    );
+
+
+    void historyButton.offsetWidth;
+
+
+    historyButton.classList.add(
+      "history-shake"
+    );
+
+
+    historyModal.style.display =
+      "flex";
+
+
+    lockPageScroll();
+
+  }
+);
+
+
+historyModalClose.addEventListener(
+  "click",
+  function () {
+
+    historyModal.style.display =
+      "none";
+
+
+    unlockPageScroll();
+
+  }
+);
