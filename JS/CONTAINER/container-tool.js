@@ -1,5 +1,3 @@
-JS/CONTAINER/container-tool.js
-
 /* =========================
    CONTAINER TOOL
 ========================= */
@@ -98,6 +96,189 @@ const pageNextButton =
   document.getElementById(
     "U9-page-container-tool-pages-next"
   );
+
+
+/* =========================
+   NORMAL MODALS
+========================= */
+
+const normalModals = [
+
+  {
+    modal:
+      document.getElementById(
+        "U9-message-normal-modal"
+      ),
+
+    close:
+      document.getElementById(
+        "U9-message-normal-modal-close"
+      ),
+
+    button:
+      document.getElementById(
+        "U9-page-container-tool-message"
+      )
+  },
+
+  {
+    modal:
+      document.getElementById(
+        "U9-inbox-normal-modal"
+      ),
+
+    close:
+      document.getElementById(
+        "U9-inbox-normal-modal-close"
+      ),
+
+    button:
+      document.getElementById(
+        "U9-page-container-tool-inbox"
+      )
+  },
+
+  {
+    modal:
+      document.getElementById(
+        "U9-gift-normal-modal"
+      ),
+
+    close:
+      document.getElementById(
+        "U9-gift-normal-modal-close"
+      ),
+
+    button:
+      document.getElementById(
+        "U9-page-container-tool-gift"
+      )
+  },
+
+  {
+    modal:
+      document.getElementById(
+        "U9-history-normal-modal"
+      ),
+
+    close:
+      document.getElementById(
+        "U9-history-normal-modal-close"
+      ),
+
+    button:
+      document.getElementById(
+        "U9-page-container-tool-history"
+      )
+  }
+
+];
+
+
+/* =========================
+   NORMAL MODAL CHECK
+========================= */
+
+function getOpenNormalModal() {
+
+  return normalModals.find(
+    function (item) {
+
+      return (
+        item.modal &&
+        (
+          item.modal.classList.contains(
+            "modal-open"
+          ) ||
+
+          item.modal.classList.contains(
+            "modal-closing"
+          )
+        )
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   CLOSE NORMAL MODAL
+========================= */
+
+function closeOpenNormalModal() {
+
+  const activeModal =
+    getOpenNormalModal();
+
+
+  if (
+    !activeModal
+  ) {
+
+    return false;
+
+  }
+
+
+  if (
+    activeModal.modal.classList.contains(
+      "modal-open"
+    ) &&
+    activeModal.close
+  ) {
+
+    activeModal.close.click();
+
+  }
+
+
+  return true;
+
+}
+
+
+/* =========================
+   NORMAL MODAL BUTTON LOCK
+========================= */
+
+normalModals.forEach(
+  function (item) {
+
+    if (!item.button) {
+
+      return;
+
+    }
+
+
+    item.button.addEventListener(
+      "click",
+      function (event) {
+
+        const activeModal =
+          getOpenNormalModal();
+
+
+        if (
+          activeModal &&
+          activeModal.button !==
+          item.button
+        ) {
+
+          event.preventDefault();
+
+          event.stopImmediatePropagation();
+
+        }
+
+      },
+      true
+    );
+
+  }
+);
 
 
 /* =========================
@@ -256,10 +437,30 @@ menuButton.addEventListener(
   "click",
   function () {
 
+
+    /* CLOSE NORMAL MODAL */
+
+    const normalModalWasOpen =
+      closeOpenNormalModal();
+
+
+    if (
+      normalModalWasOpen
+    ) {
+
+      return;
+
+    }
+
+
+    /* TOGGLE MENU */
+
     tool.classList.toggle(
       "menu-open"
     );
 
+
+    /* MENU ANIMATION */
 
     menuButton.classList.remove(
       "menu-heartbeat"
