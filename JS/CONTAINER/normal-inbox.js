@@ -7,166 +7,230 @@
    ELEMENTS
 ========================= */
 
+
 const inboxButton =
-  document.getElementById(
-    "U9-page-container-tool-inbox"
-  );
+document.getElementById(
+  "U9-page-container-tool-inbox"
+);
 
 
 const inboxModal =
-  document.getElementById(
-    "U9-inbox-normal-modal"
-  );
+document.getElementById(
+  "U9-inbox-normal-modal"
+);
 
 
 const inboxModalContent =
-  document.getElementById(
-    "U9-inbox-normal-modal-content"
-  );
+document.getElementById(
+  "U9-inbox-normal-modal-content"
+);
 
 
 const inboxModalClose =
-  document.getElementById(
-    "U9-inbox-normal-modal-close"
-  );
+document.getElementById(
+  "U9-inbox-normal-modal-close"
+);
+
 
 
 /* =========================
-   SCROLL LOCK
+   PAGE SCROLL LOCK
 ========================= */
 
-function lockInboxScroll() {
 
-  document.documentElement.style.overflow =
-    "hidden";
+function lockInboxPageScroll(){
 
-  document.body.style.overflow =
-    "hidden";
+
+document.documentElement.style.overflow =
+"hidden";
+
+
+document.body.style.overflow =
+"hidden";
+
+
+}
+
+
+
+function unlockInboxPageScroll(){
+
+
+document.documentElement.style.overflow =
+"";
+
+
+document.body.style.overflow =
+"";
+
 
 }
 
-
-function unlockInboxScroll() {
-
-  document.documentElement.style.overflow =
-    "";
-
-  document.body.style.overflow =
-    "";
-
-}
 
 
 /* =========================
    OPEN
 ========================= */
 
-function openInboxModal() {
+
+function openInboxModal(){
 
 
-  inboxModal.classList.remove(
-    "modal-closing"
-  );
+
+inboxModal.classList.remove(
+"modal-closing"
+);
 
 
-  inboxModal.classList.add(
-    "modal-open"
-  );
+
+inboxModal.classList.add(
+"modal-open"
+);
 
 
-  lockInboxScroll();
+
+lockInboxPageScroll();
 
 
 }
+
 
 
 /* =========================
    CLOSE
 ========================= */
 
-function closeInboxModal() {
+
+function closeInboxModal(){
 
 
-  if (
-    !inboxModal.classList.contains(
-      "modal-open"
-    )
-  ) {
 
-    return;
+if(
+!inboxModal.classList.contains(
+"modal-open"
+)
 
-  }
+){
 
+return;
 
-  inboxModal.classList.remove(
-    "modal-open"
-  );
+}
 
 
-  inboxModal.classList.add(
-    "modal-closing"
-  );
+
+inboxModal.classList.remove(
+"modal-open"
+);
 
 
-  inboxModalContent.addEventListener(
-    "transitionend",
-    function handleInboxClose(event) {
+
+inboxModal.classList.add(
+"modal-closing"
+);
 
 
-      if (
-        event.propertyName !==
-        "transform"
-      ) {
 
-        return;
-
-      }
+inboxModalContent.addEventListener(
+"transitionend",
+function handleClose(event){
 
 
-      inboxModal.classList.remove(
-        "modal-closing"
-      );
+
+if(
+event.propertyName !==
+"transform"
+){
+
+return;
+
+}
 
 
-      unlockInboxScroll();
+
+inboxModal.classList.remove(
+"modal-closing"
+);
 
 
-      inboxModalContent.removeEventListener(
-        "transitionend",
-        handleInboxClose
-      );
+
+unlockInboxPageScroll();
 
 
-    }
-  );
+
+inboxModalContent.removeEventListener(
+"transitionend",
+handleClose
+);
+
+
+
+}
+
+);
+
 
 
 }
 
 
+
 /* =========================
-   BUTTON OPEN
+   BUTTON
 ========================= */
 
+
 inboxButton.addEventListener(
-  "click",
-  function () {
+"click",
+()=>{
 
-    openInboxModal();
 
-  }
+openInboxModal();
+
+
+}
+
 );
+
 
 
 /* =========================
    CLOSE BUTTON
 ========================= */
 
+
 inboxModalClose.addEventListener(
-  "click",
-  function () {
+"click",
+()=>{
 
-    closeInboxModal();
 
-  }
+closeInboxModal();
+
+
+}
+
+);
+
+
+
+/* =========================
+   BACKGROUND CLOSE
+========================= */
+
+
+inboxModal.addEventListener(
+"click",
+(e)=>{
+
+
+if(
+e.target === inboxModal
+){
+
+closeInboxModal();
+
+}
+
+
+}
+
 );
