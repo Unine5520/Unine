@@ -227,6 +227,32 @@ const pageWindowSize = 3;
 
 
 /* =========================
+   PAGE SCROLL LOCK
+========================= */
+
+function lockPageScroll() {
+
+  document.documentElement.style.overflow =
+    "hidden";
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+
+function unlockPageScroll() {
+
+  document.documentElement.style.overflow =
+    "";
+
+  document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================
    RENDER PAGE WINDOW
 ========================= */
 
@@ -488,6 +514,9 @@ messageButton.addEventListener(
     messageModal.style.display =
       "flex";
 
+
+    lockPageScroll();
+
   }
 );
 
@@ -498,6 +527,9 @@ messageModalClose.addEventListener(
 
     messageModal.style.display =
       "none";
+
+
+    unlockPageScroll();
 
   }
 );
@@ -527,6 +559,9 @@ inboxButton.addEventListener(
     inboxModal.style.display =
       "flex";
 
+
+    lockPageScroll();
+
   }
 );
 
@@ -537,6 +572,9 @@ inboxModalClose.addEventListener(
 
     inboxModal.style.display =
       "none";
+
+
+    unlockPageScroll();
 
   }
 );
@@ -566,6 +604,9 @@ giftButton.addEventListener(
     giftModal.style.display =
       "flex";
 
+
+    lockPageScroll();
+
   }
 );
 
@@ -576,6 +617,9 @@ giftModalClose.addEventListener(
 
     giftModal.style.display =
       "none";
+
+
+    unlockPageScroll();
 
   }
 );
@@ -605,6 +649,9 @@ historyButton.addEventListener(
     historyModal.style.display =
       "flex";
 
+
+    lockPageScroll();
+
   }
 );
 
@@ -615,6 +662,9 @@ historyModalClose.addEventListener(
 
     historyModal.style.display =
       "none";
+
+
+    unlockPageScroll();
 
   }
 );
