@@ -378,7 +378,7 @@ function updateAvatarUploadVisibility() {
 
 
   /* =========================
-     CHOOSE / CANCEL
+     CHOOSE
   ========================= */
 
   if (
@@ -909,14 +909,6 @@ function createU9AvatarEditor() {
   u9AvatarZoomInput.value =
     "1";
 
-  /*
-   * Editing is disabled until
-   * an image is selected.
-   */
-
-  u9AvatarZoomInput.disabled =
-    true;
-
 
   /* =========================
      ZOOM VALUE
@@ -1117,22 +1109,6 @@ function createU9AvatarEditor() {
       ) {
 
         updateAvatarCooldownDisplay();
-
-        return;
-
-      }
-
-
-      /*
-       * If an image is already selected,
-       * the same button works as Cancel.
-       */
-
-      if (
-        u9AvatarSelectedImage
-      ) {
-
-        cancelAvatarSelection();
 
         return;
 
@@ -2614,10 +2590,6 @@ function handleAvatarFileChange(
     )
   ) {
 
-    event.target.value =
-      "";
-
-
     setAvatarStatus(
       "Please choose an image.",
       true
@@ -2677,38 +2649,12 @@ function handleAvatarFileChange(
     "1";
 
 
-  u9AvatarZoomInput.disabled =
-    false;
-
-
   u9AvatarZoomValue.textContent =
     "100%";
 
 
   u9AvatarImageLoaded =
     false;
-
-
-  /* =========================
-     ENABLE EDITING
-  ========================= */
-
-  u9AvatarPreview.classList.add(
-    "editing"
-  );
-
-
-  /* =========================
-     BUTTON
-  ========================= */
-
-  u9AvatarChooseButton.textContent =
-    "Cancel";
-
-
-  u9AvatarChooseButton.classList.add(
-    "cancel"
-  );
 
 
   /* =========================
@@ -2720,7 +2666,7 @@ function handleAvatarFileChange(
 
 
   /* =========================
-     SAVE
+     BUTTON
   ========================= */
 
   u9AvatarSaveButton.disabled =
@@ -2730,185 +2676,6 @@ function handleAvatarFileChange(
   setAvatarStatus(
     ""
   );
-
-}
-
-
-/* =========================
-   CANCEL AVATAR SELECTION
-========================= */
-
-function cancelAvatarSelection() {
-
-  /* =========================
-     REVOKE OBJECT URL
-  ========================= */
-
-  if (
-    u9AvatarObjectUrl
-  ) {
-
-    URL.revokeObjectURL(
-      u9AvatarObjectUrl
-    );
-
-    u9AvatarObjectUrl =
-      null;
-
-  }
-
-
-  /* =========================
-     RESET STATE
-  ========================= */
-
-  u9AvatarSelectedImage =
-    null;
-
-
-  u9AvatarImageLoaded =
-    false;
-
-
-  u9AvatarDragging =
-    false;
-
-
-  u9AvatarOffsetX =
-    0;
-
-
-  u9AvatarOffsetY =
-    0;
-
-
-  u9AvatarZoom =
-    1;
-
-
-  /* =========================
-     RESET FILE INPUT
-  ========================= */
-
-  if (
-    u9AvatarFileInput
-  ) {
-
-    u9AvatarFileInput.value =
-      "";
-
-  }
-
-
-  /* =========================
-     RESET ZOOM
-  ========================= */
-
-  if (
-    u9AvatarZoomInput
-  ) {
-
-    u9AvatarZoomInput.value =
-      "1";
-
-
-    u9AvatarZoomInput.disabled =
-      true;
-
-  }
-
-
-  if (
-    u9AvatarZoomValue
-  ) {
-
-    u9AvatarZoomValue.textContent =
-      "100%";
-
-  }
-
-
-  /* =========================
-     RESET BUTTON
-  ========================= */
-
-  if (
-    u9AvatarChooseButton
-  ) {
-
-    u9AvatarChooseButton.textContent =
-      "Choose Image";
-
-
-    u9AvatarChooseButton.classList.remove(
-      "cancel"
-    );
-
-  }
-
-
-  /* =========================
-     REMOVE EDITING
-  ========================= */
-
-  if (
-    u9AvatarPreview
-  ) {
-
-    u9AvatarPreview.classList.remove(
-      "editing"
-    );
-
-
-    u9AvatarPreview.classList.remove(
-      "dragging"
-    );
-
-  }
-
-
-  /* =========================
-     RESET PREVIEW
-  ========================= */
-
-  if (
-    u9AvatarImage
-  ) {
-
-    u9AvatarImage.src =
-      u9AvatarDefaultImage;
-
-  }
-
-
-  /* =========================
-     RESET SAVE
-  ========================= */
-
-  if (
-    u9AvatarSaveButton
-  ) {
-
-    u9AvatarSaveButton.disabled =
-      true;
-
-  }
-
-
-  /* =========================
-     RESET STATUS
-  ========================= */
-
-  setAvatarStatus(
-    ""
-  );
-
-
-  /* =========================
-     VISIBILITY
-  ========================= */
-
-  updateAvatarUploadVisibility();
 
 }
 
@@ -2982,20 +2749,6 @@ function handleAvatarZoom() {
   ) {
 
     updateAvatarCooldownDisplay();
-
-    return;
-
-  }
-
-
-  /*
-   * No selected image means
-   * zoom editing is disabled.
-   */
-
-  if (
-    !u9AvatarSelectedImage
-  ) {
 
     return;
 
@@ -3179,20 +2932,6 @@ function setupAvatarDrag() {
       }
 
 
-      /*
-       * Do not allow dragging
-       * before an image is selected.
-       */
-
-      if (
-        !u9AvatarSelectedImage
-      ) {
-
-        return;
-
-      }
-
-
       if (
         !u9AvatarImageLoaded
       ) {
@@ -3352,20 +3091,6 @@ function setupAvatarDrag() {
 
       if (
         isAvatarCooldownActive()
-      ) {
-
-        return;
-
-      }
-
-
-      /*
-       * Do not allow wheel zoom
-       * before an image is selected.
-       */
-
-      if (
-        !u9AvatarSelectedImage
       ) {
 
         return;
@@ -3774,22 +3499,6 @@ async function saveAvatarCrop() {
       false;
 
 
-    u9AvatarDragging =
-      false;
-
-
-    u9AvatarOffsetX =
-      0;
-
-
-    u9AvatarOffsetY =
-      0;
-
-
-    u9AvatarZoom =
-      1;
-
-
     if (
       u9AvatarObjectUrl
     ) {
@@ -3810,73 +3519,6 @@ async function saveAvatarCrop() {
 
       u9AvatarFileInput.value =
         "";
-
-    }
-
-
-    /* =========================
-       RESET ZOOM
-    ========================= */
-
-    if (
-      u9AvatarZoomInput
-    ) {
-
-      u9AvatarZoomInput.value =
-        "1";
-
-
-      u9AvatarZoomInput.disabled =
-        true;
-
-    }
-
-
-    if (
-      u9AvatarZoomValue
-    ) {
-
-      u9AvatarZoomValue.textContent =
-        "100%";
-
-    }
-
-
-    /* =========================
-       RESET BUTTON
-    ========================= */
-
-    if (
-      u9AvatarChooseButton
-    ) {
-
-      u9AvatarChooseButton.textContent =
-        "Choose Image";
-
-
-      u9AvatarChooseButton.classList.remove(
-        "cancel"
-      );
-
-    }
-
-
-    /* =========================
-       REMOVE EDITING
-    ========================= */
-
-    if (
-      u9AvatarPreview
-    ) {
-
-      u9AvatarPreview.classList.remove(
-        "editing"
-      );
-
-
-      u9AvatarPreview.classList.remove(
-        "dragging"
-      );
 
     }
 
