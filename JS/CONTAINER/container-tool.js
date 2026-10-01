@@ -276,6 +276,248 @@ menuButton.addEventListener(
 
 
 /* =========================
+   NORMAL MODAL BUTTONS
+========================= */
+
+const messageNormalButton =
+  document.getElementById(
+    "U9-page-container-tool-message"
+  );
+
+
+const inboxNormalButton =
+  document.getElementById(
+    "U9-page-container-tool-inbox"
+  );
+
+
+const giftNormalButton =
+  document.getElementById(
+    "U9-page-container-tool-gift"
+  );
+
+
+const historyNormalButton =
+  document.getElementById(
+    "U9-page-container-tool-history"
+  );
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+const headerLoginButton =
+  document.getElementById(
+    "U9-page-header-login"
+  );
+
+
+/* =========================
+   CHECK LOGIN
+========================= */
+
+async function checkNormalModalLogin() {
+
+  const session =
+    localStorage.getItem(
+      "u9_session"
+    );
+
+
+  if (!session) {
+
+    return false;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/functions/v1/me",
+        {
+          method: "GET",
+
+          headers: {
+            "Authorization":
+              `Bearer ${session}`
+          }
+        }
+      );
+
+
+    if (!response.ok) {
+
+      return false;
+
+    }
+
+
+    const result =
+      await response.json();
+
+
+    return (
+      result &&
+      result.authenticated === true
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Failed to check login:",
+      error
+    );
+
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================
+   OPEN LOGIN
+========================= */
+
+function openNormalModalLogin() {
+
+  if (!headerLoginButton) {
+
+    return;
+
+  }
+
+
+  headerLoginButton.click();
+
+}
+
+
+/* =========================
+   NORMAL MODAL ACCESS
+========================= */
+
+async function handleNormalModalAccess(
+  event,
+  openModal
+) {
+
+
+  /* STOP NORMAL MODAL JS */
+
+  event.preventDefault();
+
+  event.stopImmediatePropagation();
+
+
+  /* CLOSE CONTAINER MENU */
+
+  tool.classList.remove(
+    "menu-open"
+  );
+
+
+  /* CHECK LOGIN */
+
+  const authenticated =
+    await checkNormalModalLogin();
+
+
+  /* NOT LOGGED IN */
+
+  if (!authenticated) {
+
+    openNormalModalLogin();
+
+    return;
+
+  }
+
+
+  /* OPEN NORMAL MODAL */
+
+  openModal();
+
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+messageNormalButton.addEventListener(
+  "click",
+  function (event) {
+
+    handleNormalModalAccess(
+      event,
+      openMessageModal
+    );
+
+  },
+  true
+);
+
+
+/* =========================
+   INBOX
+========================= */
+
+inboxNormalButton.addEventListener(
+  "click",
+  function (event) {
+
+    handleNormalModalAccess(
+      event,
+      openInboxModal
+    );
+
+  },
+  true
+);
+
+
+/* =========================
+   GIFT
+========================= */
+
+giftNormalButton.addEventListener(
+  "click",
+  function (event) {
+
+    handleNormalModalAccess(
+      event,
+      openGiftModal
+    );
+
+  },
+  true
+);
+
+
+/* =========================
+   HISTORY
+========================= */
+
+historyNormalButton.addEventListener(
+  "click",
+  function (event) {
+
+    handleNormalModalAccess(
+      event,
+      openHistoryModal
+    );
+
+  },
+  true
+);
+
+
+/* =========================
    NEXT PAGE WINDOW
 ========================= */
 
